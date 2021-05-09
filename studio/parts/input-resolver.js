@@ -1,4 +1,4 @@
-import DynamicSelect from '../components/dynamic-select'
+import DynamicSelect from '../componentsold/dynamic-select'
 
 export default function resolveInput(type) {
   if (

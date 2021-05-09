@@ -174,35 +174,35 @@ export default {
       description:
         'When toggled on, the header will appear with a transparent background over the first content module and text/logos will be white until scrolling is engaged.'
     },
-    {
-      title: 'Page Modules',
-      name: 'modules',
-      type: 'array',
-      of: [
-        { type: 'productHero' },
-        { type: 'grid' },
-        { type: 'hero' },
-        { type: 'marquee' },
-        { type: 'dividerPhoto' }
-      ],
-      validation: Rule =>
-        Rule.custom(blocks => {
-          const productHeros = blocks.filter(
-            block => block._type === 'productHero'
-          )
+    // {
+    //   title: 'Page Modules',
+    //   name: 'modules',
+    //   type: 'array',
+    //   of: [
+    //     { type: 'productHero' },
+    //     { type: 'grid' },
+    //     { type: 'hero' },
+    //     { type: 'marquee' },
+    //     { type: 'dividerPhoto' }
+    //   ],
+    //   validation: Rule =>
+    //     Rule.custom(blocks => {
+    //       const productHeros = blocks.filter(
+    //         block => block._type === 'productHero'
+    //       )
 
-          const productHeroItems = productHeros.map(
-            (item, index) => [{ _key: item._key }] || [index]
-          )
+    //       const productHeroItems = productHeros.map(
+    //         (item, index) => [{ _key: item._key }] || [index]
+    //       )
 
-          return productHeros.length === 1
-            ? true
-            : {
-                message: 'You must have one "Product Hero" module on the page',
-                paths: productHeroItems
-              }
-        })
-    },
+    //       return productHeros.length === 1
+    //         ? true
+    //         : {
+    //             message: 'You must have one "Product Hero" module on the page',
+    //             paths: productHeroItems
+    //           }
+    //     })
+    // },
     {
       title: 'SEO / Share Settings',
       name: 'seo',

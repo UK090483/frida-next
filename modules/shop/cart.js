@@ -16,8 +16,11 @@ import {
 } from '@lib/context'
 
 const Cart = ({ data }) => {
-  const { cart } = data
+  // const { cart } = data
 
+  const cart = {
+    storeURL: 'test',
+  }
   const { isCartOpen, isUpdating } = useSiteContext()
   const { subTotal } = useCartTotals()
   const cartCount = useCartCount()

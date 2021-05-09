@@ -1,0 +1,73 @@
+@media (pointer: fine) {
+  .frida_mouse_active {
+    a,
+    button {
+      cursor: none;
+    }
+
+    cursor: none;
+    #mouse {
+      width: 30px;
+      height: 30px;
+
+      z-index: 10000;
+      position: absolute;
+      pointer-events: none;
+      border-radius: 50%;
+
+      div {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+
+        @apply bg-frida-red;
+        transition: all 0.3s;
+        &::before {
+          content: '';
+          position: absolute;
+
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+
+          @apply border-frida-red border-3;
+          transition: border-width 0.2s, transform 0.2s;
+        }
+      }
+
+      &.hide {
+        opacity: 0;
+      }
+      &.mouseOut {
+        opacity: 0;
+      }
+      &.black {
+        div {
+          @apply bg-frida-black;
+
+          &::before {
+            @apply border-frida-black border-3;
+          }
+        }
+      }
+      &.mousedown {
+        div {
+          &::before {
+            transform: scale(2);
+            border-width: 1px;
+          }
+        }
+      }
+
+      &.linkHover {
+        div {
+          background-color: transparent;
+          &::before {
+            transform: scale(2);
+            border-width: 1px;
+          }
+        }
+      }
+    }
+  }
+}

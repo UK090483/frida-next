@@ -24,8 +24,8 @@ class GoogleSearchResult extends React.PureComponent {
     const url = assemblePageUrl({ document, options })
     const websiteUrlWithoutProtocol = url.split('://')[1]
 
-    const metaTitle = seo?.metaTitle || defaultSEO?.metaTitle
-    const metaDesc = seo?.metaDesc || defaultSEO?.metaDesc
+    let metaTitle = seo?.metaTitle || defaultSEO?.metaTitle
+    let metaDesc = seo?.metaDesc || defaultSEO?.metaDesc
 
     return (
       <div className={styles.seoItem}>

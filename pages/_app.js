@@ -3,9 +3,11 @@ import Router from 'next/router'
 import Head from 'next/head'
 import { ThemeProvider } from 'next-themes'
 import { LazyMotion, domAnimation, AnimatePresence } from 'framer-motion'
-
+import { AnimateSharedLayout } from 'framer-motion'
 import '../styles/tailwind.css'
 import '../styles/app.css'
+
+import Modal from '@components/generic/Modal'
 
 import { SiteContextProvider } from '@lib/context'
 
@@ -31,6 +33,7 @@ const MyApp = ({ Component, pageProps, router }) => {
   useEffect(() => {
     Router.events.on('routeChangeStart', (url) => {
       // Bail if we're just changing a URL parameter
+
       if (
         url.indexOf('?') > -1 &&
         url.split('?')[0] === router.asPath.split('?')[0]
@@ -83,11 +86,14 @@ const MyApp = ({ Component, pageProps, router }) => {
               document.body.classList.remove('overflow-hidden')
             }}
           >
-            <Component key={router.asPath.split('?')[0]} {...pageProps} />
+            <AnimateSharedLayout>
+              <Component key={router.asPath.split('?')[0]} {...pageProps} />
+              <Modal />
+            </AnimateSharedLayout>
           </AnimatePresence>
 
           <Cart data={{ ...pageProps?.data?.site }} />
-        </LazyMotion>
+        </LazyMotion>{' '}
       </SiteContextProvider>
     </ThemeProvider>
   )

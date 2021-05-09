@@ -6,11 +6,12 @@ export default function handler(req, res) {
     return res.status(401).json({ message: 'Invalid preview request' })
   }
 
-  // determine if it's a dynamic route
-  const isStatic = getStaticRoute(req.query.type)
-  const isDynamic = getDynamicRoute(req.query.type)
+  // return res.status(401).json({ message: 'we are getting there' })
+  // // determine if it's a dynamic route
+  // const isStatic = getStaticRoute(req.query.type)
+  // const isDynamic = getDynamicRoute(req.query.type)
 
-  // Enable Preview Mode by setting the cookies and passing the sanity token for fetching
+  // // Enable Preview Mode by setting the cookies and passing the sanity token for fetching
   res.setPreviewData(
     { token: process.env.SANITY_API_TOKEN },
     {
@@ -18,10 +19,12 @@ export default function handler(req, res) {
     }
   )
 
-  // Redirect to the associated page
-  res.redirect(
-    isStatic
-      ? `/${isStatic}`
-      : `/${isDynamic ? `${isDynamic}/` : ''}${req.query.slug}`
-  )
+  // // Redirect to the associated page
+
+  res.redirect(`/${req.query.slug}`)
+  // res.redirect(
+  //   isStatic
+  //     ? `/${isStatic}`
+  //     : `/${isDynamic ? `${isDynamic}/` : ''}${req.query.slug}`
+  // )
 }

@@ -1,61 +1,55 @@
-import { FiFile } from 'react-icons/fi'
-
 export default {
-  title: 'Page',
-  name: 'page',
-  type: 'document',
-  icon: FiFile,
+  type: "document",
+  name: "page",
+  title: "Page",
   fields: [
     {
-      name: 'title',
-      title: 'Title',
-      type: 'string'
+      name: "title",
+      type: "string",
+      title: "Title",
+      validation: (Rule) => Rule.required(),
     },
     {
-      title: 'URL Slug',
-      name: 'slug',
-      type: 'slug',
-      description: '(required)',
-      options: {
-        source: 'title',
-        maxLength: 96
-      }
+      name: "title_en",
+      type: "string",
+      title: "Title en",
+      validation: (Rule) => Rule.required(),
     },
     {
-      title: 'Overlay header with transparency?',
-      name: 'hasTransparentHeader',
-      type: 'boolean',
-      description:
-        'When toggled on, the header will appear with a transparent background over the first content module and text/logos will be white until scrolling is engaged.'
+      name: "slug",
+      type: "slug",
+      title: "Slug",
     },
     {
-      title: 'Page Modules',
-      name: 'modules',
-      type: 'array',
+      name: "pageHeader",
+      type: "pageHeader",
+      title: "Header",
+    },
+    {
+      name: "content",
+      type: "array",
+      title: "Page sections",
+      description: "Add, edit, and reorder sections",
       of: [
-        { type: 'grid' },
-        { type: 'hero' },
-        { type: 'marquee' },
-        { type: 'dividerPhoto' }
-      ]
+        { type: "categories" },
+        { type: "carouselHero" },
+        { type: "section" },
+        { type: "artworks" },
+        { type: "supporter" },
+        { type: "artworkCarousel" },
+      ],
     },
+
     {
-      title: 'SEO / Share Settings',
-      name: 'seo',
-      type: 'seo'
-    }
+      title: "SEO / Share Settings",
+      name: "seo",
+      type: "seo",
+    },
   ],
   preview: {
     select: {
-      title: 'title',
-      slug: 'slug'
+      title: "slug.current",
+      subtitle: "title",
     },
-    prepare({ title = 'Untitled', slug = {} }) {
-      const path = `/${slug.current}`
-      return {
-        title,
-        subtitle: slug.current ? path : '(missing slug)'
-      }
-    }
-  }
-}
+  },
+};

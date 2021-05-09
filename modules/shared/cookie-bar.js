@@ -23,7 +23,7 @@ const barAnim = {
 }
 
 const CookieBar = React.memo(({ data = {} }) => {
-  const { message, link } = data
+  const { message = 'blaaa', link } = data
 
   const hasMounted = useHasMounted()
   const { acceptedCookies, onAcceptCookies } = useAcceptCookies()
@@ -40,10 +40,10 @@ const CookieBar = React.memo(({ data = {} }) => {
           variants={barAnim}
           role="dialog"
           aria-live="polite"
-          className="cookie-bar"
+          className="fixed bottom-0 right-0 z-90 p-4 w-full max-w-3xl"
         >
-          <div className="cookie-bar--content">
-            <div className="cookie-bar--message">
+          <div className="grid gap-6 sm:flex items-center p-6 pb-4 sm:p-6 rounded-lg bg-pageText text-pageBG border">
+            <div className="flex-1 sm:pr-8 text-center sm:text-left">
               <p>
                 {message.split('\n').map((text, i) => {
                   // using React.fragment to parse line breaks
@@ -57,7 +57,7 @@ const CookieBar = React.memo(({ data = {} }) => {
               </p>
             </div>
 
-            <div className="cookie-bar--actions">
+            <div className="grid sm:grid-cols-2 gap-1 flex-shrink-0">
               {link && (
                 <CustomLink
                   className="btn is-text"

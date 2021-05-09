@@ -1,0 +1,46 @@
+@import "../variables.scss";
+
+.root {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 50px;
+
+  img {
+    width: 33.33%;
+  }
+}
+
+.logoItem {
+  height: 300px;
+  width: 20vw;
+  img {
+    object-fit: contain;
+  }
+}
+
+.allSupporters {
+  img {
+    width: 25%;
+  }
+}
+
+@include tablet {
+  .allSupporters {
+    img {
+      width: 33.33%;
+    }
+  }
+  .logoItem {
+    height: 150px;
+    width: 30vw;
+  }
+}
+
+@include mobile {
+  .root {
+    img {
+      width: 50%;
+    }
+  }
+}

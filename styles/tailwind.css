@@ -1,3 +1,106 @@
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  @variants responsive {
+    .masonry-3-col {
+      column-count: 3;
+      column-gap: 6rem;
+    }
+    .masonry-2-col {
+      column-count: 2;
+      column-gap: 6rem;
+    }
+    .break-inside {
+      break-inside: avoid;
+    }
+  }
+  .header-big {
+    @apply text-3xl-fluid font-bold;
+    line-height: 1.1em;
+  }
+  .header-medium {
+    @apply text-2xl-fluid font-bold;
+    line-height: 1.1em;
+  }
+  .header-small {
+    @apply text-lg-fluid font-bold;
+    line-height: 1.1em;
+  }
+  .subheader {
+    @apply text-base-fluid font-bold;
+  }
+  .section_padding {
+    padding-left: 7%;
+    padding-right: 7%;
+  }
+  .text-fill-menu {
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke-color: white;
+    -webkit-text-stroke-width: 0.04em;
+    &:hover {
+      -webkit-text-fill-color: white;
+      -webkit-text-stroke-color: white;
+      -webkit-text-stroke-width: 0.04em;
+    }
+  }
+
+  .text-fill-bigButton {
+    &:hover {
+      -webkit-text-fill-color: transparent;
+      -webkit-text-stroke-color: black;
+      -webkit-text-stroke-width: 0.04em;
+    }
+  }
+}
+
+@layer base {
+  h1 {
+    @apply header-big;
+  }
+  h2 {
+    @apply header-medium;
+  }
+  h3 {
+    @apply text-xl-fluid font-bold;
+  }
+  h4 {
+    @apply header-small;
+  }
+  p,
+  li {
+    @apply text-base-fluid;
+  }
+
+  p {
+    @apply mb-5;
+  }
+  ul {
+    @apply list-disc pl-7 pb-8;
+  }
+  li {
+    @apply list-item;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  p {
+    @apply break-words;
+    hyphens: auto;
+    line-height: 1.1em;
+  }
+}
+
+.frida-text-block > :last-child {
+  margin-bottom: 0;
+}
+
+.ReactModal__Body--open {
+  overflow: hidden;
+}

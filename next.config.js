@@ -11,6 +11,8 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 })
 
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
+
 // get redirects from Sanity for Vercel
 async function fetchSanityRedirects() {
   const data = await client.fetch(
@@ -29,6 +31,34 @@ async function fetchSanityRedirects() {
 }
 
 module.exports = withBundleAnalyzer({
+  webpack(config, options) {
+    const { dev, isServer, buildId, webpack } = options
+
+    // Do not run type checking twice:
+    if (dev && isServer) {
+      config.plugins.push(new ForkTsCheckerWebpackPlugin())
+    }
+
+    config.plugins.push(
+      new webpack.DefinePlugin({
+        'process.env.CONFIG_BUILD_ID': JSON.stringify(buildId),
+      })
+    )
+
+    return config
+  },
+  images: {
+    domains: ['cdn.sanity.io'],
+  },
+  i18n: {
+    locales: ['en', 'de'],
+    // This is the default locale you want to be used when visiting
+    // a non-locale prefixed path e.g. `/hello`
+    defaultLocale: 'de',
+    // This is a list of locale domains and the default locale they
+    // should handle (these are only required when setting up domain routing)
+    // Note: subdomains must be included in the domain value to be matched e.g. "fr.example.com".
+  },
   future: {
     webpack5: true,
   },

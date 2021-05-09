@@ -1,43 +1,54 @@
-import createSchema from 'part:@sanity/base/schema-creator'
 import schemaTypes from 'all:part:@sanity/base/schema-type'
+import createSchema from 'part:@sanity/base/schema-creator'
+// Documents
+import Artist from './documents/artist'
+import Artwork from './documents/artwork'
+import IndexPage from './documents/indexPage'
+import Medium from './documents/medium'
+import Page from './documents/page'
+import Quotes from './documents/quotes'
 
-// Document types
-import homePage from './documents/page-home'
-import shopPage from './documents/page-shop'
-import errorPage from './documents/page-error'
-import page from './documents/page'
-import product from './documents/shopify-product'
-import productVariant from './documents/shopify-variant'
-import collection from './documents/shopify-collection'
-
-import generalSettings from './documents/settings-general'
-import cookieSettings from './documents/settings-cookie'
-import promoSettings from './documents/settings-promo'
-import headerSettings from './documents/settings-header'
-import footerSettings from './documents/settings-footer'
-import cartSettings from './documents/settings-cart'
-import seoSettings from './documents/settings-seo'
-import menu from './documents/menu'
+import Stil from './documents/stil'
+import SupporterLogos from './documents/supporter'
+import Navigation from './documents/navigation'
+import SettingsSeo from './documents/settings-seo'
 import redirect from './documents/redirect'
+import ShopifyCollection from './documents/shopify-collection'
+import ShopifyProduct from './documents/shopify-product'
+import ShopifyVariant from './documents/shopify-variant'
 
-// Module types
-import grid from './modules/grid'
-import gridColumn from './modules/grid-column'
-import gridSize from './modules/grid-size'
-import hero from './modules/hero'
-import marquee from './modules/marquee'
-import dividerPhoto from './modules/divider-photo'
-import newsletter from './modules/newsletter'
-import productHero from './modules/product-hero'
-import collectionGrid from './modules/collection-grid'
+const documents = [
+  ShopifyCollection,
+  ShopifyProduct,
+  ShopifyVariant,
+  SettingsSeo,
+  Artist,
+  Artwork,
+  IndexPage,
+  Medium,
+  Page,
+  Quotes,
+  Stil,
+  SupporterLogos,
+  Navigation,
+  redirect
+]
+// ???
 
-// Block types
-import freeform from './blocks/freeform'
-import accordions from './blocks/accordions'
-import productCard from './blocks/product-card'
+import Button from './objects/Button'
+// Objects
 
-// Object types
-import seo from './objects/seo'
+import Seo from './objects/Seo'
+import DefaultRichText from './pageComponents/defaultRichText'
+import RichText from './objects/richtext'
+import Spacer from './objects/Spacer'
+import Supporter from './objects/Supporter'
+import SupporterLogo from './objects/supporterLogo'
+import PageHeader from './objects/PageHeader'
+import CarouselHeroItem from './pageComponents/CarouselHero/CarouselHeroItem'
+import CategoryItem from './pageComponents/category/CategoryItem'
+import NavigationItem from './objects/NavigationItem'
+import Figure from './objects/figure'
 
 import productGalleryPhotos from './objects/product-gallery-photos'
 import productListingPhotos from './objects/product-listing-photos'
@@ -46,85 +57,57 @@ import productOption from './objects/product-option'
 import productOptionValue from './objects/product-option-value'
 import productOptionSettings from './objects/product-option-settings'
 
-import navDropdown from './objects/nav-dropdown'
-import navPage from './objects/nav-page'
-import navLink from './objects/nav-link'
-import socialLink from './objects/social-link'
-
 import simplePortableText from './objects/portable-simple'
-import complexPortableText from './objects/portable-complex'
 
-import accordion from './objects/accordion'
-import figure from './objects/figure'
-import horizontalRule from './objects/horizontal-rule'
+const objects = [
+  Seo,
+  PageHeader,
+  DefaultRichText,
+  RichText,
+  Spacer,
+  Supporter,
+  SupporterLogo,
+  CarouselHeroItem,
+  CategoryItem,
+  NavigationItem,
+  Figure,
 
-/*  ------------------------------------------ */
-/*  Your Schema documents / modules / objects
-/*  ------------------------------------------ */
+  productGalleryPhotos,
+  productListingPhotos,
+  productCartPhotos,
+  productOption,
+  productOptionValue,
+  productOptionSettings,
+
+  simplePortableText
+]
+// PageComponents
+import Artworks from './pageComponents/Artworks'
+import CarouselHero from './pageComponents/CarouselHero/CarouselHero'
+import Categories from './pageComponents/category/Category'
+import Hero from './pageComponents/Hero'
+import Section from './pageComponents/Section'
+import ArtworkCarousel from './pageComponents/ArtworkCarousel'
+import Embed from './pageComponents/Embed'
+
+const pageComponents = [
+  CarouselHero,
+  Categories,
+  Section,
+  Hero,
+  Artworks,
+  ArtworkCarousel,
+  Embed
+]
+
 export default createSchema({
-  // The name of our schema
-  name: 'content',
+  name: 'default',
 
   types: schemaTypes.concat([
-    /* ----------------- */
-    /* 1: Document types */
-    homePage,
-    shopPage,
-    errorPage,
-    page,
-    product,
-    productVariant,
-    collection,
+    ...documents,
+    ...pageComponents,
+    ...objects,
 
-    generalSettings,
-    cookieSettings,
-    promoSettings,
-    headerSettings,
-    footerSettings,
-    cartSettings,
-    seoSettings,
-    menu,
-    redirect,
-
-    /* --------------- */
-    /* 2: Module types */
-    grid,
-    gridColumn,
-    gridSize,
-    hero,
-    marquee,
-    dividerPhoto,
-    newsletter,
-    productHero,
-    collectionGrid,
-
-    /* -------------- */
-    /* 3: Block types */
-    freeform,
-    accordions,
-    productCard,
-
-    /* ----------------------- */
-    /* 4: Generic Object types */
-    seo,
-
-    productGalleryPhotos,
-    productListingPhotos,
-    productCartPhotos,
-    productOption,
-    productOptionValue,
-    productOptionSettings,
-
-    navDropdown,
-    navPage,
-    navLink,
-    socialLink,
-
-    simplePortableText,
-    complexPortableText,
-
-    accordion,
-    figure,
-    horizontalRule
+    Button
   ])
 })
