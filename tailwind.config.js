@@ -103,7 +103,7 @@ module.exports = {
     extend: {},
   },
   plugins: [
-    require('/home/konrad/Schreibtisch/WepProjects/gatsby-starter-default/node_modules/@tailwindcss/aspect-ratio/src/index'),
+    require('@tailwindcss/aspect-ratio'),
     require('tailwindcss-fluid')({
       textSizes: {
         xs: {
