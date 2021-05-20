@@ -8,6 +8,7 @@ import Links from './Links'
 import { setMouse } from '../Mouse/mouseRemote'
 import Icon from '../../lib/Icon'
 import { FridaLocation } from 'types'
+import LangSwitch from '@components/generic/LangSwitcher'
 
 type NavProps = {
   items: any[]
@@ -29,8 +30,9 @@ const Nav: React.FC<NavProps> = ({ items, lang }) => {
   }
 
   return (
-    <>
-      <div>
+    <div className="z-50">
+      <div className="pointer-events-auto flex bg-frida-grey bg-opacity-50 rounded-full ">
+        <LangSwitch />
         <Burger
           onClick={() => {
             handleMenu()
@@ -41,7 +43,7 @@ const Nav: React.FC<NavProps> = ({ items, lang }) => {
         onMouseEnter={() => {
           setMouse('color', false)
         }}
-        className={`absolute w-screen h-screen top-0 right-0 left-0 bottom-0 bg-transparent`}
+        className={`absolute w-screen h-screen top-0 right-0 left-0 bottom-0 bg-transparent `}
         style={{ pointerEvents: current ? 'auto' : 'none' }}
         id="main-menu"
       >
@@ -66,7 +68,7 @@ const Nav: React.FC<NavProps> = ({ items, lang }) => {
         )}
         <BigButtons open={current}></BigButtons>
       </div>
-    </>
+    </div>
   )
 }
 

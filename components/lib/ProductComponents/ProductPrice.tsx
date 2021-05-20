@@ -1,7 +1,7 @@
-import React from "react"
+import React from 'react'
 
 type PriceProps = {
-  price: string
+  price: string | number
 }
 
 const Price: React.FC<PriceProps> = ({ price }) => {

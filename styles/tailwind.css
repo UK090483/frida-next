@@ -7,18 +7,14 @@
 @tailwind utilities;
 
 @layer utilities {
-  @variants responsive {
-    .masonry-3-col {
-      column-count: 3;
-      column-gap: 6rem;
-    }
-    .masonry-2-col {
-      column-count: 2;
-      column-gap: 6rem;
-    }
-    .break-inside {
-      break-inside: avoid;
-    }
+  .left-default {
+    left: 100%;
+  }
+  .left-in {
+    left: 0;
+  }
+  .left-out {
+    left: -100%;
   }
   .header-big {
     @apply text-3xl-fluid font-bold;
@@ -30,15 +26,27 @@
   }
   .header-small {
     @apply text-lg-fluid font-bold;
-    line-height: 1.1em;
+    line-height: 1em;
   }
   .subheader {
     @apply text-base-fluid font-bold;
+  }
+
+  .text-normal {
+    @apply text-base-fluid;
+  }
+
+  .text-small {
+    @apply text-sm-fluid;
+  }
+  .text-xsmall {
+    @apply text-xs-fluid;
   }
   .section_padding {
     padding-left: 7%;
     padding-right: 7%;
   }
+
   .text-fill-menu {
     -webkit-text-fill-color: transparent;
     -webkit-text-stroke-color: white;

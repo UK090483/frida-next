@@ -1,5 +1,8 @@
 export type FridaColors = 'white' | 'black' | 'pink' | 'red' | 'grey' | 'green'
 export type ImageLayout = 'fill' | 'contain' | 'intrinsic'
+export type FridaSizes = 's' | 'm' | 'l' | 'xl' | 'xxl'
+
+export type GalleryTypes = 'grid' | 'carousel' | 'masonry'
 export type FridaLocation = 'en' | 'de'
 export interface ArtworkRecord {
   id: string

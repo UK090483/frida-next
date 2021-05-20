@@ -9,12 +9,16 @@ import Mouse from '../Mouse/mouse'
 import Header from '../header/Header'
 import { FridaColors } from 'types'
 import generateSchema from '@lib/schema'
-import { useSiteContext } from '@lib/context'
+import useSeo from '@lib/useSeo'
+import { SiteResult } from '@lib/queries/pageQueries'
 
 const duration = 0.4
 const variants = {
   initial: {
     opacity: 0,
+  },
+  none: {
+    opacity: 1,
   },
   enter: {
     opacity: 1,
@@ -38,8 +42,8 @@ type LayoutProps = {
   initialColor?: FridaColors
   children: React.ReactNode
   navItems?: any
-  data?: any
-  site?: any
+  data: { site: SiteResult }
+
   page?: any
   schema?: any
 }
@@ -54,6 +58,8 @@ const Layout: React.FC<LayoutProps> = (props) => {
     initialColor = 'white',
     navItems = [],
   } = props
+
+  // const s = useSeo(data.site.seo, data)
 
   const site = data.site
   const page = data
@@ -123,10 +129,21 @@ const Layout: React.FC<LayoutProps> = (props) => {
         {schema && generateSchema(schema)}
       </Head>
 
-      <div style={{ maxWidth: 2600 }} className="mx-auto">
+      <m.div
+        initial={'initial'}
+        animate={'enter'}
+        exit={'exit'}
+        variants={variants}
+        style={{ maxWidth: 2600 }}
+        className="mx-auto "
+      >
         {header === 'default' ? (
           <Header
             lang={'de'}
+            initial={'initial'}
+            animate={'enter'}
+            exit={'exit'}
+            variants={variants}
             navItems={navItems}
             initialColor={initialColor}
             title={title}
@@ -134,17 +151,10 @@ const Layout: React.FC<LayoutProps> = (props) => {
         ) : (
           header
         )}
-        {/* <m.main
-          initial="initial"
-          animate="enter"
-          exit="exit"
-          variants={variants}
-        > */}
         <main>{children}</main>
-        {/* </m.main> */}
         {/* <CookieConsent /> */}
         <Footer title={title}></Footer>
-      </div>
+      </m.div>
       <Mouse />
     </>
   )

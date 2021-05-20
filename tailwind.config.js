@@ -4,6 +4,7 @@ module.exports = {
   purge: {
     content: [
       './components/**/*.tsx',
+      './contentTypes/**/*.tsx',
       './lib/**/*.tsx',
       './modules/**/*.tsx',
       './pages/**/*.tsx',
@@ -11,6 +12,9 @@ module.exports = {
     ],
     options: {
       safelist: [
+        'decoration-frida-black',
+        'decoration-frida-pink',
+        'decoration-frida-white',
         'bg-frida-pink',
         'bg-frida-red',
         'bg-frida-green',
@@ -46,6 +50,25 @@ module.exports = {
       8: '8px',
     },
     extend: {
+      transitionProperty: {
+        'max-height': 'max-height',
+        zIndex: 'zIndex',
+        left: 'left',
+      },
+      keyframes: {
+        slideIn: {
+          '0%': { transform: 'translate3d(100%, 0, 0)' },
+          '100%': { transform: 'translate3d(0, 0, 0)' },
+        },
+        slideOut: {
+          '0%': { transform: 'translate3d(0, 0, 0)' },
+          '100%': { transform: 'translate3d(-100%, 0, 0)' },
+        },
+      },
+      animation: {
+        slideIn: '0.5s ease-in-out 0s normal forwards slideIn',
+        slideOut: '0.5s ease-in-out 0s normal forwards slideOut',
+      },
       fontFamily: {
         sans: ['Montserrat', ...defaultTheme.fontFamily.sans],
         inherit: 'inherit',
@@ -100,9 +123,16 @@ module.exports = {
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      maxHeight: ['group-hover'],
+      maxWidth: ['group-hover'],
+      position: ['group-hover'],
+      display: ['group-hover'],
+      zIndex: ['group-hover'],
+    },
   },
   plugins: [
+    require('tailwind-text-decoration-color'),
     require('@tailwindcss/aspect-ratio'),
     require('tailwindcss-fluid')({
       textSizes: {

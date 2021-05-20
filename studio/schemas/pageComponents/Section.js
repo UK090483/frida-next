@@ -1,9 +1,22 @@
 import React from 'react'
 import { AiOutlineBorderOuter } from 'react-icons/ai'
+import { colorList, sizesList } from '../snippets'
 export default {
   type: 'object',
   name: 'section',
   title: 'Section',
+  fieldsets: [
+    {
+      name: 'space',
+      title: 'Space',
+      options: { collapsible: true, collapsed: true, columns: 2 }
+    },
+    {
+      name: 'bgImage',
+      title: 'Background Image',
+      options: { collapsible: true, collapsed: true }
+    }
+  ],
   icon: () => <AiOutlineBorderOuter />,
   fields: [
     {
@@ -27,53 +40,45 @@ export default {
       type: 'string',
       options: {
         list: [
-          { title: 'Text', value: 'text' },
+          { title: 'Normal', value: 'normal' },
+          { title: 'Medium Wide', value: 'medium-wide' },
+          { title: 'Narrow', value: 'text' },
           { title: 'Hero', value: 'hero' }
         ]
-      }
+      },
+      initialValue: 'normal'
     },
     {
-      title: 'Color',
+      title: 'Background Color',
       name: 'bgColor',
       type: 'string',
       options: {
-        list: [
-          { title: 'White', value: 'white' },
-          { title: 'Pink', value: 'pink' },
-          { title: 'Red', value: 'red' },
-          { title: 'Black', value: 'black' }
-        ],
-        layout: 'radio'
+        list: [...colorList()]
       }
     },
-
     {
       title: 'Top Space',
       name: 'topSpace',
       type: 'string',
+      fieldset: 'space',
       options: {
-        list: [
-          { title: 's', value: 's' },
-          { title: 'm', value: 'm' },
-          { title: 'l', value: 'l' },
-          { title: 'xl', value: 'xl' },
-          { title: 'xxl', value: 'xxl' }
-        ]
+        list: [...sizesList()]
       }
     },
     {
       title: 'Bottom Space',
       name: 'bottomSpace',
       type: 'string',
+      fieldset: 'space',
       options: {
-        list: [
-          { title: 's', value: 's' },
-          { title: 'm', value: 'm' },
-          { title: 'l', value: 'l' },
-          { title: 'xl', value: 'xl' },
-          { title: 'xxl', value: 'xxl' }
-        ]
+        list: [...sizesList()]
       }
+    },
+    {
+      title: 'Background Image',
+      name: 'bgImage',
+      type: 'figure',
+      fieldset: 'bgImage'
     }
   ],
   preview: {

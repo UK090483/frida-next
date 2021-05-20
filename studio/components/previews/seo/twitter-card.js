@@ -5,6 +5,7 @@ import imageUrlBuilder from '@sanity/image-url'
 import sanityClient from 'part:@sanity/base/client'
 import { assemblePageUrl } from './frontend-utils'
 import styles from './seo-preview.css'
+import useSeo from '../../../../lib/useSeo'
 
 const builder = imageUrlBuilder(sanityClient)
 
@@ -36,12 +37,16 @@ class TwitterCard extends React.PureComponent {
     const { default: defaultSEO, document, options, width } = this.props
     const { seo } = document
 
-    const url = assemblePageUrl({ document, options })
-    const websiteUrlWithoutProtocol = url.split('://')[1]
+    // const url = assemblePageUrl({ document, options })
 
-    const shareTitle = seo?.shareTitle || defaultSEO?.shareTitle
-    const shareDesc = seo?.shareDesc || defaultSEO?.shareDesc
-    const shareGraphic = seo?.shareGraphic || defaultSEO?.shareGraphic
+    const { shareTitle, shareDesc, shareGraphic, url } = useSeo(
+      defaultSEO,
+      document
+    )
+    const websiteUrlWithoutProtocol = url.split('://')[1]
+    // const shareTitle = seo?.shareTitle || defaultSEO?.shareTitle
+    // const shareDesc = seo?.shareDesc || defaultSEO?.shareDesc
+    // const shareGraphic = seo?.shareGraphic || defaultSEO?.shareGraphic
 
     return (
       <div className={styles.seoItem}>

@@ -1,9 +1,7 @@
-import React from 'react'
-
-import { getIndexPage } from '@lib/queries/pageQueries'
-
-import Page from 'pageBuilder/Page'
+import { extraData, getIndexPage } from '@lib/queries/pageQueries'
+import Page from 'contentTypes/Page/Page'
 import { GetStaticProps } from 'next'
+import React from 'react'
 import { FridaLocation } from 'types'
 
 type HomeProps = {
@@ -18,14 +16,16 @@ const Home: React.FC<HomeProps> = ({ data, lang }) => {
 export const getStaticProps: GetStaticProps = async (props) => {
   const { preview, previewData, locale } = props
 
-  const pageData = await getIndexPage('', {
+  const pageData = await getIndexPage('/', {
     active: preview, //@ts-ignore
     token: previewData?.token,
   })
 
+  const withExtraData = await extraData(pageData)
+
   return {
     props: {
-      data: pageData,
+      data: withExtraData,
       lang: locale,
     },
   }

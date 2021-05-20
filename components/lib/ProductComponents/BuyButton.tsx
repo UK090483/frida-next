@@ -1,11 +1,21 @@
 import React from 'react'
-
+import { useIntersection } from 'react-use'
 import { mouseLinkProps } from '@components/generic/Mouse/mouseRemote'
 import cx from 'classnames'
 import { FridaColors } from 'types'
 import { motion, Variant, Variants } from 'framer-motion'
 const BuyButton = () => {
   //   const { availability, addToCart, inCart, checkoutUrl } = props
+
+  const intersectionRef = React.useRef(null)
+
+  const intersection = useIntersection(intersectionRef, {
+    root: null,
+    rootMargin: '0px 0px 100% 0px',
+    threshold: 0,
+  })
+
+  const isOut = intersection ? intersection.boundingClientRect.y < 0 : false
 
   const [inCard, setstate] = React.useState(false)
 
@@ -19,21 +29,32 @@ const BuyButton = () => {
   }
 
   return (
-    <div className="w-full flex ">
-      <BButton
-        show={!inCard}
-        onClick={handleAdd}
-        color={availability ? 'green' : 'red'}
+    <div ref={intersectionRef}>
+      <div
+        className={` pr-12 flex w-vw/3 z-10 ${
+          isOut ? 'fixed top-3 right-8' : ''
+        }`}
       >
-        {availability ? 'In den Warenkorb' : 'Leider Verkauft'}
-      </BButton>
+        <BButton
+          show={!inCard}
+          onClick={handleAdd}
+          color={availability ? 'green' : 'red'}
+        >
+          {availability ? 'In den Warenkorb' : 'Leider Verkauft'}
+        </BButton>
 
-      <BButton onClick={handleAdd} show={inCard} color="black">
-        {'Warenkorb'}
-      </BButton>
-      <BButton onClick={handleAdd} show={inCard} color="green" className="ml-5">
-        {'Kasse'}
-      </BButton>
+        <BButton onClick={handleAdd} show={inCard} color="black">
+          {'Warenkorb'}
+        </BButton>
+        <BButton
+          onClick={handleAdd}
+          show={inCard}
+          color="green"
+          className="ml-5"
+        >
+          {'Kasse'}
+        </BButton>
+      </div>
     </div>
   )
 }
@@ -65,7 +86,7 @@ const BButton: React.FC<BButtonProps> = ({
       animate={show ? 'visible' : 'hidden'}
       onClick={onClick}
       {...mouseLinkProps}
-      className={`rounded-full text-frida-white px-12 py-6 text-sm-fluid font-bold overflow-hidden whitespace-nowrap ${cx(
+      className={`rounded-full text-frida-white  py-3.5 text-sm-fluid font-bold overflow-hidden whitespace-nowrap ${cx(
         `bg-frida-${color}  ${className}`
       )}`}
     >

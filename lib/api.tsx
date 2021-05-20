@@ -337,13 +337,12 @@ const content = ``
 /*  ------------------------------ */
 
 // Fetch all dynamic docs
-const getAllDocSlugs: (
-  doc: string
-) => Promise<null | { slug: string }[]> = async (doc) => {
-  return await getSanityClient().fetch(
-    `*[_type == "${doc}"]{ "slug": slug.current }`
-  )
-}
+const getAllDocSlugs: (doc: string) => Promise<null | { slug: string }[]> =
+  async (doc) => {
+    return await getSanityClient().fetch(
+      `*[_type == "${doc}"]{ "slug": slug.current }`
+    )
+  }
 
 export { getAllDocSlugs }
 

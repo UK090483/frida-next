@@ -17,20 +17,17 @@ const PageTitle: React.FC<PageTitleProps> = ({
   link,
   initialColor = 'white',
 }) => {
-  /* eslint-disable react-hooks/exhaustive-deps */
-
   const ref = useRef<null | HTMLDivElement>(null)
   const observers = useRef<IntersectionObserver[]>([])
   const [bgCurrent, setBgCurrent] = React.useState<string | null>(null)
+  const [counter, setCounter] = React.useState(0)
 
   useEffect(() => {
     const observerCallback: IntersectionObserverCallback = (entries) => {
       if (entries[0].isIntersecting) {
-        //@ts-ignore
-        setBgCurrent(entries[0].target.dataset.color)
+        setBgCurrent(entries[0].target.getAttribute('data-color'))
       }
     }
-
     document.querySelectorAll('[data-color]').forEach((i) => {
       if (i) {
         const observer = new IntersectionObserver(observerCallback, {
@@ -39,7 +36,6 @@ const PageTitle: React.FC<PageTitleProps> = ({
           threshold: 0,
         })
         observer.observe(i)
-
         observers.current.push(observer)
       }
     })
@@ -48,6 +44,15 @@ const PageTitle: React.FC<PageTitleProps> = ({
       observers.current.forEach((observer) => {
         observer.disconnect()
       })
+    }
+  }, [counter])
+
+  useEffect(() => {
+    const timeOut = setTimeout(() => {
+      setCounter(counter + 1)
+    }, 2000)
+    return () => {
+      clearTimeout(timeOut)
     }
   }, [])
 
@@ -104,6 +109,11 @@ const getColor = (
     case 'black':
       return {
         color: 'white',
+        textColor: 'pink',
+      }
+    case 'grey':
+      return {
+        color: 'black',
         textColor: 'pink',
       }
     default:

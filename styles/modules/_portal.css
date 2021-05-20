@@ -1,5 +1,5 @@
 .frida_portal {
-  @apply fixed top-0 left-0 bottom-0 right-0 w-screen h-screen flex justify-center items-center;
+  @apply fixed top-0 inset-0 w-screen h-screen;
 }
 .frida_portal_open {
   @apply block z-90;
@@ -9,5 +9,5 @@
 }
 
 .frida_portal_overlay {
-  @apply w-screen h-screen flex justify-center items-center;
+  @apply w-screen h-screen flex justify-center items-center blur-lg;
 }

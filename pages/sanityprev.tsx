@@ -1,11 +1,12 @@
 //@ts-nocheck
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-// import * as queryString from 'query-string'
-import Page from '../pageBuilder/Page'
+import Page from 'contentTypes/Page/Page'
 
 import { page as pageQuery } from '@lib/queries/pageQueries'
-import { createPreviewClient } from '@lib/sanity'
+import { postSingleView as postQuery } from '@lib/queries/postQueries'
+
+import PostSingle from 'contentTypes/Post/PostSingle'
 
 const sanityClient = require('@sanity/client')
 const clientForPreview = sanityClient({
@@ -16,32 +17,45 @@ const clientForPreview = sanityClient({
   apiVersion: '2021-03-25',
 })
 
+const getQuery = (type) => {
+  switch (type) {
+    case 'page':
+      return pageQuery
+
+    case 'indexPage':
+      return pageQuery
+    case 'post':
+      return postQuery
+
+    default:
+      return '...'
+  }
+}
+
 export default function Pages() {
   const router = useRouter()
 
   const { id, type } = router.query
   const [data, setData] = useState(null)
+  const [version, setVersion] = useState(0)
 
   useEffect(() => {
     const query = `*[_id == "${id}"][0]{
-      ${pageQuery}
+      ${getQuery(type)}
     }`
     clientForPreview.fetch(query, {}).then((page) => {
-      // console.log(page)
       setData(page)
     })
+
     const subscription = clientForPreview
       .listen(query, {})
       .subscribe((page: any) => {
-        // console.log(page)
-        setData((oldData) => ({ ...oldData, ...page.result }))
+        setVersion((oldVersion) => oldVersion + 1)
       })
     return () => {
       subscription.unsubscribe()
     }
-  }, [id, setData])
-
-  console.log(data)
+  }, [id, version, setData, setVersion])
 
   // console.log(data ? data : 'waiting...')
 
@@ -53,6 +67,8 @@ export default function Pages() {
         return <Page lang="de" data={data} />
       case 'indexPage':
         return <Page lang="de" data={data} />
+      case 'post':
+        return <PostSingle lang="de" {...data} />
 
       default:
         return <div>No PreviewComponent Found</div>

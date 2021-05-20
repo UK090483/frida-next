@@ -1,9 +1,9 @@
-import React from "react"
-import Section from "../../container/section"
+import React from 'react'
+import Section from '../../container/section'
 
-import { CarouselHeroItem } from "./CarussellHero"
+import { CarouselHeroItem } from './CarussellHero'
 
-const CarouselItem: React.FC<CarouselHeroItem> = props => {
+const CarouselItem: React.FC<CarouselHeroItem> = (props) => {
   const { color, image, content } = props
 
   return (

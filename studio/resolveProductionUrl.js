@@ -1,17 +1,15 @@
-const isDraft = id => id.includes('drafts')
-
 export default function resolveProductionUrl(document) {
-  if (document._type === 'page' || document._type === 'indexPage') {
-    let id = document._id
+  switch (document._type) {
+    case 'page':
+      return `http://localhost:3000/${document.slug.current}?preview`
+    case 'indexPage':
+      return `http://localhost:3000?preview`
+    case 'artwork':
+      return `http://localhost:3000/artwork/${document.slug.current}?preview`
+    case 'post':
+      return `http://localhost:3000/post/${document.slug.current}?preview`
 
-    // if (isDraft(id)) {
-    //   id = document._id.split('drafts.')[1]
-    // }
-    return `http://localhost:3000/api/preview?type=${document._type}&token=HULL&slug=${document.slug.current}`
-
-    // return `http://localhost:3000/sanityprev?type=page&id=${document._id}${
-    //   isDraft(document._id) ? '&isDraft=true' : ''
-    // }`
+    default:
+      return undefined
   }
-  return undefined
 }

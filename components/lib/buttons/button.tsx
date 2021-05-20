@@ -1,7 +1,8 @@
 import React from 'react'
 import Link from 'next/link'
-import { setMouse } from '../../generic/Mouse/mouseRemote'
+import { mouseLinkProps } from '../../generic/Mouse/mouseRemote'
 import { FridaColors } from '../../../types'
+import cx from 'classnames'
 
 interface ButtonProps {
   label: string
@@ -9,8 +10,8 @@ interface ButtonProps {
   backgroundColor?: FridaColors
   testid?: string
   className?: string
-  inline?: boolean
   size?: 's' | 'm' | 'l'
+  position?: 'inline' | 'left' | 'right' | 'center'
 }
 interface LinkProps extends ButtonProps {
   type: 'link' | 'externalLink'
@@ -21,36 +22,32 @@ interface ClickProps extends ButtonProps {
   onClick: () => void
 }
 
-const widthMouseEnter = {
-  onMouseEnter: () => {
-    setMouse('link', true)
-  },
-  onMouseLeave: () => {
-    setMouse('link', false)
-  },
-}
-
 const Button: React.FC<LinkProps | ClickProps> = (props) => {
   const {
-    label,
+    label = 'no label',
     color = 'black',
     backgroundColor = 'white',
     className: extraClasses = '',
-    inline = true,
+    position = 'inline',
   } = props
 
-  const className = `text-frida-${color} ${
-    inline ? 'inline-block' : 'block'
-  }  mr-6 text-sm-fluid hover:text-frida-${backgroundColor} hover:bg-frida-${color} border-3 border-solid border-frida-${color}  px-8 py-3 rounded-full font-bold `
+  const className = cx(
+    { 'mr-6': position === 'inline' },
+    { 'block mb-2': position === 'left' },
+    { 'block ml-auto mb-2': position === 'right' },
+    { 'block mx-auto mb-2': position === 'center' },
+    `text-frida-${color} text-sm-fluid hover:text-frida-${backgroundColor} hover:bg-frida-${color} border-3 border-solid border-frida-${color}  px-8 py-3 rounded-full font-bold `
+  )
 
   if (props.type === 'link') {
     return (
-      <Link
-        // style={{ cursor: 'none', width: 'fit-content' }}
-        {...widthMouseEnter}
-        href={props.link}
-      >
-        <div className={`${className} ${extraClasses}`}>{label}</div>
+      <Link href={props.link}>
+        <button
+          {...mouseLinkProps}
+          className={` ${className} ${extraClasses} `}
+        >
+          {label}
+        </button>
       </Link>
     )
   }
@@ -59,7 +56,7 @@ const Button: React.FC<LinkProps | ClickProps> = (props) => {
     return (
       <a
         style={{ cursor: 'none', width: 'fit-content' }}
-        {...widthMouseEnter}
+        {...mouseLinkProps}
         className={`${className} ${extraClasses}`}
         href={props.link}
       >
@@ -72,7 +69,7 @@ const Button: React.FC<LinkProps | ClickProps> = (props) => {
     return (
       <button
         style={{ cursor: 'none' }}
-        {...widthMouseEnter}
+        {...mouseLinkProps}
         className={` ${className} ${extraClasses}`}
         onClick={() => {
           props.onClick()

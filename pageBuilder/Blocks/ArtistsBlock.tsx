@@ -1,0 +1,47 @@
+import React from 'react'
+
+import ArtistGallery from 'contentTypes/Artist/ArtistGallery'
+import { FridaLocation } from 'types'
+// import { ArtistsGalleryResult } from '@lib/queries/pageBuilderQueries'
+import Carousel from 'components/CardCarousel/Carousel'
+import ArtistCard, {
+  artistCardQuery,
+  ArtistCardResult,
+} from 'contentTypes/Artist/ArtistCard'
+import { PageBuilderBlockBase } from '@lib/queries/pageBuilderQueries'
+
+export const artistsBlockQuery = `
+_type == "artists" => {
+  type,
+  'items': *[_type == 'artist' && slug != null][0...4]{
+    ${artistCardQuery}
+  }
+}
+`
+
+export interface ArtistsGalleryResult extends PageBuilderBlockBase {
+  type: 'carousel' | 'masonry'
+  items: ArtistCardResult[]
+}
+
+interface ArtistsBlockProps extends ArtistsGalleryResult {
+  lang: FridaLocation
+}
+
+const ArtworksBlock: React.FC<ArtistsBlockProps> = (props) => {
+  const { items = [], lang, type } = props
+
+  if (type === 'masonry') {
+    return <ArtistGallery items={items} lang={lang} />
+  }
+
+  return (
+    <Carousel
+      items={items.map((item) => (
+        <ArtistCard type="carousel" {...item} />
+      ))}
+    />
+  )
+}
+
+export default ArtworksBlock

@@ -1,10 +1,19 @@
-import React from "react"
-
+import React from 'react'
 // @ts-ignore
-import BlockContent from "@sanity/block-content-to-react"
-import Frida from "../components/Frida"
-import EmbedPlug from "./Plugs/EmbedPlug"
-import ButtonPlug from "./Plugs/ButtonPlug"
+import BlockContent from '@sanity/block-content-to-react'
+import Frida from '../components/Frida'
+import EmbedPlug, { embedPlugQuery } from './Plugs/EmbedPlug'
+import ButtonPlug, { buttonPlugQuery } from './Plugs/ButtonPlug'
+import { imagePlugQuery } from './Plugs/ImagePlug'
+
+export const richTextQuery = `
+content[]{
+  ...,
+  ${buttonPlugQuery},
+  ${embedPlugQuery},
+  ${imagePlugQuery}
+}
+`
 
 const pink = (props: any) => {
   return <span className="text-frida-pink">{props.children}</span>
@@ -17,24 +26,27 @@ const frida = (props: any) => {
 }
 
 const classes: { [k: string]: string } = {
-  "custom-header-big": "text-3xl-fluid font-bold",
-  "custom-header-medium": "text-2xl-fluid font-bold",
-  "custom-header-small": "text-lg-fluid font-bold",
-  "custom-subHeader": "text-base-fluid font-bold",
+  'custom-header-big': 'header-big',
+  'custom-header-medium': 'header-medium',
+  'custom-header-small': 'header-small',
+  'custom-subHeader': 'subheader',
+  normal: 'text-normal',
+  'custom-small': 'text-small',
+  'custom-xsmall': 'text-xsmall',
 }
 
 const BlockRenderer = (props: any) => {
-  const { style = "normal" } = props.node
+  const { style = 'normal' } = props.node
 
-  if (/^custom/.test(style)) {
+  if (/^custom/.test(style) || style === 'normal') {
     return React.createElement(
-      "p",
+      'p',
       { className: `${classes[style]}` },
       props.children
     )
   }
 
-  if (style === "blockquote") {
+  if (style === 'blockquote') {
     return <blockquote>- {props.children}</blockquote>
   }
 
@@ -55,7 +67,7 @@ const serializer = {
 }
 
 const RichText = (props: any) => {
-  const isBlock = props._type === "block"
+  const isBlock = props._type === 'block'
   return (
     <BlockContent
       blocks={isBlock ? props : props.content}

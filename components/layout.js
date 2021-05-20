@@ -28,6 +28,24 @@ if (isBrowser) {
 }
 
 const duration = 0.4
+// const variants = {
+//   initial: {
+//     opacity: 0,
+//   },
+//   enter: {
+//     opacity: 1,
+//     transition: {
+//       duration: duration,
+//       delay: 0.3,
+//       ease: 'linear',
+//       when: 'beforeChildren',
+//     },
+//   },
+//   exit: {
+//     opacity: 0,
+//     transition: { duration: duration, ease: 'linear', when: 'beforeChildren' },
+//   },
+// }
 const variants = {
   initial: {
     opacity: 0,
@@ -142,7 +160,13 @@ const Layout = ({ site = {}, page = {}, schema, children }) => {
 
       <CookieBar data={site.cookieConsent} />
 
-      <m.div initial="initial" animate="enter" exit="exit" variants={variants}>
+      <m.div
+        initial="initial"
+        animate="enter"
+        exit="exit"
+        variants={variants}
+        className="relative pr-60"
+      >
         <Header data={site.header} isTransparent={page.hasTransparentHeader} />
         <main id="content">{children}</main>
         <Footer data={site.footer} />

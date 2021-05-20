@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Router from 'next/router'
 import Head from 'next/head'
-import { ThemeProvider } from 'next-themes'
+// import { ThemeProvider } from 'next-themes'
 import { LazyMotion, domAnimation, AnimatePresence } from 'framer-motion'
 import { AnimateSharedLayout } from 'framer-motion'
 import '../styles/tailwind.css'
@@ -13,6 +13,7 @@ import { SiteContextProvider } from '@lib/context'
 
 import { isBrowser } from '@lib/helpers'
 import Cart from '@modules/shop/cart'
+import { ModalContextProvider } from '@lib/modalContext'
 
 const MyApp = ({ Component, pageProps, router }) => {
   const [isLoading, setLoading] = useState(false)
@@ -71,7 +72,8 @@ const MyApp = ({ Component, pageProps, router }) => {
   }, [])
 
   return (
-    <ThemeProvider disableTransitionOnChange>
+    // <ThemeProvider disableTransitionOnChange>
+    <ModalContextProvider>
       <SiteContextProvider data={{ ...pageProps?.data?.site }}>
         <LazyMotion features={domAnimation}>
           {isLoading && (
@@ -79,23 +81,22 @@ const MyApp = ({ Component, pageProps, router }) => {
               <title>Loading...</title>
             </Head>
           )}
+
           <AnimatePresence
-            exitBeforeEnter
             onExitComplete={() => {
-              window.scrollTo(0, 0)
+              // window.scrollTo(0, 0)
               document.body.classList.remove('overflow-hidden')
             }}
           >
-            <AnimateSharedLayout>
-              <Component key={router.asPath.split('?')[0]} {...pageProps} />
-              <Modal />
-            </AnimateSharedLayout>
+            <Component key={router.asPath.split('?')[0]} {...pageProps} />
           </AnimatePresence>
 
           <Cart data={{ ...pageProps?.data?.site }} />
-        </LazyMotion>{' '}
+          <Modal />
+        </LazyMotion>
       </SiteContextProvider>
-    </ThemeProvider>
+    </ModalContextProvider>
+    // </ThemeProvider>
   )
 }
 

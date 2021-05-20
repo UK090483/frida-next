@@ -17,7 +17,12 @@ import ShopifyCollection from './documents/shopify-collection'
 import ShopifyProduct from './documents/shopify-product'
 import ShopifyVariant from './documents/shopify-variant'
 
+import Post from './documents/post'
+import PostCategory from './documents/postCategory'
+
 const documents = [
+  Post,
+  PostCategory,
   ShopifyCollection,
   ShopifyProduct,
   ShopifyVariant,
@@ -35,12 +40,11 @@ const documents = [
 ]
 // ???
 
-import Button from './objects/Button'
 // Objects
 
 import Seo from './objects/Seo'
-import DefaultRichText from './pageComponents/defaultRichText'
-import RichText from './objects/richtext'
+import defaultRichText from './pageComponents/defaultRichText'
+
 import Spacer from './objects/Spacer'
 import Supporter from './objects/Supporter'
 import SupporterLogo from './objects/supporterLogo'
@@ -59,11 +63,16 @@ import productOptionSettings from './objects/product-option-settings'
 
 import simplePortableText from './objects/portable-simple'
 
+// Plugs
+
+import Button from './pageComponents/plugs/Button'
+import image from './pageComponents/plugs/Image'
+
 const objects = [
   Seo,
   PageHeader,
-  DefaultRichText,
-  RichText,
+  defaultRichText,
+
   Spacer,
   Supporter,
   SupporterLogo,
@@ -78,26 +87,30 @@ const objects = [
   productOption,
   productOptionValue,
   productOptionSettings,
-
+  image,
   simplePortableText
 ]
 // PageComponents
+import Section from './pageComponents/Section'
 import Artworks from './pageComponents/Artworks'
 import CarouselHero from './pageComponents/CarouselHero/CarouselHero'
 import Categories from './pageComponents/category/Category'
-import Hero from './pageComponents/Hero'
-import Section from './pageComponents/Section'
 import ArtworkCarousel from './pageComponents/ArtworkCarousel'
-import Embed from './pageComponents/Embed'
+import Embed from './pageComponents/plugs/Embed'
+import Artists from './pageComponents/Artists'
+import Posts from './pageComponents/Posts'
+import Products from './pageComponents/Products'
 
 const pageComponents = [
+  Section,
+  Posts,
   CarouselHero,
   Categories,
-  Section,
-  Hero,
   Artworks,
   ArtworkCarousel,
-  Embed
+  Embed,
+  Artists,
+  Products
 ]
 
 export default createSchema({

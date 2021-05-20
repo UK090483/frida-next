@@ -147,6 +147,12 @@ export default {
       type: 'string',
       title: 'Shopify Variant ID',
       readOnly: true
+    },
+
+    {
+      title: 'SEO / Share Settings',
+      name: 'seo',
+      type: 'seo'
     }
   ],
   initialValue: () => ({

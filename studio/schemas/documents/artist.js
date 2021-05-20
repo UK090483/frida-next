@@ -19,11 +19,23 @@ export default {
       validation: Rule => Rule.required().max(20)
     },
     {
+      name: 'slug',
+      type: 'slug',
+      title: 'Slug',
+      description: 'erreichbar unter meetFrida/artist/....',
+      options: {
+        source: 'anzeigeName',
+        maxLength: 96
+      },
+      validation: Rule => Rule.required()
+    },
+    {
       name: 'email',
       type: 'string',
       title: 'Email',
       validation: Rule => Rule.required()
     },
+
     {
       name: 'description',
       type: 'text',

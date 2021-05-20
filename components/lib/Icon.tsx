@@ -47,6 +47,7 @@ type IconProps = {
   className?: string
   color?: FridaColors
   bgColor?: FridaColors
+  onClick?: () => void
   [k: string]: any
 }
 
@@ -56,12 +57,14 @@ const Icon: React.FC<IconProps> = ({
   className,
   color = 'black',
   bgColor = 'white',
+  onClick = () => {},
   ...rest
 }) => {
   if (!Icons[icon]) return <div>icon</div>
 
   return React.createElement(Icons[icon], {
     ...mouseLinkProps,
+    onClick,
     className: cx(
       `rounded-full bg-frida-${bgColor} text-frida-${color}`,
       {

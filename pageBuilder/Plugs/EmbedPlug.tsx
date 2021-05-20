@@ -1,9 +1,19 @@
 import React from 'react'
 import Embed from '@components/Embed'
 
-const EmbedPlug = (props: any) => {
-  const { node } = props
-  return <Embed url={node.url} />
+export const embedPlugQuery = ` 
+_type == "embed" => {
+   url
+}
+`
+
+export type EmbedPlugResult = {
+  url?: null | string
+}
+
+const EmbedPlug: React.FC<EmbedPlugResult> = ({ url }) => {
+  if (!url) return <div>url is missing</div>
+  return <Embed url={url} />
 }
 
 export default EmbedPlug

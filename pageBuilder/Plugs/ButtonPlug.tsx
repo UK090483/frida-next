@@ -1,39 +1,60 @@
 import React from 'react'
 import Button from '@components/lib/buttons/button'
 
-const ButtonPlug = (props: any) => {
-  const { internalLink, link, color, bgColor, label, inline } = props
+import { FridaColors } from 'types'
 
-  const _type =
-    internalLink || link
-      ? internalLink
-        ? 'link'
-        : 'externalLink'
-      : 'externalLink'
+export const buttonPlugQuery = ` 
+_type == "button" => {
+    label,
+    bgColor,
+    color,
+    inline,
+    link,
+    'internalLink' :internalLink->{"type":_type,'slug':slug.current}
+}
+`
 
-  const _link =
-    internalLink || link ? (internalLink ? buildLink(internalLink) : link) : '/'
-  return <div>button</div>
+export type ButtonPlugResult = {
+  label: string | null
+  label_en: string | null
+  internalLink: { slug: string; type: string } | null
+  link: string | null
+  color: FridaColors | null
+  bgColor: FridaColors | null
+  position?: 'inline' | 'left' | 'right' | 'center'
+}
+
+interface ButtonPlugProps extends ButtonPlugResult {}
+const ButtonPlug: React.FC<ButtonPlugProps> = (props) => {
+  const { internalLink, link, color, bgColor, label, position } = props
+
+  const _link = !!internalLink ? buildLink(internalLink) : !!link ? link : '/'
+  const _type = !!internalLink ? 'link' : !!link ? 'externalLink' : 'link'
+
   return (
     <Button
       color={color || 'black'}
-      backgroundColor={bgColor}
+      backgroundColor={bgColor || 'white'}
       type={_type}
       link={_link}
       label={label || 'label'}
-      inline={inline}
+      position={position || 'inline'}
     />
   )
 }
 
 export default ButtonPlug
 
-const buildLink = (link: any) => {
-  if (link._type === 'artwork') {
-    return `/artwork/${link?.slug?.current}`
+const buildLink = (link: { type: string; slug: string }) => {
+  const { type, slug } = link
+
+  if (type === 'artwork') {
+    return `/artwork/${slug}`
   }
 
-  if (link._type === 'page') {
-    return `/${link?.slug?.current}`
+  if (type === 'page') {
+    return `/${slug}`
   }
+
+  return '/'
 }

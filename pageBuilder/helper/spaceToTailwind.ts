@@ -1,19 +1,25 @@
-const spaceToTailwind = (space: string, prefix: string) => {
+const spaceToTailwind = (
+  space: null | undefined | string,
+  prefix: string,
+  alternative?: string
+) => {
+  if (!space) return alternative || ''
+
   switch (space) {
-    case "s":
+    case 's':
       return `${prefix}-10`
-    case "m":
+    case 'm':
       return `${prefix}-20`
 
-    case "l":
+    case 'l':
       return `${prefix}-32`
-    case "xl":
+    case 'xl':
       return `${prefix}-44`
-    case "xxl":
+    case 'xxl':
       return `${prefix}-60`
 
     default:
-      return ""
+      return alternative
   }
 }
 

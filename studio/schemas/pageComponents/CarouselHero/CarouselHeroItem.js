@@ -9,6 +9,12 @@ export default {
       title: 'Page sections',
       description: 'Add, edit, and reorder sections'
     },
+    {
+      name: 'content_en',
+      type: 'defaultRichText',
+      title: 'Page sections En',
+      description: 'Add, edit, and reorder sections'
+    },
 
     {
       title: 'Background Color',
@@ -18,7 +24,8 @@ export default {
         list: [
           { title: 'White', value: 'white' },
           { title: 'Pink', value: 'pink' },
-          { title: 'Rot', value: 'red' }
+          { title: 'Red', value: 'red' },
+          { title: 'Grey', value: 'grey' }
         ],
         layout: 'radio'
       }

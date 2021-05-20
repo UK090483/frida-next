@@ -9,6 +9,7 @@ const sanity = sanityClient({
   projectId: process.env.SANITY_PROJECT_ID,
   token: process.env.SANITY_API_TOKEN,
   useCdn: false,
+  apiVersion: '2019-01-29',
 })
 
 // Turn off default NextJS bodyParser, so we can run our own middleware
@@ -68,8 +69,15 @@ export default async function send(req, res) {
 
   // extract shopify data
   const {
-    body: { status, id, title, handle, options, variants },
+    body: { status, id, title, handle, options, variants, product_type },
   } = req
+
+  if (product_type === 'artwork') {
+    console.log('artworks get Sync the other way around')
+    console.log('sync complete!')
+    res.statusCode = 200
+    return res.json('artworks get Sync the other way around')
+  }
 
   /*  ------------------------------ */
   /*  Construct our product objects

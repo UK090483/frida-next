@@ -1,41 +1,52 @@
-import { imageMeta, artworkCard } from './snippets'
+import {
+  artistsBlockQuery,
+  ArtistsGalleryResult,
+} from 'pageBuilder/Blocks/ArtistsBlock'
+import {
+  artworksBlockQuery,
+  ArtworksGalleryResult,
+} from 'pageBuilder/Blocks/ArtworkBlock'
+import {
+  carouselHeroBlockQuery,
+  CarouselHeroResult,
+} from 'pageBuilder/Blocks/CarouselHeroBlock'
+import {
+  postsBlockQuery,
+  PostsGalleryResult,
+} from 'pageBuilder/Blocks/PostsBlock'
+import {
+  productsBlockQuery,
+  ProductsGalleryResult,
+} from 'pageBuilder/Blocks/ProductsBlock'
+import {
+  sectionBlockQuery,
+  SectionResult,
+} from 'pageBuilder/Blocks/SectionBlock'
+import { richTextQuery } from 'pageBuilder/RichText'
 
-// PLUGS
-
-const buttonPlug = ` 
-_type == "button" => {
-  internalLink->{
-    _type,
-    slug
-  }
+export type PageBuilderBlockBase = {
+  _type: string
+  _key: string
 }
-`
-// Blocks
 
-const artworkCarousel = `
-_type == "artworkCarousel" => {
-  'items': *[_type == 'artwork'] | order(_updatedAt desc) {
-    ${artworkCard}
-  }[0...15]
-}
-`
-
-const carouselHero = `
-_type == "carouselHero" => {
-  carouselHeroItems[]{
-    ...,
-    'photo': image {
-      ${imageMeta}
-    }
-   }
-}
-`
-const artworks = `
-_type == "artworks" => {
-  'items': *[_type == 'artwork']{
-    ${artworkCard}
-  }
-}
+export const body = `
+content[]{
+  ...,
+  ${carouselHeroBlockQuery},
+  ${artworksBlockQuery},
+  ${artistsBlockQuery},
+  ${productsBlockQuery},
+  ${postsBlockQuery},
+  ${sectionBlockQuery},
+  ${richTextQuery},
+},
 `
 
-export { artworks, artworkCarousel, buttonPlug, carouselHero }
+export type PageBodyResult = (
+  | CarouselHeroResult
+  | ArtworksGalleryResult
+  | ArtistsGalleryResult
+  | PostsGalleryResult
+  | ProductsGalleryResult
+  | SectionResult
+)[]

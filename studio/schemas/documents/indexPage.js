@@ -1,3 +1,4 @@
+import { defaultBockContent } from '../snippets'
 export default {
   type: 'document',
   name: 'indexPage',
@@ -8,29 +9,27 @@ export default {
       title: 'Title',
       name: 'title',
       type: 'string',
-      description: 'Heads up! This will override the page title.',
-      validation: Rule => Rule.max(60).warning('Should be under 60 characters')
+
+      validation: Rule =>
+        Rule.required()
+          .max(20)
+          .warning('Should be under 20 characters')
     },
     {
       name: 'title_en',
       type: 'string',
       title: 'Title en',
-      validation: Rule => Rule.required()
+      validation: Rule =>
+        Rule.required()
+          .max(20)
+          .warning('Should be under 20 characters')
     },
     {
-      name: 'content',
-      type: 'array',
-      title: 'Page sections',
-      description: 'Add, edit, and reorder sections',
-      of: [
-        { type: 'hero' },
-        { type: 'categories' },
-        { type: 'carouselHero' },
-        { type: 'section' },
-        { type: 'artworks' },
-        { type: 'supporter' }
-      ]
+      name: 'pageHeader',
+      type: 'pageHeader',
+      title: 'Header'
     },
+    defaultBockContent,
     {
       title: 'SEO / Share Settings',
       name: 'seo',

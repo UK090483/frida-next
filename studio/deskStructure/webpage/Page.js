@@ -4,7 +4,7 @@ import EyeIcon from 'part:@sanity/base/eye-icon'
 import { GoBrowser as PageIcon } from 'react-icons/go'
 
 import { localURL, remoteURL } from '../../constants'
-import IframePreview from '../../components/iframe/IframePreview'
+import IframePreview from '../../components/sanityNext/pagePreview'
 
 const previewURL =
   window.location.hostname === 'localhost' ? localURL : remoteURL

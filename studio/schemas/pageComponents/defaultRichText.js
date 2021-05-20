@@ -1,117 +1,167 @@
-import React from "react";
+import React from 'react'
 
-const pinkIcon = () => <span style={{ color: "#f5c5d9" }}>P</span>;
-const pinkRender = (props) => (
-  <span style={{ color: "#f5c5d9" }}>{props.children}</span>
-);
+const pinkIcon = () => <span style={{ color: '#f5c5d9' }}>P</span>
+const pinkRender = props => (
+  <span style={{ color: '#f5c5d9' }}>{props.children}</span>
+)
 const whiteIcon = () => (
-  <span style={{ color: "white", backgroundColor: "black" }}>W</span>
-);
-const whiteRender = (props) => (
-  <span style={{ color: "white", backgroundColor: "black" }}>
+  <span style={{ color: 'white', backgroundColor: 'black' }}>W</span>
+)
+const whiteRender = props => (
+  <span style={{ color: 'white', backgroundColor: 'black' }}>
     {props.children}
   </span>
-);
+)
 
-const Button = (props) => {
-  return <span>{props.label}</span>;
-};
+const Button = props => {
+  return <span>{props.label}</span>
+}
+
+const getStyle = (fs, mb, bold) => {
+  return {
+    style: {
+      fontSize: (30 / 50) * fs,
+      marginTop: 0,
+      marginBottom: `${mb || 1}rem`,
+      fontWeight: bold ? '700' : '400',
+      lineHeight: '1em'
+    }
+  }
+}
 
 export default {
-  name: "defaultRichText",
-  type: "array",
-  title: "Text",
+  name: 'defaultRichText',
+  type: 'array',
+  title: 'Text',
 
   of: [
     {
-      type: "block",
-      title: "Block",
+      type: 'block',
+      title: 'Block',
       styles: [
-        { title: "Normal", value: "normal" },
         {
-          title: "Header-big",
-          value: "custom-header-big",
-          blockEditor: { render: (props) => <h1>{props.children}</h1> },
+          title: 'Normal',
+          value: 'normal',
+          blockEditor: {
+            render: props => (
+              <p {...getStyle(30, 0.5, false)}>{props.children}</p>
+            )
+          }
         },
         {
-          title: "Header-medium",
-          value: "custom-header-medium",
-          blockEditor: { render: (props) => <h1>{props.children}</h1> },
+          title: 'Header-big',
+          value: 'custom-header-big',
+          blockEditor: {
+            render: props => (
+              <p {...getStyle(100, 0.5, true)}>{props.children}</p>
+            )
+          }
         },
         {
-          title: "Header-small",
-          value: "custom-header-small",
-          blockEditor: { render: (props) => <h1>{props.children}</h1> },
+          title: 'Header-medium',
+          value: 'custom-header-medium',
+          blockEditor: {
+            render: props => (
+              <p {...getStyle(80, 0.5, true)}>{props.children}</p>
+            )
+          }
         },
         {
-          title: "SubHeader",
-          value: "custom-subHeader",
-          blockEditor: { render: (props) => <h3>{props.children}</h3> },
+          title: 'Header-small',
+          value: 'custom-header-small',
+          blockEditor: {
+            render: props => (
+              <p {...getStyle(50, 0.5, true)}>{props.children}</p>
+            )
+          }
+        },
+        {
+          title: 'SubHeader',
+          value: 'custom-subHeader',
+          blockEditor: {
+            render: props => (
+              <p {...getStyle(30, 0.5, true)}>{props.children}</p>
+            )
+          }
         },
 
-        { title: "H1", value: "h1" },
-        { title: "H2", value: "h2" },
-        { title: "H3", value: "h3" },
-        { title: "H4", value: "h4" },
-        { title: "Quote", value: "blockquote" },
+        {
+          title: 'Small',
+          value: 'custom-small',
+          blockEditor: {
+            render: props => (
+              <p {...getStyle(20, 0.2, false)}>{props.children}</p>
+            )
+          }
+        },
+        {
+          title: 'xSmall',
+          value: 'custom-xsmall',
+          blockEditor: {
+            render: props => (
+              <p {...getStyle(16, 0.1, false)}>{props.children}</p>
+            )
+          }
+        }
       ],
       marks: {
         decorators: [
-          { title: "Strong", value: "strong" },
-          { title: "Emphasis", value: "em" },
+          { title: 'Strong', value: 'strong' },
+          { title: 'Emphasis', value: 'em' },
           {
-            title: "Underline",
-            value: "underline",
+            title: 'Underline',
+            value: 'underline'
           },
 
           {
-            title: "Pink",
-            value: "pink",
-            blockEditor: { icon: pinkIcon, render: pinkRender },
+            title: 'Pink',
+            value: 'pink',
+            blockEditor: { icon: pinkIcon, render: pinkRender }
           },
           {
-            title: "white",
-            value: "white",
-            blockEditor: { icon: whiteIcon, render: whiteRender },
-          },
+            title: 'white',
+            value: 'white',
+            blockEditor: { icon: whiteIcon, render: whiteRender }
+          }
         ],
         annotations: [
           {
-            name: "frida",
-            type: "object",
-            title: "Frida",
+            name: 'frida',
+            type: 'object',
+            title: 'Frida',
             fields: [
               {
-                title: "Color",
-                name: "color",
-                type: "string",
+                title: 'Color',
+                name: 'color',
+                type: 'string',
                 options: {
                   list: [
-                    { title: "White", value: "white" },
-                    { title: "Pink", value: "pink" },
+                    { title: 'White', value: 'white' },
+                    { title: 'Pink', value: 'pink' }
                   ],
-                  layout: "radio",
-                },
-              },
+                  layout: 'radio'
+                }
+              }
             ],
             blockEditor: {
-              icon: () => "Frida",
-              render: (props) => {
+              icon: () => 'Frida',
+              render: props => {
                 return (
                   <span>
                     #Meet
-                    <span style={{ textDecoration: "underline" }}>
+                    <span style={{ textDecoration: 'underline' }}>
                       {props.children}
                     </span>
                   </span>
-                );
-              },
-            },
-          },
-        ],
-      },
+                )
+              }
+            }
+          }
+        ]
+      }
     },
-    { type: "button", blockEditor: { render: Button } },
-    { type: "embed" },
-  ],
-};
+    { type: 'button', blockEditor: { render: Button } },
+    { type: 'embed' },
+    { type: 'imagePlug' }
+  ]
+}

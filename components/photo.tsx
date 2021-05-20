@@ -17,33 +17,25 @@ interface PhotoProps {
   hasPlaceholder?: boolean
   forceLoad?: boolean
   onLoad?: Function
-  className: string
-  quality: number
+  className?: string
+  quality?: number
+}
+const imageCache = Object.create({})
+
+const inImageCache = (cacheKey) => {
+  return imageCache[cacheKey] || false
 }
 
-// const imageCache = Object.create({})
+const activateCacheForImage = (cacheKey) => {
+  if (cacheKey) {
+    imageCache[cacheKey] = true
+  }
+}
 
-// const inImageCache = (props) => {
-//   const cacheKey = getImageCacheKey(props)
-//   return imageCache[cacheKey] || false
-// }
-
-// const activateCacheForImage = (props) => {
-//   const cacheKey = getImageCacheKey(props)
-//   if (cacheKey) {
-//     imageCache[cacheKey] = true
-//   }
-// }
-
-// const getImageCacheKey = (props) => {
-//   const { photo, onLoad, ...rest } = props
-
-//   return JSON.stringify({ id: photo.id, ...rest })
-// }
-
-// const printCache = () => {
-//   console.log(imageCache)
-// }
+const getImageCacheKey = (props) => {
+  const { photo, onLoad, ...rest } = props
+  return JSON.stringify({ id: photo.id, ...rest })
+}
 
 const Photo: React.FC<PhotoProps> = (props) => {
   const {
@@ -66,11 +58,14 @@ const Photo: React.FC<PhotoProps> = (props) => {
   const [isLoaded, setIsLoaded] = useState(false)
   const isIntersecting = useIntersection(imageRef, {
     once: true,
+    rootMargin: '250px',
     threshold: 0.1,
   })
+  const cacheKey = React.useCallback(getImageCacheKey(props), [])
+
   useEffect(() => {
     // printCache()
-    // !inImageCache(props) && setIsLoaded(false)
+    inImageCache(cacheKey) && setIsLoaded(true)
   }, [])
 
   // define our aspect ratio if not a background fill
@@ -83,6 +78,7 @@ const Photo: React.FC<PhotoProps> = (props) => {
     layout === 'intrinsic' ? { paddingTop: `${aspect}%` } : null
 
   // define our src and srcset
+
   const src = buildSrc(photo, { width, height, quality })
 
   const srcset = buildSrcSet(photo, {
@@ -95,6 +91,7 @@ const Photo: React.FC<PhotoProps> = (props) => {
 
   // handle our image onLoad
   function handleLoad() {
+    activateCacheForImage(cacheKey)
     requestAnimationFrame(() => {
       if (!isLoaded) setIsLoaded(true)
     })
@@ -106,7 +103,7 @@ const Photo: React.FC<PhotoProps> = (props) => {
   }, [isLoaded])
 
   return (
-    <figure className={className ? className : null} layoutId="image">
+    <figure className={className ? className : ''}>
       <div
         className={cx('ar', {
           'has-fill': layout === 'fill' || layout === 'contain',

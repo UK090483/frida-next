@@ -16,11 +16,10 @@ const Frida: React.FC<FridaProps> = ({
       #Meet
       <span
         style={{
-          textDecorationColor: 'black',
           textDecorationThickness: '0.16em',
         }}
         color={color}
-        className={`border-frida-${color} text-frida-${textColor} underline `}
+        className={`border-frida-${color} text-frida-${textColor} underline decoration-frida-${color} `}
       >
         {text}
       </span>

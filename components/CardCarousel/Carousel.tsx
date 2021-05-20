@@ -1,26 +1,28 @@
 import { ArrowRightIcon } from '@heroicons/react/solid'
 import * as React from 'react'
-import Carousel, { ResponsiveType } from 'react-multi-carousel'
+import _Carousel, { ResponsiveType } from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
 import { FridaColors } from 'types'
 import Section from '../container/section'
 import { mouseLinkProps } from '../generic/Mouse/mouseRemote'
 
-type ArtworkCarouselProps = {
+type CarouselProps = {
   items: React.ReactElement[]
   responsive?: ResponsiveType
   bgColor?: FridaColors
+  header?: string
 }
 
-const ArtworkCarousel: React.FC<ArtworkCarouselProps> = ({
+const Carousel: React.FC<CarouselProps> = ({
   items = [],
   responsive = defaultResponsive,
   bgColor = 'grey',
+  header,
 }) => {
   const [state, setState] = React.useState(0)
   const [swiping, setSwiping] = React.useState(false)
 
-  const carousel = React.useRef<null | Carousel>(null)
+  const carousel = React.useRef<null | _Carousel>(null)
 
   React.useEffect(() => {
     if (carousel) {
@@ -43,8 +45,15 @@ const ArtworkCarousel: React.FC<ArtworkCarouselProps> = ({
 
   return (
     <Section type="full" backgroundColor="white">
+      {header && (
+        <div
+          className={`text-lg-fluid  bg-frida-${bgColor} font-bold section_padding pt-14`}
+        >
+          {header}
+        </div>
+      )}
       <div className={`bg-frida-${bgColor} pt-16 pb-16 relative`}>
-        <Carousel
+        <_Carousel
           beforeChange={(number) => {
             setSwiping(true)
             onChange(number)
@@ -54,26 +63,25 @@ const ArtworkCarousel: React.FC<ArtworkCarouselProps> = ({
           }}
           partialVisible={true}
           ref={carousel}
-          // infinite={true}
+          infinite={true}
           customRightArrow={<></>}
           customLeftArrow={<></>}
           draggable={true}
           showDots={false}
           responsive={responsive}
           itemClass="pb-0"
-          infinite={true}
         >
           {items.map((item, index) =>
             React.cloneElement(item, { key: index, isSwiping: swiping })
           )}
-        </Carousel>
+        </_Carousel>
         <CustomArrow onClick={setNext} />
       </div>
     </Section>
   )
 }
 
-export default ArtworkCarousel
+export default Carousel
 
 type CustomArrowProps = {
   onClick: () => void
@@ -103,10 +111,11 @@ const defaultResponsive: ResponsiveType = {
   tablet: {
     breakpoint: { max: 1700, min: 1000 },
     items: 2,
+    partialVisibilityGutter: 70,
   },
   mobile: {
     breakpoint: { max: 1000, min: 0 },
     items: 1,
-    partialVisibilityGutter: 100,
+    partialVisibilityGutter: 130,
   },
 }

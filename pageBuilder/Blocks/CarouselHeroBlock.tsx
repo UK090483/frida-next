@@ -1,29 +1,52 @@
-import React from 'react'
-
+import FridaImage from '@components/fridaImage/FridaImage'
 import CarouselHero from '@components/hero/CarussellHero/CarussellHero'
-import { FridaColors } from 'types'
-import ContentParser from '../ContentParser'
-import ImageParser from '../ImageParser'
+import { PageBuilderBlockBase } from '@lib/queries/pageBuilderQueries'
+import { imageMeta, ImageMetaResult } from '@lib/queries/snippets'
+import { richTextQuery } from 'pageBuilder/RichText'
+import React from 'react'
+import { FridaColors, FridaLocation } from 'types'
+import BodyParser from '../BodyParser'
 
-type CarouselHeroBlockProps = {
-  carouselHeroItems?: { color: FridaColors; content: any[] }[]
+export const carouselHeroBlockQuery = `
+_type == "carouselHero" => {
+  carouselHeroItems[]{
+    ...,
+     ${richTextQuery},
+    'photo': image {
+      ${imageMeta}
+    }
+   }
+}
+`
+export interface CarouselHeroResult extends PageBuilderBlockBase {
+  carouselHeroItems: {
+    bgColor: FridaColors
+    photo: ImageMetaResult
+    content: null | any
+    content_en: null | any
+  }[]
+}
+
+interface CarouselHeroBlockProps extends CarouselHeroResult {
+  lang: FridaLocation
 }
 const CarouselHeroBlock: React.FC<CarouselHeroBlockProps> = (props) => {
-  const { carouselHeroItems } = props
+  const { carouselHeroItems, lang } = props
 
   if (!carouselHeroItems) return <></>
 
-  const items = carouselHeroItems.map((item: any) => ({
+  const items = carouselHeroItems.map((item) => ({
     color: item.bgColor,
-    content: <ContentParser lang="de" content={item.content} />,
-    image: (
-      <ImageParser
-        image={item.image}
-        photo={item.photo}
-        layout="fill"
-
-        // style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+    content: (
+      <BodyParser
+        lang="de"
+        content={
+          lang === 'en' && item.content_en ? item.content_en : item.content
+        }
       />
+    ),
+    image: (
+      <FridaImage photo={item.photo} layout="fill" className="w-full h-full" />
     ),
   }))
 

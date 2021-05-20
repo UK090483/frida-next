@@ -1,21 +1,20 @@
-import * as React from "react"
-import { setMouse } from "./generic/Mouse/mouseRemote"
+import * as React from 'react'
+import { setMouse } from './generic/Mouse/mouseRemote'
 interface IEmbetProps {
   url?: string
 }
 
-const Embet: React.FC<IEmbetProps> = ({ url }) => {
+const Embed: React.FC<IEmbetProps> = ({ url }) => {
   if (!url) return <div>Url is not set</div>
 
   return (
     <div
       onMouseEnter={() => {
-        setMouse("hide", true)
+        setMouse('hide', true)
       }}
       onMouseLeave={() => {
-        setMouse("hide", false)
+        setMouse('hide', false)
       }}
-      className="px-12"
     >
       <div className="aspect-w-16 aspect-h-9">
         <iframe
@@ -29,4 +28,4 @@ const Embet: React.FC<IEmbetProps> = ({ url }) => {
   )
 }
 
-export default Embet
+export default Embed

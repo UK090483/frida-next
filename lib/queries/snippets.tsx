@@ -1,5 +1,4 @@
 export const imageMeta = `
-
     alt,
     asset,
     crop,
@@ -9,19 +8,15 @@ export const imageMeta = `
     "type": asset->mimeType,
     "aspectRatio": asset->metadata.dimensions.aspectRatio,
     "lqip": asset->metadata.lqip
-
 `
-export const artworkCard = `
 
-    'imageAssetId':image.asset._ref,
-    availability,
-    'artistName':artist->anzeigeName,
-    'slug': slug.current,
-    banner,
-    price,
-    'artworkName':name,
-    'photo': image {
-      ${imageMeta}
-    }
-    
-`
+export type ImageMetaResult = {
+  alt: string | null
+  asset: any
+  customRation: number
+  hotspot: any
+  id: string
+  type: string
+  aspectRatio: number
+  lqip: number
+}

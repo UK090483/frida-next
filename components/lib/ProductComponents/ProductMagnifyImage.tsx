@@ -109,8 +109,7 @@ const ProductMagnifyImage: React.FC<ProductMagnifyImageProps> = ({
   }
 
   return (
-    <m.div
-      layoutId="image"
+    <div
       className="w-full h-full flex justify-center items-center "
       ref={RootRef}
     >
@@ -163,7 +162,7 @@ const ProductMagnifyImage: React.FC<ProductMagnifyImageProps> = ({
           ></img>
         )}
       </div>
-    </m.div>
+    </div>
   )
 }
 

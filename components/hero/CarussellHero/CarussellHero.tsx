@@ -55,7 +55,7 @@ const CarouselHero: React.FC<CarouselHeroProps> = ({ items }) => {
   }, [items.length, state])
 
   return (
-    <div data-color={'pink'}>
+    <>
       <Carousel
         infinite={false}
         ssr={true}
@@ -83,7 +83,7 @@ const CarouselHero: React.FC<CarouselHeroProps> = ({ items }) => {
       {hasMultiple && (
         <HeroNav current={state} setValue={setSlide} items={items} />
       )}
-    </div>
+    </>
   )
 }
 export default CarouselHero

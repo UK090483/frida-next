@@ -1,5 +1,5 @@
 import React from 'react'
-import cx from 'classnames'
+import classnames from 'classnames'
 
 import { ArtworkRecord } from 'types'
 
@@ -20,14 +20,14 @@ const ProductName: React.FC<ProductNameProps> = ({
 
   return (
     <div
-      className={cx(
+      className={classnames(
         { 'text-base-fluid font-bold pb-6 pt-2': size === 'l' },
         { 'text-sm-fluid  pb-6': size === 'm' }
       )}
     >
       <span>
         <span
-          className={cx(
+          className={classnames(
             ' inline-block rounded-full mr-2 ',
             { ' w-5 h-5 mb-0.5': size === 'l' },
             { ' w-4 h-4 -mb-0.5': size === 'm' },

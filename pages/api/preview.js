@@ -21,7 +21,7 @@ export default function handler(req, res) {
 
   // // Redirect to the associated page
 
-  res.redirect(`/${req.query.slug}`)
+  res.redirect(`/${req.query.slug}?preview`)
   // res.redirect(
   //   isStatic
   //     ? `/${isStatic}`

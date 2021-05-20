@@ -1,8 +1,9 @@
 import React from 'react'
 
 import Icon from '@components/lib/Icon'
+import { FridaLocation } from 'types'
 
-const PaymentInfo: React.FC = () => {
+const PaymentInfo: React.FC<{ lang: FridaLocation }> = ({ lang }) => {
   return (
     <div className="text-sm-fluid w-full ">
       <p>

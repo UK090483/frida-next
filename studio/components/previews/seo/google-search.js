@@ -3,6 +3,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { assemblePageUrl } from './frontend-utils'
 import styles from './seo-preview.css'
+import useSeo from '../../../../lib/useSeo'
 
 class GoogleSearchResult extends React.PureComponent {
   static propTypes = {
@@ -21,11 +22,10 @@ class GoogleSearchResult extends React.PureComponent {
     const { default: defaultSEO, document, options, width } = this.props
     const { seo } = document
 
+    const { metaTitle, metaDesc } = useSeo(defaultSEO, document)
+
     const url = assemblePageUrl({ document, options })
     const websiteUrlWithoutProtocol = url.split('://')[1]
-
-    let metaTitle = seo?.metaTitle || defaultSEO?.metaTitle
-    let metaDesc = seo?.metaDesc || defaultSEO?.metaDesc
 
     return (
       <div className={styles.seoItem}>

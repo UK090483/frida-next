@@ -7,16 +7,17 @@ import { useNextSanityImage } from 'next-sanity-image'
 import Photo from '@components/photo'
 import { ImageLayout } from 'types'
 interface IFridaImageProps {
-  type: 'sanity' | 'shopify' | 'auto'
+  type?: 'sanity' | 'shopify' | 'auto'
   style?: React.CSSProperties
   imgStyle?: React.CSSProperties
-  sanityAssetId: string
+  sanityAssetId?: string
   photo: any
   shopifyImages?: any[]
   layoutId?: string
   layout?: ImageLayout
   width?: number
   quality?: number
+  className?: string
 }
 
 const configuredSanityClient = sanityClient({
@@ -29,7 +30,7 @@ const FridaImage: React.FunctionComponent<IFridaImageProps> = (props) => {
   const {
     style = {},
     imgStyle = {},
-    type,
+    type = 'sanity',
     sanityAssetId,
     photo,
     shopifyImages,
@@ -37,26 +38,20 @@ const FridaImage: React.FunctionComponent<IFridaImageProps> = (props) => {
     layout = 'intrinsic',
     width,
     quality = 80,
+    className = '',
   } = props
 
-  if (type === 'sanity' && photo) {
-    return (
-      <Photo
-        photo={photo}
-        width={width}
-        className="h-full w-full"
-        layout={layout}
-        quality={quality}
-      />
-    )
-  }
+  if (!photo) return null
 
-  if (type === 'sanity' && sanityAssetId) {
-    const imageProps = useNextSanityImage(configuredSanityClient, sanityAssetId)
-    return <Img {...imageProps} />
-  }
-
-  return <div>no Image</div>
+  return (
+    <Photo
+      photo={photo}
+      width={width}
+      className={className}
+      layout={layout}
+      quality={quality}
+    />
+  )
 }
 
 export default FridaImage

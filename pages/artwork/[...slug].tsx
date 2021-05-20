@@ -1,37 +1,60 @@
-import ArtworkSingle from '@components/ArtworkSingle'
+import ArtworkSingle from 'contentTypes/Artwork/ArtworkSingle/ArtworkSingle'
 import Layout from '@components/generic/layout/layout'
 import { getAllDocSlugs } from '@lib/api'
-import { getArtworkPage } from '@lib/queries/artworksQueries'
+import {
+  artworkSingleViewQuery,
+  ArtworkSingleViewResult,
+  getArtworkPage,
+} from '@lib/queries/artworksQueries'
 import Error from '@pages/404'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 import React from 'react'
-import { FaTable } from 'react-icons/fa'
+
 import { FridaLocation } from 'types'
+import { usePreviewSubscription } from '@lib/sanity'
 
 type ArtworkTemplateProps = {
-  data: any
+  data: ArtworkSingleViewResult | null
   lang: FridaLocation
+  preview: boolean
+  slug: any
 }
 
+const query = `*[_type == "artwork" && slug.current == $slug][0]{
+  ${artworkSingleViewQuery}
+}`
+
 const ArtworkTemplate: React.FC<ArtworkTemplateProps> = (props) => {
-  const { data, lang } = props
+  const { data, lang, preview, slug } = props
 
   const router = useRouter()
 
-  if (!router.isFallback && !data) {
+  if (router.isFallback) {
     return <Error />
   }
+  if (!data) {
+    return <Error />
+  }
+
+  const { data: pageData } = usePreviewSubscription(query, {
+    // @ts-ignore
+    params: { slug: slug.join('/') },
+    initialData: data,
+    enabled: preview || router.query.preview !== null,
+  })
 
   return (
     <div>
       {!router.isFallback && (
         <Layout
-          title={props.data?.artwork?.artistName}
-          navItems={data?.site?.navigation?.items}
-          data={data}
+          title={props.data?.artwork.artistName || 'Frida'}
+          navItems={data.site.navigation.items}
+          data={pageData}
         >
-          <ArtworkSingle {...data}>Artwork</ArtworkSingle>
+          <ArtworkSingle lang={lang} {...pageData}>
+            Artwork
+          </ArtworkSingle>
         </Layout>
       )}
     </div>
@@ -58,6 +81,8 @@ export const getStaticProps: GetStaticProps = async ({
     props: {
       data: pageData,
       lang: locale,
+      preview: preview || false,
+      slug: params?.slug,
     },
   }
 }

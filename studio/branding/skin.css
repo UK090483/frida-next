@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;800&display=swap');
 :root {
   --brand-primary: #000;
   --brand-primary--inverted: #fff;
@@ -13,14 +12,12 @@
   --theme-pageText: #000000;
 }
 
-
 /* correctly style active state on dark navbars */
 
-[data-tone="navbar"][class*="selected"] > span {
+[data-tone='navbar'][class*='selected'] > span {
   background: var(--brand-secondary--inverted) !important;
   color: var(--brand-secondary) !important;
 }
-
 
 /* more obvious cursors for studio elements */
 
@@ -34,12 +31,12 @@ button:not([disabled]) {
   cursor: e-resize !important;
 }
 
-[class*="drag"] button {
+[class*='drag'] button {
   cursor: grab !important;
 }
 
-li[class*="moving"],
-li[class*="moving"] * {
+li[class*='moving'],
+li[class*='moving'] * {
   pointer-events: all !important;
   cursor: grabbing !important;
 }
@@ -51,19 +48,19 @@ li[class*="moving"] * {
 }
 
 .pt-editable * {
-  font-family: 'Inter', 'Helvetica Neue', sans-serif !important;
+  font-family: 'Montserrat', 'Helvetica Neue', sans-serif !important;
 }
 
 .btn {
   display: inline-block;
   position: relative;
-  padding: .5rem 1.25rem;
+  padding: 0.5rem 1.25rem;
   background: var(--theme-pageBG) !important;
   color: var(--theme-pageText) !important;
   border: 1px solid;
   border-radius: 9999px;
   box-shadow: 0 0 0 5px var(--theme-pageBG);
-  font-size: .75rem;
+  font-size: 0.75rem;
   line-height: 1rem;
   font-weight: 600;
 }
@@ -85,7 +82,7 @@ li[class*="moving"] * {
 }
 
 .btn.is-large {
-  padding: .5rem 1.75rem;
+  padding: 0.5rem 1.75rem;
   font-size: 1.5rem;
   line-height: 2rem;
   font-weight: 400;
