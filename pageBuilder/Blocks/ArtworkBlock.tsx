@@ -15,9 +15,9 @@ export const artworksBlockQuery = `
 _type == "artworks" => {
   type,
   'items':  select(
-    ${hasNoFilter} && count=='20' => *[_type == 'artwork'][0...1]{${artworkCardQuery}},
+    ${hasNoFilter} && count=='20' => *[_type == 'artwork'][0...10]{${artworkCardQuery}},
     ${hasNoFilter} && count=='all' => *[_type == 'artwork']{${artworkCardQuery}},
-    ${hasFilter}  && count=='20' => *[_type == 'artwork'  && references(^.filter[]._ref)][0...1]{${artworkCardQuery}},
+    ${hasFilter}  && count=='20' => *[_type == 'artwork'  && references(^.filter[]._ref)][0...10]{${artworkCardQuery}},
     ${hasFilter} && count=='all' => *[_type == 'artwork'  && references(^.filter[]._ref)]{${artworkCardQuery}}
     ),
   'stil':*[_type=='stil']{name},

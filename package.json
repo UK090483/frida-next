@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development next dev",
     "buildOld": "echo 'Building Sanity to public/studio…' && cd studio && npx sanity build ../public/studio -y && cd .. && next build",
-    "build": "npm run startCache & next build",
+    "build": "next build",
     "startCache":"node proxy-cache-server.js",
     "start": "next start",
     "analyze": "cross-env ANALYZE=true next build",

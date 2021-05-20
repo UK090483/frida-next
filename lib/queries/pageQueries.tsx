@@ -101,20 +101,20 @@ export const getPage: (
 }
 
 export const extraData = async (data: any) => {
-  console.log('run extra data')
-  const _data = { ...data }
-  if (data.content) {
-    _data.content = await Promise.all(
-      data.content.map(async (item: any) => {
-        if (item._type === 'artworks') {
-          const res = await fetch('http://localhost:3000/api/artworks')
-          const jsonRes = await res.json()
-          item.items = jsonRes
-          return item
-        }
-        return item
-      })
-    )
-  }
-  return _data
+  return data
+  // const _data = { ...data }
+  // if (data.content) {
+  //   _data.content = await Promise.all(
+  //     data.content.map(async (item: any) => {
+  //       if (item._type === 'artworks') {
+  //         const res = await fetch('http://localhost:3000/api/artworks')
+  //         const jsonRes = await res.json()
+  //         item.items = jsonRes
+  //         return item
+  //       }
+  //       return item
+  //     })
+  //   )
+  // }
+  // return _data
 }
