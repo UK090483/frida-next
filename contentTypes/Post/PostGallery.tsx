@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { FridaLocation } from 'types'
-import Section from '../../components/container/section'
+import Section from '../../components/Section'
 import PostCard, { PostCardResult } from './PostCard'
 
 type PostGalleryProps = {
@@ -14,8 +14,8 @@ const PostGallery: React.FC<PostGalleryProps> = (props) => {
 
   return (
     <div>
-      <Section>
-        <div className="pt-16">
+      <Section type="full">
+        <div className="pt-16 md:px-frida_7%">
           {[
             items.map((item) => (
               <PostCard key={item.slug} lang={lang} {...item} />

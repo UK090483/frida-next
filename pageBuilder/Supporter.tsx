@@ -1,7 +1,7 @@
 import React from 'react'
 // import Kooperation from '@components/Supporter/kooperation'
 // import Supporter from '@components/Supporter/supporter'
-import Section from '@components/container/section'
+import Section from '@components/Section'
 
 export default function Supproter() {
   return (

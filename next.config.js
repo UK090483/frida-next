@@ -62,6 +62,7 @@ module.exports = withBundleAnalyzer({
   future: {
     webpack5: true,
   },
+  productionBrowserSourceMaps: true,
   env: {
     // Needed for Sanity powered data
     SANITY_PROJECT_DATASET: process.env.SANITY_PROJECT_DATASET,

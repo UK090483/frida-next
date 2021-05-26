@@ -1,5 +1,5 @@
 import FridaImage from '@components/fridaImage/FridaImage'
-import CarouselHero from '@components/hero/CarussellHero/CarussellHero'
+import CarouselHero from '@components/CarussellHero/CarussellHero'
 import { PageBuilderBlockBase } from '@lib/queries/pageBuilderQueries'
 import { imageMeta, ImageMetaResult } from '@lib/queries/snippets'
 import { richTextQuery } from 'pageBuilder/RichText'
@@ -19,6 +19,7 @@ _type == "carouselHero" => {
 }
 `
 export interface CarouselHeroResult extends PageBuilderBlockBase {
+  _type: 'carouselHero'
   carouselHeroItems: {
     bgColor: FridaColors
     photo: ImageMetaResult

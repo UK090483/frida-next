@@ -4,6 +4,8 @@ export default {
   type: 'object',
   fields: [
     { name: 'name', type: 'string', title: 'Name' },
+    { name: 'label', type: 'string', title: 'Label' },
+    { name: 'label_en', type: 'string', title: 'Label En' },
 
     {
       title: 'Type',

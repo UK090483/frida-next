@@ -1,7 +1,7 @@
 import Dropdown from './Dropdown'
 import { useRouter } from 'next/router'
 import * as React from 'react'
-import Icon from '@components/lib/Icon'
+import Icon from '@components/Icon'
 
 interface IFilterProps {
   filter: {
@@ -57,7 +57,7 @@ const Filter: React.FunctionComponent<IFilterProps> = (props) => {
   }
 
   return (
-    <div className=" flex flex-wrap justify-center md:flex-nowrap md:justify-between items-center w-full section_padding mt-8">
+    <div className=" flex flex-wrap justify-center md:flex-nowrap md:justify-between items-center w-full px-frida_7% my-20">
       {filter.map((_filter) => {
         if (!_filter.items) return null
         return (

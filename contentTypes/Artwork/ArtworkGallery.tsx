@@ -1,5 +1,5 @@
 import Filter from '@components/Filter/Filter'
-import Gallery from '@components/lib/Gallery/Gallery'
+import Gallery from '@components/Gallery/Gallery'
 import { ArtworksGalleryResult } from 'pageBuilder/Blocks/ArtworkBlock'
 import { useRouter } from 'next/router'
 import React from 'react'
@@ -48,7 +48,7 @@ const Artworks: React.FC<ArtworksProps> = (props) => {
   }
 
   return (
-    <div>
+    <div data-color="white">
       <Filter
         filter={[
           {

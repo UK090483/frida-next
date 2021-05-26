@@ -26,7 +26,12 @@ class MyDocument extends Document {
             rel="stylesheet"
           />
         </Head>
-        <div key="fridaMouse" id={'mouse'} className={`frida_mouse`}>
+        <div
+          key="fridaMouse"
+          aria-hidden="true"
+          id={'mouse'}
+          className={`frida_mouse`}
+        >
           <div></div>
         </div>
         <script
@@ -36,7 +41,7 @@ class MyDocument extends Document {
           }}
         />
 
-        <body>
+        <body className="overflow-x-hidden">
           <Main />
           <NextScript />
           <div id="drawer" />

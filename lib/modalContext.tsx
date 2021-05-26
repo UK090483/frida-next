@@ -13,6 +13,7 @@ export type ModalPageData = {
   slug: null | string
 }
 interface ModalContext {
+  saveScroll: (path: string) => void
   pushAsModal: (
     slug: string,
     type: 'artwork' | 'artist' | 'post' | 'product'
@@ -24,6 +25,7 @@ interface ModalContext {
 }
 
 const initialContext: ModalContext = {
+  saveScroll: (path) => {},
   open: false,
   pushAsModal: (slug) => {},
   closeModal: () => {},
@@ -37,6 +39,8 @@ interface ModalContextState
   extends Pick<ModalContext, 'open' | 'secondPageData' | 'firstPageData'> {
   closeToSlug: null | string
   state: 0 | 1 | 2 | 3
+  savedScroll: null | number
+  savedPath: null | string
 }
 const initialContextState: ModalContextState = {
   firstPageData: initialContext.firstPageData,
@@ -44,13 +48,23 @@ const initialContextState: ModalContextState = {
   open: initialContext.open,
   closeToSlug: null,
   state: 0,
+  savedScroll: null,
+  savedPath: null,
 }
 
 const ModalContextProvider: React.FC = ({ children }) => {
   const router = useRouter()
 
   const [
-    { open, closeToSlug, firstPageData, secondPageData, state },
+    {
+      open,
+      closeToSlug,
+      firstPageData,
+      secondPageData,
+      state,
+      savedScroll,
+      savedPath,
+    },
     setState,
   ] = React.useState<ModalContextState>(initialContextState)
 
@@ -88,22 +102,21 @@ const ModalContextProvider: React.FC = ({ children }) => {
     }))
   }, [secondData])
 
-  // React.useEffect(() => {
-  //   const handleRouteChange = (
-  //     url: string,
-  //     { shallow }: { shallow: boolean }
-  //   ) => {
-  //     if (open && (url !== firstPageData.slug || url !== secondPageData.slug)) {
-  //       setState(() => initialContextState)
-  //     }
-  //   }
+  React.useEffect(() => {
+    const handleRouteChange = (
+      url: string,
+      { shallow }: { shallow: boolean }
+    ) => {
+      if (savedScroll && savedPath === url) {
+      }
+    }
 
-  //   router.events.on('routeChangeStart', handleRouteChange)
+    router.events.on('routeChangeComplete', handleRouteChange)
 
-  //   return () => {
-  //     router.events.off('routeChangeStart', handleRouteChange)
-  //   }
-  // }, [router])
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange)
+    }
+  }, [router])
 
   const secondPageIn = (slug: string, type: any) => {
     setState((oldState) => ({
@@ -177,6 +190,18 @@ const ModalContextProvider: React.FC = ({ children }) => {
         shallow: true,
       })
     }, 300)
+
+    //@ts-ignore
+
+    // router.push(slug, slug, { scroll: false })
+  }
+
+  const saveScroll = (path: string) => {
+    setState((oS) => ({ ...oS, savedScroll: window.scrollY, savedPath: path }))
+    //@ts-ignore
+    window.savedScroll = window.scrollY
+    //@ts-ignore
+    window.savedPath = path
   }
 
   const closeModal = () => {
@@ -201,6 +226,7 @@ const ModalContextProvider: React.FC = ({ children }) => {
         closeModal,
         firstPageData,
         secondPageData,
+        saveScroll,
       }}
     >
       {children}

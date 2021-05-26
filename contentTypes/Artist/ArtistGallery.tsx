@@ -1,8 +1,8 @@
-import Gallery from '@components/lib/Gallery/Gallery'
+import Gallery from '@components/Gallery/Gallery'
 import React from 'react'
 
 import { FridaLocation } from 'types'
-import Section from '@components/container/section'
+import Section from '@components/Section'
 import ArtistCard, { ArtistCardResult } from './ArtistCard'
 import Filter from '@components/Filter/Filter'
 import { useRouter } from 'next/router'
@@ -50,12 +50,8 @@ const ArtistGallery: React.FC<ArtworksProps> = ({ items, lang }) => {
       <Section type={'full'}>
         <div className="py-12">
           <Gallery
-            type="masonry"
-            items={[
-              filterElements().map((item) => (
-                <ArtistCard type="grid" {...item} />
-              )),
-            ]}
+            type="grid"
+            items={[filterElements().map((item) => <ArtistCard {...item} />)]}
           />
         </div>
       </Section>

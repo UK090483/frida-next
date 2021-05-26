@@ -3,7 +3,7 @@ import { m, AnimatePresence } from 'framer-motion'
 import cx from 'classnames'
 
 import { clampRange } from '@lib/helpers'
-import Icon from '@components/icon'
+import Icon from '@components/iconOld'
 
 const flipAnim = {
   show: {

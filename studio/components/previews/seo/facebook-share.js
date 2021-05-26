@@ -30,10 +30,13 @@ class FacebookShare extends React.PureComponent {
     const { default: defaultSEO, document, options, width } = this.props
     const { seo } = document
 
-    const { shareTitle, shareDesc, shareGraphic, url } = useSeo(
-      defaultSEO,
-      document
-    )
+    const {
+      shareTitle,
+      shareDesc,
+      shareGraphic,
+      url,
+      shareGraphicSrc
+    } = useSeo(defaultSEO, document, builder)
 
     // const url = assemblePageUrl({ document, options })
     const websiteUrlWithoutProtocol = url.split('://')[1]
@@ -53,10 +56,14 @@ class FacebookShare extends React.PureComponent {
                   {shareGraphic ? (
                     <img
                       className={styles.facebookCardImage}
-                      src={urlFor(shareGraphic.asset)
-                        .width(1200)
-                        .height(630)
-                        .url()}
+                      src={
+                        shareGraphicSrc
+                          ? shareGraphicSrc
+                          : urlFor(shareGraphic.asset)
+                              .width(1200)
+                              .height(630)
+                              .url()
+                      }
                     />
                   ) : (
                     <span className={styles.imagePlaceholder} />

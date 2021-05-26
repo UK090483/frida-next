@@ -18,18 +18,9 @@
   }
 
   &--placeholder {
-    @apply absolute inset-0;
-    /* filter: grayscale(1); */
-    transform: scale(1.15);
-    transition: opacity 0s 0.4s linear;
-
-    &.is-loaded {
-      @apply opacity-0;
-    }
-
     &::after {
       @apply absolute inset-0;
-      backdrop-filter: blur(1rem) contrast(1.5);
+      backdrop-filter: blur(0.5rem) contrast(1.5);
       content: '';
     }
 

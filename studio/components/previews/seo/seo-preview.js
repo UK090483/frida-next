@@ -7,25 +7,9 @@ import FacebookShare from './facebook-share'
 
 import sanityClient from 'part:@sanity/base/client'
 
-class SeoPreviews extends React.PureComponent {
-  static propTypes = {
-    document: PropTypes.object
-  }
-
-  static defaultProps = {
-    document: null
-  }
-
-  state = {
-    defaultSEO: {}
-  }
-
-  constructor() {
-    super()
-    this.loadData()
-  }
-
-  loadData = () => {
+const SeoPreviews = props => {
+  const [state, setState] = React.useState({ defaultSEO: {}, document: {} })
+  const loadData = () => {
     sanityClient
       .fetch(
         `
@@ -40,37 +24,61 @@ class SeoPreviews extends React.PureComponent {
       `
       )
       .then(seo => {
-        this.setState({
-          defaultSEO: seo || {}
-        })
+        setState(od => ({ ...od, defaultSEO: seo || {} }))
       })
   }
 
-  render() {
-    const { options } = this.props
-    const { displayed } = this.props.document
-    const { defaultSEO } = this.state
-
-    return (
-      <>
-        <GoogleSearchResult
-          default={defaultSEO}
-          document={displayed}
-          options={options}
-        />
-        <TwitterCard
-          default={defaultSEO}
-          document={displayed}
-          options={options}
-        />
-        <FacebookShare
-          default={defaultSEO}
-          document={displayed}
-          options={options}
-        />
-      </>
-    )
+  const loadExtraData = id => {
+    sanityClient
+      .fetch(
+        `
+        *[_id == '${id}'][0]{
+          'artistName':artist->name,
+          'artworkName':name,
+          'slug':slug.current,
+          'photo':image
+        }
+      `
+      )
+      .then(data => {
+        setState(od => ({ ...od, document: data }))
+      })
   }
+
+  React.useEffect(() => {
+    loadData()
+  }, [])
+  React.useEffect(() => {
+    if (props.document.displayed._type === 'artwork') {
+      loadExtraData(props.document.displayed._id)
+    }
+  }, [props.document.displayed])
+
+  const { options } = props
+
+  const { defaultSEO } = state
+
+  const displayed = { ...props.document.displayed, ...state.document }
+
+  return (
+    <>
+      <GoogleSearchResult
+        default={defaultSEO}
+        document={displayed}
+        options={options}
+      />
+      <TwitterCard
+        default={defaultSEO}
+        document={displayed}
+        options={options}
+      />
+      <FacebookShare
+        default={defaultSEO}
+        document={displayed}
+        options={options}
+      />
+    </>
+  )
 }
 
 export default SeoPreviews

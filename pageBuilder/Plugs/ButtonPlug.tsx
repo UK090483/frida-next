@@ -1,7 +1,8 @@
 import React from 'react'
-import Button from '@components/lib/buttons/button'
+import Button from '@components/buttons/button'
 
 import { FridaColors } from 'types'
+import { buildInternalLink } from '@components/helper/buildInternalLink'
 
 export const buttonPlugQuery = ` 
 _type == "button" => {
@@ -28,7 +29,11 @@ interface ButtonPlugProps extends ButtonPlugResult {}
 const ButtonPlug: React.FC<ButtonPlugProps> = (props) => {
   const { internalLink, link, color, bgColor, label, position } = props
 
-  const _link = !!internalLink ? buildLink(internalLink) : !!link ? link : '/'
+  const _link = !!internalLink
+    ? buildInternalLink(internalLink)
+    : !!link
+    ? link
+    : '/'
   const _type = !!internalLink ? 'link' : !!link ? 'externalLink' : 'link'
 
   return (
@@ -44,17 +49,3 @@ const ButtonPlug: React.FC<ButtonPlugProps> = (props) => {
 }
 
 export default ButtonPlug
-
-const buildLink = (link: { type: string; slug: string }) => {
-  const { type, slug } = link
-
-  if (type === 'artwork') {
-    return `/artwork/${slug}`
-  }
-
-  if (type === 'page') {
-    return `/${slug}`
-  }
-
-  return '/'
-}

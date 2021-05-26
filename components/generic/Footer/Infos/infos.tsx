@@ -1,4 +1,4 @@
-import Section from '@components/container/section'
+import Section from '@components/Section'
 import { mouseLinkProps } from '@components/generic/Mouse/mouseRemote'
 import { useRouter } from 'next/router'
 import React from 'react'

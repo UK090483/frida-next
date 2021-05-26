@@ -1,30 +1,57 @@
+import Category from '@components/Category'
+import Photo from '@components/photo'
+import { PageBuilderBlockBase } from '@lib/queries/pageBuilderQueries'
+import { imageMeta, ImageMetaResult } from '@lib/queries/snippets'
 import React from 'react'
-import Category from '@components/category/Category'
-import ImageParser from '../ImageParser'
 
-type CategoryBlockProps = {
-  content: any
+const categoryItem = `
+...,
+label,
+label_en,
+size,
+'internalLink' :internalLink->{"type":_type,'slug':slug.current},
+urlParams,
+sizeMobile,
+'images':images[]{${imageMeta}}
+
+`
+
+export const categoriesBlockQuery = `
+_type == "categories" => {
+  type,
+  'items':items[]{${categoryItem}},
+}
+`
+type CategoryItem = {
+  label?: string
+  label_en?: string
+  size?: 'm' | 's' | 'l'
+  sizeMobile?: 'm' | 's' | 'l'
+  internalLink?: { slug: string; type: string } | null
+  urlParams?: string
+  images?: ImageMetaResult[]
+}
+export interface CategoryBlockResult extends PageBuilderBlockBase {
+  items: CategoryItem[]
 }
 
-const CategoryBlock: React.FC<CategoryBlockProps> = (props) => {
-  if (!props.content) return <></>
+const CategoryBlock: React.FC<CategoryBlockResult> = (props) => {
+  const { items } = props
 
-  const items = props.content.map((item: any) => ({
-    label: item.label,
-    size: item.size,
+  if (!items) return <div></div>
+
+  const _items = props.items.map((item) => ({
+    ...item,
     images: [
       ...(item.images
-        ? item.images.map((image: any) => (
-            <ImageParser
-              style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-              image={image}
-            />
+        ? item.images.map((image) => (
+            <Photo photo={image} layout="fill" className="w-full h-full" />
           ))
         : []),
     ],
   }))
 
-  return <Category items={items}></Category>
+  return <Category items={_items}></Category>
 }
 
 export default CategoryBlock

@@ -8,6 +8,7 @@ _type == "embed" => {
 `
 
 export type EmbedPlugResult = {
+  _type: 'embed'
   url?: null | string
 }
 

@@ -5,6 +5,7 @@ import Frida from '../components/Frida'
 import EmbedPlug, { embedPlugQuery } from './Plugs/EmbedPlug'
 import ButtonPlug, { buttonPlugQuery } from './Plugs/ButtonPlug'
 import { imagePlugQuery } from './Plugs/ImagePlug'
+import { PageBuilderBlockBase } from '@lib/queries/pageBuilderQueries'
 
 export const richTextQuery = `
 content[]{
@@ -14,6 +15,11 @@ content[]{
   ${imagePlugQuery}
 }
 `
+
+export interface RichTextQueryResult extends PageBuilderBlockBase {
+  _type: 'richText'
+  content: any[]
+}
 
 const pink = (props: any) => {
   return <span className="text-frida-pink">{props.children}</span>

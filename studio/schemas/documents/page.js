@@ -28,6 +28,13 @@ export default {
       type: 'pageHeader',
       title: 'Header'
     },
+    {
+      name: 'footer',
+      description: 'if empty it will use the default Footer',
+      type: 'reference',
+      title: 'Footer',
+      to: [{ type: 'footer' }]
+    },
     defaultBockContent,
 
     {

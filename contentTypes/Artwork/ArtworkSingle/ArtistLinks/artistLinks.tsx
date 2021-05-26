@@ -1,5 +1,5 @@
 import React from 'react'
-import Button from '../../../../components/lib/buttons/button'
+import Button from '../../../../components/buttons/button'
 
 type ArtistLinksProps = {
   artwork: {

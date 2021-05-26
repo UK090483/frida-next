@@ -10,6 +10,11 @@ import {
   carouselHeroBlockQuery,
   CarouselHeroResult,
 } from 'pageBuilder/Blocks/CarouselHeroBlock'
+import { categoriesBlockQuery } from 'pageBuilder/Blocks/CategoryBlock'
+import {
+  MarqueeBlockQuery,
+  MarqueeBlockQueryResult,
+} from 'pageBuilder/Blocks/Marquee'
 import {
   postsBlockQuery,
   PostsGalleryResult,
@@ -22,7 +27,7 @@ import {
   sectionBlockQuery,
   SectionResult,
 } from 'pageBuilder/Blocks/SectionBlock'
-import { richTextQuery } from 'pageBuilder/RichText'
+import { richTextQuery, RichTextQueryResult } from 'pageBuilder/RichText'
 
 export type PageBuilderBlockBase = {
   _type: string
@@ -33,12 +38,14 @@ export const body = `
 content[]{
   ...,
   ${carouselHeroBlockQuery},
+  ${categoriesBlockQuery},
   ${artworksBlockQuery},
   ${artistsBlockQuery},
   ${productsBlockQuery},
   ${postsBlockQuery},
   ${sectionBlockQuery},
   ${richTextQuery},
+  ${MarqueeBlockQuery}
 },
 `
 
@@ -49,4 +56,6 @@ export type PageBodyResult = (
   | PostsGalleryResult
   | ProductsGalleryResult
   | SectionResult
+  | RichTextQueryResult
+  | MarqueeBlockQueryResult
 )[]

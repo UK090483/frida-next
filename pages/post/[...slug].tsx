@@ -1,81 +1,40 @@
-import PostSingle from 'contentTypes/Post/PostSingle'
-import { getAllDocSlugs } from '@lib/api'
-import { getPostPage, PostPageResult } from '@lib/queries/postQueries'
+import { usePage } from '@lib/queries/usePage'
+import { getAllDocPathsCached } from '@lib/queries/fetchDocPathApi'
+import { handleStaticProps } from '@lib/queries/handleStaticProps'
 import Error from '@pages/404'
+import PostSingle, {
+  PostPageResult,
+  postSingleView,
+} from 'contentTypes/Post/PostSingle'
 import { GetStaticPaths, GetStaticProps } from 'next'
-import { useRouter } from 'next/router'
 import React from 'react'
 import { FridaLocation } from 'types'
 
 type PostTemplateProps = {
   data: PostPageResult
   lang: FridaLocation
+  slug: any
 }
+const query = `
+*[_type == "post" && slug.current == $slug ][0]{
+  ${postSingleView},
+}
+`
 
 const ArtworkTemplate: React.FC<PostTemplateProps> = (props) => {
-  const { data, lang } = props
-  const { title, title_en, categories } = data
-  const router = useRouter()
+  const { data, lang, slug } = props
+  const { pageData, isError } = usePage({ slug, query, data })
+  if (isError) return <Error />
 
-  if (!router.isFallback && !data) {
-    return <Error />
-  }
-
-  return <div>{!router.isFallback && <PostSingle lang={lang} {...data} />}</div>
+  return <PostSingle lang={lang} {...pageData} />
 }
 
-export const getStaticProps: GetStaticProps = async ({
-  params,
-  preview,
-  previewData,
-  locale,
-}) => {
-  if (!params?.slug) return { notFound: true }
-
-  //@ts-ignore
-  const pageData = await getPostPage(params.slug.join('/'), {
-    active: preview, //@ts-ignore
-    token: previewData?.token,
-  })
-
-  if (!params?.slug) return { notFound: true }
-
-  return {
-    props: {
-      data: pageData,
-      lang: locale,
-    },
-  }
+export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
+  return await handleStaticProps({ params, locale, query })
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  let allPages = await getAllDocSlugs('post')
-  if (!allPages) return { paths: [], fallback: true }
-
-  return {
-    paths:
-      allPages.reduce((acc, page) => {
-        if (!page.slug) return [...acc]
-        let slugs = page.slug.split('/').filter((e: string) => e)
-
-        return [
-          ...acc,
-          {
-            params: {
-              slug: slugs,
-            },
-            locale: 'de',
-          },
-          {
-            params: {
-              slug: slugs,
-            },
-            locale: 'en',
-          },
-        ]
-      }, [] as any[]) || [],
-    fallback: false,
-  }
+  return await getAllDocPathsCached('post')
 }
 
 export default ArtworkTemplate

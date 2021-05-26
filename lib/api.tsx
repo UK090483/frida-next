@@ -346,6 +346,38 @@ const getAllDocSlugs: (doc: string) => Promise<null | { slug: string }[]> =
 
 export { getAllDocSlugs }
 
+const getAllDocPaths = async (doc: string) => {
+  let allPages = await getAllDocSlugs(doc)
+  if (!allPages) return { paths: [], fallback: true }
+
+  return {
+    paths:
+      allPages.reduce((acc, page) => {
+        if (!page.slug) return [...acc]
+        let slugs = page.slug.split('/').filter((e: string) => e)
+
+        return [
+          ...acc,
+          {
+            params: {
+              slug: slugs,
+            },
+            locale: 'de',
+          },
+          {
+            params: {
+              slug: slugs,
+            },
+            locale: 'en',
+          },
+        ]
+      }, [] as any[]) || [],
+    fallback: false,
+  }
+}
+
+export { getAllDocPaths }
+
 // Fetch all our page redirects
 export async function getAllRedirects() {
   const data = await getSanityClient().fetch(

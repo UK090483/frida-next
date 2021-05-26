@@ -39,14 +39,14 @@ class TwitterCard extends React.PureComponent {
 
     // const url = assemblePageUrl({ document, options })
 
-    const { shareTitle, shareDesc, shareGraphic, url } = useSeo(
-      defaultSEO,
-      document
-    )
+    const {
+      shareTitle,
+      shareDesc,
+      shareGraphic,
+      url,
+      shareGraphicSrc
+    } = useSeo(defaultSEO, document, builder)
     const websiteUrlWithoutProtocol = url.split('://')[1]
-    // const shareTitle = seo?.shareTitle || defaultSEO?.shareTitle
-    // const shareDesc = seo?.shareDesc || defaultSEO?.shareDesc
-    // const shareGraphic = seo?.shareGraphic || defaultSEO?.shareGraphic
 
     return (
       <div className={styles.seoItem}>
@@ -80,10 +80,14 @@ class TwitterCard extends React.PureComponent {
                     <div className={styles.tweetCardImage}>
                       {shareGraphic ? (
                         <img
-                          src={urlFor(shareGraphic.asset)
-                            .width(1200)
-                            .height(630)
-                            .url()}
+                          src={
+                            shareGraphicSrc
+                              ? shareGraphicSrc
+                              : urlFor(shareGraphic.asset)
+                                  .width(1200)
+                                  .height(630)
+                                  .url()
+                          }
                         />
                       ) : (
                         <span className={styles.imagePlaceholder} />

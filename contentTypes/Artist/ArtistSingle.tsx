@@ -1,12 +1,11 @@
 import FridaImage from '@components/fridaImage/FridaImage'
-import { ArtistPageResult } from '@lib/queries/artistQueries'
 import React from 'react'
 import { FridaLocation } from 'types'
-import Carousel from 'components/CardCarousel/Carousel'
+import Carousel from '@components/Carousel'
 import ArtworkCard from 'contentTypes/Artwork/ArtworkCard'
-import Section from '@components/container/section'
-
-import Button from 'components/lib/buttons/button'
+import Section from '@components/Section'
+import Button from '@components/buttons/button'
+import { ArtistPageResult } from '@pages/artist/[...slug]'
 
 interface ArtistSingleProps extends ArtistPageResult {
   lang: FridaLocation
@@ -32,7 +31,7 @@ const ArtistSingle: React.FC<ArtistSingleProps> = (props) => {
         <FridaImage
           photo={relatedArtworks[1]?.photo}
           layout="fill"
-          className="h-vh"
+          className="h-vh w-full"
         />
       )}
 
@@ -42,7 +41,7 @@ const ArtistSingle: React.FC<ArtistSingleProps> = (props) => {
           {name}
         </h1>
         {_description && <p className="text-base-fluid">{_description}</p>}
-        <div className="flex">
+        <div className="flex flex-wrap justify-center md:justify-start  ">
           {webLink && (
             <Button
               label="Website"
@@ -50,7 +49,7 @@ const ArtistSingle: React.FC<ArtistSingleProps> = (props) => {
               link={webLink}
               color="red"
               backgroundColor="white"
-              className="mr-3"
+              className=" md:mb-0 md:mr-3"
             />
           )}
           {instagramLink && (
@@ -58,9 +57,9 @@ const ArtistSingle: React.FC<ArtistSingleProps> = (props) => {
               label="Instagram"
               type="externalLink"
               link={instagramLink}
-              color={'red'}
+              color="red"
               backgroundColor="white"
-              className="mr-3"
+              className=" md:mr-3"
             />
           )}
         </div>

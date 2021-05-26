@@ -1,10 +1,10 @@
-import React, { useContext } from "react"
-import PropTypes from "prop-types"
-import styled from "styled-components"
-import Artikel from "./Artikel/Artikel"
-import Summary from "./Summary"
-import shopContext from "~context/shopifyContext"
-import Button from "../../../lib/buttons/button"
+import React, { useContext } from 'react'
+import PropTypes from 'prop-types'
+import styled from 'styled-components'
+import Artikel from './Artikel/Artikel'
+import Summary from './Summary'
+import shopContext from '~context/shopifyContext'
+import Button from '../../../buttons/button'
 
 export default function ArtikelList() {
   const shop = useContext(shopContext)
@@ -14,7 +14,7 @@ export default function ArtikelList() {
     removeLineItem,
   } = shop
 
-  const handleRemove = e => {
+  const handleRemove = (e) => {
     removeLineItem(client, checkout.id, e)
   }
 
@@ -22,7 +22,7 @@ export default function ArtikelList() {
     <Root>
       {checkout.lineItems.length > 0 ? (
         <React.Fragment>
-          {checkout.lineItems.map(item => (
+          {checkout.lineItems.map((item) => (
             <Artikel key={item.id} artikel={item} onRemove={handleRemove} />
           ))}
           <Summary sum={checkout.totalPrice} tax={checkout.totalTax}></Summary>
@@ -87,8 +87,7 @@ const ButtonsWrap = styled.div`
   }
 `
 const CheckoutButton = styled.a`
-
-  width:100%;
+  width: 100%;
   max-width: 800px;
   font-weight: 800;
   text-decoration: none;
@@ -99,21 +98,19 @@ const CheckoutButton = styled.a`
   align-items: center;
   justify-content: center;
   padding: 10px 1.5rem;
-  border: ${({ theme }) => theme.colors.green + " solid " + theme.borderWidth};
+  border: ${({ theme }) => theme.colors.green + ' solid ' + theme.borderWidth};
   color: ${({ theme }) => theme.colors.white};
-  background-color:${({ theme }) => theme.colors.green};
+  background-color: ${({ theme }) => theme.colors.green};
   border-radius: 50px;
-   /* @media ${({ theme }) => theme.device.tablet} {
+  /* @media ${({ theme }) => theme.device.tablet} {
     padding: 1.2rem 2rem;
   } */
- 
-  
-  
+
   transition: background-color 0.4s, color 0.4s;
   &:hover {
     background-color: transparent;
     color: ${({ theme }) => theme.colors.green};
-  }  
+  }
 `
 
 ArtikelList.propTypes = {

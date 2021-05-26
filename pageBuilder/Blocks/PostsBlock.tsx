@@ -13,6 +13,7 @@ _type == "posts" => {
 }
 `
 export interface PostsGalleryResult extends PageBuilderBlockBase {
+  _type: 'posts'
   items: PostCardResult[]
 }
 

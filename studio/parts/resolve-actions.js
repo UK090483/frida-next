@@ -24,6 +24,8 @@ const singletons = [
   'seoSettings'
 ]
 
+const singletonsID = ['3667a872-9775-477c-b33b-09370c28524f']
+
 const editAndDelete = ['product', 'productVariant']
 
 const previews = ['homePage', 'shopPage', 'page', 'product', 'collection']
@@ -48,6 +50,15 @@ export default function resolveDocumentActions(props) {
   const isSingle = singletons.indexOf(props.type) > -1
   const canEditDelete = editAndDelete.indexOf(props.type) > -1
   const canPreview = previews.indexOf(props.type) > -1
+  const isSingleID = singletonsID.indexOf(props.id) > -1
+
+  if (isSingleID) {
+    return [
+      PublishAction,
+      DiscardChangesAction,
+      ...(canPreview ? [PreviewAction] : [])
+    ]
+  }
 
   if (isSingle) {
     return [

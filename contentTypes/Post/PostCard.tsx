@@ -64,26 +64,24 @@ const PostCard: React.FC<PostCardProps> = (props) => {
     <Link href={`/post/${slug}`} passHref>
       <a
         {...mouseLinkProps}
-        className=" px-20"
+        className="p-2 flex flex-wrap-reverse md:flex-nowrap justify-between  w-full  mb-16"
         onClick={(e) => {
           e.preventDefault()
 
           pushAsModal(`/post/${slug}`, 'post')
         }}
       >
-        <div {...mouseLinkProps} className="flex mb-16 px-28">
-          <div className="w-2/3 pr-40 flex flex-col justify-between ">
-            <Infos categories={_categories} createdAt={createdAt} />
-            <h2 className="header-small">{_title}</h2>
-          </div>
-
-          <FridaImage
-            className="w-96 h-80"
-            photo={previewImage}
-            {...ARTWORK_IMAGE_PROPS}
-            layout="fill"
-          />
+        <div className="w-full md:w-2/3 mt-4 md:mt-0 md:pr-frida_7% flex flex-col justify-between ">
+          <Infos categories={_categories} createdAt={createdAt} />
+          <h2 className="header-small">{_title}</h2>
         </div>
+
+        <FridaImage
+          className=" w-full md:w-96 h-80 mx-auto"
+          photo={previewImage}
+          {...ARTWORK_IMAGE_PROPS}
+          layout="fill"
+        />
       </a>
     </Link>
   )

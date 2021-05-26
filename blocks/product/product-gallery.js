@@ -3,7 +3,7 @@ import { AnimatePresence, m } from 'framer-motion'
 
 import { hasObject } from '@lib/helpers'
 
-import Carousel from '@components/carousel'
+import Carousel from '@components/carouselOld'
 import Photo from '@components/photo'
 
 import { fadeAnim } from '@lib/animate'

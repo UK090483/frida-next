@@ -1,15 +1,8 @@
-import React from 'react'
-import Link from 'next/link'
-import Frida from '@components/Frida'
+import Card from '@components/Card'
+import ProductName from '@components/ProductComponents/ProductName'
 import { imageMeta, ImageMetaResult } from '@lib/queries/snippets'
-import FridaImage, {
-  ARTWORK_IMAGE_PROPS,
-} from '@components/fridaImage/FridaImage'
-
-import { useModalContext } from '@lib/modalContext'
+import React from 'react'
 import { GalleryTypes } from 'types'
-import ProductName from '@components/lib/ProductComponents/ProductName'
-import CardWrap from '@components/CardCarousel/CardWrap'
 
 export const productCardQuery = `
 'slug':slug.current,
@@ -19,7 +12,7 @@ listingPhotos[]{
   listingPhoto {${imageMeta}}
 },
 description,
-price
+'price':price/100,
 `
 export type ProductCardResult = {
   slug: string
@@ -27,7 +20,7 @@ export type ProductCardResult = {
   title_en: string | null
   excerpt: string | null
   excerpt_en: string | null
-  listingPhotos: { listingPhoto: ImageMetaResult[] }[]
+  listingPhotos: { listingPhoto: ImageMetaResult }[]
   price: number
 }
 
@@ -39,30 +32,23 @@ interface ProductCardProps extends ProductCardResult {
 const ProductCard: React.FC<ProductCardProps> = (props) => {
   const { listingPhotos, slug, isSwiping, type, title, price } = props
 
-  const photo = listingPhotos[0] ? listingPhotos[0].listingPhoto : null
-
-  const { pushAsModal } = useModalContext()
+  const photo =
+    listingPhotos && listingPhotos[0] ? listingPhotos[0].listingPhoto : null
 
   return (
-    <CardWrap
+    <Card
       isSwiping={isSwiping}
       slug={slug}
       type="product"
       galleryType={type}
+      photo={photo}
+      title="Shop"
     >
-      {photo && (
-        <div className="aspect-w-9 aspect-h-12">
-          <FridaImage photo={photo} {...ARTWORK_IMAGE_PROPS} layout="fill" />
-        </div>
-      )}
-      <div className="text-lg font-bold mt-3">
-        <Frida text="Shop" textColor="pink" />
-      </div>
       <div className="flex flex-wrap text-xl pt-5">
         <ProductName size={'m'} name={title || '---'} availability={true} />
         <div className="pl-2 ml-auto text-right">{price}€</div>
       </div>
-    </CardWrap>
+    </Card>
   )
 }
 

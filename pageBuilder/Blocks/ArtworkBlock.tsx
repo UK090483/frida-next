@@ -1,5 +1,5 @@
 import { PageBuilderBlockBase } from '@lib/queries/pageBuilderQueries'
-import Carousel from 'components/CardCarousel/Carousel'
+import Carousel from '@components/Carousel'
 import ArtworkCard, {
   artworkCardQuery,
   ArtworkCardResult,
@@ -8,36 +8,26 @@ import Artworks from 'contentTypes/Artwork/ArtworkGallery'
 import React from 'react'
 import { FridaLocation } from 'types'
 
-const hasNoFilter = `(count(filter) == 0 || coalesce(filter,true))`
-const hasFilter = `(count(filter) > 0)`
-
 export const artworksBlockQuery = `
 _type == "artworks" => {
   type,
-  'items':  select(
-    ${hasNoFilter} && count=='20' => *[_type == 'artwork'][0...10]{${artworkCardQuery}},
-    ${hasNoFilter} && count=='all' => *[_type == 'artwork']{${artworkCardQuery}},
-    ${hasFilter}  && count=='20' => *[_type == 'artwork'  && references(^.filter[]._ref)][0...10]{${artworkCardQuery}},
-    ${hasFilter} && count=='all' => *[_type == 'artwork'  && references(^.filter[]._ref)]{${artworkCardQuery}}
-    ),
+  label,
+  label_en,
+  'items':  *[_type == 'artwork'][0..5]{${artworkCardQuery}},
   'stil':*[_type=='stil']{name},
   'medium':*[_type=='medium']{name}
 }
 `
 
-// export const artworksBlockQuery = `
-// _type == "artworks" => {
-//   type,
-
-//   'stil':*[_type=='stil']{name},
-//   'medium':*[_type=='medium']{name}
-// }
-// `
 export interface ArtworksGalleryResult extends PageBuilderBlockBase {
+  _type: 'artworks'
   type: 'carousel' | 'masonry'
+  label?: null | string
+  label_en?: null | string
   items: ArtworkCardResult[]
   stil?: { name: string }[]
   medium?: { name: string }[]
+  count?: 'all' | number
 }
 
 interface ArtworksBlockProps extends ArtworksGalleryResult {
@@ -45,7 +35,9 @@ interface ArtworksBlockProps extends ArtworksGalleryResult {
 }
 
 const ArtworksBlock: React.FC<ArtworksBlockProps> = (props) => {
-  const { items = [], lang, type } = props
+  const { items = [], lang, type, label, label_en } = props
+
+  const _label = lang === 'en' && label_en ? label_en : label
 
   if (type === 'masonry') {
     return <Artworks {...props} lang={lang} />
@@ -53,6 +45,7 @@ const ArtworksBlock: React.FC<ArtworksBlockProps> = (props) => {
 
   return (
     <Carousel
+      header={_label}
       items={items.map((item) => (
         <ArtworkCard key={item.slug} type="carousel" {...item} />
       ))}

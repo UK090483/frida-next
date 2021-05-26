@@ -1,9 +1,9 @@
-import Gallery from '@components/lib/Gallery/Gallery'
+import Gallery from '@components/Gallery/Gallery'
 
 import React from 'react'
 
 import { FridaLocation } from 'types'
-import Section from '@components/container/section'
+import Section from '@components/Section'
 import ProductCard, { ProductCardResult } from './ProductCard'
 
 type ProductGalleryProps = {
@@ -17,16 +17,14 @@ const ProductGallery: React.FC<ProductGalleryProps> = ({ items, lang }) => {
     <>
       <div id={'filter'} style={{ transform: 'translateY(-10vh)' }}></div>
       <Section type={'full'}>
-        <div className="py-12">
-          <Gallery
-            type="grid"
-            items={[
-              items.map((item) => (
-                <ProductCard key={item.slug} type="grid" {...item} />
-              )),
-            ]}
-          />
-        </div>
+        <Gallery
+          type="grid"
+          items={[
+            items.map((item) => (
+              <ProductCard key={item.slug} type="grid" {...item} />
+            )),
+          ]}
+        />
       </Section>
     </>
   )

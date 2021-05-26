@@ -22,9 +22,9 @@ class GoogleSearchResult extends React.PureComponent {
     const { default: defaultSEO, document, options, width } = this.props
     const { seo } = document
 
-    const { metaTitle, metaDesc } = useSeo(defaultSEO, document)
+    const { metaTitle, metaDesc, url } = useSeo(defaultSEO, document)
 
-    const url = assemblePageUrl({ document, options })
+    // const url = assemblePageUrl({ document, options })
     const websiteUrlWithoutProtocol = url.split('://')[1]
 
     return (

@@ -1,12 +1,42 @@
-import React from 'react'
-
 import FridaImage from '@components/fridaImage/FridaImage'
-import { PostPageResult } from '@lib/queries/postQueries'
-import BodyParser from 'pageBuilder/BodyParser'
-import { FridaLocation } from 'types'
-import Section from '@components/container/section'
-import { ConditionalWrapper } from '@lib/helpers'
 import Layout from '@components/generic/layout/layout'
+import { imageMeta } from '@lib/api'
+import { ConditionalWrapper } from '@lib/helpers'
+import { SiteResult } from '@lib/queries/cache'
+import { body, PageBodyResult } from '@lib/queries/pageBuilderQueries'
+import { ImageMetaResult } from '@lib/queries/snippets'
+import BodyParser from 'pageBuilder/BodyParser'
+import React from 'react'
+import { FridaLocation } from 'types'
+
+export const postSingleView = `
+title,
+title_en,
+'createdAt':_createdAt,
+'categories':categories[]->{title,title_en},
+'slug':slug.current,
+excerpt,
+excerpt_en,
+'headerImage': headerImage {${imageMeta}},
+'previewImage':previewImage {${imageMeta}},
+
+${body}
+'site':'getSite'
+`
+
+export type PostPageResult = {
+  slug: string
+  title: string
+  title_en: string | null
+  excerpt: string | null
+  excerpt_en: string | null
+  categories: null | { title_en: string; title: string }[]
+  createdAt: null | string
+  headerImage: ImageMetaResult
+  previewImage: ImageMetaResult | null
+  content: null | PageBodyResult
+  site: SiteResult
+}
 
 interface PostSingleProps extends PostPageResult {
   lang: FridaLocation
@@ -41,6 +71,7 @@ const PostSingle: React.FC<PostSingleProps> = (props) => {
         wrapper={(children: any) => {
           return (
             <Layout
+              lang={lang}
               initialColor="pink"
               title={_headerTitle}
               navItems={site?.navigation?.items}

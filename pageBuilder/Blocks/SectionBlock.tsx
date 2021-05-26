@@ -1,13 +1,13 @@
 import React from 'react'
-import Section from '../../components/container/section'
+import Section from '../../components/Section'
 
-import { spaceToTailwind } from '../helper/spaceToTailwind'
 import BodyParser from '../BodyParser'
 import { PageBuilderBlockBase } from '@lib/queries/pageBuilderQueries'
 import { imageMeta } from '@lib/api'
 import { richTextQuery } from 'pageBuilder/RichText'
 import { ImageMetaResult } from '@lib/queries/snippets'
-import { FridaColors, FridaSizes } from 'types'
+import { FridaColors, FridaLocation, FridaSizes } from 'types'
+import classNames from 'classnames'
 
 export const sectionBlockQuery = `
 _type == "section" => {
@@ -24,6 +24,7 @@ _type == "section" => {
 `
 
 export interface SectionResult extends PageBuilderBlockBase {
+  _type: 'section'
   title: null | string
   bgColor: null | FridaColors
   type: null | 'text' | 'hero'
@@ -35,7 +36,7 @@ export interface SectionResult extends PageBuilderBlockBase {
 }
 
 interface SectionBlockProps extends SectionResult {
-  lang: string
+  lang: FridaLocation
 }
 
 const SectionBlock: React.FC<SectionBlockProps> = (props) => {
@@ -54,11 +55,19 @@ const SectionBlock: React.FC<SectionBlockProps> = (props) => {
 
   return (
     <Section
-      className={`${spaceToTailwind(topSpace, 'pt')} ${spaceToTailwind(
-        bottomSpace,
-        'pb',
-        'pb-0.5'
-      )}`}
+      className={classNames(
+        { 'pt-10': topSpace === 's' },
+        { 'pt-20': topSpace === 'm' },
+        { 'pt-32': topSpace === 'l' },
+        { 'pt-44': topSpace === 'xl' },
+        { 'pt-60': topSpace === 'xxl' },
+        { 'pb-10': bottomSpace === 's' },
+        { 'pb-20': bottomSpace === 'm' },
+        { 'pb-32': bottomSpace === 'l' },
+        { 'pb-44': bottomSpace === 'xl' },
+        { 'pb-60': bottomSpace === 'xxl' },
+        { 'pb-0.5': !bottomSpace }
+      )}
       type={type}
       backgroundColor={bgColor || 'white'}
       bgImage={photo}

@@ -1,5 +1,5 @@
 import { PageBuilderBlockBase } from '@lib/queries/pageBuilderQueries'
-import Carousel from 'components/CardCarousel/Carousel'
+import Carousel from '@components/Carousel'
 import ProductCard, {
   productCardQuery,
   ProductCardResult,
@@ -17,6 +17,7 @@ _type == "products" => {
 }
 `
 export interface ProductsGalleryResult extends PageBuilderBlockBase {
+  _type: 'products'
   type: 'carousel' | 'masonry'
   items: ProductCardResult[]
 }

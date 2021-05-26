@@ -1,93 +1,82 @@
-import ArtistSingle from 'contentTypes/Artist/ArtistSingle'
 import Layout from '@components/generic/layout/layout'
-import { getAllDocSlugs } from '@lib/api'
-import { ArtistPageResult, getArtistPage } from '@lib/queries/artistQueries'
+import { usePage } from '@lib/queries/usePage'
+import { getAllDocPathsCached } from '@lib/queries/fetchDocPathApi'
+import { handleStaticProps } from '@lib/queries/handleStaticProps'
+import { site } from '@lib/queries/pageQueries'
 import Error from '@pages/404'
+import ArtistSingle from 'contentTypes/Artist/ArtistSingle'
+import {
+  artworkCardQuery,
+  ArtworkCardResult,
+} from 'contentTypes/Artwork/ArtworkCard'
 import { GetStaticPaths, GetStaticProps } from 'next'
-import { useRouter } from 'next/router'
 import React from 'react'
 import { FridaLocation } from 'types'
+import { SiteResult } from '@lib/queries/cache'
+
+export const artistSingleView = `
+'slug':slug.current,
+'name':anzeigeName,
+description,
+description_en,
+webLink,
+instagramLink,
+'relatedArtworks':*[_type == 'artwork' && references(^._id)]{
+    ${artworkCardQuery}
+},
+'site':'getSite'
+`
+
+export type ArtistPageResult = {
+  slug: string
+  name: string | null
+  description: string | null
+  description_en: string | null
+  webLink: string | null
+  instagramLink: string | null
+  relatedArtworks: ArtworkCardResult[]
+  site: SiteResult
+}
 
 type ArtworkTemplateProps = {
   data: ArtistPageResult
   lang: FridaLocation
+  slug: string
 }
 
-const ArtworkTemplate: React.FC<ArtworkTemplateProps> = (props) => {
-  const { data, lang } = props
-  const router = useRouter()
+const query = `
+        *[_type == "artist" && slug.current == $slug][0]{
+          ${artistSingleView},
+        }
+      `
 
-  if (!router.isFallback && !data) {
+const ArtworkTemplate: React.FC<ArtworkTemplateProps> = (props) => {
+  const { data, lang, slug } = props
+  const { pageData, isError } = usePage({ slug, query, data })
+
+  if (isError) {
     return <Error />
   }
-
   return (
-    <div>
-      {!router.isFallback && (
-        <Layout
-          title={data.name || ''}
-          navItems={data?.site?.navigation?.items}
-          data={data}
-        >
-          <ArtistSingle lang={lang} {...data} />
-        </Layout>
-      )}
-    </div>
+    <>
+      <Layout
+        lang={lang}
+        title={pageData.name || ''}
+        navItems={pageData?.site?.navigation?.items}
+        data={pageData}
+      >
+        <ArtistSingle lang={lang} {...pageData} />
+      </Layout>
+    </>
   )
 }
 
-export const getStaticProps: GetStaticProps = async ({
-  params,
-  preview,
-  previewData,
-  locale,
-}) => {
-  if (!params?.slug) return { notFound: true }
-
-  //@ts-ignore
-  const pageData = await getArtistPage(params.slug.join('/'), {
-    active: preview, //@ts-ignore
-    token: previewData?.token,
-  })
-
-  if (!params?.slug) return { notFound: true }
-
-  return {
-    props: {
-      data: pageData,
-      lang: locale,
-    },
-  }
+export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
+  return await handleStaticProps({ params, locale, query })
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  let allPages = await getAllDocSlugs('artist')
-  if (!allPages) return { paths: [], fallback: true }
-
-  return {
-    paths:
-      allPages.reduce((acc, page) => {
-        if (!page.slug) return [...acc]
-        let slugs = page.slug.split('/').filter((e: string) => e)
-
-        return [
-          ...acc,
-          {
-            params: {
-              slug: slugs,
-            },
-            locale: 'de',
-          },
-          {
-            params: {
-              slug: slugs,
-            },
-            locale: 'en',
-          },
-        ]
-      }, [] as any[]) || [],
-    fallback: false,
-  }
+  return await getAllDocPathsCached('artist')
 }
 
 export default ArtworkTemplate

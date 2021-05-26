@@ -15,6 +15,9 @@ module.exports = {
         'decoration-frida-black',
         'decoration-frida-pink',
         'decoration-frida-white',
+        'text-frida-black',
+        'text-frida-red',
+        'text-frida-pink',
         'bg-frida-pink',
         'bg-frida-red',
         'bg-frida-green',
@@ -32,13 +35,18 @@ module.exports = {
       white: '#FFFFFF',
       pageBG: 'var(--pageBG)',
       pageText: 'var(--pageText)',
+
+      // white: '#000000',
+      // black: '#FFFFFF',
     },
+
     screens: {
       xs: '480px',
-      sm: '768px',
-      md: '940px',
-      lg: '1200px',
-      xl: '1600px',
+      sm: '640px',
+      md: '768px',
+      lg: '1024px',
+      xl: '1280px',
+      '2xl': '1536px',
     },
     borderWidth: {
       DEFAULT: '1px',
@@ -50,6 +58,12 @@ module.exports = {
       8: '8px',
     },
     extend: {
+      inset: {
+        unset: 'unset',
+      },
+      spacing: {
+        'frida_7%': '7%',
+      },
       transitionProperty: {
         'max-height': 'max-height',
         zIndex: 'zIndex',
@@ -94,6 +108,13 @@ module.exports = {
         'frida-white': '#ffffff',
         'frida-black': '#000000',
         'frida-grey': '#e5e7eb',
+
+        // 'frida-pink': '#852e52',
+        // 'frida-red': '#a31217',
+        // 'frida-green': '#6dd163',
+        // 'frida-black': '#ffffff',
+        // 'frida-white': '#000000',
+        // 'frida-grey': '#3c3c3e',
       },
       height: {
         vh: '100vh',
@@ -119,6 +140,8 @@ module.exports = {
         'vw/3': 'calc(100vw / 3)',
         'vw/4': 'calc(100vw / 4)',
         'vw/5': 'calc(100vw / 5)',
+        'vw/6': 'calc(100vw / 6)',
+        'vw/8': 'calc(100vw / 8)',
       },
     },
   },
@@ -132,10 +155,19 @@ module.exports = {
     },
   },
   plugins: [
+    require('@tailwindcss/forms')({
+      strategy: 'class',
+    }),
     require('tailwind-text-decoration-color'),
     require('@tailwindcss/aspect-ratio'),
     require('tailwindcss-fluid')({
       textSizes: {
+        xxs: {
+          min: '10px',
+          max: '13px',
+          minvw: '320px',
+          maxvw: '1400px',
+        },
         xs: {
           min: '12px',
           max: '16px',

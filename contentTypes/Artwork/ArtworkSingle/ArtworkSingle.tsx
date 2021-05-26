@@ -1,9 +1,9 @@
-import Section from '@components/container/section'
-import { ArtworkSingleViewResult } from '@lib/queries/artworksQueries'
-import Carousel from 'components/CardCarousel/Carousel'
+import Section from '@components/Section'
+import { ArtworkSingleViewResult } from 'contentTypes/Artwork/ArtworkSingle/artworksQueries'
+import Carousel from '@components/Carousel'
 import ArtworkCard from 'contentTypes/Artwork/ArtworkCard'
 import React from 'react'
-import Button from 'components/lib/buttons/button'
+import Button from '@components/buttons/button'
 import { FridaLocation } from 'types'
 import ArtworkHero from './ArtworkHero'
 
@@ -13,14 +13,12 @@ interface ArtworkSingleProps extends ArtworkSingleViewResult {
   isModal?: boolean
 }
 
-const ArtworkSingle: React.FC<ArtworkSingleProps> = ({
-  artwork,
-  relatedArtworks,
-  randomArtworks,
-  lang,
-  shopifyProduct,
-}) => {
+const ArtworkSingle: React.FC<ArtworkSingleProps> = (props) => {
   const {
+    relatedArtworks,
+    randomArtworks,
+    lang,
+    shopifyProduct,
     artistDescription,
     description,
     description_en,
@@ -28,7 +26,7 @@ const ArtworkSingle: React.FC<ArtworkSingleProps> = ({
     artistName,
     artistWebLink,
     instagramLink,
-  } = artwork
+  } = props
 
   const _description =
     lang === 'en' && description_en ? description_en : description
@@ -41,7 +39,7 @@ const ArtworkSingle: React.FC<ArtworkSingleProps> = ({
     <>
       <ArtworkHero
         lang={lang}
-        artwork={artwork}
+        artwork={props}
         shopifyProduct={shopifyProduct}
       />
 

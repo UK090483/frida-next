@@ -1,12 +1,6 @@
-import CardWrap from '@components/CardCarousel/CardWrap'
-import Frida from '@components/Frida'
-import FridaImage, {
-  ARTWORK_IMAGE_PROPS,
-} from '@components/fridaImage/FridaImage'
-import ProductName from '@components/lib/ProductComponents/ProductName'
-
-import { ImageMetaResult, imageMeta } from '@lib/queries/snippets'
-// import { ArtworkCardResult } from '@lib/queries/snippets'
+import Card from '@components/Card'
+import ProductName from '@components/ProductComponents/ProductName'
+import { imageMeta, ImageMetaResult } from '@lib/queries/snippets'
 import React from 'react'
 import { GalleryTypes } from 'types'
 import Banner from './banner'
@@ -58,36 +52,36 @@ const ArtworkCard: React.FC<ArtworkCardProps> = (props) => {
     type = 'grid',
   } = props
 
+  // const artistName = 'QQQQQQQQQQQQQQQQQQQQ'
+
   if (!photo) return null
 
   return (
-    <CardWrap
+    <Card
       isSwiping={isSwiping}
       slug={slug}
       type="artwork"
       galleryType={type}
+      photo={photo}
+      title={artistName}
+      alt={`Artwork ${artworkName} by ${artistName}`}
     >
-      <FridaImage
-        {...ARTWORK_IMAGE_PROPS}
-        photo={photo}
-        className={type === 'carousel' ? 'aspect-w-9 aspect-h-12' : `w-full`}
-        layout={type === 'carousel' ? 'contain' : 'intrinsic'}
-      />
-
       {banner === 'hinzundkunzt' && <Banner></Banner>}
-      <div className="text-lg font-bold mt-3">
-        <Frida text={artistName} textColor={'pink'}></Frida>
-      </div>
 
-      <div className="flex flex-wrap text-xl pt-5">
+      <div
+        className={`flex ${
+          type === 'carousel' ? '' : 'flex-wrap'
+        }  text-xl pt-1`}
+      >
         <ProductName
+          truncate={type === 'carousel'}
           size={'m'}
           name={artworkName}
           availability={availability === 'availabil'}
         />
         <div className="pl-2 ml-auto text-right">{price}€</div>
       </div>
-    </CardWrap>
+    </Card>
   )
 }
 

@@ -1,7 +1,7 @@
 import ArtistSingle from 'contentTypes/Artist/ArtistSingle'
 import ArtworkSingle from 'contentTypes/Artwork/ArtworkSingle/ArtworkSingle'
 import Header from '@components/generic/header/Header'
-import Icon from '@components/lib/Icon'
+import Icon from '@components/Icon'
 import PostSingle from 'contentTypes/Post/PostSingle'
 import { ModalPageData, useModalContext } from '@lib/modalContext'
 import * as React from 'react'
@@ -18,10 +18,9 @@ const Modal: React.FC = () => {
       portalClassName={`fixed inset-0  ${
         open ? 'frida_portal_open' : 'frida_portal_closed'
       }`}
-      overlayClassName="absolute inset-0 bg-frida-pink bg-opacity-50 "
-      className={`absolute inset-0 `}
+      overlayClassName="absolute inset-0  bg-opacity-50 bg-blur "
+      className={`absolute inset-0 z-30`}
       isOpen={open}
-      closeTimeoutMS={500}
       contentLabel="Post modal"
       ariaHideApp={false}
     >
@@ -72,7 +71,7 @@ const ModalContent: React.FC<ModalContentProps> = (props) => {
       return data.name
     }
     if (type === 'artwork') {
-      return data.artwork?.artistName
+      return data.artistName
     }
     if (type === 'post') {
       return 'post'
@@ -82,7 +81,6 @@ const ModalContent: React.FC<ModalContentProps> = (props) => {
     }
   }
 
-  console.log()
   return (
     <>
       <div

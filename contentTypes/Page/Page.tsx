@@ -4,8 +4,9 @@ import BodyParser from 'pageBuilder/BodyParser'
 import Header from '@components/generic/header/Header'
 import { FridaLocation } from 'types'
 import OverlayCTA from '@components/Adds/Overlay'
-import CookieBar from '@modules/shared/cookie-bar'
+import CookieBar from '@components/Cookie'
 import { PageResult } from '@lib/queries/pageQueries'
+import NewsletterCTA from 'components/Adds/NewsletterCTA'
 
 interface PageProps {
   data: PageResult
@@ -17,6 +18,7 @@ const Page: React.FC<PageProps> = (props) => {
 
   return (
     <Layout
+      lang={props.lang}
       data={props.data}
       title={title || 'Not Set'}
       header={
@@ -34,17 +36,10 @@ const Page: React.FC<PageProps> = (props) => {
 
       <CookieBar />
 
-      {/* <OverlayCTA
-        color="black"
-        item={(close) => (
-          <div
-            onClick={close}
-            className={'bg-frida-white w-60 h-80 rounded-lg p-10'}
-          >
-            child
-          </div>
-        )}
-      /> */}
+      <OverlayCTA
+        color="pink"
+        item={(close) => <NewsletterCTA close={close} />}
+      />
     </Layout>
   )
 }

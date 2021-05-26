@@ -4,7 +4,7 @@ import ThemeSwitch from './theme-switch'
 
 import Menu from '@blocks/navigation/menu'
 import Newsletter from '@modules/newsletter'
-import Icon from '@components/icon'
+import Icon from '@components/iconOld'
 
 const Footer = ({ data = {} }) => {
   const { blocks } = data

@@ -14,7 +14,7 @@ const LangSwitch: React.FunctionComponent<ILangSwitchProps> = (props) => {
     >
       <a
         {...mouseLinkProps}
-        className="w-12 h-12 p-1.5  rounded-full flex justify-center items-center text-xs-fluid font-bold"
+        className="w-8 h-8 md:w-12 md:h-12 p-1.5  rounded-full flex justify-center items-center text-xs-fluid font-bold"
       >
         {router.locale === 'de' ? 'EN' : 'DE'}
       </a>

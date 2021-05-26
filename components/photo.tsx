@@ -2,14 +2,13 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useIntersection } from 'use-intersection'
 import cx from 'classnames'
-
 import { buildSrcSet, buildSrc } from '@lib/helpers'
-import { m } from 'framer-motion'
 import { ImageLayout } from 'types'
 
 interface PhotoProps {
-  width?: number
-  height?: number
+  alt?: string
+  width?: number | string
+  height?: number | string
   photo: any
   srcSizes?: number[]
   sizes?: string
@@ -39,6 +38,7 @@ const getImageCacheKey = (props) => {
 
 const Photo: React.FC<PhotoProps> = (props) => {
   const {
+    alt,
     photo,
     width,
     height,
@@ -56,6 +56,8 @@ const Photo: React.FC<PhotoProps> = (props) => {
 
   const imageRef = useRef()
   const [isLoaded, setIsLoaded] = useState(false)
+
+  // const isLoaded = false
   const isIntersecting = useIntersection(imageRef, {
     once: true,
     rootMargin: '250px',
@@ -65,7 +67,10 @@ const Photo: React.FC<PhotoProps> = (props) => {
 
   useEffect(() => {
     // printCache()
-    inImageCache(cacheKey) && setIsLoaded(true)
+    // inImageCache(cacheKey) && setIsLoaded(true)
+    // setTimeout(() => {
+    //   setIsLoaded(!isLoaded)
+    // }, 2000)
   }, [])
 
   // define our aspect ratio if not a background fill
@@ -97,6 +102,13 @@ const Photo: React.FC<PhotoProps> = (props) => {
     })
   }
 
+  const objectPosition =
+    layout === 'fill' && photo.hotspot
+      ? {
+          objectPosition: `${photo.hotspot.x * 100}% ${photo.hotspot.y * 100}%`,
+        }
+      : {}
+
   // trigger any onLoad callbacks
   useEffect(() => {
     if (isLoaded && onLoad) onLoad()
@@ -108,7 +120,7 @@ const Photo: React.FC<PhotoProps> = (props) => {
         className={cx('ar', {
           'has-fill': layout === 'fill' || layout === 'contain',
         })}
-        style={aspectCustom}
+        style={{ ...aspectCustom }}
       >
         <picture>
           <img
@@ -121,20 +133,24 @@ const Photo: React.FC<PhotoProps> = (props) => {
             sizes={sizes}
             decoding="async"
             onLoad={handleLoad}
-            alt={photo.alt || photo.asset?.altText}
+            alt={photo.alt || photo.asset?.altText || alt}
             className={cx(getSize(layout), { 'is-loaded': isLoaded })}
+            style={{ ...objectPosition }}
           />
         </picture>
 
         {hasPlaceholder && (
           <div
-            className={cx('ar--placeholder ', {
-              'is-loaded': isLoaded,
-            })}
+            className={cx(
+              `absolute inset-0 ${
+                isLoaded ? 'opacity-0' : 'opacity-100'
+              } transition-opacity duration-1000`,
+              'ar--placeholder '
+            )}
           >
             <img
               src={photo.lqip}
-              alt={photo.alt || photo.asset?.altText}
+              alt={photo.alt || photo.asset?.altText || alt}
               role="presentation"
             />
           </div>

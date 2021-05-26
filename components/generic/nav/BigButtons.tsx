@@ -1,5 +1,5 @@
 import React from 'react'
-import BigButton from '../../lib/buttons/bigButton'
+import BigButton from '../../buttons/bigButton'
 
 const BigButtons: React.FC<{ open: boolean }> = ({ open }) => {
   return (

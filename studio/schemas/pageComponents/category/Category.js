@@ -1,27 +1,26 @@
 export default {
-  name: "categories",
-  type: "object",
-  title: "Categories",
+  name: 'categories',
+  type: 'object',
+  title: 'Categories',
   fields: [
     {
-      name: "content",
-      type: "array",
-      title: "Category items",
-      description: "Add, edit, and reorder Items",
-      of: [{ type: "categoryItem" }],
-    },
+      name: 'items',
+      type: 'array',
+      title: 'Category items',
+      description: 'Add, edit, and reorder Items',
+      of: [{ type: 'categoryItem' }]
+    }
   ],
   preview: {
     select: {
-      content: "content",
+      items: 'items'
     },
     prepare(selection) {
-      const { content } = selection;
-
+      const { items } = selection
       return {
-        title: "Categories",
-        subtitle: `${content.length} items`,
-      };
-    },
-  },
-};
+        title: 'Categories',
+        subtitle: `${items ? items.length : '0'} items`
+      }
+    }
+  }
+}

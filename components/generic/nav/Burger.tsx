@@ -1,6 +1,6 @@
 import React from 'react'
 // import CheckoutLink from "../../shopComponents/checkoutLink"
-import Icon from '../../lib/Icon'
+import Icon from '../../Icon'
 
 const Icons: React.FC<{ onClick: () => void }> = ({ onClick }) => {
   return (

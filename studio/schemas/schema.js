@@ -7,6 +7,7 @@ import IndexPage from './documents/indexPage'
 import Medium from './documents/medium'
 import Page from './documents/page'
 import Quotes from './documents/quotes'
+import footer from './documents/footer'
 
 import Stil from './documents/stil'
 import SupporterLogos from './documents/supporter'
@@ -21,6 +22,7 @@ import Post from './documents/post'
 import PostCategory from './documents/postCategory'
 
 const documents = [
+  footer,
   Post,
   PostCategory,
   ShopifyCollection,
@@ -100,8 +102,10 @@ import Embed from './pageComponents/plugs/Embed'
 import Artists from './pageComponents/Artists'
 import Posts from './pageComponents/Posts'
 import Products from './pageComponents/Products'
+import marquee from './pageComponents/marquee'
 
 const pageComponents = [
+  marquee,
   Section,
   Posts,
   CarouselHero,

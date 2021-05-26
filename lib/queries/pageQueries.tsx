@@ -1,27 +1,35 @@
 import { getSanityClient } from '@lib/sanity'
 import { FridaColors } from 'types'
+import { SiteResult } from './cache'
 import { PageBodyResult, body } from './pageBuilderQueries'
 
-import fetch from 'isomorphic-fetch'
+// const navigation = `
+// 'navigation':*[_type == "navigation"][0]{
+//   'items': item[]{
+//     label,
+//     label_en,
+//     link,
+//     'internalLink':internalLink->slug.current
+//   }
+// }
+// `
+// export type NavigationResult = {
+//   items: {
+//     label: string
+//     label_en: string | null
+//     link: string | null
+//     internalLink: string | null
+//   }[]
+// }
 
-const navigation = `
-'navigation':*[_type == "navigation"][0]{
-  'items': item[]{
-    label,
-    label_en,
-    link,
-    'internalLink':internalLink->slug.current
-  }
-}
+const footer = `
+
+'footer': select(defined(@.footer)=>@.footer->{${body}},!defined(@.footer)=>*[_type=='footer' && _id=='3667a872-9775-477c-b33b-09370c28524f'][0]{${body}}  )
+
 `
-export type NavigationResult = {
-  items: {
-    label: string
-    label_en: string | null
-    link: string | null
-    internalLink: string | null
-  }[]
-}
+export type FooterResult = {
+  content: PageBodyResult
+}[]
 
 const seo = `
 "seo": *[_type == "seoSettings"][0]{
@@ -42,17 +50,22 @@ export type SeoResult = {
   shareDesc: string | null
   shareGraphic: any | null
 }
+// export const site = `
+// 'site':{
+//   ${navigation},
+//   ${seo},
+//   ${footer}
+// }
+// `
+
 export const site = `
-'site':{
-  ${navigation}
-  ,
-  ${seo}
-}
+'site':'getSite'
 `
-export type SiteResult = {
-  seo: SeoResult
-  navigation: NavigationResult
-}
+// export type SiteResult = {
+//   seo: SeoResult
+//   navigation: NavigationResult
+//   footer: FooterResult
+// }
 
 export const page = `
 ...,
@@ -72,49 +85,4 @@ export type PageResult = {
     withOutHomeLink?: null | boolean
   }
   site: SiteResult
-}
-
-export async function getIndexPage(pageData: string, preview: any) {
-  const query = `*[_type == 'indexPage'][0]{
-      ${page}
-    }
-  `
-  const data = await getSanityClient(preview).fetch(query)
-  return data
-}
-
-export const getPage: (
-  slug: string,
-  preview: any
-) => Promise<null | PageResult> = async (slug: string, preview: any) => {
-  const slugs = [`/${slug}`, slug, `/${slug}/`]
-
-  const query = `
-        *[(_type == "page" || _type == "indexPage") && slug.current in ${JSON.stringify(
-          slugs
-        )}][0]{
-         ${page}
-        }
-      `
-  const data = await getSanityClient(preview).fetch(query)
-  return data
-}
-
-export const extraData = async (data: any) => {
-  return data
-  // const _data = { ...data }
-  // if (data.content) {
-  //   _data.content = await Promise.all(
-  //     data.content.map(async (item: any) => {
-  //       if (item._type === 'artworks') {
-  //         const res = await fetch('http://localhost:3000/api/artworks')
-  //         const jsonRes = await res.json()
-  //         item.items = jsonRes
-  //         return item
-  //       }
-  //       return item
-  //     })
-  //   )
-  // }
-  // return _data
 }

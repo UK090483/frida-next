@@ -1,6 +1,8 @@
 import S from '@sanity/desk-tool/structure-builder'
 
 import { FiSettings, FiGlobe, FiRepeat } from 'react-icons/fi'
+import { HiOutlineSortDescending } from 'react-icons/hi'
+
 import { GoThreeBars } from 'react-icons/go'
 import SeoPreview from '../../components/seo/seoPreviews'
 
@@ -15,6 +17,11 @@ export default S.listItem()
     S.list()
       .title('Settings')
       .items([
+        S.listItem()
+          .title('Footer')
+          .icon(HiOutlineSortDescending)
+          .child(S.documentTypeList('footer')),
+
         //   S.listItem()
         //     .title('General')
         //     .child(

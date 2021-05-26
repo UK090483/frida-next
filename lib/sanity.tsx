@@ -23,7 +23,8 @@ export function createPreviewClient(token: string) {
 }
 
 export const usePreviewSubscription = createPreviewSubscriptionHook(options)
-export function getSanityClient(preview: { active: boolean; token: string }) {
+
+export function getSanityClient(preview?: { active: boolean; token: string }) {
   if (preview?.active) {
     return createPreviewClient(preview.token)
   } else {

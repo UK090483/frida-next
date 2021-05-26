@@ -1,3 +1,8 @@
+// import dynamic from 'next/dynamic'
+
+// const ArtistBlock = dynamic(() => import('./Blocks/ArtistsBlock'))
+// const Section = dynamic(() => import('./Blocks/SectionBlock'))
+
 import ArtistBlock from './Blocks/ArtistsBlock'
 import ArtworksBlock from './Blocks/ArtworkBlock'
 import PostBlock from './Blocks/PostsBlock'
@@ -6,6 +11,7 @@ import CarouselHeroBlock from './Blocks/CarouselHeroBlock'
 import CategoryBlock from './Blocks/CategoryBlock'
 import Section from './Blocks/SectionBlock'
 import RT from './RichText'
+import Marquee from './Blocks/Marquee'
 
 import ButtonPlug from './Plugs/ButtonPlug'
 import EmbedPlug from './Plugs/EmbedPlug'
@@ -15,6 +21,7 @@ import ComponentNotFound from './component_not_found'
 // import Supporter from "./Supporter"
 
 const ComponentList: { [T: string]: any } = {
+  marquee: Marquee,
   embed: EmbedPlug,
   products: ProductsBlock,
   categories: CategoryBlock,
