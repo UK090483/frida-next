@@ -5,8 +5,21 @@ import cx from 'classnames'
 import { FridaColors } from 'types'
 import { motion, Variant, Variants } from 'framer-motion'
 import { useRouter } from 'next/router'
-import { useSiteContext } from '@lib/context'
-const BuyButton = () => {
+import {
+  useAddItem,
+  useCheckout,
+  useSiteContext,
+  useToggleCart,
+} from '@lib/context'
+
+type BuyButtonProps = {
+  handleAddToCard?: () => void
+
+  isInCart?: boolean
+}
+
+const BuyButton: React.FC<BuyButtonProps> = (props) => {
+  const { handleAddToCard = () => {}, isInCart = false } = props
   //   const { availability, addToCart, inCart, checkoutUrl } = props
 
   const intersectionRef = React.useRef(null)
@@ -23,12 +36,12 @@ const BuyButton = () => {
       0
     : false
 
-  const [inCard, setstate] = React.useState(false)
-
   const { locale } = useRouter()
   const {
     meganav: { isOpen: isNavOpen },
   } = useSiteContext()
+
+  const openCart = useToggleCart()
 
   const toCardText = locale === 'en' ? 'add to cart' : 'In den Warenkorb'
   const soldText = locale === 'en' ? 'sold' : 'Leider Verkauft'
@@ -38,11 +51,10 @@ const BuyButton = () => {
   const availability = true
 
   const handleAdd = () => {
-    setstate(!inCard)
-    if (availability) {
-      console.log('add')
-    }
+    handleAddToCard()
   }
+
+  const checkOut = useCheckout()
 
   return (
     <div ref={intersectionRef} className=" h-12">
@@ -54,19 +66,21 @@ const BuyButton = () => {
         }`}
       >
         <BButton
-          show={!inCard}
+          show={!isInCart}
           onClick={handleAdd}
           color={availability ? 'green' : 'red'}
         >
           {availability ? toCardText : soldText}
         </BButton>
 
-        <BButton onClick={handleAdd} show={inCard} color="black">
+        <BButton onClick={openCart} show={isInCart} color="black">
           {cartText}
         </BButton>
         <BButton
-          onClick={handleAdd}
-          show={inCard}
+          onClick={() => {
+            window.location.href = checkOut
+          }}
+          show={isInCart}
           color="green"
           className="ml-5"
         >

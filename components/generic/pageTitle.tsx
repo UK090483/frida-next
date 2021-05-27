@@ -2,8 +2,8 @@ import ConditionalWrapper from '@components/helper/ConditionalWraper'
 import Link from 'next/link'
 import React, { useEffect, useRef } from 'react'
 import { FridaColors } from 'types'
-import Frida from '../../Frida'
-import { mouseLinkProps, setMouse } from '../Mouse/mouseRemote'
+import Frida from '@components/Frida'
+import { mouseLinkProps, setMouse } from './Mouse/mouseRemote'
 
 type PageTitleProps = {
   title: string

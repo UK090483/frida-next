@@ -1,6 +1,6 @@
 import ArtistSingle from 'contentTypes/Artist/ArtistSingle'
 import ArtworkSingle from 'contentTypes/Artwork/ArtworkSingle/ArtworkSingle'
-import Header from '@components/generic/header/Header'
+import Header from '@components/generic/Header'
 import Icon from '@components/Icon'
 import PostSingle from 'contentTypes/Post/PostSingle'
 import { ModalPageData, useModalContext } from '@lib/modalContext'

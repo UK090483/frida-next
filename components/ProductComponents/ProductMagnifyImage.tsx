@@ -116,7 +116,7 @@ const ProductMagnifyImage: React.FC<ProductMagnifyImageProps> = ({
       )}
 
       <div
-        className={` w-40 h-40 absolute top-0 left-0 overflow-hidden rounded-full pointer-events-none border-frida-red border-4 transform -translate-x-20 -translate-y-20 transition-all  ${
+        className={` w-40 h-40 absolute top-0 left-0 overflow-hidden rounded-full pointer-events-none border-frida-red border-4 transform -translate-x-20 -translate-y-20 transition-opacity  ${
           showGlass ? ' scale-100 opacity-100' : 'w-0 h-0 scale-0 opacity-0'
         }`}
         style={{ left: `${pos.pageX}px`, top: `${pos.pageY}px` }}

@@ -14,9 +14,13 @@ const OverlayCTA: React.FC<OverlayCTA> = ({ color = 'pink', item }) => {
     animate('out')
   }
   useEffect(() => {
-    setTimeout(() => {
+    const timeOut = setTimeout(() => {
       animate('in')
     }, 20000)
+
+    return () => {
+      clearTimeout(timeOut)
+    }
   }, [])
 
   return (

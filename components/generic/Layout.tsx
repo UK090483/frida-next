@@ -5,10 +5,10 @@ import { m, Variants } from 'framer-motion'
 import BodyParser from 'pageBuilder/BodyParser'
 import React from 'react'
 import { FridaColors, FridaLocation } from 'types'
-import Footer from '../Footer/footer'
-import Header from '../header/Header'
-import Mouse from '../Mouse/mouse'
-import SEO from '../seo'
+import Footer from './Footer'
+import Header from './Header'
+import Mouse from './Mouse/mouse'
+import SEO from './seo'
 
 const duration = 0.2
 

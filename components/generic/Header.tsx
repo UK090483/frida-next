@@ -1,8 +1,7 @@
-import Icon from '@components/Icon'
 import Link from 'next/link'
 import React from 'react'
-import { FridaColors, FridaLocation } from '../../../types'
-import Nav from '../nav/Nav'
+import { FridaColors, FridaLocation } from '../../types'
+import Nav from './nav/Nav'
 import PageTitle from './pageTitle'
 
 type HeaderProps = {

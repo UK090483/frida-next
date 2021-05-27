@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react'
 import Page from 'contentTypes/Page/Page'
 
 import { page as pageQuery } from '@lib/queries/pageQueries'
-import { postSingleView as postQuery } from '@lib/queries/postQueries'
 
 import PostSingle from 'contentTypes/Post/PostSingle'
 

@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { Base64 } from 'base64-string'
 
@@ -43,7 +45,7 @@ const fetchCheckout = (context, id) => {
 }
 
 // get associated variant from Sanity
-const fetchVariant = async (id) => {
+const fetchVariant = async (id: string) => {
   const variant = await getSanityClient().fetch(
     `
       *[_type == "productVariant" && variantID == ${id}][0]{

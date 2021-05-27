@@ -8,12 +8,10 @@ export const artistCardQuery = `
      
     'slug':slug.current,
     'name':anzeigeName,
-    type,
      'photo':*[_type == 'artwork'  && references(^._id) ][0].image {${imageMeta}},
      'stil':*[_type == 'artwork' && references(^._id)].stil->name
 `
 export type ArtistCardResult = {
-  type: GalleryTypes
   name: string
   slug: string
   photo: ImageMetaResult
@@ -22,6 +20,7 @@ export type ArtistCardResult = {
 
 interface ArtistCardProps extends ArtistCardResult {
   isSwiping?: boolean
+  type: GalleryTypes
 }
 
 const ArtistCard: React.FC<ArtistCardProps> = (props) => {

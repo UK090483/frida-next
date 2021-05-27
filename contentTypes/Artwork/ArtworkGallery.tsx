@@ -81,7 +81,7 @@ const Artworks: React.FC<ArtworksProps> = (props) => {
 
       <Gallery
         items={filterElements().map((data) => (
-          <ArtworkCard key={data.slug} type="grid" {...data} />
+          <ArtworkCard key={data.slug} type="masonry" {...data} />
         ))}
       />
     </div>

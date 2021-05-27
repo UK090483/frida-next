@@ -51,7 +51,11 @@ const ArtistGallery: React.FC<ArtworksProps> = ({ items, lang }) => {
         <div className="py-12">
           <Gallery
             type="grid"
-            items={[filterElements().map((item) => <ArtistCard {...item} />)]}
+            items={[
+              filterElements().map((item) => (
+                <ArtistCard type={'grid'} {...item} />
+              )),
+            ]}
           />
         </div>
       </Section>

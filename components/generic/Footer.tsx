@@ -1,9 +1,9 @@
 import React from 'react'
 import Section from '@components/Section'
-import BigButton from '../../buttons/bigButton'
+import BigButton from '@components/buttons/bigButton'
 import Newsletter from 'components/Forms/NewsletterForm'
 import { useRouter } from 'next/router'
-import { mouseLinkProps } from '../Mouse/mouseRemote'
+import { mouseLinkProps } from './Mouse/mouseRemote'
 
 const Footer: React.FC = () => {
   const router = useRouter()

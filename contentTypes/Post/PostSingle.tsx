@@ -1,5 +1,5 @@
 import FridaImage from '@components/fridaImage/FridaImage'
-import Layout from '@components/generic/layout/layout'
+import Layout from '@components/generic/Layout'
 import { imageMeta } from '@lib/api'
 import { ConditionalWrapper } from '@lib/helpers'
 import { SiteResult } from '@lib/queries/cache'

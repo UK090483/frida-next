@@ -1,5 +1,5 @@
 .btn {
-  @apply clean-btn;
+  @apply clean-btn text-frida-white hover:text-frida-black bg-frida-pink hover:bg-frida-pink  border-solid border-frida-pink  rounded-full font-bold px-6 py-2 text-xxs-fluid border-3;
 
   &.is-block {
     @apply block w-full;

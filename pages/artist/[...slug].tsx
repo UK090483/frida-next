@@ -1,4 +1,4 @@
-import Layout from '@components/generic/layout/layout'
+import Layout from '@components/generic/Layout'
 import { usePage } from '@lib/queries/usePage'
 import { getAllDocPathsCached } from '@lib/queries/fetchDocPathApi'
 import { handleStaticProps } from '@lib/queries/handleStaticProps'

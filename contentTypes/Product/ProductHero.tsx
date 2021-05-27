@@ -1,18 +1,18 @@
+import Photo from '@components/photo'
 import BuyButton from '@components/ProductComponents/BuyButton'
 import PaymentInfo from '@components/ProductComponents/PaymentInfo'
 import ProductImageWrap from '@components/ProductComponents/ProductHeroImageWrap'
 import ProductInfoWrap from '@components/ProductComponents/ProductHeroInfoWrap'
 import ProductHeroWrap from '@components/ProductComponents/ProductHeroWrap'
-// import SocialShare from '../SocialShare/SocialShare'
 import ProductMagnifyImage from '@components/ProductComponents/ProductMagnifyImage'
 import ProductName from '@components/ProductComponents/ProductName'
 import Price from '@components/ProductComponents/ProductPrice'
+import { useAddItem, useCartItems, useCheckout } from '@lib/context'
+import ProductForm from 'blocks/product/product-form'
+import { useRouter } from 'next/router'
 import React from 'react'
 import { FridaLocation } from 'types'
 import { ProductSingleViewResult } from './ProductSingle'
-
-import ProductForm from 'blocks/product/product-form'
-import Photo from '@components/photo'
 
 interface ProductHeroProps extends ProductSingleViewResult {
   lang: FridaLocation
@@ -29,17 +29,14 @@ const ProductHero: React.FC<ProductHeroProps> = (props) => {
     variants,
   } = props
 
+  const router = useRouter()
+
   const hasGallery = galleryPhotos && galleryPhotos.length > 0
 
   const variantsById = variants.reduce(
     (acc, item) => ({ ...acc, [item.id]: item }),
     {} as { [k: string]: any }
   )
-  const galleryById = galleryPhotos
-    ? galleryPhotos.reduce((acc, item) => {
-        return { ...acc }
-      }, {} as { [k: string]: any })
-    : {}
 
   const [{ activeVariantId }, setState] = React.useState({
     activeVariantId: variants && variants[0] && variants[0].id,
@@ -47,6 +44,11 @@ const ProductHero: React.FC<ProductHeroProps> = (props) => {
 
   const activeVariant = variantsById[activeVariantId]
   const photo = listingPhotos[0] ? listingPhotos[0].listingPhoto : null
+
+  const addItem = useAddItem()
+  const cardItems = useCartItems()
+  //@ts-ignore
+  const isInCart = !!cardItems.find((item) => item.id === activeVariantId)
 
   return (
     <ProductHeroWrap>
@@ -99,7 +101,12 @@ const ProductHero: React.FC<ProductHeroProps> = (props) => {
           <Price price={activeVariant ? activeVariant.price : price} />
           <div className="pb-12">{/* <SocialShare /> */}</div>
 
-          <BuyButton />
+          <BuyButton
+            isInCart={isInCart}
+            handleAddToCard={() => {
+              addItem(activeVariantId, 1, {})
+            }}
+          />
         </div>
         <PaymentInfo lang={lang} />
       </ProductInfoWrap>

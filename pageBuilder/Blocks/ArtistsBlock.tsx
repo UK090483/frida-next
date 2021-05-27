@@ -46,7 +46,7 @@ const ArtworksBlock: React.FC<ArtistsBlockProps> = (props) => {
     <Carousel
       header={_label}
       items={items.map((item) => (
-        <ArtistCard {...item} />
+        <ArtistCard type={type} {...item} />
       ))}
     />
   )

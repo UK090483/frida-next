@@ -6,7 +6,7 @@ import { mouseLinkProps } from '@components/generic/Mouse/mouseRemote'
 import { useModalContext } from '@lib/modalContext'
 import { ImageMetaResult } from '@lib/queries/snippets'
 import Link from 'next/link'
-import router, { useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import React from 'react'
 import classNames from 'classnames'
 import { GalleryTypes } from 'types'
@@ -71,8 +71,12 @@ const CardWrap: React.FC<CardWrapPros> = (props) => {
         <FridaImage
           {...ARTWORK_IMAGE_PROPS}
           photo={photo}
-          className={isCarousel ? 'aspect-w-9 aspect-h-12' : `w-full`}
-          layout={isCarousel ? layout : 'intrinsic'}
+          className={classNames(
+            { 'aspect-w-9 aspect-h-12': isCarousel },
+            { 'w-full': isMasonry },
+            { 'aspect-w-9 aspect-h-12': isGrid }
+          )}
+          layout={isCarousel || isGrid ? layout : 'intrinsic'}
           alt={alt}
         />
         {title && (

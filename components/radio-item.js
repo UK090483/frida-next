@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, KeyboardEventHandler } from 'react'
 
 import { wrap, Keys } from '@lib/helpers'
 import {
