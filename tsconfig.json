@@ -23,5 +23,5 @@
     }
   },
   "include": ["next-env.d.ts", "**/*.d.ts", "**/*.ts", "**/*.tsx", "**/*.js"],
-  "exclude": ["node_modules", "**/build.cache.json"]
+  "exclude": ["node_modules", "studio", ".git"]
 }

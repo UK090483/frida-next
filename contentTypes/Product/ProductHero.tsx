@@ -1,3 +1,4 @@
+import { ProductCounter } from '@blocks/product'
 import Photo from '@components/photo'
 import BuyButton from '@components/ProductComponents/BuyButton'
 import PaymentInfo from '@components/ProductComponents/PaymentInfo'
@@ -41,8 +42,6 @@ const ProductHero: React.FC<ProductHeroProps> = (props) => {
   const [{ activeVariantId }, setState] = React.useState({
     activeVariantId: variants && variants[0] && variants[0].id,
   })
-
-  console.log(activeVariantId)
 
   const activeVariant = variantsById[activeVariantId]
   const photo = listingPhotos[0] ? listingPhotos[0].listingPhoto : null
@@ -100,6 +99,8 @@ const ProductHero: React.FC<ProductHeroProps> = (props) => {
               setState((oS) => ({ ...oS, activeVariantId: variantId }))
             }}
           />
+
+          <ProductCounter />
           <Price price={activeVariant ? activeVariant.price : price} />
           <div className="pb-12">{/* <SocialShare /> */}</div>
 

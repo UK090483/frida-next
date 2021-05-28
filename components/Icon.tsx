@@ -4,6 +4,8 @@ import {
   ArrowNarrowRightIcon,
   MenuIcon,
   XIcon,
+  PlusIcon,
+  MinusIcon,
 } from '@heroicons/react/solid'
 
 import classNames from 'classnames'
@@ -29,6 +31,8 @@ const Icons: IconsObject = {
   arrowRight: ArrowNarrowRightIcon,
   x: XIcon,
   cart: ShoppingCartIcon,
+  plus: PlusIcon,
+  minus: MinusIcon,
 }
 
 type IconProps = {
@@ -44,6 +48,8 @@ type IconProps = {
     | 'arrowRight'
     | 'x'
     | 'cart'
+    | 'plus'
+    | 'minus'
 
   size?: 's' | 'm' | 'l'
   className?: string
