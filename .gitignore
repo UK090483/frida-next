@@ -74,3 +74,6 @@ yarn.lock
 
 # Secrets
 .env*
+
+
+build.cache.json

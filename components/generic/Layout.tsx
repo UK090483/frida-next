@@ -1,6 +1,5 @@
 //@ts-nocheck
 import { SiteResult } from '@lib/queries/pageQueries'
-import { imageBuilder } from '@lib/sanity'
 import { m, Variants } from 'framer-motion'
 import BodyParser from 'pageBuilder/BodyParser'
 import React from 'react'

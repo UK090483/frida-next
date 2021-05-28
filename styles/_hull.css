@@ -1,6 +1,6 @@
------ Mixins -----
+/*----- Mixins ----- */
 
-/* .is-hashed {
+.is-hashed {
   background-image: repeating-linear-gradient(
     -45deg,
     hsla(var(--pageText-hsl), 0.5) 0,
@@ -10,7 +10,7 @@
   );
   background-size: 8px 8px;
   background-repeat: repeat;
-} */
+}
 
 /* ----- Buttons -----*/
 

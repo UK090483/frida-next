@@ -265,7 +265,11 @@ function useAddItem() {
     setContext,
   } = useContext(SiteContext)
 
-  async function addItem(variantID, quantity, attributes) {
+  async function addItem(
+    variantID: string,
+    quantity: number,
+    attributes: undefined | object
+  ) {
     // Bail if no ID or quantity given
     if (!variantID || !quantity) return
 

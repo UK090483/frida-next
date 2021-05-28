@@ -42,6 +42,8 @@ const ProductHero: React.FC<ProductHeroProps> = (props) => {
     activeVariantId: variants && variants[0] && variants[0].id,
   })
 
+  console.log(activeVariantId)
+
   const activeVariant = variantsById[activeVariantId]
   const photo = listingPhotos[0] ? listingPhotos[0].listingPhoto : null
 
@@ -104,7 +106,7 @@ const ProductHero: React.FC<ProductHeroProps> = (props) => {
           <BuyButton
             isInCart={isInCart}
             handleAddToCard={() => {
-              addItem(activeVariantId, 1, {})
+              addItem(activeVariantId, 1, undefined)
             }}
           />
         </div>
