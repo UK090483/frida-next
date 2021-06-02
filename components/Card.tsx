@@ -22,6 +22,7 @@ interface CardWrapPros {
   title?: string
   modal?: boolean
   alt?: string
+  banner?: React.ReactElement
 }
 
 const CardWrap: React.FC<CardWrapPros> = (props) => {
@@ -36,6 +37,7 @@ const CardWrap: React.FC<CardWrapPros> = (props) => {
     title,
     modal = false,
     alt,
+    banner,
   } = props
 
   const { pushAsModal, saveScroll } = useModalContext()
@@ -64,7 +66,9 @@ const CardWrap: React.FC<CardWrapPros> = (props) => {
             !isSwiping && pushAsModal(`/${type}/${slug}`, type)
           } else {
             saveScroll(router.asPath)
-            router.push(`/${type}/${slug}`)
+            router.push(`/${type}/${slug}`, `/${type}/${slug}`, {
+              scroll: false,
+            })
           }
         }}
       >
@@ -79,6 +83,7 @@ const CardWrap: React.FC<CardWrapPros> = (props) => {
           layout={isCarousel || isGrid ? layout : 'intrinsic'}
           alt={alt}
         />
+
         {title && (
           <div
             // className={` h-8  ${
@@ -91,6 +96,7 @@ const CardWrap: React.FC<CardWrapPros> = (props) => {
           </div>
         )}
         {children}
+        {banner && banner}
       </a>
     </Link>
   )

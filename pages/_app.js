@@ -13,7 +13,7 @@ import Modal from '@components/generic/Modal'
 import { SiteContextProvider } from '@lib/context'
 
 import { isBrowser } from '@lib/helpers'
-import Cart from 'components/Cart'
+import Cart from '@components/shopComponents/Cart'
 import { ModalContextProvider } from '@lib/modalContext'
 import ShowBreakingPoints from '@components/helper/showBreakingPoints'
 
@@ -87,7 +87,7 @@ const MyApp = ({ Component, pageProps, router }) => {
           <AnimatePresence
             // initial={false}
             onExitComplete={() => {
-              console.log(window.savedScroll, window.savedPath)
+              // console.log(window.savedScroll, window.savedPath)
               if (window.savedScroll && window.savedPath === router.asPath) {
                 window.scrollTo(0, window.savedScroll)
               } else {

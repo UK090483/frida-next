@@ -78,7 +78,7 @@
 /* ----- Counters ----- */
 
 .counter {
-  @apply border rounded-full p-2 bg-pageBG text-pageText;
+  @apply rounded-full p-2 bg-frida-black text-frida-white;
 
   &.is-small {
     @apply p-1;

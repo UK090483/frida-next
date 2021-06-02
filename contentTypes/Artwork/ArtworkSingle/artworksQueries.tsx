@@ -26,7 +26,9 @@ price,
 'stil':stil->name,
 'banner':banner,
 'image':@.image.asset._ref,
-'shopify_handle':@.shopify_handle,
+'shopify_handle':shopify_handle,
+'shopify_product_id':shopify_product_id,
+'shopify_variant_id':shopify_variant_id,
 'photo': image {
   ${imageMeta}
 },
@@ -61,5 +63,7 @@ export type ArtworkSingleViewResult = {
   photo: null | ImageMetaResult
   relatedArtworks: ArtworkCardResult[]
   randomArtworks: ArtworkCardResult[]
+  shopify_product_id: null | string
+  shopify_variant_id: null | string
   site: SiteResult
 }

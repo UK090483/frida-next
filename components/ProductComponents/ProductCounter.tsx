@@ -4,7 +4,7 @@ import cx from 'classnames'
 
 import Icon from '../Icon'
 
-export function clampRange(value, min = 0, max = 1) {
+export function clampRange(value: number, min = 0, max = 1) {
   return value < min ? min : value > max ? max : value
 }
 const flipAnim = {
@@ -16,7 +16,7 @@ const flipAnim = {
       when: 'beforeChildren',
     },
   },
-  hide: (custom) => ({
+  hide: (custom: number) => ({
     y: `${-100 * custom}%`,
     transition: {
       duration: 0.5,
@@ -24,7 +24,7 @@ const flipAnim = {
       when: 'afterChildren',
     },
   }),
-  hideR: (custom) => ({
+  hideR: (custom: number) => ({
     y: `${100 * custom}%`,
     transition: {
       duration: 0.5,
@@ -34,7 +34,21 @@ const flipAnim = {
   }),
 }
 
-const ProductCounter = ({ id, defaultCount = 1, onUpdate, max, className }) => {
+type ProductCounterProps = {
+  id?: string
+  defaultCount: number
+  onUpdate: (count: number) => void
+  max?: number
+  className?: string
+}
+
+const ProductCounter: React.FC<ProductCounterProps> = ({
+  id,
+  defaultCount = 1,
+  onUpdate,
+  max = 10,
+  className,
+}) => {
   const [lineQuantity, setLineQuantity] = useState(defaultCount)
 
   const [direction, setDirection] = useState(1)
@@ -76,14 +90,14 @@ const ProductCounter = ({ id, defaultCount = 1, onUpdate, max, className }) => {
 
   return (
     <div className={cx('counter', className)}>
-      <button
+      <Icon
+        icon="minus"
+        size="s"
         aria-label="Decrease quantity by one"
         onClick={() => animateQuantity(lineQuantity - 1, -1)}
-        className="counter--down"
-      >
-        <Icon icon="minus" id={id} />
-      </button>
-      <div className="counter--amount">
+      />
+
+      <div className="counter--amount ">
         <AnimatePresence custom={direction}>
           <m.div
             key={motionKey}
@@ -108,13 +122,14 @@ const ProductCounter = ({ id, defaultCount = 1, onUpdate, max, className }) => {
           </m.div>
         </AnimatePresence>
       </div>
-      <button
+
+      <Icon
         aria-label="Increase quantity by one"
+        icon="plus"
+        id={id}
+        size="s"
         onClick={() => animateQuantity(lineQuantity + 1, 1)}
-        className="counter--up"
-      >
-        <Icon icon="plus" id={id} />
-      </button>
+      />
     </div>
   )
 }

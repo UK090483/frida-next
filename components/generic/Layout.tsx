@@ -1,5 +1,4 @@
-//@ts-nocheck
-import { SiteResult } from '@lib/queries/pageQueries'
+import { SiteResult } from '@lib/queries/cache'
 import { m, Variants } from 'framer-motion'
 import BodyParser from 'pageBuilder/BodyParser'
 import React from 'react'
@@ -46,7 +45,7 @@ type LayoutProps = {
 
 const Layout: React.FC<LayoutProps> = (props) => {
   const {
-    data = {},
+    data,
     schema,
     children,
     title,
@@ -59,7 +58,7 @@ const Layout: React.FC<LayoutProps> = (props) => {
 
   return (
     <>
-      <SEO site={data.site} page={data} />
+      {data.site && <SEO site={data.site} page={data} />}
 
       <m.div
         key={title}
@@ -72,10 +71,6 @@ const Layout: React.FC<LayoutProps> = (props) => {
         {header === 'default' ? (
           <Header
             lang={'de'}
-            initial={'initial'}
-            animate={'enter'}
-            exit={'exit'}
-            variants={variants}
             navItems={navItems}
             initialColor={initialColor}
             title={title}
@@ -85,8 +80,8 @@ const Layout: React.FC<LayoutProps> = (props) => {
         )}
         <main>{children}</main>
         {/* <CookieConsent /> */}
-        {site.footer && site.footer.content && (
-          <BodyParser lang={props.lang} content={site.footer.content} />
+        {data.site && data.site.footer && data.site.footer[0].content && (
+          <BodyParser lang={props.lang} content={data.site.footer[0].content} />
         )}
         <Footer></Footer>
       </m.div>

@@ -4,7 +4,8 @@ import { m } from 'framer-motion'
 import cx from 'classnames'
 
 import { centsToPrice } from '@lib/helpers'
-import CartItem from '@blocks/shop/cart-item'
+import CartItem from './CartItem'
+import Button from '@components/buttons/button'
 
 import {
   useSiteContext,
@@ -14,20 +15,20 @@ import {
   useCheckout,
   useToggleCart,
 } from '@lib/context'
+import { useRouter } from 'next/router'
 
 type CartProps = {
   data: any
 }
 
 const Cart: React.FC<CartProps> = ({ data }) => {
-  //   const { cart } = data
-
-  const cart = {
-    storeURL: 'bla',
-  }
+  // const { cart } = data
 
   const { isCartOpen, isUpdating } = useSiteContext()
+  const { locale } = useRouter()
+
   const { subTotal } = useCartTotals()
+
   const cartCount = useCartCount()
   const lineItems = useCartItems()
   const checkoutURL = useCheckout()
@@ -36,10 +37,12 @@ const Cart: React.FC<CartProps> = ({ data }) => {
   const [hasFocus, setHasFocus] = useState(false)
   const [checkoutLink, setCheckoutLink] = useState(checkoutURL)
 
+  const yourCartText = locale === 'en' ? 'Your Cart' : 'Warenkorb'
+
   const handleKeyup = (e: React.KeyboardEvent) => {
-    // if (e.which === 27) {
-    //   toggleCart()
-    // }
+    if (e.key === 'Escape') {
+      toggleCart()
+    }
   }
 
   const goToCheckout = (e: React.MouseEvent) => {
@@ -47,20 +50,20 @@ const Cart: React.FC<CartProps> = ({ data }) => {
     toggleCart()
 
     setTimeout(() => {
-      window.open(checkoutLink, '_self')
+      checkoutLink && window.open(checkoutLink, '_self')
     }, 200)
   }
 
   // update our checkout URL to use our custom domain name
   useEffect(() => {
     if (checkoutURL) {
-      const buildCheckoutLink = cart.storeURL
-        ? checkoutURL.replace(
-            /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/?\n]+)/g,
-            cart.storeURL
-          )
-        : checkoutURL
-      setCheckoutLink(buildCheckoutLink)
+      // const buildCheckoutLink = cart.storeURL
+      //   ? checkoutURL.replace(
+      //       /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/?\n]+)/g,
+      //       cart.storeURL
+      //     )
+      //   : checkoutURL
+      setCheckoutLink(checkoutURL)
     }
   }, [checkoutURL])
 
@@ -89,14 +92,20 @@ const Cart: React.FC<CartProps> = ({ data }) => {
             'is-updating': isUpdating,
           })}
         >
-          <div className="cart--inner">
+          <div className="cart--inner ">
             <div className="cart--header">
               <div className="cart--title">
-                Your Cart <span className="cart--count">{cartCount}</span>
+                {yourCartText} <span className="cart--count">{cartCount}</span>
               </div>
-              <button className="cart-toggle" onClick={() => toggleCart()}>
-                Done
-              </button>
+
+              <Button
+                backgroundColor="pink"
+                type="click"
+                size="s"
+                label="Done"
+                onClick={() => toggleCart()}
+                position="auto"
+              />
             </div>
 
             <div className="cart--content">
@@ -114,13 +123,13 @@ const Cart: React.FC<CartProps> = ({ data }) => {
                   <span>${centsToPrice(subTotal)}</span>
                 </div>
 
-                <a
-                  href={checkoutLink}
-                  onClick={(e) => goToCheckout(e)}
-                  className="btn is-primary is-inverted is-large is-block"
-                >
-                  {isUpdating ? 'Updating...' : 'Checkout'}
-                </a>
+                <Button
+                  size="s"
+                  backgroundColor="pink"
+                  type="externalLink"
+                  label={isUpdating ? 'Updating...' : 'Checkout'}
+                  link={checkoutLink ? checkoutLink : '/'}
+                />
 
                 {/* {cart.message && (
                   <p className="cart--message">{cart.message}</p>

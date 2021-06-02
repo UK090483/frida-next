@@ -32,7 +32,7 @@ const activateCacheForImage = (cacheKey) => {
 }
 
 const getImageCacheKey = (props) => {
-  const { photo, onLoad, ...rest } = props
+  const { photo, onLoad, alt, ...rest } = props
   return JSON.stringify({ id: photo.id, ...rest })
 }
 
@@ -66,11 +66,7 @@ const Photo: React.FC<PhotoProps> = (props) => {
   const cacheKey = React.useCallback(getImageCacheKey(props), [])
 
   useEffect(() => {
-    // printCache()
-    // inImageCache(cacheKey) && setIsLoaded(true)
-    // setTimeout(() => {
-    //   setIsLoaded(!isLoaded)
-    // }, 2000)
+    imageCache[cacheKey] && setIsLoaded(true)
   }, [])
 
   // define our aspect ratio if not a background fill

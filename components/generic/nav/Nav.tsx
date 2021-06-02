@@ -51,7 +51,7 @@ const Nav: React.FC<NavProps> = ({ items, lang }) => {
           toggleCard()
         }}
         icon="cart"
-        className="absolute top-10 right-2 md:top-14 md:right-5 pointer-events-auto"
+        className="absolute top-10 right-frida_side md:top-14 md:right-5 pointer-events-auto"
       />
       <div
         onMouseEnter={() => {
@@ -76,7 +76,7 @@ const Nav: React.FC<NavProps> = ({ items, lang }) => {
             icon="x"
             bgColor="black"
             color="white"
-            className="absolute top-2 mr-2 right-0 md:top-3  md:mr-8 border-frida-white border-3"
+            className="absolute top-2 mr-frida_side right-0 md:top-3  md:mr-8 border-frida-white border-3"
             onClick={handleMenu}
           />
         )}

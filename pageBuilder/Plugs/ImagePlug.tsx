@@ -10,6 +10,8 @@ import FPhoto from '@components/fPoto'
 export const imagePlugQuery = ` 
 _type == "imagePlug" => {
   ...,
+  _type,
+  _key,
   'cass':asset->,
    ${imageMeta},
    customWidth,
@@ -18,6 +20,8 @@ _type == "imagePlug" => {
 `
 
 export interface ImagePlugResult extends ImageMetaResult {
+  _type: 'imagePlug'
+  _key: string
   customWidth?: FridaSizes | null
   customHeight?: FridaSizes | null
 }

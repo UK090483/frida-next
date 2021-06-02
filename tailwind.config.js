@@ -63,6 +63,7 @@ module.exports = {
       },
       spacing: {
         'frida_7%': '7%',
+        frida_side: '0.6rem',
       },
       transitionProperty: {
         'max-height': 'max-height',
@@ -147,11 +148,12 @@ module.exports = {
   },
   variants: {
     extend: {
-      maxHeight: ['group-hover'],
-      maxWidth: ['group-hover'],
-      position: ['group-hover'],
-      display: ['group-hover'],
-      zIndex: ['group-hover'],
+      maxHeight: ['group-hover', 'group-focus'],
+      maxWidth: ['group-hover', 'group-focus'],
+      position: ['group-hover', 'group-focus'],
+      display: ['group-hover', 'group-focus'],
+      zIndex: ['group-hover', 'group-focus'],
+      opacity: ['group-hover', 'group-focus'],
     },
   },
   plugins: [

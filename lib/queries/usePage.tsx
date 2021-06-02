@@ -25,5 +25,9 @@ export const usePage = (props: usePageProps) => {
     enabled: !!router.query.preview,
   })
 
+  if (!!router.query.preview) {
+    pageData.site = data.site
+  }
+
   return { pageData, isError: false }
 }

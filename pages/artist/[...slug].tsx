@@ -13,8 +13,11 @@ import { GetStaticPaths, GetStaticProps } from 'next'
 import React from 'react'
 import { FridaLocation } from 'types'
 import { SiteResult } from '@lib/queries/cache'
+import { body, PageBodyResult } from '@lib/queries/pageBuilderQueries'
 
 export const artistSingleView = `
+
+${body}
 'slug':slug.current,
 'name':anzeigeName,
 description,
@@ -35,6 +38,7 @@ export type ArtistPageResult = {
   webLink: string | null
   instagramLink: string | null
   relatedArtworks: ArtworkCardResult[]
+  content?: PageBodyResult
   site: SiteResult
 }
 

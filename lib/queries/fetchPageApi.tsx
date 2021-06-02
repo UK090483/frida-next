@@ -6,7 +6,7 @@ import { PageBodyResult } from './pageBuilderQueries'
 
 export const fetchPageWithCache = async (query: string, slug: string) => {
   let pageData
-  if (process.env.NODE_ENV === 'development' && false) {
+  if (process.env.NODE_ENV === 'development') {
     pageData = (await cache.get(slug)) as any
 
     if (!pageData) {

@@ -1,10 +1,10 @@
 import React from 'react'
 // @ts-ignore
 import BlockContent from '@sanity/block-content-to-react'
-import Frida from '../components/Frida'
-import EmbedPlug, { embedPlugQuery } from './Plugs/EmbedPlug'
-import ButtonPlug, { buttonPlugQuery } from './Plugs/ButtonPlug'
-import { imagePlugQuery } from './Plugs/ImagePlug'
+import Frida from '../../components/Frida'
+import EmbedPlug, { embedPlugQuery } from '../Plugs/EmbedPlug'
+import ButtonPlug, { buttonPlugQuery } from '../Plugs/ButtonPlug'
+import { imagePlugQuery } from '../Plugs/ImagePlug'
 import { PageBuilderBlockBase } from '@lib/queries/pageBuilderQueries'
 
 export const richTextQuery = `
@@ -17,7 +17,7 @@ content[]{
 `
 
 export interface RichTextQueryResult extends PageBuilderBlockBase {
-  _type: 'richText'
+  _type: 'richText' | 'block'
   content: any[]
 }
 

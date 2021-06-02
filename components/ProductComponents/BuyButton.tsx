@@ -43,10 +43,14 @@ const BuyButton: React.FC<BuyButtonProps> = (props) => {
 
   const openCart = useToggleCart()
 
+  const { isLoading, isAdding } = useSiteContext()
+
   const toCardText = locale === 'en' ? 'add to cart' : 'In den Warenkorb'
   const soldText = locale === 'en' ? 'sold' : 'Leider Verkauft'
   const cartText = locale === 'en' ? 'cart' : 'Warenkorb'
   const checkoutText = locale === 'en' ? 'checkout' : 'Kasse'
+
+  const isAddingText = locale === 'en' ? 'adding...' : 'wir hinzugefügt...'
 
   const availability = true
 
@@ -70,7 +74,7 @@ const BuyButton: React.FC<BuyButtonProps> = (props) => {
           onClick={handleAdd}
           color={availability ? 'green' : 'red'}
         >
-          {availability ? toCardText : soldText}
+          {isAdding ? isAddingText : availability ? toCardText : soldText}
         </BButton>
 
         <BButton onClick={openCart} show={isInCart} color="black">
@@ -78,7 +82,7 @@ const BuyButton: React.FC<BuyButtonProps> = (props) => {
         </BButton>
         <BButton
           onClick={() => {
-            window.location.href = checkOut
+            checkOut && (window.location.href = checkOut)
           }}
           show={isInCart}
           color="green"

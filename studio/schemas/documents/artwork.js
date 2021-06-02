@@ -143,9 +143,15 @@ export default {
       readOnly: true
     },
     {
+      name: 'shopify_variant_id',
+      type: 'string',
+      title: 'Shopify Variant ID'
+      // readOnly: true
+    },
+    {
       name: 'shopify_handle',
       type: 'string',
-      title: 'Shopify Variant ID',
+      title: 'Shopify Handle',
       readOnly: true
     },
 

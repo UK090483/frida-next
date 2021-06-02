@@ -330,8 +330,6 @@ const site = `
   }
 `
 
-const content = ``
-
 /*  ------------------------------ */
 /*  Sanity API Functions
 /*  ------------------------------ */
@@ -597,33 +595,3 @@ export async function postEmail(apiKey, data) {
 
   return post
 }
-
-const bla = /* groq */ `*[_type == "indexPage"][0]{
-  ...,
-  content[]{
-    ...,
-    _type == 'button' => {
-    	...,
-    	internalink =>{
-    		'slug': @.reference->slug
-  		}
-		},
-content[]{
-    ...,
-    _type == 'button' => {
-    	...,
-    	internalink =>{
-    		'slug': @.reference->slug
-  		}
-		},content[]{
-    ...,
-    _type == 'button' => {
-    	...,
-    	internalink => {
-    		'slug': @.reference->slug
-  		}
-		},
-  }
-  }
-  }
-}`

@@ -56,6 +56,47 @@ export default {
       name: 'webLink',
       type: 'url',
       title: 'Web Link'
+    },
+    {
+      name: 'content',
+      type: 'array',
+      title: 'Custom Page Build',
+      description:
+        'Add, edit, and reorder sections (if this is empty, the default template will be used)',
+      of: [
+        {
+          type: 'object',
+          name: 'artistHero',
+          title: 'Artist:Hero',
+          fields: [{ type: 'string', name: 'artistInfo', title: 'Artist:Info' }]
+        },
+        {
+          type: 'object',
+          name: 'artistInfo',
+          title: 'Artist:Info',
+          fields: [{ type: 'string', name: 'artistInfo', title: 'Artist:Info' }]
+        },
+        {
+          type: 'object',
+          name: 'artistWorks',
+          title: 'Artist:Works',
+          fields: [{ type: 'string', name: 'artistInfo', title: 'Artist:Info' }]
+        },
+        {
+          type: 'object',
+          name: 'artistImages',
+          title: 'Artist:Images',
+          fields: [{ type: 'string', name: 'artistInfo', title: 'Artist:Info' }]
+        },
+        { type: 'section' },
+        { type: 'carouselHero' },
+        { type: 'artworks' },
+        { type: 'artists' },
+        { type: 'posts' },
+        { type: 'categories' },
+        { type: 'products' },
+        { type: 'marquee' }
+      ]
     }
   ],
   preview: {

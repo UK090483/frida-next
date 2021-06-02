@@ -11,7 +11,7 @@ interface ButtonProps {
   testid?: string
   className?: string
   size?: 's' | 'm' | 'l'
-  position?: 'inline' | 'left' | 'right' | 'center'
+  position?: 'inline' | 'left' | 'right' | 'center' | 'auto'
 }
 interface LinkProps extends ButtonProps {
   type: 'link' | 'externalLink'

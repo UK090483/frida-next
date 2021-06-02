@@ -18,6 +18,7 @@ sizeMobile,
 
 export const categoriesBlockQuery = `
 _type == "categories" => {
+  _type,
   type,
   'items':items[]{${categoryItem}},
 }
@@ -32,6 +33,7 @@ type CategoryItem = {
   images?: ImageMetaResult[]
 }
 export interface CategoryBlockResult extends PageBuilderBlockBase {
+  _type: 'categories'
   items: CategoryItem[]
 }
 

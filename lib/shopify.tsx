@@ -15,5 +15,5 @@ const options = {
   domain: `${process.env.SHOPIFY_STORE_ID}.myshopify.com`,
   storefrontAccessToken: process.env.SHOPIFY_API_TOKEN,
 }
-
+//@ts-ignore
 export default hasShopify ? Client.buildClient(options) : null

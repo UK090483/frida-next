@@ -1,41 +1,74 @@
+import Button from '@components/buttons/button'
+import Carousel from '@components/Carousel'
 import FridaImage from '@components/fridaImage/FridaImage'
+import Photo from '@components/photo'
+import Section from '@components/Section'
+import { ImageMetaResult } from '@lib/queries/snippets'
+import { ArtistPageResult } from '@pages/artist/[...slug]'
+import classNames from 'classnames'
+import ArtworkCard from 'contentTypes/Artwork/ArtworkCard'
+import BodyParser from 'pageBuilder/BodyParser'
 import React from 'react'
 import { FridaLocation } from 'types'
-import Carousel from '@components/Carousel'
-import ArtworkCard from 'contentTypes/Artwork/ArtworkCard'
-import Section from '@components/Section'
-import Button from '@components/buttons/button'
-import { ArtistPageResult } from '@pages/artist/[...slug]'
 
 interface ArtistSingleProps extends ArtistPageResult {
   lang: FridaLocation
 }
 
 const ArtistSingle: React.FC<ArtistSingleProps> = (props) => {
-  const {
-    relatedArtworks,
-    lang,
-    description,
-    description_en,
-    webLink,
-    instagramLink,
-    name,
-  } = props
+  const { relatedArtworks, lang, content } = props
 
-  const _description =
-    lang === 'en' && description_en ? description_en : description
+  if (content && content.length > 0) {
+    return (
+      <BodyParser
+        lang={lang}
+        content={content}
+        extraComponents={{
+          artistHero: (
+            <ArtistHero photo={relatedArtworks && relatedArtworks[1].photo} />
+          ),
+          artistInfo: <ArtistHero {...props} />,
+          artistWorks: <ArtistWorks {...props} />,
+          artistImages: <ArtistImages {...props} />,
+        }}
+      />
+    )
+  }
 
   return (
     <>
-      {relatedArtworks && (
-        <FridaImage
-          photo={relatedArtworks[1]?.photo}
-          layout="fill"
-          className="h-vh w-full"
-        />
-      )}
+      <ArtistHero photo={relatedArtworks && relatedArtworks[1].photo} />
+      <ArtistInfo {...props} />
+      <ArtistImages {...props} />
+      <ArtistWorks {...props} />
+    </>
+  )
+}
 
-      <Section className="pb-20" backgroundColor="white">
+export default ArtistSingle
+
+type ArtistHeroProps = {
+  photo?: ImageMetaResult
+}
+const ArtistHero: React.FC<ArtistHeroProps> = ({ photo }) => {
+  return (
+    <>
+      {photo && (
+        <FridaImage photo={photo} layout="fill" className="h-vh w-full" />
+      )}
+    </>
+  )
+}
+
+const ArtistInfo: React.FC<ArtistSingleProps> = (props) => {
+  const { lang, description, description_en, webLink, instagramLink, name } =
+    props
+
+  const _description =
+    lang === 'en' && description_en ? description_en : description
+  return (
+    <>
+      <Section className="pb-20" backgroundColor="white" type="text">
         <h1 className="header-medium text-frida-pink pt-10 pb-8">
           <span className="text-frida-black">#Meet</span>
           {name}
@@ -64,7 +97,46 @@ const ArtistSingle: React.FC<ArtistSingleProps> = (props) => {
           )}
         </div>
       </Section>
+    </>
+  )
+}
 
+const ArtistImages: React.FC<ArtistSingleProps> = (props) => {
+  const { relatedArtworks, lang, name } = props
+
+  return (
+    <Section>
+      <div className="flex flex-row flex-wrap md:grid  grid-cols-11 grid-rows-5  w-full h-vh pb-12">
+        {relatedArtworks.slice(2, 4).map((item, index) => {
+          return (
+            <Photo
+              srcSizes={[100, 400]}
+              key={item.slug}
+              photo={item.photo}
+              width={100}
+              className={classNames(
+                `w-full`,
+                {
+                  'col-start-1 col-span-7  row-start-1 row-span-3': index === 1,
+                },
+                {
+                  'col-start-5 col-span-7 row-start-3 row-span-3': index === 0,
+                }
+              )}
+              layout="fill"
+            />
+          )
+        })}
+      </div>
+    </Section>
+  )
+}
+
+const ArtistWorks: React.FC<ArtistSingleProps> = (props) => {
+  const { relatedArtworks, lang, name } = props
+
+  return (
+    <>
       {relatedArtworks && relatedArtworks.length > 0 && (
         <Carousel
           header={lang === 'en' ? `Works by ${name}` : `Arbeiten von ${name}`}
@@ -76,5 +148,3 @@ const ArtistSingle: React.FC<ArtistSingleProps> = (props) => {
     </>
   )
 }
-
-export default ArtistSingle

@@ -10,7 +10,7 @@ import {
   carouselHeroBlockQuery,
   CarouselHeroResult,
 } from 'pageBuilder/Blocks/CarouselHeroBlock'
-import { categoriesBlockQuery } from 'pageBuilder/Blocks/CategoryBlock'
+
 import {
   MarqueeBlockQuery,
   MarqueeBlockQueryResult,
@@ -27,7 +27,17 @@ import {
   sectionBlockQuery,
   SectionResult,
 } from 'pageBuilder/Blocks/SectionBlock'
-import { richTextQuery, RichTextQueryResult } from 'pageBuilder/RichText'
+
+import {
+  categoriesBlockQuery,
+  CategoryBlockResult,
+} from 'pageBuilder/Blocks/CategoryBlock'
+
+import { richTextQuery, RichTextQueryResult } from 'pageBuilder/Blocks/RichText'
+
+import { EmbedPlugResult } from 'pageBuilder/Plugs/EmbedPlug'
+import { ButtonPlugResult } from 'pageBuilder/Plugs/ButtonPlug'
+import { ImagePlugResult } from 'pageBuilder/Plugs/ImagePlug'
 
 export type PageBuilderBlockBase = {
   _type: string
@@ -58,4 +68,8 @@ export type PageBodyResult = (
   | SectionResult
   | RichTextQueryResult
   | MarqueeBlockQueryResult
+  | EmbedPlugResult
+  | CategoryBlockResult
+  | ButtonPlugResult
+  | ImagePlugResult
 )[]

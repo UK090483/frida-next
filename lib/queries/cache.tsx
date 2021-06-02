@@ -14,10 +14,10 @@ export const cache = accessCache('public/build.cache.json')
 
 const cashQuery = `
 {
-  'artworks':*[_type=='artwork']{
+  'artworks':*[_type=='artwork' && defined(shopify_variant_id )]{
     ${artworkCardQuery}
   },
-  'artists':*[_type=='artist']{
+  'artists':*[_type=='artist'&& defined(slug.current)]{
     ${artistCardQuery}
   },
   'site':{
@@ -84,6 +84,8 @@ export const getSiteCache: () => Promise<undefined | CacheResult> =
       console.log(`build Cache with ${siteResult.artworks.length} Artworks`)
       await cache.put(siteCacheKey, siteResult)
       site = siteResult
+    } else {
+      console.log('site Data from Cache')
     }
     return site ? site : undefined
   }

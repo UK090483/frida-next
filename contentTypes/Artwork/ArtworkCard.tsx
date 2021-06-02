@@ -65,9 +65,8 @@ const ArtworkCard: React.FC<ArtworkCardProps> = (props) => {
       photo={photo}
       title={artistName}
       alt={`Artwork ${artworkName} by ${artistName}`}
+      banner={banner === 'hinzundkunzt' ? <Banner></Banner> : undefined}
     >
-      {banner === 'hinzundkunzt' && <Banner></Banner>}
-
       <div
         className={`flex ${
           type === 'carousel' ? '' : 'flex-wrap'

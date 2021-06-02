@@ -30,11 +30,15 @@ const Filter: React.FunctionComponent<IFilterProps> = (props) => {
     })
   }
 
+  const isActive = (name: string) => {
+    return router.query[name] && router.query[name] !== 'clear'
+      ? ` : ${router.query[name]}`
+      : ''
+  }
+
   const getLabel = (label: string, name: string) => {
-    const active =
-      router.query[name] && router.query[name] !== 'clear'
-        ? ` : ${router.query[name]}`
-        : ''
+    const active = isActive(name)
+
     return (
       <div
         className={`w-full h-full  flex  ${
@@ -62,6 +66,7 @@ const Filter: React.FunctionComponent<IFilterProps> = (props) => {
         if (!_filter.items) return null
         return (
           <Dropdown
+            active={!!isActive(_filter.name)}
             key={_filter.name}
             label={getLabel(_filter.label, _filter.name)}
             // items={[{ name: 'no Filter', value: 'clear' }, ..._filter.items]}

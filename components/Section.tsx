@@ -53,13 +53,13 @@ const Section: React.FC<SectionProps> = (props) => {
           'w-full',
           'mx-auto',
           {
-            'px-frida_7% ': type === 'normal',
+            'px-frida_side  md:px-frida_7% ': type === 'normal',
           },
           {
             'max-w-7xl px-5 ': type === 'medium-wide',
           },
           {
-            'max-w-5xl px-5': type === 'text',
+            'px-frida_side  max-w-5xl md:px-5': type === 'text',
           },
           {
             'px-frida_7% mt-28': type === 'hero',

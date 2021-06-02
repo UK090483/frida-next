@@ -10,7 +10,6 @@ export const defaultBockContent = {
     { type: 'artists' },
     { type: 'posts' },
     { type: 'categories' },
-    { type: 'supporter' },
     { type: 'products' },
     { type: 'marquee' }
   ]

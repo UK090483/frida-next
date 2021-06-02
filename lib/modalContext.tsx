@@ -167,6 +167,7 @@ const ModalContextProvider: React.FC = ({ children }) => {
   }
 
   const pushAsModal: ModalContext['pushAsModal'] = async (slug, type) => {
+    console.log('push as modal')
     if (state === 0 || state === 2) {
       firstPageIn(slug, type)
     }

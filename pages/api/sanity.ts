@@ -1,10 +1,8 @@
+import { SanityUpdateHandler } from '@lib/SyncApi/handleSanityUpdate'
 import sanityClient, { SanityClient } from '@sanity/client'
 import type { NextApiRequest, NextApiResponse } from 'next'
-const {
-  SANITY_PROJECT_DATASET,
-  SANITY_PROJECT_ID,
-  SANITY_API_TOKEN,
-} = process.env
+const { SANITY_PROJECT_DATASET, SANITY_PROJECT_ID, SANITY_API_TOKEN } =
+  process.env
 
 const handleCreate = async (
   id: string,
@@ -23,17 +21,8 @@ const handleUpdate = async (
   s: SanityClient,
   transactionId: string
 ) => {
-  try {
-    const item = await s.getDocument(id)
-    if (!item)
-      return console.error(
-        `handleUpdate Error:item with id ${id} could not be found handleUpdate`
-      )
-
-    // const nextDoc = await s.patch(id).set({ transactionId }).commit()
-  } catch (error) {
-    console.error(`handleUpdate Error: documentId: ${id}, Error: ${error} `)
-  }
+  // const updater = new SanityUpdateHandler(id, s)
+  // await updater.run()
 }
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {

@@ -1,5 +1,3 @@
-//@ts-nocheck
-
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { Base64 } from 'base64-string'
 
@@ -9,60 +7,131 @@ import shopify from '@lib/shopify'
 
 // get our global image GROQ
 import { imageMeta } from '@lib/api'
+import { ImageMetaResult } from './queries/snippets'
 
 // Set our initial context states
-const initialContext = {
+
+interface LineItem extends Partial<FetchVariantResult> {
+  lineID: string | number
+  quantity: number
+}
+
+type SiteContextState = {
   meganav: {
-    isOpen: false,
-    activeID: null,
-  },
-  productCounts: [],
-  shopifyClient: shopify,
-  isLoading: true,
-  isAdding: false,
-  isUpdating: false,
-  isCartOpen: false,
+    isOpen: boolean
+    activeID: string | null
+  }
+  productCounts: number[] | string | null
+  shopifyClient: ShopifyBuy.Client | null
+  isLoading: boolean
+  isAdding: boolean
+  isUpdating: boolean
+  isCartOpen: boolean
   checkout: {
-    id: null,
-    lineItems: [],
+    id: null | string | number
+    lineItems: LineItem[]
+    webUrl: string | null
+    subTotal: any
+  }
+}
+
+type SiteContext = {
+  context: SiteContextState
+  setContext: React.Dispatch<React.SetStateAction<SiteContextState>>
+}
+
+const initialContext: SiteContext = {
+  context: {
+    meganav: {
+      isOpen: false,
+      activeID: null,
+    },
+    productCounts: [],
+    shopifyClient: shopify,
+    isLoading: true,
+    isAdding: false,
+    isUpdating: false,
+    isCartOpen: false,
+    checkout: {
+      id: null,
+      lineItems: [],
+      webUrl: null,
+      subTotal: null,
+    },
   },
+  setContext: () => null,
 }
 
 // Set context
-const SiteContext = createContext({
-  context: initialContext,
-  setContext: () => null,
-})
+export const SiteContext = createContext(initialContext)
 
 // Build a new checkout
-const createNewCheckout = (context) => {
+const createNewCheckout = (context: SiteContextState) => {
   return context.shopifyClient?.checkout.create()
 }
 
 // Get Shopify checkout cart
-const fetchCheckout = (context, id) => {
+const fetchCheckout = (context: SiteContextState, id: string) => {
   return context.shopifyClient?.checkout.fetch(id)
 }
 
 // get associated variant from Sanity
+
+export type FetchVariantResult = {
+  lineID: string | number
+  _type: 'artwork' | 'productVariant'
+  product: {
+    title: string | null
+    slug: string | null
+    subTitle: string | null
+  }
+  id: string
+  title: string
+  price: number
+  quantity: number
+  photos: {
+    default: null | ImageMetaResult[]
+    cart: { forOption: string; photos: null | ImageMetaResult[] }[] | null
+    listingPhotos: { listingPhoto: null | ImageMetaResult }[]
+  }
+  options: { name: string; position: number; value: string }
+}
 const fetchVariant = async (id: string) => {
-  const variant = await getSanityClient().fetch(
+  const variant = (await getSanityClient().fetch(
     `
       *[_type == "productVariant" && variantID == ${id}][0]{
+        _type,
         "product": *[_type == "product" && productID == ^.productID][0]{
           title,
           "slug": slug.current,
+          galleryPhotos[]{
+            forOption,
+            photos[]{
+              ${imageMeta}
+            }
+          },
+          listingPhotos[]{
+            listingPhoto {${imageMeta}}
+          },
         },
         "id": variantID,
         title,
         price,
+       
         "photos": {
+          'default':*[_type == "product" && productID == ^.productID][0].listingPhotos[].listingPhoto{
+            ${imageMeta}
+          },
           "cart": *[_type == "product" && productID == ^.productID][0].cartPhotos[]{
             forOption,
             "default": cartPhoto{
               ${imageMeta}
             },
-          }
+          },
+          "listingPhotos": *[_type == "product" && productID == ^.productID][0].listingPhotos[]{
+            ${imageMeta}
+          },
+          
         },
         options[]{
           name,
@@ -71,7 +140,33 @@ const fetchVariant = async (id: string) => {
         }
       }
     `
-  )
+  )) as FetchVariantResult | null
+
+  return variant
+}
+
+const fetchArtwork = async (id: string) => {
+  const variant = (await getSanityClient().fetch(
+    `
+      *[_type == "artwork" && shopify_variant_id == '${id}'][0]{
+        _type,
+        'product':{
+          
+          "slug": slug.current,
+          'title' :name,
+          'subTitle' : artist->anzeigeName
+        },
+       
+        'id': shopify_variant_id,
+        price,
+        
+        "photos":{
+          'default': [image{${imageMeta}}],
+        },
+        
+      }
+    `
+  )) as FetchVariantResult | null
 
   return variant
 }
@@ -81,19 +176,27 @@ const shopifyCheckoutID = 'shopify_checkout_id'
 const shopifyVariantGID = 'gid://shopify/ProductVariant/'
 
 // set our checkout states
-const setCheckoutState = async (checkout, setContext, openCart) => {
+const setCheckoutState = async (
+  checkout: ShopifyBuy.Cart | undefined,
+  setContext: SiteContext['setContext'],
+  openCart?: boolean
+) => {
   if (!checkout) return null
 
   if (typeof window !== `undefined`) {
-    localStorage.setItem(shopifyCheckoutID, checkout.id)
+    localStorage.setItem(shopifyCheckoutID, checkout.id + '')
   }
 
   // get real lineItems data from Sanity
   const lineItems = await Promise.all(
     checkout.lineItems.map(async (item) => {
       const enc = new Base64()
+      //@ts-ignore
       const variantID = enc.decode(item.variant.id).split(shopifyVariantGID)[1]
-      const variant = await fetchVariant(variantID)
+      let variant = await fetchVariant(variantID)
+      if (!variant) {
+        variant = await fetchArtwork(variantID)
+      }
 
       return { ...variant, quantity: item.quantity, lineID: item.id }
     })
@@ -108,10 +211,13 @@ const setCheckoutState = async (checkout, setContext, openCart) => {
       isUpdating: false,
       isCartOpen: openCart ? true : prevState.isCartOpen,
       checkout: {
+        ...prevState.checkout,
         id: checkout.id,
         lineItems: lineItems,
-        subTotal: checkout.lineItemsSubtotalPrice,
-        webUrl: checkout.webUrl,
+        //@ts-ignore
+        subTotal: checkout.lineItemsSubtotalPrice as number,
+        //@ts-ignore
+        webUrl: checkout.webUrl as string,
       },
     }
   })
@@ -121,11 +227,13 @@ const setCheckoutState = async (checkout, setContext, openCart) => {
 /*  Our Context Wrapper
 /*  ------------------------------ */
 
-const SiteContextProvider = ({ data, children }) => {
+const SiteContextProvider: React.FC<{
+  data: { productCounts: null | string | number[] }
+}> = ({ data, children }) => {
   const { productCounts } = data
 
-  const [context, setContext] = useState({
-    ...initialContext,
+  const [context, setContext] = useState<SiteContextState>({
+    ...initialContext.context,
     ...{ productCounts },
   })
 
@@ -151,6 +259,8 @@ const SiteContextProvider = ({ data, children }) => {
 
             // Check if there are invalid items
             if (
+              existingCheckout &&
+              //@ts-ignore
               existingCheckout.lineItems.some((lineItem) => !lineItem.variant)
             ) {
               throw new Error(
@@ -159,11 +269,12 @@ const SiteContextProvider = ({ data, children }) => {
             }
 
             // Make sure this cart hasn’t already been purchased.
-            if (!existingCheckout.completedAt) {
+            if (existingCheckout && !existingCheckout.completedAt) {
               setCheckoutState(existingCheckout, setContext)
               return
             }
           } catch (e) {
+            //@ts-ignore
             localStorage.setItem(shopifyCheckoutID, null)
           }
         }
@@ -204,7 +315,7 @@ function useToggleMegaNav() {
     setContext,
   } = useContext(SiteContext)
 
-  async function toggleMegaNav(state, id = null) {
+  async function toggleMegaNav(state: 'toggle', id = null) {
     setContext((prevState) => {
       return {
         ...prevState,
@@ -268,10 +379,10 @@ function useAddItem() {
   async function addItem(
     variantID: string,
     quantity: number,
-    attributes: undefined | object
+    attributes: undefined | { key: string; value: string }[]
   ) {
     // Bail if no ID or quantity given
-    if (!variantID || !quantity) return
+    if (!variantID || !quantity || !shopifyClient || !checkout.id) return
 
     // Otherwise, start adding the product
     setContext((prevState) => {
@@ -283,11 +394,13 @@ function useAddItem() {
     const variant = enc.urlEncode(`${shopifyVariantGID}${variantID}`)
 
     // Build the cart line item
-    const newItem = {
-      variantId: variant,
-      quantity: quantity,
-      customAttributes: attributes,
-    }
+    const newItem = [
+      {
+        variantId: variant,
+        quantity: quantity,
+        customAttributes: attributes,
+      },
+    ]
 
     // Add it to the Shopify checkout cart
     const newCheckout = await shopifyClient.checkout.addLineItems(
@@ -309,9 +422,9 @@ function useUpdateItem() {
     setContext,
   } = useContext(SiteContext)
 
-  async function updateItem(itemID, quantity) {
+  async function updateItem(itemID: string | number, quantity: number) {
     // Bail if no ID or quantity given
-    if (!itemID || !quantity) return
+    if (!itemID || !quantity || !checkout.id || !shopifyClient) return
 
     // Otherwise, start adding the product
     setContext((prevState) => {
@@ -335,18 +448,19 @@ function useRemoveItem() {
     setContext,
   } = useContext(SiteContext)
 
-  async function removeItem(itemID) {
+  async function removeItem(itemID: string | number) {
     // Bail if no ID given
-    if (!itemID) return
+    if (!itemID || !shopifyClient) return
 
     // Otherwise, start removing the product
     setContext((prevState) => {
       return { ...prevState, isUpdating: true }
     })
 
+    if (!checkout.id) return
     const newCheckout = await shopifyClient.checkout.removeLineItems(
       checkout.id,
-      [itemID]
+      [itemID + '']
     )
 
     setCheckoutState(newCheckout, setContext)
@@ -379,18 +493,18 @@ function useToggleCart() {
 }
 
 // Reference a collection product count
-function useProductCount() {
-  const {
-    context: { productCounts },
-  } = useContext(SiteContext)
+// function useProductCount() {
+//   const {
+//     context: { productCounts },
+//   } = useContext(SiteContext)
 
-  function productCount(collection) {
-    const collectionItem = productCounts.find((c) => c.slug === collection)
-    return collectionItem.count
-  }
+//   function productCount(collection) {
+//     const collectionItem = productCounts.find((c) => c.slug === collection)
+//     return collectionItem.count
+//   }
 
-  return productCount
-}
+//   return productCount
+// }
 
 export {
   SiteContextProvider,
@@ -404,5 +518,5 @@ export {
   useRemoveItem,
   useCheckout,
   useToggleCart,
-  useProductCount,
+  //  useProductCount,
 }

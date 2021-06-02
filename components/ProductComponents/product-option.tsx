@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import React from 'react'
 import cx from 'classnames'
 
@@ -7,7 +9,18 @@ import RadioItem from '@components/radio-item'
 
 import Swatch from '@components/swatch'
 
-const ProductOption = ({
+type ProductOptionProps = {
+  option: any
+  optionSettings: any
+  position: any
+  variants: any
+  activeVariant: any
+  strictMatch: boolean
+  hideLabels: boolean
+  onChange: (val: string) => void
+}
+
+const ProductOption: React.FC<ProductOptionProps> = ({
   option,
   optionSettings,
   position,

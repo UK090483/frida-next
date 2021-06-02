@@ -6,6 +6,8 @@ import { buildInternalLink } from '@components/helper/buildInternalLink'
 
 export const buttonPlugQuery = ` 
 _type == "button" => {
+  _type,
+  _key,
     label,
     bgColor,
     color,
@@ -16,6 +18,8 @@ _type == "button" => {
 `
 
 export type ButtonPlugResult = {
+  _key: string
+  _type: 'button'
   label: string | null
   label_en: string | null
   internalLink: { slug: string; type: string } | null

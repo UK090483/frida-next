@@ -14,16 +14,19 @@ import ProductMagnifyImage from '@components/ProductComponents/ProductMagnifyIma
 import { buildSrc } from '@lib/helpers'
 import BuyButton from '@components/ProductComponents/BuyButton'
 import { FridaLocation } from 'types'
+import { ArtworkSingleViewResult } from './artworksQueries'
+import { useAddItem, useCartItems } from '@lib/context'
 
 type ArtworkHeroProps = {
   lang: FridaLocation
-  artwork: any
+  artwork: ArtworkSingleViewResult
   shopifyProduct: any
 }
 
 const ArtworkHero: React.FC<ArtworkHeroProps> = ({
   artwork,
   shopifyProduct,
+  lang,
 }) => {
   const {
     artworkName,
@@ -35,8 +38,13 @@ const ArtworkHero: React.FC<ArtworkHeroProps> = ({
     price,
     availability,
     photo,
-    lang,
+    shopify_variant_id,
   } = artwork
+
+  const addItem = useAddItem()
+  const cardItems = useCartItems()
+  console.log(cardItems)
+  const itemInCart = !!cardItems.find((item) => item.id === shopify_variant_id)
 
   return (
     <ProductHeroWrap>
@@ -45,20 +53,30 @@ const ArtworkHero: React.FC<ArtworkHeroProps> = ({
       </ProductImageWrap>
       <ProductInfoWrap>
         <div className="flex flex-col justify-center h-full">
-          <ProductName
-            size="l"
-            name={artworkName}
-            availability={availability}
-          ></ProductName>
+          {artworkName && availability && (
+            <ProductName
+              size="l"
+              name={artworkName}
+              availability={availability !== 'sold'}
+            ></ProductName>
+          )}
           <div className="text-xs-fluid font-bold pb-6">
             {`${medium}, ${width}*${height} ${
               depth ? '*' + depth : ''
             } cm ${stil}`}
           </div>
-          <Price price={price} />
+          {price && <Price price={price} />}
           <div className="pb-12">{/* <SocialShare /> */}</div>
 
-          <BuyButton />
+          <BuyButton
+            isInCart={itemInCart}
+            handleAddToCard={() => {
+              if (!shopify_variant_id) return
+              addItem(shopify_variant_id, 1, undefined).then(() => {
+                console.log('bla')
+              })
+            }}
+          />
           {/* <BuyButtonWrap>
              <BuyButton
               checkoutUrl={checkoutUrl}
