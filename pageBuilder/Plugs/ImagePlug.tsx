@@ -1,60 +1,53 @@
-import React from 'react'
-import Image from 'next/image'
-import { imageMeta, ImageMetaResult } from '@lib/queries/snippets'
-import FridaImage from '@components/fridaImage/FridaImage'
 import Photo from '@components/photo'
+import { imageMeta, ImageMetaResult } from '@lib/queries/snippets'
 import classNames from 'classnames'
+import React from 'react'
 import { FridaSizes } from 'types'
-import { imageBuilder } from '@lib/sanity'
-import FPhoto from '@components/fPoto'
 export const imagePlugQuery = ` 
 _type == "imagePlug" => {
   ...,
   _type,
   _key,
-  'cass':asset->,
+  'image':asset->,
    ${imageMeta},
    customWidth,
    customHeight,
 }
 `
-
 export interface ImagePlugResult extends ImageMetaResult {
   _type: 'imagePlug'
   _key: string
   customWidth?: FridaSizes | null
   customHeight?: FridaSizes | null
+  layout?: 'fill' | 'contain'
+  photo: any
 }
 
 const ImagePlug: React.FC<ImagePlugResult> = (props) => {
-  const { customWidth, customHeight, ...rest } = props
+  const { customWidth, customHeight, layout = 'contain', ...rest } = props
 
-  const s = imageBuilder.image(rest).width(sizeToWidth(customWidth)).url()
-  if (!s) return <div></div>
+  const _layout = customHeight ? layout : 'intrinsic'
+
   return (
-    <div
+    <Photo
+      width={50}
+      photo={rest}
+      layout={_layout}
       className={classNames(
         { 'w-full mx-auto': !customWidth },
-        { 'mx-auto md:full': !!customWidth },
-        { 'w-full md:w-1/6 ': customWidth === 's' },
-        { 'w-full md:w-1/4 ': customWidth === 'm' },
-        { 'w-full md:w-1/2 ': customWidth === 'l' },
-        { 'w-full md:w-3/4 ': customWidth === 'xl' },
-        { 'w-full md:w-2/3 ': customWidth === 'xxl' },
+        { 'mx-auto w-full': !!customWidth },
+        { 'w-full xs:max-w-sm ': customWidth === 's' },
+        { 'w-full xs:max-w-md': customWidth === 'm' },
+        { 'w-full xs:max-w-lg': customWidth === 'l' },
+        { 'w-full   xs:max-w-3xl': customWidth === 'xl' },
+        { 'w-full  xs:max-w-7xl': customWidth === 'xxl' },
         { 'h-vh/5': customHeight === 's' },
         { 'h-vh/4': customHeight === 'm' },
         { 'h-vh/3': customHeight === 'l' },
         { 'h-vh/2': customHeight === 'xl' },
         { 'h-vh': customHeight === 'xxl' }
       )}
-    >
-      <img
-        src={s}
-        className={classNames('w-full', {
-          'object-cover w-full h-full': !!customWidth && !!customHeight,
-        })}
-      />
-    </div>
+    />
   )
 }
 

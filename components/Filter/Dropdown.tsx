@@ -41,7 +41,6 @@ const Dropdown: React.FunctionComponent<IDropdownProps> = ({
         >
           {items.map((item) => (
             <li
-              aria-role="listitem"
               key={item.value}
               onClick={() => handleClick(item)}
               className="text-sm-fluid py-3 px-3 bg-frida-black opacity-0 group-focus:opacity-100 transition-opacity delay-200"

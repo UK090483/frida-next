@@ -1,4 +1,4 @@
-import { PageBuilderBlockBase } from '@lib/queries/pageBuilderQueries'
+import { PageBuilderBlockBase } from '../pageBuilderQueries'
 import Carousel from '@components/Carousel'
 import ArtworkCard, {
   artworkCardQuery,

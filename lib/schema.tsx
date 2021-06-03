@@ -1,6 +1,6 @@
 import React from 'react'
 
-const generateSchema = (data) => {
+const generateSchema = (data: any) => {
   return (
     <script
       type="application/ld+json"

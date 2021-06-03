@@ -2,7 +2,7 @@ import { getSanityClient } from '@lib/sanity'
 import { ArtistCardResult } from 'contentTypes/Artist/ArtistCard'
 import { ArtworksGalleryResult } from 'pageBuilder/Blocks/ArtworkBlock'
 import { cache, getSiteCache } from './cache'
-import { PageBodyResult } from './pageBuilderQueries'
+import { PageBodyResult } from '../../pageBuilder/pageBuilderQueries'
 
 export const fetchPageWithCache = async (query: string, slug: string) => {
   let pageData

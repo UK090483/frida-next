@@ -36,7 +36,13 @@ export default {
       type: 'string',
       options: {
         isHighlighted: true,
-        list: [...sizesList()]
+        list: [
+          { title: 's', value: 's' },
+          { title: 'm', value: 'm' },
+          { title: 'l', value: 'l' },
+          { title: 'xl', value: 'xl' },
+          { title: 'xxl', value: 'xxl' }
+        ]
       }
     },
     {
@@ -47,6 +53,20 @@ export default {
         isHighlighted: true,
         list: [...sizesList()]
       }
+    },
+    {
+      title: 'Layout',
+      name: 'layout',
+      type: 'string',
+      description: 'Important if  height is set',
+      options: {
+        isHighlighted: true,
+        list: [
+          { title: 'Fill', value: 'fill' },
+          { title: 'Contain', value: 'contain' }
+        ]
+      },
+      initialValue: 'contain'
     },
     {
       title: 'Alternative text',

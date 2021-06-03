@@ -124,7 +124,7 @@
 
 /* ----- Marquees ----- */
 
-.marquee {
+/* .marquee {
   @apply border-b;
 
   &--item {
@@ -138,16 +138,16 @@
   &--photo {
     @apply relative w-32 sm:w-48 px-8 py-4 sm:px-12 sm:py-8;
 
-    /* [data-theme='metal'] & {
+    [data-theme='metal'] & {
       filter: invert(94%) sepia(59%) saturate(2450%) hue-rotate(35deg)
         brightness(122%) contrast(111%);
-    } */
+    }
 
-    /* img {
+    img {
       html:not([data-theme='dark']) & {
         filter: invert(1);
       }
-    } */
+    } 
   }
 
   &--product {
@@ -164,4 +164,4 @@
       @apply flex-1;
     }
   }
-}
+} */

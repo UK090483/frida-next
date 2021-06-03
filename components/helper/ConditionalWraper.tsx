@@ -1,10 +1,10 @@
-import React from "react"
+import React from 'react'
 
 type ConditionalWrapperProps = {
   condition: boolean
-  wrapperTrue: (children: React.ReactElement) => JSX.Element
-  wrapperFalse: (children: React.ReactElement) => JSX.Element
-  children: React.ReactElement
+  wrapperTrue: (children: React.ReactNode) => JSX.Element
+  wrapperFalse: (children: React.ReactNode) => JSX.Element
+  children: React.ReactNode
 }
 const ConditionalWrapper: React.FC<ConditionalWrapperProps> = ({
   condition,

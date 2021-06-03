@@ -130,6 +130,11 @@ module.exports = {
         'vw/5': 'calc(100vw / 5)',
       },
       width: {
+        'absolut-s': '200px',
+        'absolut-m': '400px',
+        'absolut-l': '600px',
+        'absolut-xl': '900px',
+        'absolut-xxl': '1200px',
         'fit-content': 'fit-content',
         vh: '100vh',
         'vh/2': '50vh',
@@ -154,6 +159,7 @@ module.exports = {
       display: ['group-hover', 'group-focus'],
       zIndex: ['group-hover', 'group-focus'],
       opacity: ['group-hover', 'group-focus'],
+      translate: ['group-hover', 'group-focus'],
     },
   },
   plugins: [

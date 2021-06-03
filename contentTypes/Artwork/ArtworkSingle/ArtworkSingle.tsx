@@ -6,6 +6,7 @@ import React from 'react'
 import Button from '@components/buttons/button'
 import { FridaLocation } from 'types'
 import ArtworkHero from './ArtworkHero'
+import Quotes from '@components/Quote/Quotes'
 
 interface ArtworkSingleProps extends ArtworkSingleViewResult {
   lang: FridaLocation
@@ -26,6 +27,7 @@ const ArtworkSingle: React.FC<ArtworkSingleProps> = (props) => {
     artistName,
     artistWebLink,
     instagramLink,
+    quotes,
   } = props
 
   const _description =
@@ -82,6 +84,7 @@ const ArtworkSingle: React.FC<ArtworkSingleProps> = (props) => {
           )}
         </div>
       </Section>
+      {quotes.length > 0 && <Quotes items={quotes} />}
 
       {relatedArtworks.length > 0 && (
         <Carousel

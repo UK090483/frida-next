@@ -9,14 +9,18 @@ import CategoryBlock from './Blocks/CategoryBlock'
 import Section from './Blocks/SectionBlock'
 import RT from './Blocks/RichText'
 import Marquee from './Blocks/Marquee'
+import Quotes from './Blocks/QuotesBlock'
 
 import ButtonPlug from './Plugs/ButtonPlug'
 import EmbedPlug from './Plugs/EmbedPlug'
 import ImagePlug from './Plugs/ImagePlug'
+import SeoHeaderPlug from './Plugs/SeoHeader'
+import ImageGalleryPlug from './Plugs/ImageGaleriePlug'
 
 import ComponentNotFound from './component_not_found'
 import { FridaLocation } from 'types'
-import { PageBodyResult } from '@lib/queries/pageBuilderQueries'
+import { PageBodyResult } from './pageBuilderQueries'
+import InnerSectionPlug from './Plugs/innerSection'
 
 type ContentParserProps = {
   content: PageBodyResult
@@ -58,6 +62,14 @@ const BodyParser: React.FC<ContentParserProps> = (props) => {
               return <ButtonPlug {...blok} key={blok._key} />
             case 'imagePlug':
               return <ImagePlug {...blok} key={blok._key} />
+            case 'seoHeader':
+              return <SeoHeaderPlug {...blok} key={blok._key} />
+            case 'quotes':
+              return <Quotes {...blok} key={blok._key} />
+            case 'imageGalleryPlug':
+              return <ImageGalleryPlug {...blok} key={blok._key} />
+            case 'innerSection':
+              return <InnerSectionPlug {...blok} key={blok._key} />
 
             default:
               return (

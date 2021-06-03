@@ -16,7 +16,6 @@ export const getAllDocPathsCached = async (doc: string) => {
   if (!allPages) return { paths: [], fallback: true }
   if (!Array.isArray(allPages)) return { paths: [], fallback: true }
 
-  allPages
   return {
     paths:
       allPages.reduce((acc, page) => {

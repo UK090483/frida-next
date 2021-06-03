@@ -13,7 +13,7 @@ import { GetStaticPaths, GetStaticProps } from 'next'
 import React from 'react'
 import { FridaLocation } from 'types'
 import { SiteResult } from '@lib/queries/cache'
-import { body, PageBodyResult } from '@lib/queries/pageBuilderQueries'
+import { body, PageBodyResult } from 'pageBuilder/pageBuilderQueries'
 
 export const artistSingleView = `
 

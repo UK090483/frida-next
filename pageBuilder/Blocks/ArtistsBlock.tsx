@@ -8,7 +8,7 @@ import ArtistCard, {
   artistCardQuery,
   ArtistCardResult,
 } from 'contentTypes/Artist/ArtistCard'
-import { PageBuilderBlockBase } from '@lib/queries/pageBuilderQueries'
+import { PageBuilderBlockBase } from '../pageBuilderQueries'
 
 export const artistsBlockQuery = `
 _type == "artists" => {

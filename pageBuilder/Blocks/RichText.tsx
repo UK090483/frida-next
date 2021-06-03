@@ -5,14 +5,19 @@ import Frida from '../../components/Frida'
 import EmbedPlug, { embedPlugQuery } from '../Plugs/EmbedPlug'
 import ButtonPlug, { buttonPlugQuery } from '../Plugs/ButtonPlug'
 import { imagePlugQuery } from '../Plugs/ImagePlug'
-import { PageBuilderBlockBase } from '@lib/queries/pageBuilderQueries'
+import { PageBuilderBlockBase } from '../pageBuilderQueries'
+import { imageGalleryPlugQuery } from 'pageBuilder/Plugs/ImageGaleriePlug'
+import { innerSectionPlugQuery } from 'pageBuilder/Plugs/innerSection'
 
 export const richTextQuery = `
 content[]{
   ...,
   ${buttonPlugQuery},
   ${embedPlugQuery},
-  ${imagePlugQuery}
+  ${imagePlugQuery},
+  ${imageGalleryPlugQuery},
+  ${innerSectionPlugQuery}
+
 }
 `
 

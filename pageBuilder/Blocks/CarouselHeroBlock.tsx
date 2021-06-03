@@ -1,6 +1,6 @@
 import FridaImage from '@components/fridaImage/FridaImage'
 import CarouselHero from '@components/CarussellHero/CarussellHero'
-import { PageBuilderBlockBase } from '@lib/queries/pageBuilderQueries'
+import { PageBuilderBlockBase } from '../pageBuilderQueries'
 import { imageMeta, ImageMetaResult } from '@lib/queries/snippets'
 import { richTextQuery } from 'pageBuilder/Blocks/RichText'
 import React from 'react'

@@ -3,6 +3,7 @@ import {
   artworkCardQuery,
   ArtworkCardResult,
 } from 'contentTypes/Artwork/ArtworkCard'
+import { QuoteResult, QuoteQuery } from 'pageBuilder/Blocks/QuotesBlock'
 
 import { imageMeta, ImageMetaResult } from '../../../lib/queries/snippets'
 
@@ -25,6 +26,7 @@ price,
 'medium':medium->name,
 'stil':stil->name,
 'banner':banner,
+'quotes':*[_type == 'quote' && references(^._id)]{${QuoteQuery}},
 'image':@.image.asset._ref,
 'shopify_handle':shopify_handle,
 'shopify_product_id':shopify_product_id,
@@ -61,6 +63,7 @@ export type ArtworkSingleViewResult = {
   stil: null | string
   banner: null | string
   photo: null | ImageMetaResult
+  quotes: QuoteResult[]
   relatedArtworks: ArtworkCardResult[]
   randomArtworks: ArtworkCardResult[]
   shopify_product_id: null | string

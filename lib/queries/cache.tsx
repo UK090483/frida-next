@@ -8,7 +8,7 @@ import {
   ArtworkCardResult,
 } from 'contentTypes/Artwork/ArtworkCard'
 import { accessCache } from 'next-build-cache'
-import { body, PageBodyResult } from './pageBuilderQueries'
+import { body, PageBodyResult } from '../../pageBuilder/pageBuilderQueries'
 
 export const cache = accessCache('public/build.cache.json')
 
@@ -21,7 +21,7 @@ const cashQuery = `
     ${artistCardQuery}
   },
   'site':{
-    'footer':*[_type=='footer']{${body}},
+    'footer':*[_type=='footer' && _id== '3667a872-9775-477c-b33b-09370c28524f' ][0]{${body}},
   "seo": *[_type == "seoSettings"][0]{
   siteTitle,
   metaTitle,
@@ -44,7 +44,7 @@ const cashQuery = `
 export type SiteResult = {
   footer: {
     content: PageBodyResult
-  }[]
+  }
   seo: {
     siteTitle: string | null
     metaTitle: string | null
@@ -96,7 +96,6 @@ function shuffle(array: any[]) {
     i
   while (m) {
     i = Math.floor(Math.random() * m--)
-
     t = array[m]
     array[m] = array[i]
     array[i] = t

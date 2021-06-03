@@ -1,10 +1,10 @@
 import React from 'react'
 import { AiOutlineBorderOuter } from 'react-icons/ai'
-import { colorList, sizesList } from '../snippets'
+import { colorList, sizesList } from '../../snippets'
 export default {
   type: 'object',
-  name: 'section',
-  title: 'Section',
+  name: 'innerSectionItem',
+  title: 'innerSectionItem',
   fieldsets: [
     {
       name: 'space',
@@ -20,43 +20,11 @@ export default {
   icon: () => <AiOutlineBorderOuter />,
   fields: [
     {
-      name: 'title',
-      type: 'string',
-      title: 'Title'
-    },
-    {
       name: 'content',
-      type: 'defaultRichText',
+      type: 'innerRichText',
       title: 'Content'
     },
-    {
-      name: 'content_en',
-      type: 'defaultRichText',
-      title: 'Content En'
-    },
-    {
-      title: 'Type',
-      name: 'type',
-      type: 'string',
-      options: {
-        list: [
-          { title: 'Normal', value: 'normal' },
-          { title: 'Medium Wide', value: 'medium-wide' },
-          { title: 'Narrow', value: 'text' },
-          { title: 'Hero', value: 'hero' },
-          { title: 'Full Width', value: 'full-width' }
-        ]
-      },
-      initialValue: 'normal'
-    },
-    {
-      title: 'Background Color',
-      name: 'bgColor',
-      type: 'string',
-      options: {
-        list: [...colorList()]
-      }
-    },
+
     {
       title: 'Top Space',
       name: 'topSpace',
@@ -74,12 +42,6 @@ export default {
       options: {
         list: [...sizesList()]
       }
-    },
-    {
-      title: 'Background Image',
-      name: 'bgImage',
-      type: 'figure',
-      fieldset: 'bgImage'
     }
   ],
   preview: {

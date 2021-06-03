@@ -2,7 +2,7 @@ import React from 'react'
 import Marquee from 'components/marquee'
 import { imageMeta } from '@lib/queries/snippets'
 import { FridaColors, FridaLocation } from 'types'
-import { PageBuilderBlockBase } from '@lib/queries/pageBuilderQueries'
+import { PageBuilderBlockBase } from '../pageBuilderQueries'
 export const MarqueeBlockQuery = `
 _type == 'marquee' => {
     _type,
@@ -28,7 +28,7 @@ _type == 'marquee' => {
     bgColorHover,
     color,
     colorHover,
-  },
+  }
 `
 type TextItem = {
   _type: 'simple'

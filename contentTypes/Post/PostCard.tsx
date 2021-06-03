@@ -66,14 +66,13 @@ const PostCard: React.FC<PostCardProps> = (props) => {
         {...mouseLinkProps}
         className="p-2 flex flex-wrap-reverse md:flex-nowrap justify-between  w-full  mb-16"
         onClick={(e) => {
-          e.preventDefault()
-
-          pushAsModal(`/post/${slug}`, 'post')
+          // e.preventDefault()
+          // pushAsModal(`/post/${slug}`, 'post')
         }}
       >
         <div className="w-full md:w-2/3 mt-4 md:mt-0 md:pr-frida_7% flex flex-col justify-between ">
-          <Infos categories={_categories} createdAt={createdAt} />
           <h2 className="header-small">{_title}</h2>
+          <Infos categories={_categories} createdAt={createdAt} />
         </div>
 
         <FridaImage
@@ -97,11 +96,11 @@ const Infos: React.FC<{
   return (
     <div className="mb-8 flex items-center">
       {categories.map((cat) => (
-        <div className="text-sm-fluid inline-block border-2 px-8 py-1 rounded-full mr-3">
+        <div className="text-xs-fluid inline-block border-2 px-8 py-1 rounded-full mr-3">
           {cat}
         </div>
       ))}
-      <div className="text-sm-fluid">{formatDate(createdAt)}</div>
+      <div className="text-xs-fluid">{formatDate(createdAt)}</div>
     </div>
   )
 }

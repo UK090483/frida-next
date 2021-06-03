@@ -30,7 +30,7 @@ const getStyle = (fs, mb, bold) => {
 }
 
 export default {
-  name: 'defaultRichText',
+  name: 'innerRichText',
   type: 'array',
   title: 'Text',
 
@@ -164,7 +164,6 @@ export default {
     { type: 'embed' },
     { type: 'imagePlug' },
     { type: 'seoHeader' },
-    { type: 'imageGalleryPlug' },
-    { type: 'innerSection' }
+    { type: 'imageGalleryPlug' }
   ]
 }

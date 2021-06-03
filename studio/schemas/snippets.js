@@ -11,7 +11,8 @@ export const defaultBockContent = {
     { type: 'posts' },
     { type: 'categories' },
     { type: 'products' },
-    { type: 'marquee' }
+    { type: 'marquee' },
+    { type: 'quotes' }
   ]
 }
 

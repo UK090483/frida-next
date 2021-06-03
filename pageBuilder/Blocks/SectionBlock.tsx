@@ -2,7 +2,7 @@ import React from 'react'
 import Section from '../../components/Section'
 
 import BodyParser from '../BodyParser'
-import { PageBuilderBlockBase } from '@lib/queries/pageBuilderQueries'
+import { PageBuilderBlockBase } from '../pageBuilderQueries'
 import { imageMeta } from '@lib/api'
 import { richTextQuery } from 'pageBuilder/Blocks/RichText'
 import { ImageMetaResult } from '@lib/queries/snippets'

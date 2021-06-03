@@ -1,7 +1,7 @@
 import { getSanityClient } from '@lib/sanity'
 import { FridaColors } from 'types'
 import { SiteResult } from './cache'
-import { PageBodyResult, body } from './pageBuilderQueries'
+import { PageBodyResult, body } from '../../pageBuilder/pageBuilderQueries'
 
 // const navigation = `
 // 'navigation':*[_type == "navigation"][0]{
@@ -70,6 +70,7 @@ export const site = `
 export const page = `
 ...,
 'slug':slug.current,
+footer->{${body}},
 ${body}
 ${site}
 `
@@ -79,6 +80,7 @@ export type PageResult = {
   title?: string
   title_en?: string
   slug: null | string
+  footer?: any
   pageHeader?: null | {
     initialPageTitleColor: FridaColors
     hideMenu?: null | boolean

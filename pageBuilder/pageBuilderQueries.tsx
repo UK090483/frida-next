@@ -32,12 +32,19 @@ import {
   categoriesBlockQuery,
   CategoryBlockResult,
 } from 'pageBuilder/Blocks/CategoryBlock'
+import {
+  QuotesBlockQuery,
+  QuotesBlockResult,
+} from 'pageBuilder/Blocks/QuotesBlock'
 
 import { richTextQuery, RichTextQueryResult } from 'pageBuilder/Blocks/RichText'
 
 import { EmbedPlugResult } from 'pageBuilder/Plugs/EmbedPlug'
 import { ButtonPlugResult } from 'pageBuilder/Plugs/ButtonPlug'
 import { ImagePlugResult } from 'pageBuilder/Plugs/ImagePlug'
+import { SeoHeaderPlugResult } from 'pageBuilder/Plugs/SeoHeader'
+import { ImageGalleryPlugResult } from 'pageBuilder/Plugs/ImageGaleriePlug'
+import { InnerSectionPlugResult } from './Plugs/innerSection'
 
 export type PageBuilderBlockBase = {
   _type: string
@@ -55,7 +62,8 @@ content[]{
   ${postsBlockQuery},
   ${sectionBlockQuery},
   ${richTextQuery},
-  ${MarqueeBlockQuery}
+  ${MarqueeBlockQuery},
+  ${QuotesBlockQuery}
 },
 `
 
@@ -72,4 +80,8 @@ export type PageBodyResult = (
   | CategoryBlockResult
   | ButtonPlugResult
   | ImagePlugResult
+  | SeoHeaderPlugResult
+  | QuotesBlockResult
+  | ImageGalleryPlugResult
+  | InnerSectionPlugResult
 )[]

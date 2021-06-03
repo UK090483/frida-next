@@ -54,7 +54,8 @@ const Layout: React.FC<LayoutProps> = (props) => {
     navItems = [],
   } = props
 
-  const site = data.site
+  //@ts-ignore
+  const footer = data.footer || data.site.footer
 
   return (
     <>
@@ -80,9 +81,7 @@ const Layout: React.FC<LayoutProps> = (props) => {
         )}
         <main>{children}</main>
         {/* <CookieConsent /> */}
-        {data.site && data.site.footer && data.site.footer[0].content && (
-          <BodyParser lang={props.lang} content={data.site.footer[0].content} />
-        )}
+        {footer && <BodyParser lang={props.lang} content={footer.content} />}
         <Footer></Footer>
       </m.div>
       <Mouse />

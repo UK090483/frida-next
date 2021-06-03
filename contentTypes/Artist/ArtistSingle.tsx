@@ -25,7 +25,13 @@ const ArtistSingle: React.FC<ArtistSingleProps> = (props) => {
         content={content}
         extraComponents={{
           artistHero: (
-            <ArtistHero photo={relatedArtworks && relatedArtworks[1].photo} />
+            <ArtistHero
+              photo={
+                relatedArtworks &&
+                relatedArtworks[1] &&
+                relatedArtworks[1].photo
+              }
+            />
           ),
           artistInfo: <ArtistHero {...props} />,
           artistWorks: <ArtistWorks {...props} />,
@@ -37,7 +43,11 @@ const ArtistSingle: React.FC<ArtistSingleProps> = (props) => {
 
   return (
     <>
-      <ArtistHero photo={relatedArtworks && relatedArtworks[1].photo} />
+      <ArtistHero
+        photo={
+          relatedArtworks && relatedArtworks[1] && relatedArtworks[1].photo
+        }
+      />
       <ArtistInfo {...props} />
       <ArtistImages {...props} />
       <ArtistWorks {...props} />
