@@ -22,7 +22,7 @@ interface CardWrapPros {
   title?: string
   modal?: boolean
   alt?: string
-  banner?: React.ReactElement
+  banner?: React.ReactElement | undefined
 }
 
 const CardWrap: React.FC<CardWrapPros> = (props) => {

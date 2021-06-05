@@ -9,7 +9,7 @@ import ProductMagnifyImage from '@components/ProductComponents/ProductMagnifyIma
 import ProductName from '@components/ProductComponents/ProductName'
 import Price from '@components/ProductComponents/ProductPrice'
 import { useAddItem, useCartItems } from '@lib/context'
-import ProductForm from 'blocks/product/product-form'
+import ProductForm from '@components/ProductComponents/product-form'
 import React from 'react'
 import { FridaLocation } from 'types'
 import { ProductSingleViewResult } from './ProductSingle'

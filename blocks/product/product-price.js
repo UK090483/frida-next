@@ -1,19 +1,21 @@
-import React from 'react'
+// import React from 'react'
 
-import { centsToPrice } from '@lib/helpers'
+// import { centsToPrice } from '@lib/helpers'
 
-const ProductPrice = ({ price, comparePrice }) => {
-  return (
-    <div className="price">
-      <span className="price--current">${centsToPrice(price)}</span>
+// const ProductPrice = ({ price, comparePrice }) => {
+//   return (
+//     <div className="price">
+//       <span className="price--current">${centsToPrice(price)}</span>
 
-      {!!comparePrice && (
-        <span className="price--discount">
-          {Math.ceil(((comparePrice - price) / comparePrice) * 100)}% off
-        </span>
-      )}
-    </div>
-  )
-}
+//       {!!comparePrice && (
+//         <span className="price--discount">
+//           {Math.ceil(((comparePrice - price) / comparePrice) * 100)}% off
+//         </span>
+//       )}
+//     </div>
+//   )
+// }
 
-export default ProductPrice
+// export default ProductPrice
+
+export {}

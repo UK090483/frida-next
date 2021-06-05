@@ -2,12 +2,13 @@ import React from 'react'
 import Section from '../../components/Section'
 
 import BodyParser from '../BodyParser'
-import { PageBuilderBlockBase } from '../pageBuilderQueries'
+import { PageBuilderBlockBase } from 'pageBuilder/pageBuilderQueries'
 import { imageMeta } from '@lib/api'
-import { richTextQuery } from 'pageBuilder/Blocks/RichText'
+
 import { ImageMetaResult } from '@lib/queries/snippets'
 import { FridaColors, FridaLocation, FridaSizes } from 'types'
 import classNames from 'classnames'
+import { richTextQuery } from './RichText'
 
 export const sectionBlockQuery = `
 _type == "section" => {

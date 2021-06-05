@@ -1,16 +1,18 @@
+
+const url ='http://localhost:3000/api/preview?token=HULL'
+
 export default function resolveProductionUrl(document) {
   switch (document._type) {
     case 'page':
-      return `http://localhost:3000/${document.slug.current}?preview=true`
+      return `${url}&slug=${document.slug.current}&type=page`
     case 'indexPage':
-      return `http://localhost:3000?preview=true`
+      return `${url}&slug=''`
     case 'artwork':
-      return `http://localhost:3000/artwork/${document.slug.current}?preview=true`
+      return `${url}&slug=${document.slug.current}&type=artwork`
     case 'post':
-      return `http://localhost:3000/post/${document.slug.current}?preview=true`
+      return `${url}&slug=${document.slug.current}&type=post`
     case 'artist':
-      return `http://localhost:3000/artist/${document.slug.current}?preview=true`
-
+      return `${url}&slug=${document.slug.current}&type=artist`
     default:
       return undefined
   }

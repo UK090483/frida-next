@@ -8,6 +8,7 @@ const options: ClientConfig = {
   //@ts-ignore
   projectId: process.env.SANITY_PROJECT_ID,
   useCdn: process.env.NODE_ENV === 'production',
+
   apiVersion: '2021-03-25',
 }
 
@@ -24,8 +25,11 @@ export function createPreviewClient(token: string) {
 
 export const usePreviewSubscription = createPreviewSubscriptionHook(options)
 
-export function getSanityClient(preview?: { active: boolean; token: string }) {
-  if (preview?.active) {
+export function getSanityClient(preview?: {
+  active: boolean
+  token: string | undefined
+}) {
+  if (preview?.active && preview.token) {
     return createPreviewClient(preview.token)
   } else {
     return sanityClient

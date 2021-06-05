@@ -4,8 +4,15 @@ import BigButton from '@components/buttons/bigButton'
 import Newsletter from 'components/Forms/NewsletterForm'
 import { useRouter } from 'next/router'
 import { mouseLinkProps } from './Mouse/mouseRemote'
+import Link from 'next/link'
 
-const Footer: React.FC = () => {
+type FooterProps = {
+  imprintSlug?: string | null | undefined
+  agbSlug?: string | null | undefined
+}
+
+const Footer: React.FC<FooterProps> = (props) => {
+  const { imprintSlug, agbSlug } = props
   const router = useRouter()
 
   return (
@@ -43,26 +50,14 @@ const Footer: React.FC = () => {
             rel="noreferrer"
             {...mouseLinkProps}
           >
-            <p>© 2020 Schwan Communications</p>
+            © 2020 Schwan Communications
           </a>
-
-          <a
-            {...mouseLinkProps}
-            onClick={() => {
-              router.push('/impressum')
-            }}
-          >
-            Impressum & Datenschutz
-          </a>
-
-          <a
-            {...mouseLinkProps}
-            onClick={() => {
-              router.push('/agb')
-            }}
-          >
-            AGB
-          </a>
+          <Link href={`/${imprintSlug ? imprintSlug : ''}`} passHref>
+            <a {...mouseLinkProps}>Impressum & Datenschutz</a>
+          </Link>
+          <Link href={`/${agbSlug ? agbSlug : ''}`} passHref>
+            <a {...mouseLinkProps}>AGB</a>
+          </Link>
         </div>
       </Section>
     </div>

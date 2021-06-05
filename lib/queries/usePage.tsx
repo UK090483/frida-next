@@ -5,27 +5,28 @@ type usePageProps = {
   slug: string
   query: string
   data: any
+  preview: boolean | undefined
 }
 
 export const usePage = (props: usePageProps) => {
-  const { slug, query, data } = props
+  const { slug, query, data, preview } = props
 
   const router = useRouter()
-
-  if (router.isFallback) {
-    return { pageData: null, isError: true }
-  }
-  if (!data) {
-    return { pageData: null, isError: true }
-  }
 
   const { data: pageData } = usePreviewSubscription(query, {
     params: { slug },
     initialData: data,
-    enabled: !!router.query.preview,
+    enabled: !!preview,
   })
 
-  if (!!router.query.preview) {
+  if (router.isFallback) {
+    return { pageData: null, isError: true }
+  }
+  if (!pageData) {
+    return { pageData: null, isError: true }
+  }
+
+  if (preview) {
     pageData.site = data.site
   }
 

@@ -23,7 +23,16 @@ export type SeoHeaderPlugResult = {
 const SeoHeaderPlug: React.FC<SeoHeaderPlugResult> = (props) => {
   const { text, headerType, headerColor, headerStyle } = props
 
-  const styledText = () => {
+  const _text =
+    text &&
+    text.split('\n').map((line, i) => (
+      <span key={i}>
+        {line}
+        <br />
+      </span>
+    ))
+
+  const styledText: () => React.ReactElement = () => {
     return (
       <span
         className={classNames(
@@ -33,7 +42,7 @@ const SeoHeaderPlug: React.FC<SeoHeaderPlugResult> = (props) => {
           ` text-frida-${headerColor}`
         )}
       >
-        {text}
+        {_text}
       </span>
     )
   }

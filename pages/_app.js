@@ -74,7 +74,7 @@ const MyApp = ({ Component, pageProps, router }) => {
   }, [])
 
   return (
-    // <ThemeProvider disableTransitionOnChange>
+    
     <ModalContextProvider>
       <SiteContextProvider data={{ ...pageProps?.data?.site }}>
         <LazyMotion features={domAnimation}>
@@ -101,12 +101,12 @@ const MyApp = ({ Component, pageProps, router }) => {
           </AnimatePresence>
 
           <Cart data={{ ...pageProps?.data?.site }} />
-          <Modal />
+           <Modal /> 
           <ShowBreakingPoints />
         </LazyMotion>
       </SiteContextProvider>
     </ModalContextProvider>
-    // </ThemeProvider>
+    
   )
 }
 

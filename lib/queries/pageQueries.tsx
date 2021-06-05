@@ -30,7 +30,6 @@ const footer = `
 export type FooterResult = {
   content: PageBodyResult
 }[]
-
 const seo = `
 "seo": *[_type == "seoSettings"][0]{
   siteTitle,
@@ -66,25 +65,3 @@ export const site = `
 //   navigation: NavigationResult
 //   footer: FooterResult
 // }
-
-export const page = `
-...,
-'slug':slug.current,
-footer->{${body}},
-${body}
-${site}
-`
-
-export type PageResult = {
-  content: PageBodyResult
-  title?: string
-  title_en?: string
-  slug: null | string
-  footer?: any
-  pageHeader?: null | {
-    initialPageTitleColor: FridaColors
-    hideMenu?: null | boolean
-    withOutHomeLink?: null | boolean
-  }
-  site: SiteResult
-}

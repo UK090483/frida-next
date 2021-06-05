@@ -1,5 +1,4 @@
 import FridaImage from '@components/fridaImage/FridaImage'
-import photo from '@components/photo'
 import cx from 'classnames'
 import React from 'react'
 import { FridaColors } from '../types'
@@ -22,6 +21,7 @@ const Section: React.FC<SectionProps> = (props) => {
   } = props
 
   return (
+    // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
     <section
       onMouseOver={() => {
         backgroundColor === 'red'

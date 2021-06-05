@@ -1,27 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;800&display=swap');
-:root {
-  --brand-primary: #000;
+ :root {
+  --brand-primary: #f5c5d9;
   --brand-primary--inverted: #fff;
   --brand-secondary: #000;
   --brand-secondary--inverted: #fff;
 
-  --main-navigation-color: var(--brand-secondary);
+  --main-navigation-color: var(--brand-primary);
   --main-navigation-color--inverted: var(--brand-secondary--inverted);
 
   --theme-pageBG: #f4f4f0;
   --theme-pageText: #000000;
-}
+} 
 
 /* correctly style active state on dark navbars */
 
-[data-tone='navbar'][class*='selected'] > span {
+/* [data-tone='navbar'][class*='selected'] > span {
   background: var(--brand-secondary--inverted) !important;
   color: var(--brand-secondary) !important;
-}
+} */
 
 /* more obvious cursors for studio elements */
 
-.item:not([disabled]),
+/* .item:not([disabled]),
 .title,
 button:not([disabled]) {
   cursor: pointer !important;
@@ -33,25 +33,25 @@ button:not([disabled]) {
 
 [class*='drag'] button {
   cursor: grab !important;
-}
+} */
 
-li[class*='moving'],
+/* li[class*='moving'],
 li[class*='moving'] * {
   pointer-events: all !important;
   cursor: grabbing !important;
-}
+} */
 
 /* high-fidelity renders */
-[data-slate-editor] {
+/* [data-slate-editor] {
   background: var(--theme-pageBG);
   color: var(--theme-pageText);
 }
 
 .pt-editable * {
   font-family: 'Montserrat', 'Helvetica Neue', sans-serif !important;
-}
+} */
 
-.btn {
+/* .btn {
   display: inline-block;
   position: relative;
   padding: 0.5rem 1.25rem;
@@ -67,9 +67,9 @@ li[class*='moving'] * {
 
 .btn * {
   font-weight: 600;
-}
+} */
 
-.btn.is-primary {
+/* .btn.is-primary {
   background: var(--theme-pageText) !important;
   color: var(--theme-pageBG) !important;
   border-color: var(--theme-pageText);
@@ -86,9 +86,9 @@ li[class*='moving'] * {
   font-size: 1.5rem;
   line-height: 2rem;
   font-weight: 400;
-}
+} */
 
-.btn.is-large * {
+/* .btn.is-large * {
   font-weight: 400;
 }
 
@@ -96,4 +96,4 @@ li[class*='moving'] * {
   box-sizing: border-box;
   width: 100%;
   text-align: center;
-}
+} */

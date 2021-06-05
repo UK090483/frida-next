@@ -1,7 +1,7 @@
 {
-  "cSpell.words": [
-    "frida",
-    "marq",
-    "meganav"
-  ]
+  "cSpell.words": ["frida", "marq", "meganav"],
+  "editor.formatOnSave": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
 }

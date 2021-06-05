@@ -2,7 +2,6 @@ import Layout from '@components/generic/Layout'
 import { usePage } from '@lib/queries/usePage'
 import { getAllDocPathsCached } from '@lib/queries/fetchDocPathApi'
 import { handleStaticProps } from '@lib/queries/handleStaticProps'
-import { site } from '@lib/queries/pageQueries'
 import Error from '@pages/404'
 import ArtistSingle from 'contentTypes/Artist/ArtistSingle'
 import {
@@ -46,6 +45,7 @@ type ArtworkTemplateProps = {
   data: ArtistPageResult
   lang: FridaLocation
   slug: string
+  preview: boolean
 }
 
 const query = `
@@ -55,8 +55,8 @@ const query = `
       `
 
 const ArtworkTemplate: React.FC<ArtworkTemplateProps> = (props) => {
-  const { data, lang, slug } = props
-  const { pageData, isError } = usePage({ slug, query, data })
+  const { data, lang, slug, preview } = props
+  const { pageData, isError } = usePage({ slug, query, data, preview })
 
   if (isError) {
     return <Error />
@@ -64,9 +64,9 @@ const ArtworkTemplate: React.FC<ArtworkTemplateProps> = (props) => {
   return (
     <>
       <Layout
+        preview={preview}
         lang={lang}
         title={pageData.name || ''}
-        navItems={pageData?.site?.navigation?.items}
         data={pageData}
       >
         <ArtistSingle lang={lang} {...pageData} />
@@ -75,8 +75,8 @@ const ArtworkTemplate: React.FC<ArtworkTemplateProps> = (props) => {
   )
 }
 
-export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
-  return await handleStaticProps({ params, locale, query })
+export const getStaticProps: GetStaticProps = async (props) => {
+  return await handleStaticProps({ ...props, query })
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {

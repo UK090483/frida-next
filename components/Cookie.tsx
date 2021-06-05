@@ -3,7 +3,7 @@ import { AnimatePresence, m } from 'framer-motion'
 import Cookies from 'js-cookie'
 
 import { useHasMounted } from '@lib/helpers'
-import CustomLink from '@components/link'
+
 import { useRouter } from 'next/router'
 import Button from 'components/buttons/button'
 import Icon from './Icon'
@@ -53,7 +53,7 @@ const CookieBar: React.FC = () => {
         >
           <div className="flex flex-wrap md:flex-nowrap justify-between items-center">
             <div className="flex  justify-between items-center  text-xs-fluid md:pr-frida_7%">
-              <img src="/Cookie.png" className="h-20" />
+              <img src="/Cookie.png" alt="cookie" className="h-20" />
 
               <p className=" text-xs-fluid">
                 {locale === 'en' ? message_en : message}

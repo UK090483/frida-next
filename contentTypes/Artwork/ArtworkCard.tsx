@@ -52,13 +52,11 @@ const ArtworkCard: React.FC<ArtworkCardProps> = (props) => {
     type = 'grid',
   } = props
 
-  // const artistName = 'QQQQQQQQQQQQQQQQQQQQ'
-
   if (!photo) return null
 
   return (
     <Card
-      isSwiping={isSwiping}
+      isSwiping={!!isSwiping}
       slug={slug}
       type="artwork"
       galleryType={type}

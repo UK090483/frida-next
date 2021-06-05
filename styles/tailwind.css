@@ -7,15 +7,7 @@
 @tailwind utilities;
 
 @layer utilities {
-  .left-default {
-    left: 100%;
-  }
-  .left-in {
-    left: 0;
-  }
-  .left-out {
-    left: -100%;
-  }
+ 
   .header-big {
     @apply text-3xl-fluid font-bold;
     line-height: 1.1em;
@@ -113,6 +105,7 @@
     hyphens: auto;
     line-height: 1.1em;
   }
+
 }
 
 .frida-text-block > :last-child {

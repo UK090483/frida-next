@@ -33,7 +33,7 @@ const ArtistSingle: React.FC<ArtistSingleProps> = (props) => {
               }
             />
           ),
-          artistInfo: <ArtistHero {...props} />,
+          artistInfo: <ArtistInfo {...props} />,
           artistWorks: <ArtistWorks {...props} />,
           artistImages: <ArtistImages {...props} />,
         }}
@@ -62,11 +62,11 @@ type ArtistHeroProps = {
 }
 const ArtistHero: React.FC<ArtistHeroProps> = ({ photo }) => {
   return (
-    <>
+    <div data-color="pink">
       {photo && (
         <FridaImage photo={photo} layout="fill" className="h-vh w-full" />
       )}
-    </>
+    </div>
   )
 }
 
@@ -112,11 +112,10 @@ const ArtistInfo: React.FC<ArtistSingleProps> = (props) => {
 }
 
 const ArtistImages: React.FC<ArtistSingleProps> = (props) => {
-  const { relatedArtworks, lang, name } = props
-
+  const { relatedArtworks } = props
   return (
     <Section>
-      <div className="flex flex-row flex-wrap md:grid  grid-cols-11 grid-rows-5  w-full h-vh pb-12">
+      <div className="flex flex-row flex-wrap md:grid  grid-cols-11 grid-rows-5  w-full h-vh py-12">
         {relatedArtworks.slice(2, 4).map((item, index) => {
           return (
             <Photo
@@ -151,7 +150,7 @@ const ArtistWorks: React.FC<ArtistSingleProps> = (props) => {
         <Carousel
           header={lang === 'en' ? `Works by ${name}` : `Arbeiten von ${name}`}
           items={relatedArtworks.map((item) => (
-            <ArtworkCard type="carousel" {...item} />
+            <ArtworkCard key={item.slug} type="carousel" {...item} />
           ))}
         />
       )}

@@ -19,3 +19,4 @@ const Swatch = ({ label, color }) => {
 }
 
 export default Swatch
+

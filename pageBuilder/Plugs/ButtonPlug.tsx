@@ -29,16 +29,16 @@ export type ButtonPlugResult = {
   position?: 'inline' | 'left' | 'right' | 'center'
 }
 
-interface ButtonPlugProps extends ButtonPlugResult {}
+type ButtonPlugProps = ButtonPlugResult
 const ButtonPlug: React.FC<ButtonPlugProps> = (props) => {
   const { internalLink, link, color, bgColor, label, position } = props
 
-  const _link = !!internalLink
+  const _link = internalLink
     ? buildInternalLink(internalLink)
-    : !!link
+    : link
     ? link
     : '/'
-  const _type = !!internalLink ? 'link' : !!link ? 'externalLink' : 'link'
+  const _type = internalLink ? 'link' : link ? 'externalLink' : 'link'
 
   return (
     <Button

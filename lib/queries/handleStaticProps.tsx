@@ -1,37 +1,39 @@
-import { ArtistPageResult } from '@pages/artist/[...slug]'
-import { PostPageResult } from 'contentTypes/Post/PostSingle'
-import { ProductSingleViewResult } from 'contentTypes/Product/ProductSingle'
-import { ParsedUrlQuery } from 'node:querystring'
-import { ArtworkSingleViewResult } from '../../contentTypes/Artwork/ArtworkSingle/artworksQueries'
+import { FridaPreviewData } from '@pages/api/preview'
+import { ParsedUrlQuery } from 'querystring'
+import { FridaLocation } from 'types'
 import { fetchPageWithCache } from './fetchPageApi'
-import { PageResult } from './pageQueries'
 
 type handleStaticPropsProps = {
-  params?: ParsedUrlQuery
-  locale?: string
+  params?: ParsedUrlQuery | undefined
+  locale?: string | undefined
   query: string
+  preview?: boolean | undefined
+  previewData?: any
 }
 
-type handleStaticPropsResult =
-  | {
-      props: {
-        slug: string
-        lang?: string
-        data:
-          | PageResult
-          | ArtworkSingleViewResult
-          | ArtistPageResult
-          | PostPageResult
-          | ProductSingleViewResult
-          | null
-      }
-    }
-  | { notFound: true }
+type FailedResult = {
+  notFound: true
+}
+type SuccessResult = {
+  props: {
+    slug?: string | null
+    lang?: string | null
+    data: unknown
+    preview: boolean
+  }
+}
+
+export type TemplateProps<R> = {
+  data: R | null
+  lang: FridaLocation
+  preview: boolean
+  slug: string
+}
 
 export const handleStaticProps: (
   props: handleStaticPropsProps
-) => Promise<handleStaticPropsResult> = async (props) => {
-  const { params, locale, query } = props
+) => Promise<FailedResult | SuccessResult> = async (props) => {
+  const { params, locale, query, preview = false, previewData } = props
 
   if (!params || !params.slug) {
     return {
@@ -41,13 +43,19 @@ export const handleStaticProps: (
   const slug =
     typeof params.slug === 'string' ? params.slug : params.slug.join('')
 
-  const pageData = await fetchPageWithCache(query, slug)
+  const pageData = await fetchPageWithCache(
+    query,
+    slug,
+    preview,
+    previewData as FridaPreviewData
+  )
 
   return {
     props: {
-      slug,
-      data: pageData,
-      lang: locale,
+      preview,
+      slug: slug || null,
+      data: pageData || null,
+      lang: locale || null,
     },
   }
 }

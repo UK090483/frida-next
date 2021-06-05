@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import * as React from 'react'
 import Icon from '@components/Icon'
 
@@ -5,7 +6,7 @@ type Item = { name: string; value: string }
 interface IDropdownProps {
   label: string | React.ReactElement
   items: { name: string; value: string }[]
-  onClick: ({}: Item) => void
+  onClick: (item: Item) => void
   active: boolean
 }
 
@@ -17,7 +18,9 @@ const Dropdown: React.FunctionComponent<IDropdownProps> = ({
 }) => {
   const root = React.useRef<HTMLButtonElement | null>(null)
 
-  const handleClick = (item: Item) => {
+  const [isOpen, setIsOpen] = React.useState(false)
+
+  const handleClick: (item: Item) => void = (item) => {
     onClick(item)
     if (root.current) {
       root.current.blur()
@@ -26,22 +29,33 @@ const Dropdown: React.FunctionComponent<IDropdownProps> = ({
 
   return (
     <button
+      aria-expanded={isOpen}
+      aria-controls={`dropdown-${label}`}
       className="relative w-72 mb-14  group mx-2"
       aria-haspopup="true"
       aria-label={`filter`}
+      onFocus={() => {
+        setIsOpen(true)
+      }}
     >
-      <div className="absolute top-0 left-0 text-frida-white text-sm-fluid  w-full  transition-zIndex delay-300  group-focus:z-10 ">
+      <div
+        id={`dropdown-${label}`}
+        className="absolute top-0 left-0 text-frida-white text-sm-fluid  w-full  transition-zIndex delay-300  group-focus:z-10 "
+      >
         <div className="bg-frida-black rounded-t-full h-5  transition-all duration-200 w-full"></div>
         <div className="bg-frida-black max-h-0 h-5 group-focus:max-h-10  transition-all duration-200 w-full"></div>
 
         <ul
-          className={` max-h-0  group-focus:max-h-96 text-gray-700  bg-frida-black  transform transition-all  duration-200 ${
+          className={` p-0 list-none  max-h-0  group-focus:max-h-96 text-gray-700  bg-frida-black  transform transition-all  duration-200 ${
             items.length > 9 ? 'overflow-y-scroll' : 'overflow-hidden'
           } `}
         >
           {items.map((item) => (
+            // eslint-disable-next-line jsx-a11y/click-events-have-key-events
             <li
               key={item.value}
+              // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+              tabIndex={0}
               onClick={() => handleClick(item)}
               className="text-sm-fluid py-3 px-3 bg-frida-black opacity-0 group-focus:opacity-100 transition-opacity delay-200"
             >

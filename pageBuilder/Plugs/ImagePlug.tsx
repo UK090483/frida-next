@@ -51,16 +51,4 @@ const ImagePlug: React.FC<ImagePlugResult> = (props) => {
   )
 }
 
-const sizeToWidth = (width: FridaSizes | null | undefined) => {
-  if (!width) return 1000
-
-  const sizes = {
-    s: 300,
-    m: 600,
-    l: 800,
-    xl: 1200,
-    xxl: 1400,
-  }
-  return sizes[width] | 1000
-}
 export default ImagePlug

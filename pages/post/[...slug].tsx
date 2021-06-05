@@ -13,24 +13,25 @@ import { FridaLocation } from 'types'
 type PostTemplateProps = {
   data: PostPageResult
   lang: FridaLocation
-  slug: any
+  slug: string
+  preview: boolean | undefined
 }
+
 const query = `
 *[_type == "post" && slug.current == $slug ][0]{
   ${postSingleView},
 }
 `
-
 const ArtworkTemplate: React.FC<PostTemplateProps> = (props) => {
-  const { data, lang, slug } = props
-  const { pageData, isError } = usePage({ slug, query, data })
+  const { data, lang, slug, preview } = props
+  const { pageData, isError } = usePage({ slug, query, data, preview })
   if (isError) return <Error />
 
   return <PostSingle lang={lang} {...pageData} />
 }
 
-export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
-  return await handleStaticProps({ params, locale, query })
+export const getStaticProps: GetStaticProps = async (props) => {
+  return await handleStaticProps({ ...props, query })
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {

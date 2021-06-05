@@ -67,7 +67,6 @@ export default {
         { type: 'section' },
         { type: 'artworks' },
         { type: 'supporter' },
-        { type: 'artworkCarousel' },
         { type: 'artists' }
       ]
     },

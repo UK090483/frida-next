@@ -5,28 +5,29 @@ import Icon from '@components/Icon'
 import PostSingle from 'contentTypes/Post/PostSingle'
 import { ModalPageData, useModalContext } from '@lib/modalContext'
 import * as React from 'react'
-import ModalEl from 'react-modal'
+// import ModalEl from 'react-modal'
 
 import ProductSingle from 'contentTypes/Product/ProductSingle'
 import { useRouter } from 'next/router'
 
 const Modal: React.FC = () => {
-  const { open, closeModal, firstPageData, secondPageData } = useModalContext()
+  // const { open, closeModal, firstPageData, secondPageData } = useModalContext()
 
   return (
-    <ModalEl
-      portalClassName={`fixed inset-0  ${
-        open ? 'frida_portal_open' : 'frida_portal_closed'
-      }`}
-      overlayClassName="absolute inset-0  bg-opacity-50 bg-blur "
-      className={`absolute inset-0 z-30`}
-      isOpen={open}
-      contentLabel="Post modal"
-      ariaHideApp={false}
-    >
-      <ModalContent closeModal={closeModal} {...firstPageData} />
-      <ModalContent closeModal={closeModal} {...secondPageData} />
-    </ModalEl>
+    <div></div>
+    // <ModalEl
+    //   portalClassName={`fixed inset-0  ${
+    //     open ? 'frida_portal_open' : 'frida_portal_closed'
+    //   }`}
+    //   overlayClassName="absolute inset-0  bg-opacity-50 bg-blur "
+    //   className={`absolute inset-0 z-30`}
+    //   isOpen={open}
+    //   contentLabel="Post modal"
+    //   ariaHideApp={false}
+    // >
+    //   <ModalContent closeModal={closeModal} {...firstPageData} />
+    //   <ModalContent closeModal={closeModal} {...secondPageData} />
+    // </ModalEl>
   )
 
   // return (

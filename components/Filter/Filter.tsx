@@ -61,7 +61,11 @@ const Filter: React.FunctionComponent<IFilterProps> = (props) => {
   }
 
   return (
-    <div className=" flex flex-wrap justify-center md:flex-nowrap md:justify-between items-center w-full px-frida_7% my-20">
+    <div
+      className={`flex flex-wrap justify-center md:flex-nowrap ${
+        filter.length > 1 ? 'md:justify-between' : 'md:justify-center'
+      }items-center w-full px-frida_7% my-20`}
+    >
       {filter.map((_filter) => {
         if (!_filter.items) return null
         return (

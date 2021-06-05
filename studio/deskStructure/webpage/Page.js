@@ -24,11 +24,6 @@ export default S.listItem()
           .views([
             S.view.form().icon(EditIcon),
             S.view
-              .component(IframePreview)
-              .options({ previewURL })
-              .title('Web Preview')
-              .icon(EyeIcon),
-            S.view
               .component(SeoPreview)
               .options({ previewURL })
               .title('Seo Preview')

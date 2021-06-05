@@ -1,13 +1,13 @@
-import React from 'react'
 // @ts-ignore
 import BlockContent from '@sanity/block-content-to-react'
-import Frida from '../../components/Frida'
-import EmbedPlug, { embedPlugQuery } from '../Plugs/EmbedPlug'
-import ButtonPlug, { buttonPlugQuery } from '../Plugs/ButtonPlug'
-import { imagePlugQuery } from '../Plugs/ImagePlug'
-import { PageBuilderBlockBase } from '../pageBuilderQueries'
 import { imageGalleryPlugQuery } from 'pageBuilder/Plugs/ImageGaleriePlug'
+import { imagePlugQuery } from 'pageBuilder/Plugs/ImagePlug'
 import { innerSectionPlugQuery } from 'pageBuilder/Plugs/innerSection'
+import React from 'react'
+import Frida from '../../components/Frida'
+import { PageBuilderBlockBase } from '../pageBuilderQueries'
+import ButtonPlug, { buttonPlugQuery } from '../Plugs/ButtonPlug'
+import EmbedPlug, { embedPlugQuery } from '../Plugs/EmbedPlug'
 
 export const richTextQuery = `
 content[]{

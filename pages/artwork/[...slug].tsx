@@ -5,27 +5,24 @@ import {
   ArtworkSingleViewResult,
 } from 'contentTypes/Artwork/ArtworkSingle/artworksQueries'
 import { getAllDocPathsCached } from '@lib/queries/fetchDocPathApi'
-import { handleStaticProps } from '@lib/queries/handleStaticProps'
+import {
+  handleStaticProps,
+  TemplateProps,
+} from '@lib/queries/handleStaticProps'
 import Error from '@pages/404'
 import ArtworkSingle from 'contentTypes/Artwork/ArtworkSingle/ArtworkSingle'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import React from 'react'
-import { FridaLocation } from 'types'
-
-type ArtworkTemplateProps = {
-  data: ArtworkSingleViewResult | null
-  lang: FridaLocation
-  preview: boolean
-  slug: any
-}
 
 const query = `*[_type == "artwork" && slug.current == $slug][0]{
   ${artworkSingleViewQuery}
 }`
 
-const ArtworkTemplate: React.FC<ArtworkTemplateProps> = (props) => {
-  const { data, lang, slug } = props
-  const { pageData, isError } = usePage({ slug, query, data })
+const ArtworkTemplate: React.FC<TemplateProps<ArtworkSingleViewResult>> = (
+  props
+) => {
+  const { data, lang, slug, preview } = props
+  const { pageData, isError } = usePage({ slug, query, data, preview })
 
   if (isError) return <Error />
 
@@ -41,8 +38,8 @@ const ArtworkTemplate: React.FC<ArtworkTemplateProps> = (props) => {
   )
 }
 
-export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
-  return await handleStaticProps({ params, locale, query })
+export const getStaticProps: GetStaticProps = async (props) => {
+  return await handleStaticProps({ ...props, query })
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {

@@ -1,24 +1,41 @@
 import { getSanityClient } from '@lib/sanity'
-import { ArtistCardResult } from 'contentTypes/Artist/ArtistCard'
-import { ArtworksGalleryResult } from 'pageBuilder/Blocks/ArtworkBlock'
+
 import { cache, getSiteCache } from './cache'
 import { PageBodyResult } from '../../pageBuilder/pageBuilderQueries'
+import { FridaPreviewData } from '@pages/api/preview'
+import { shouldCash } from '@lib/constants'
 
-export const fetchPageWithCache = async (query: string, slug: string) => {
+export const fetchPageWithCache = async (
+  query: string,
+  slug: string,
+  preview: boolean,
+  previewData?: FridaPreviewData
+) => {
+  if (preview) {
+    console.log('preview Active')
+  }
+  if (preview && (!previewData || !previewData?.token)) {
+    console.log('preview token is missing')
+  }
+
   let pageData
-  if (process.env.NODE_ENV === 'development') {
-    pageData = (await cache.get(slug)) as any
+  if (process.env.NODE_ENV === 'development' && !preview && shouldCash) {
+    pageData = await cache.get(slug)
 
     if (!pageData) {
       console.log(`page ${slug} gets cached`)
-      pageData = (await getSanityClient().fetch(query, { slug: slug })) as any
-
+      pageData = await getSanityClient().fetch(query, { slug: slug })
       await cache.put(slug, pageData)
     } else {
       console.log(`page ${slug} from cache`)
     }
   } else {
-    pageData = (await getSanityClient().fetch(query, { slug: slug })) as any
+    pageData = await getSanityClient({
+      active: !!preview,
+      token: previewData?.token,
+    }).fetch(query, {
+      slug: slug,
+    })
   }
 
   const SiteCache = await getSiteCache()
@@ -56,14 +73,14 @@ const handleBodyQueries = async (body: PageBodyResult) => {
   })
 }
 
-function getRandom(arr: any[], n: number) {
-  var result = new Array(n),
-    len = arr.length,
-    taken = new Array(len)
+function getRandom(arr: unknown[], n: number) {
+  const result = new Array(n)
+  let len = arr.length
+  const taken = new Array(len)
   if (n > len)
     throw new RangeError('getRandom: more elements taken than available')
   while (n--) {
-    var x = Math.floor(Math.random() * len)
+    const x = Math.floor(Math.random() * len)
     result[n] = arr[x in taken ? taken[x] : x]
     taken[x] = --len in taken ? taken[len] : len
   }

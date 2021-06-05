@@ -17,17 +17,17 @@
     }
   }
 
-  p {
+  /* p {
     @apply m-0 text-base leading-normal;
   }
 
   strong {
     @apply font-semibold;
-  }
+  } */
 
-  ul {
+  /* ul {
     @apply list-none m-0 p-0;
-  }
+  } */
 
   /* Headlines */
   /* h1,

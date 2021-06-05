@@ -11,6 +11,9 @@ export const buildInternalLink = (
   if (type === 'page') {
     return `/${slug}`
   }
+  if (type === 'artist') {
+    return `/artist/${slug}`
+  }
 
   return '/'
 }

@@ -337,7 +337,7 @@ const site = `
 // Fetch all dynamic docs
 const getAllDocSlugs: (doc: string) => Promise<null | { slug: string }[]> =
   async (doc) => {
-    return await getSanityClient().fetch(
+    return await getSanityClient({ active: true }).fetch(
       `*[_type == "${doc}"]{ "slug": slug.current }`
     )
   }
@@ -345,14 +345,14 @@ const getAllDocSlugs: (doc: string) => Promise<null | { slug: string }[]> =
 export { getAllDocSlugs }
 
 const getAllDocPaths = async (doc: string) => {
-  let allPages = await getAllDocSlugs(doc)
+  const allPages = await getAllDocSlugs(doc)
   if (!allPages) return { paths: [], fallback: true }
 
   return {
     paths:
       allPages.reduce((acc, page) => {
         if (!page.slug) return [...acc]
-        let slugs = page.slug.split('/').filter((e: string) => e)
+        const slugs = page.slug.split('/').filter((e: string) => e)
 
         return [
           ...acc,

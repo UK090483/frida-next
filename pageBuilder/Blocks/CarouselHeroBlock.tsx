@@ -2,10 +2,11 @@ import FridaImage from '@components/fridaImage/FridaImage'
 import CarouselHero from '@components/CarussellHero/CarussellHero'
 import { PageBuilderBlockBase } from '../pageBuilderQueries'
 import { imageMeta, ImageMetaResult } from '@lib/queries/snippets'
-import { richTextQuery } from 'pageBuilder/Blocks/RichText'
+
 import React from 'react'
 import { FridaColors, FridaLocation } from 'types'
 import BodyParser from '../BodyParser'
+import { richTextQuery } from './RichText'
 
 export const carouselHeroBlockQuery = `
 _type == "carouselHero" => {

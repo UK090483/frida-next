@@ -62,7 +62,7 @@ const InnerSectionPlug: React.FC<InnerSectionPlugResult> = (props) => {
       {items &&
         items.map((item) => {
           return (
-            <div className=" py-2">
+            <div className=" py-2" key={item._key}>
               <BodyParser lang={lang} content={item.content} />
             </div>
           )
