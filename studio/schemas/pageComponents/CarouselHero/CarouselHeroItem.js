@@ -25,7 +25,8 @@ export default {
           { title: 'White', value: 'white' },
           { title: 'Pink', value: 'pink' },
           { title: 'Red', value: 'red' },
-          { title: 'Grey', value: 'grey' }
+          { title: 'Grey', value: 'grey' },
+          { title: 'Black', value: 'black' }
         ],
         layout: 'radio'
       }

@@ -1,33 +1,24 @@
-import React from 'react'
-// @ts-ignore
-import useShopify from 'components/hooks/useShopify'
-// @ts-ignore
-// import { BuyButton, BuyButtonWrap } from '../lib/ProductComponents'
+import BuyButton from '@components/ProductComponents/BuyButton'
 import PaymentInfo from '@components/ProductComponents/PaymentInfo'
-import Price from '@components/ProductComponents/ProductPrice'
-import ProductHeroWrap from '@components/ProductComponents/ProductHeroWrap'
 import ProductImageWrap from '@components/ProductComponents/ProductHeroImageWrap'
 import ProductInfoWrap from '@components/ProductComponents/ProductHeroInfoWrap'
-import ProductName from '@components/ProductComponents/ProductName'
+import ProductHeroWrap from '@components/ProductComponents/ProductHeroWrap'
+import ProductHints from '@components/ProductComponents/productHints'
 // import SocialShare from '../SocialShare/SocialShare'
 import ProductMagnifyImage from '@components/ProductComponents/ProductMagnifyImage'
-import { buildSrc } from '@lib/helpers'
-import BuyButton from '@components/ProductComponents/BuyButton'
+import ProductName from '@components/ProductComponents/ProductName'
+import Price from '@components/ProductComponents/ProductPrice'
+import { useAddItem, useCartItems } from '@lib/context'
+import React from 'react'
 import { FridaLocation } from 'types'
 import { ArtworkSingleViewResult } from './artworksQueries'
-import { useAddItem, useCartItems } from '@lib/context'
 
 type ArtworkHeroProps = {
   lang: FridaLocation
   artwork: ArtworkSingleViewResult
-  shopifyProduct: any
 }
 
-const ArtworkHero: React.FC<ArtworkHeroProps> = ({
-  artwork,
-  shopifyProduct,
-  lang,
-}) => {
+const ArtworkHero: React.FC<ArtworkHeroProps> = ({ artwork, lang }) => {
   const {
     artworkName,
     height,
@@ -39,11 +30,12 @@ const ArtworkHero: React.FC<ArtworkHeroProps> = ({
     availability,
     photo,
     shopify_variant_id,
+    hints,
   } = artwork
 
   const addItem = useAddItem()
   const cardItems = useCartItems()
-  console.log(cardItems)
+
   const itemInCart = !!cardItems.find((item) => item.id === shopify_variant_id)
 
   return (
@@ -52,7 +44,7 @@ const ArtworkHero: React.FC<ArtworkHeroProps> = ({
         <ProductMagnifyImage alt="alt" photo={photo} />
       </ProductImageWrap>
       <ProductInfoWrap>
-        <div className="flex flex-col justify-center h-full">
+        <div className="flex flex-col justify-center h-full mb-4">
           {artworkName && availability && (
             <ProductName
               size="l"
@@ -60,6 +52,7 @@ const ArtworkHero: React.FC<ArtworkHeroProps> = ({
               availability={availability !== 'sold'}
             ></ProductName>
           )}
+
           <div className="text-xs-fluid font-bold pb-6">
             {`${medium}, ${width}*${height} ${
               depth ? '*' + depth : ''
@@ -77,15 +70,8 @@ const ArtworkHero: React.FC<ArtworkHeroProps> = ({
               })
             }}
           />
-          {/* <BuyButtonWrap>
-             <BuyButton
-              checkoutUrl={checkoutUrl}
-              availability={availability}
-              addToCart={addToCart}
-              inCart={inCart}
-            /> 
-          </BuyButtonWrap> */}
         </div>
+        {hints && <ProductHints items={hints} lang={lang} />}
         <PaymentInfo lang={lang} />
       </ProductInfoWrap>
     </ProductHeroWrap>

@@ -44,10 +44,10 @@ const Button: React.FC<LinkProps | ClickProps> = (props) => {
 
   if (props.type === 'link') {
     return (
-      <Link href={props.link}>
-        <button {...mouseLinkProps} className={`${className} ${extraClasses}`}>
+      <Link href={props.link} passHref>
+        <a {...mouseLinkProps} className={`${className} ${extraClasses}`}>
           {label}
-        </button>
+        </a>
       </Link>
     )
   }

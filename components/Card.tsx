@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import Frida from '@components/Frida'
 import FridaImage, {
   ARTWORK_IMAGE_PROPS,
@@ -50,13 +52,16 @@ const CardWrap: React.FC<CardWrapPros> = (props) => {
   return (
     <Link href={`/${type}/${slug}`} passHref>
       <a
+        role="listitem"
         draggable={false}
         {...mouseLinkProps}
         className={classNames(
-          `block mx-auto w-full max-w-sm  bg-frida-white`,
-          { 'mb-10': isGrid || isMasonry },
+          `block mx-auto w-full  bg-frida-white`,
+          { 'px-frida_side md:px-6 max-w-lg': isGrid || isMasonry },
+          { 'mb-8': isGrid },
+          { 'mb-20': isMasonry },
           {
-            'p-4 transform scale-75 lg:scale-100 ': isCarousel,
+            'p-4 transform scale-75 lg:scale-100 max-w-md ': isCarousel,
           }
         )}
         onClick={(e) => {
@@ -81,7 +86,7 @@ const CardWrap: React.FC<CardWrapPros> = (props) => {
             { 'aspect-w-9 aspect-h-12': isGrid }
           )}
           layout={isCarousel || isGrid ? layout : 'intrinsic'}
-          alt={alt}
+          alt={alt || 'artwork '}
         />
 
         {title && (

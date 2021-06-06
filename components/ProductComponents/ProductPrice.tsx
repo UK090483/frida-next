@@ -6,7 +6,7 @@ type PriceProps = {
   size?: 's' | 'm' | 'l'
 }
 
-const Price: React.FC<PriceProps> = ({ price, size = 'm' }) => {
+const Price: React.FC<PriceProps> = ({ price = 0, size = 'm' }) => {
   return (
     <div
       className={classNames(

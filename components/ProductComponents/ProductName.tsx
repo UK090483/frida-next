@@ -36,6 +36,9 @@ const ProductName: React.FC<ProductNameProps> = ({
             { ' w-4 h-4 -mb-0.5': size === 'm' },
             {
               'bg-frida-green': availability,
+            },
+            {
+              'bg-frida-red': !availability,
             }
           )}
         ></span>

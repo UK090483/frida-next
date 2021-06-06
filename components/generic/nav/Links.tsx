@@ -66,7 +66,7 @@ const Links: React.FC<{
           return (
             <m.li
               key={index}
-              className={`text-frida-white text-xl-fluid font-bold pb-6 md:pb-8 text-fill-menu `}
+              className={`text-frida-white text-xl-fluid font-bold text-fill-menu `}
               variants={item}
             >
               {route.internalLink ? (

@@ -10,7 +10,6 @@ import Quotes from '@components/Quote/Quotes'
 
 interface ArtworkSingleProps extends ArtworkSingleViewResult {
   lang: FridaLocation
-  shopifyProduct?: any
   isModal?: boolean
 }
 
@@ -19,8 +18,8 @@ const ArtworkSingle: React.FC<ArtworkSingleProps> = (props) => {
     relatedArtworks,
     randomArtworks,
     lang,
-    shopifyProduct,
     artistDescription,
+    artistSlug,
     description,
     description_en,
     artistDescription_en,
@@ -39,11 +38,7 @@ const ArtworkSingle: React.FC<ArtworkSingleProps> = (props) => {
       : artistDescription
   return (
     <>
-      <ArtworkHero
-        lang={lang}
-        artwork={props}
-        shopifyProduct={shopifyProduct}
-      />
+      <ArtworkHero lang={lang} artwork={props} />
 
       {_description && (
         <Section className="py-16" backgroundColor="grey" type="text">
@@ -61,15 +56,27 @@ const ArtworkSingle: React.FC<ArtworkSingleProps> = (props) => {
         {_artistDescription && (
           <p className="text-base-fluid">{_artistDescription}</p>
         )}
-        <div className="flex">
+        <div className="flex flex-col items-center  md:flex-row">
+          {artistSlug && (
+            <Button
+              label="Artist Page"
+              type="link"
+              link={`/artist/${artistSlug}`}
+              color="red"
+              backgroundColor="pink"
+              position="auto"
+              className="mr-0 md:mr-3 mb-2"
+            />
+          )}
           {artistWebLink && (
             <Button
               label="Website"
               type="externalLink"
               link={artistWebLink}
               color="red"
-              backgroundColor="white"
-              className="mr-3"
+              position="auto"
+              backgroundColor="pink"
+              className="mr-0 md:mr-3 mb-2"
             />
           )}
           {instagramLink && (
@@ -78,8 +85,9 @@ const ArtworkSingle: React.FC<ArtworkSingleProps> = (props) => {
               type="externalLink"
               link={instagramLink}
               color={'red'}
-              backgroundColor="white"
-              className="mr-3"
+              position="auto"
+              backgroundColor="pink"
+              className="mr-0 md:mr-3 mb-2"
             />
           )}
         </div>
@@ -94,7 +102,7 @@ const ArtworkSingle: React.FC<ArtworkSingleProps> = (props) => {
               : `Weitere Werke von ${artistName}`
           }
           items={relatedArtworks.map((item) => (
-            <ArtworkCard type="carousel" {...item} />
+            <ArtworkCard key={item.slug} type="carousel" {...item} />
           ))}
         />
       )}
@@ -104,7 +112,7 @@ const ArtworkSingle: React.FC<ArtworkSingleProps> = (props) => {
           bgColor="pink"
           header={lang === 'en' ? `More Artworks` : `Weitere Werke`}
           items={randomArtworks.map((item) => (
-            <ArtworkCard type="carousel" {...item} />
+            <ArtworkCard key={item.slug} type="carousel" {...item} />
           ))}
         />
       )}

@@ -29,7 +29,7 @@ const ArtistCard: React.FC<ArtistCardProps> = (props) => {
 
   return (
     <Card
-      isSwiping={isSwiping}
+      isSwiping={!!isSwiping}
       slug={slug}
       type="artist"
       galleryType={type}

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { MailIcon, ShareIcon, ShoppingCartIcon } from '@heroicons/react/outline'
 import {
   ArrowNarrowLeftIcon,
@@ -57,6 +58,7 @@ type IconProps = {
   bgColor?: FridaColors
   onClick?: () => void
   [k: string]: any
+  withMouseHover?: boolean
 }
 
 const Icon: React.FC<IconProps> = ({
@@ -66,12 +68,13 @@ const Icon: React.FC<IconProps> = ({
   color = 'black',
   bgColor = 'white',
   onClick = () => {},
+  withMouseHover = true,
   ...rest
 }) => {
   if (!Icons[icon]) return <div>icon</div>
 
   return React.createElement(Icons[icon], {
-    ...mouseLinkProps,
+    ...(withMouseHover ? mouseLinkProps : {}),
     onClick,
     className: classNames(
       `rounded-full bg-frida-${bgColor} text-frida-${color}`,

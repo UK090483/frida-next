@@ -4,6 +4,7 @@ import React, { useEffect, useRef } from 'react'
 import { FridaColors } from 'types'
 import Frida from '@components/Frida'
 import { mouseLinkProps, setMouse } from './Mouse/mouseRemote'
+import classNames from 'classnames'
 
 type PageTitleProps = {
   title: string
@@ -13,7 +14,7 @@ type PageTitleProps = {
 }
 
 const PageTitle: React.FC<PageTitleProps> = ({
-  title,
+  title = 'no title',
   link,
   initialColor = 'white',
 }) => {
@@ -63,7 +64,11 @@ const PageTitle: React.FC<PageTitleProps> = ({
         return (
           <Link href="/">
             <div
-              className="text-lg-fluid font-bold"
+              className={classNames(
+                'font-bold',
+                { 'text-base-fluid md:text-lg-fluid ': title.length >= 16 },
+                { 'text-lg-fluid': title.length < 16 }
+              )}
               ref={ref}
               onMouseEnter={() => {
                 setMouse('link', true)

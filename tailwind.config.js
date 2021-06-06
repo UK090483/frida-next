@@ -12,6 +12,7 @@ module.exports = {
     ],
     options: {
       safelist: [
+        'py-4', // for Dropdown... don't know why
         'decoration-frida-black',
         'decoration-frida-pink',
         'decoration-frida-white',

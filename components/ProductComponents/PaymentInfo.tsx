@@ -17,8 +17,8 @@ const PaymentInfo: React.FC<{ lang: FridaLocation }> = ({ lang }) => {
       : 'Versandt erfolgt direkt durch die Künstler'
 
   return (
-    <div className="text-sm-fluid w-full ">
-      <p>
+    <div className="w-full">
+      <p className="text-sm-fluid">
         {questionsText}
         <a href="mailto:name@email.com"> {helpText}</a>
       </p>
@@ -26,11 +26,11 @@ const PaymentInfo: React.FC<{ lang: FridaLocation }> = ({ lang }) => {
       <div className="flex  sm:flex-nowrap  justify-between">
         <div className="pr-2">
           <Icon icon="creditCard" color="black" bgColor="grey" />
-          <p>{savePaymentText}</p>
+          <p className="text-sm-fluid">{savePaymentText}</p>
         </div>
         <div>
           <Icon icon="email" color="black" bgColor="grey" />
-          <p>{versandText}</p>
+          <p className="text-sm-fluid">{versandText}</p>
         </div>
       </div>
     </div>

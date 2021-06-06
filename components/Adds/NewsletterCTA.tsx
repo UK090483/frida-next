@@ -11,7 +11,7 @@ const NewsLetterCTA: React.FunctionComponent<INewsLetterCTAProps> = ({
   close,
 }) => {
   return (
-    <div className="bg-frida-white w-96 md:w-vw/2 max-w-xl  rounded-md relative">
+    <div className="bg-frida-white mx-frida_side  md:w-vw/2 max-w-xl  rounded-md relative">
       <Icon
         onClick={close}
         size="s"

@@ -99,11 +99,14 @@
   h1,
   h2,
   h3,
-  h4,
-  p {
+  h4{
     @apply break-normal;
     hyphens: auto;
     line-height: 1.1em;
+  }
+  p{
+    @apply break-normal;
+    line-height: 1.5em;
   }
 
 }

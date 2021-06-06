@@ -10,7 +10,7 @@ const Grid: React.FC = ({ children }) => {
         820: 1,
       }}
       columnClassName="max-w-md mx-auto"
-      className="flex md:px-frida_7% "
+      className="flex   xl:px-frida_7% "
       role="list"
     >
       {children}

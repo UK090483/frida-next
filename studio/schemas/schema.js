@@ -72,6 +72,8 @@ import productOptionSettings from './objects/product-option-settings'
 
 import simplePortableText from './objects/portable-simple'
 
+import productHint from './objects/productHint'
+
 // Plugs
 
 
@@ -97,6 +99,7 @@ const objects = [
   productOption,
   productOptionValue,
   productOptionSettings,
+  productHint,
   
   simplePortableText,
   innerSection,

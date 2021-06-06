@@ -14,7 +14,7 @@ import ArtworkSingle from 'contentTypes/Artwork/ArtworkSingle/ArtworkSingle'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import React from 'react'
 
-const query = `*[_type == "artwork" && slug.current == $slug][0]{
+const query = `*[_type == "artwork" && slug.current == $slug ][0]{
   ${artworkSingleViewQuery}
 }`
 

@@ -1,7 +1,6 @@
 import Dropdown from './Dropdown'
 import { useRouter } from 'next/router'
 import * as React from 'react'
-import Icon from '@components/Icon'
 
 interface IFilterProps {
   filter: {
@@ -46,25 +45,15 @@ const Filter: React.FunctionComponent<IFilterProps> = (props) => {
         } items-center`}
       >
         <span className="ml-3">{label + active}</span>
-        {active && (
-          <Icon
-            icon="x"
-            size="s"
-            className="mr-1"
-            onClick={() => {
-              handleQueries(name, 'clear')
-            }}
-          />
-        )}
       </div>
     )
   }
 
   return (
     <div
-      className={`flex flex-wrap justify-center md:flex-nowrap ${
+      className={`flex flex-wrap justify-center xl:flex-nowrap ${
         filter.length > 1 ? 'md:justify-between' : 'md:justify-center'
-      }items-center w-full px-frida_7% my-20`}
+      } items-center w-full px-frida_7% my-20`}
     >
       {filter.map((_filter) => {
         if (!_filter.items) return null
@@ -73,7 +62,6 @@ const Filter: React.FunctionComponent<IFilterProps> = (props) => {
             active={!!isActive(_filter.name)}
             key={_filter.name}
             label={getLabel(_filter.label, _filter.name)}
-            // items={[{ name: 'no Filter', value: 'clear' }, ..._filter.items]}
             items={_filter.items}
             onClick={(e) => {
               handleQueries(_filter.name, e.value)

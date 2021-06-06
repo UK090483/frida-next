@@ -14,6 +14,9 @@ export const buildInternalLink = (
   if (type === 'artist') {
     return `/artist/${slug}`
   }
+  if (type === 'product') {
+    return `/product/${slug}`
+  }
 
   return '/'
 }

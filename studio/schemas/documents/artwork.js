@@ -108,6 +108,16 @@ export default {
       },
       validation: Rule => Rule.required()
     },
+
+    {
+      name:'hints',
+      type:'array',
+      title: 'Hints',
+      of:[{type:'productHint'}]
+    },
+
+
+  
     {
       name: 'alternaiveSlug',
       type: 'slug',
