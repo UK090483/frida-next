@@ -8,7 +8,7 @@ import { LazyMotion, domAnimation, AnimatePresence } from 'framer-motion'
 import '../styles/tailwind.css'
 import '../styles/app.css'
 
-import Modal from '@components/generic/Modal'
+// import Modal from '@components/generic/Modal'
 
 import { SiteContextProvider } from '@lib/context'
 
@@ -101,7 +101,7 @@ const MyApp = ({ Component, pageProps, router }) => {
           </AnimatePresence>
 
           <Cart data={{ ...pageProps?.data?.site }} />
-           <Modal /> 
+           {/* <Modal />  */}
           <ShowBreakingPoints />
         </LazyMotion>
       </SiteContextProvider>
