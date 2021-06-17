@@ -113,7 +113,7 @@ class SiteCash {
     if (siteResult.artworks && Array.isArray(siteResult.artworks)) {
       siteResult.artworks = this.shuffle(siteResult.artworks)
     }
-    return siteResult ? siteResult.artworks : null
+    return siteResult ? siteResult : null
   }
   shuffle = (array: any[]) => {
     let m = array.length,
