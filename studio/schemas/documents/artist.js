@@ -1,3 +1,4 @@
+
 import { BsPeopleCircle } from 'react-icons/bs'
 
 export default {
@@ -5,6 +6,9 @@ export default {
   type: 'document',
   title: 'Artist',
   icon: BsPeopleCircle,
+  fieldsets: [
+    {name: 'images', title: 'Images', options:{collapsible:true,collapsed:true} }
+  ],
   fields: [
     {
       name: 'name',
@@ -28,6 +32,25 @@ export default {
         maxLength: 96
       },
       validation: Rule => Rule.required()
+    },
+    {
+      name:'prevImage',
+      type :'defaultImage',
+      title:'Preview Image',
+      fieldset: 'images'
+    },
+    {
+      name:'mainImage',
+      type :'defaultImage',
+      title:'Main Image',
+      fieldset: 'images'
+    },
+    {
+      name:'imageGallery',
+      type :'array',
+      title:'Gallery',
+      fieldset: 'images',
+      of:[{type:'defaultImage'}]
     },
     {
       name: 'email',
@@ -57,6 +80,7 @@ export default {
       type: 'url',
       title: 'Web Link'
     },
+  
     {
       name: 'content',
       type: 'array',

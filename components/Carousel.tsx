@@ -1,17 +1,16 @@
-import { ArrowRightIcon } from '@heroicons/react/solid'
 import * as React from 'react'
 import _Carousel, { ResponsiveType } from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
 import { FridaColors } from 'types'
 import Section from './Section'
-import { mouseLinkProps } from './generic/Mouse/mouseRemote'
+
 import Icon from './Icon'
 
 type CarouselProps = {
   items: React.ReactElement[]
   responsive?: ResponsiveType
   bgColor?: FridaColors
-  header?: string | null
+  header?: string | null | undefined
 }
 const defaultResponsive: ResponsiveType = {
   xxl: {
@@ -52,28 +51,14 @@ const Carousel: React.FC<CarouselProps> = ({
   bgColor = 'grey',
   header,
 }) => {
-  const [state, setState] = React.useState(0)
   const [swiping, setSwiping] = React.useState(false)
 
   const carousel = React.useRef<null | _Carousel>(null)
-
-  React.useEffect(() => {
-    if (carousel) {
-    }
-  }, [carousel])
-
-  const onChange = (value: number) => {
-    setState(value)
-  }
 
   const setNext = () => {
     if (carousel.current) {
       carousel.current.next(0)
     }
-  }
-
-  const setPrev = () => {
-    setState((state === 0 ? 2 : state - 1) % items.length)
   }
 
   return (
@@ -89,9 +74,8 @@ const Carousel: React.FC<CarouselProps> = ({
         <_Carousel
           deviceType="sm"
           ssr
-          beforeChange={(number) => {
+          beforeChange={() => {
             setSwiping(true)
-            onChange(number)
           }}
           afterChange={() => {
             setSwiping(false)

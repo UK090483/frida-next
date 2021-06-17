@@ -35,6 +35,10 @@ const BodyParser: React.FC<ContentParserProps> = (props) => {
     <>
       {content &&
         content.map((blok) => {
+          if (extraComponents && extraComponents[blok._type]) {
+            return extraComponents[blok._type]
+          }
+
           switch (blok._type) {
             case 'marquee':
               return <Marquee lang={lang} {...blok} key={blok._key} />
@@ -74,10 +78,7 @@ const BodyParser: React.FC<ContentParserProps> = (props) => {
             default:
               return (
                 //@ts-ignore
-                (extraComponents && extraComponents[blok._type]) || (
-                  //@ts-ignore
-                  <ComponentNotFound type={blok} key={blok._key} />
-                )
+                <ComponentNotFound type={blok} key={blok._key} />
               )
           }
         })}

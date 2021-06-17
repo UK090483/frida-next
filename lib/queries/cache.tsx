@@ -1,5 +1,5 @@
-import { shouldCashSite } from '@lib/constants'
 import { getSanityClient } from '@lib/sanity'
+import axios from 'axios'
 import {
   artistCardQuery,
   ArtistCardResult,
@@ -77,75 +77,100 @@ export type CacheResult = {
 
 const siteCacheKey = 'siteCache'
 
-// class siteCash {
-//   getData = async () => {
-//     if (shouldCash) {
-//       return this.getDataCashed()
-//     }
+class SiteCash {
+  url =
+    process.env.NODE_ENV === 'production'
+      ? 'https://frida-next.vercel.app/build.cache.json'
+      : 'http://localhost:3000/build.cache.json'
 
-//     return this.getData()
-//   }
+  getData = async (isPreview = false) => {
+    if (isPreview) {
+      return await this.getPreviewCache()
+    }
+    return await this.getDataCashed()
+  }
 
-//   getDataCashed = async () => {
-//     const res = await cache.get(siteCacheKey)
-//     if (!res) {
-//       const siteResult = await this.getPreparedData()
+  getDataCashed = async () => {
+    const res = await cache.get(siteCacheKey)
+    if (!res) {
+      const siteResult = await this.getPreparedData()
+      console.log(`build Cache with ${siteResult.artworks.length} Artworks`)
+      await cache.put(siteCacheKey, siteResult)
+      return siteResult as CacheResult | null
+    }
+    return res as CacheResult | null
+  }
+
+  getPreviewCache = async () => {
+    const res = await axios.get(this.url)
+    if (res.data && res.data[siteCacheKey] && res.data[siteCacheKey].data) {
+      return res.data[siteCacheKey].data
+    }
+  }
+
+  getPreparedData = async () => {
+    const siteResult = await getSanityClient().fetch(cashQuery)
+    if (siteResult.artworks && Array.isArray(siteResult.artworks)) {
+      siteResult.artworks = this.shuffle(siteResult.artworks)
+    }
+    return siteResult ? siteResult.artworks : null
+  }
+  shuffle = (array: any[]) => {
+    let m = array.length,
+      t,
+      i
+    while (m) {
+      i = Math.floor(Math.random() * m--)
+      t = array[m]
+      array[m] = array[i]
+      array[i] = t
+    }
+    return array
+  }
+}
+
+export const buildCache = new SiteCash()
+
+// export const getSiteCache: (
+//   isPreview?: boolean
+// ) => Promise<undefined | CacheResult> = async (isPreview = false) => {
+//   let site
+//   if (shouldCashSite && !isPreview) {
+//     site = (await cache.get(siteCacheKey)) as any
+
+//     if (!site) {
+//       const siteResult = await getSanityClient().fetch(cashQuery)
+
+//       if (siteResult.artworks && Array.isArray(siteResult.artworks)) {
+//         siteResult.artworks = shuffle(siteResult.artworks)
+//       }
+
 //       console.log(`build Cache with ${siteResult.artworks.length} Artworks`)
 //       await cache.put(siteCacheKey, siteResult)
-//       return siteResult
+//       site = siteResult
+//     } else {
+//       console.log('site Data from Cache')
 //     }
-//     return res
-//   }
-
-//   getPreparedData = async () => {
+//   } else {
 //     const siteResult = await getSanityClient().fetch(cashQuery)
+
 //     if (siteResult.artworks && Array.isArray(siteResult.artworks)) {
 //       siteResult.artworks = shuffle(siteResult.artworks)
 //     }
-//     return siteResult ? siteResult.artworks : null
+//     site = siteResult
 //   }
+//   return site ? site : undefined
 // }
 
-export const getSiteCache: () => Promise<undefined | CacheResult> =
-  async () => {
-    let site
-    if (shouldCashSite) {
-      site = (await cache.get(siteCacheKey)) as any
-
-      if (!site) {
-        const siteResult = await getSanityClient().fetch(cashQuery)
-
-        if (siteResult.artworks && Array.isArray(siteResult.artworks)) {
-          siteResult.artworks = shuffle(siteResult.artworks)
-        }
-
-        console.log(`build Cache with ${siteResult.artworks.length} Artworks`)
-        await cache.put(siteCacheKey, siteResult)
-        site = siteResult
-      } else {
-        console.log('site Data from Cache')
-      }
-    } else {
-      const siteResult = await getSanityClient().fetch(cashQuery)
-
-      if (siteResult.artworks && Array.isArray(siteResult.artworks)) {
-        siteResult.artworks = shuffle(siteResult.artworks)
-      }
-      site = siteResult
-    }
-
-    return site ? site : undefined
-  }
-
-function shuffle(array: any[]) {
-  let m = array.length,
-    t,
-    i
-  while (m) {
-    i = Math.floor(Math.random() * m--)
-    t = array[m]
-    array[m] = array[i]
-    array[i] = t
-  }
-  return array
-}
+// function shuffle(array: any[]) {
+//   let m = array.length,
+//     t,
+//     i
+//   while (m) {
+//     i = Math.floor(Math.random() * m--)
+//     t = array[m]
+//     array[m] = array[i]
+//     array[i] = t
+//   }
+//   return array
+// }

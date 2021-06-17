@@ -1,5 +1,5 @@
 import { getSanityClient } from '@lib/sanity'
-import { cache, getSiteCache } from './cache'
+import { cache, buildCache } from './cache'
 import { PageBodyResult } from '../../pageBuilder/pageBuilderQueries'
 import { FridaPreviewData } from '@pages/api/preview'
 import { shouldCash } from '@lib/constants'
@@ -37,7 +37,7 @@ export const fetchPageWithCache = async (
     })
   }
 
-  const SiteCache = await getSiteCache()
+  const SiteCache = await buildCache.getData(preview)
 
   if (!pageData || !SiteCache) return
 
@@ -46,14 +46,14 @@ export const fetchPageWithCache = async (
   }
 
   if (pageData.content) {
-    pageData.content = await handleBodyQueries(pageData.content)
+    pageData.content = await handleBodyQueries(pageData.content, preview)
   }
 
   return pageData
 }
 
-const handleBodyQueries = async (body: PageBodyResult) => {
-  const SiteCache = await getSiteCache()
+const handleBodyQueries = async (body: PageBodyResult, isPreview = false) => {
+  const SiteCache = await buildCache.getData(isPreview)
   const artworks = SiteCache?.artworks ? SiteCache?.artworks : []
   const artists = SiteCache?.artists ? SiteCache?.artists : []
 

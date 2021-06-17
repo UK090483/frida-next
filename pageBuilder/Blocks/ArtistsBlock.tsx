@@ -2,7 +2,6 @@ import React from 'react'
 
 import ArtistGallery from 'contentTypes/Artist/ArtistGallery'
 import { FridaLocation } from 'types'
-// import { ArtistsGalleryResult } from '@lib/queries/pageBuilderQueries'
 import Carousel from '@components/Carousel'
 import ArtistCard, {
   artistCardQuery,
@@ -46,7 +45,7 @@ const ArtworksBlock: React.FC<ArtistsBlockProps> = (props) => {
     <Carousel
       header={_label}
       items={items.map((item) => (
-        <ArtistCard type={type} {...item} />
+        <ArtistCard key={item.slug} type={type} {...item} />
       ))}
     />
   )

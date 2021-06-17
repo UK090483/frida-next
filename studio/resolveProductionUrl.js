@@ -1,5 +1,9 @@
 
-const url ='http://localhost:3000/api/preview?token=HULL'
+const localUrl ='http://localhost:3000/api/preview?token=HULL'
+
+const liveUrl='https://frida-next.vercel.app/api/preview?token=HULL'
+
+const url=localUrl
 
 export default function resolveProductionUrl(document) {
   switch (document._type) {

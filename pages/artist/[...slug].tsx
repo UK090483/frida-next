@@ -13,10 +13,14 @@ import React from 'react'
 import { FridaLocation } from 'types'
 import { SiteResult } from '@lib/queries/cache'
 import { body, PageBodyResult } from 'pageBuilder/pageBuilderQueries'
+import { imageMeta, ImageMetaResult } from '@lib/queries/snippets'
 
 export const artistSingleView = `
-
+...,
 ${body}
+'prevImage':prevImage{${imageMeta}},
+'mainImage':mainImage{${imageMeta}},
+'imageGallery':imageGallery[]{${imageMeta}},
 'slug':slug.current,
 'name':anzeigeName,
 description,
@@ -32,6 +36,9 @@ instagramLink,
 export type ArtistPageResult = {
   slug: string
   name: string | null
+  prevImage: ImageMetaResult | null
+  mainImage: ImageMetaResult | null
+  imageGallery: null | ImageMetaResult[]
   description: string | null
   description_en: string | null
   webLink: string | null

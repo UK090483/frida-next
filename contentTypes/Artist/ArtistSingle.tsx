@@ -16,7 +16,12 @@ interface ArtistSingleProps extends ArtistPageResult {
 }
 
 const ArtistSingle: React.FC<ArtistSingleProps> = (props) => {
-  const { relatedArtworks, lang, content } = props
+  const { relatedArtworks, lang, content, mainImage } = props
+
+  const heroImage =
+    mainImage && mainImage.asset
+      ? mainImage
+      : relatedArtworks && relatedArtworks[1] && relatedArtworks[1].photo
 
   if (content && content.length > 0) {
     return (
@@ -24,15 +29,7 @@ const ArtistSingle: React.FC<ArtistSingleProps> = (props) => {
         lang={lang}
         content={content}
         extraComponents={{
-          artistHero: (
-            <ArtistHero
-              photo={
-                relatedArtworks &&
-                relatedArtworks[1] &&
-                relatedArtworks[1].photo
-              }
-            />
-          ),
+          artistHero: <ArtistHero photo={heroImage} />,
           artistInfo: <ArtistInfo {...props} />,
           artistWorks: <ArtistWorks {...props} />,
           artistImages: <ArtistImages {...props} />,
@@ -43,11 +40,7 @@ const ArtistSingle: React.FC<ArtistSingleProps> = (props) => {
 
   return (
     <>
-      <ArtistHero
-        photo={
-          relatedArtworks && relatedArtworks[1] && relatedArtworks[1].photo
-        }
-      />
+      <ArtistHero photo={heroImage} />
       <ArtistInfo {...props} />
       <ArtistImages {...props} />
       <ArtistWorks {...props} />
@@ -62,7 +55,7 @@ type ArtistHeroProps = {
 }
 const ArtistHero: React.FC<ArtistHeroProps> = ({ photo }) => {
   return (
-    <div data-color="pink">
+    <div data-color="white">
       {photo && (
         <FridaImage photo={photo} layout="fill" className="h-vh w-full" />
       )}
