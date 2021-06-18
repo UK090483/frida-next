@@ -28,6 +28,7 @@ const ArtworkTemplate: React.FC<TemplateProps<ArtworkSingleViewResult>> = (
 
   return (
     <Layout
+      preview={preview}
       lang={lang}
       title={pageData.artistName || 'Frida'}
       navItems={pageData.site.navigation.items}

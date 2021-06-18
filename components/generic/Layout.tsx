@@ -40,7 +40,7 @@ type LayoutProps = {
   children: React.ReactNode
   navItems?: any
   data: { site: SiteResult }
-  preview?: boolean
+  preview: boolean
   page?: any
   schema?: any
 }
@@ -101,7 +101,7 @@ export default Layout
 const PreviewIndexer: React.FC = () => {
   const router = useRouter()
   const clear = () => {
-    fetch('http://localhost:3000/api/clearPreview').then((r) => {
+    fetch('/api/clearPreview').then(() => {
       router.reload()
     })
   }

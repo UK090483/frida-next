@@ -27,7 +27,7 @@ const ArtworkTemplate: React.FC<PostTemplateProps> = (props) => {
   const { pageData, isError } = usePage({ slug, query, data, preview })
   if (isError) return <Error />
 
-  return <PostSingle lang={lang} {...pageData} />
+  return <PostSingle lang={lang} {...pageData} preview={preview} />
 }
 
 export const getStaticProps: GetStaticProps = async (props) => {

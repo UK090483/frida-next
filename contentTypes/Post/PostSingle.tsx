@@ -1,7 +1,6 @@
 import FridaImage from '@components/fridaImage/FridaImage'
 import Layout from '@components/generic/Layout'
 import { imageMeta } from '@lib/api'
-import { ConditionalWrapper } from '@lib/helpers'
 import { SiteResult } from '@lib/queries/cache'
 import { body, PageBodyResult } from 'pageBuilder/pageBuilderQueries'
 import { ImageMetaResult } from '@lib/queries/snippets'
@@ -19,7 +18,6 @@ excerpt,
 excerpt_en,
 'headerImage': headerImage {${imageMeta}},
 'previewImage':previewImage {${imageMeta}},
-
 ${body}
 'site':'getSite'
 `
@@ -40,7 +38,7 @@ export type PostPageResult = {
 
 interface PostSingleProps extends PostPageResult {
   lang: FridaLocation
-  widthLayout?: boolean
+  preview?: boolean
 }
 
 const PostSingle: React.FC<PostSingleProps> = (props) => {
@@ -51,7 +49,8 @@ const PostSingle: React.FC<PostSingleProps> = (props) => {
     title,
     title_en,
     site,
-    widthLayout = true,
+
+    preview = false,
     categories,
   } = props
 
@@ -66,21 +65,13 @@ const PostSingle: React.FC<PostSingleProps> = (props) => {
 
   return (
     <>
-      <ConditionalWrapper
-        condition={widthLayout}
-        wrapper={(children: any) => {
-          return (
-            <Layout
-              lang={lang}
-              initialColor="pink"
-              title={_headerTitle}
-              navItems={site?.navigation?.items}
-              data={props}
-            >
-              {children}
-            </Layout>
-          )
-        }}
+      <Layout
+        preview={preview}
+        lang={lang}
+        initialColor="pink"
+        title={_headerTitle}
+        navItems={site?.navigation?.items}
+        data={props}
       >
         <div className="flex h-vh flex-wrap  bg-frida-white">
           <div className="w-full  md:w-1/2 flex justify-center items-center p-20 mt-28">
@@ -97,7 +88,7 @@ const PostSingle: React.FC<PostSingleProps> = (props) => {
         </div>
 
         {content && <BodyParser lang={lang} content={content} />}
-      </ConditionalWrapper>
+      </Layout>
     </>
   )
 }

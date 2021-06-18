@@ -35,6 +35,7 @@ const ProductTemplate: React.FC<ProductTemplateProps> = (props) => {
   return (
     <div>
       <Layout
+        preview={preview || false}
         lang={lang}
         title={'Shop'}
         navItems={pageData.site.navigation.items}
