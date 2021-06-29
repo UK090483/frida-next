@@ -2,7 +2,7 @@ import Layout from '@components/generic/Layout'
 import { usePage } from '@lib/queries/usePage'
 import { getAllDocPathsCached } from '@lib/queries/fetchDocPathApi'
 import { handleStaticProps } from '@lib/queries/handleStaticProps'
-import Error from '@pages/404'
+import Error from 'pages/404'
 import ProductSingle, {
   productSingleViewQuery,
   ProductSingleViewResult,

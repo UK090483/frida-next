@@ -16,7 +16,7 @@ const OverlayCTA: React.FC<OverlayCTA> = ({ color = 'pink', item }) => {
   useEffect(() => {
     const timeOut = setTimeout(() => {
       animate('in')
-    }, 20000)
+    }, 1000)
 
     return () => {
       clearTimeout(timeOut)
@@ -28,7 +28,7 @@ const OverlayCTA: React.FC<OverlayCTA> = ({ color = 'pink', item }) => {
       {shouldRender && (
         <div
           className={cx(
-            `w-vw h-vh   bg-opacity-70 flex items-center justify-center fixed bottom-0 z-50 duration-500 transition-opacity bg-frida-${color}`,
+            `w-vw h-vh backdrop-filter backdrop-brightness-75 backdrop-blur-sm  bg-opacity-10 flex items-center justify-center fixed bottom-0 z-50 duration-500 transition-opacity bg-frida-${color}`,
             { 'opacity-100': current },
             { 'opacity-0': !current }
           )}

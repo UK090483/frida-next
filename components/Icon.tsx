@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { MailIcon, ShareIcon, ShoppingCartIcon } from '@heroicons/react/outline'
+import { MailIcon, ShareIcon } from '@heroicons/react/outline'
 import {
   ArrowNarrowLeftIcon,
   ArrowNarrowRightIcon,
@@ -15,6 +15,7 @@ import { FaFacebook, FaTwitter, FaWhatsapp } from 'react-icons/fa'
 import { GoCreditCard } from 'react-icons/go'
 import { FridaColors } from 'types'
 import { mouseLinkProps } from './generic/Mouse/mouseRemote'
+import { getIcon } from './svgs'
 
 interface IconsObject {
   [k: string]: any
@@ -31,7 +32,9 @@ const Icons: IconsObject = {
   arrowLeft: ArrowNarrowLeftIcon,
   arrowRight: ArrowNarrowRightIcon,
   x: XIcon,
-  cart: ShoppingCartIcon,
+  cart: (props: unknown) => {
+    return getIcon('bag', '', props)
+  },
   plus: PlusIcon,
   minus: MinusIcon,
 }
@@ -67,28 +70,33 @@ const Icon: React.FC<IconProps> = ({
   className,
   color = 'black',
   bgColor = 'white',
-  onClick = () => {},
+  onClick = () => null,
   withMouseHover = true,
   ...rest
 }) => {
   if (!Icons[icon]) return <div>icon</div>
+  return (
+    <div
+      className={classNames(
+        `rounded-full bg-frida-${bgColor} text-frida-${color}`,
+        {
+          'w-8 h-8 md:w-12 md:h-12 p-2': size === 'm',
+        },
+        {
+          'w-8 h-8 p-2 ': size === 's',
+        },
+        className
+      )}
+    >
+      {React.createElement(Icons[icon], {
+        ...(withMouseHover ? mouseLinkProps : {}),
+        onClick,
 
-  return React.createElement(Icons[icon], {
-    ...(withMouseHover ? mouseLinkProps : {}),
-    onClick,
-    className: classNames(
-      `rounded-full bg-frida-${bgColor} text-frida-${color}`,
-      {
-        'w-8 h-8 md:w-12 md:h-12 p-1.5': size === 'm',
-      },
-      {
-        'w-8 h-8 p-2 ': size === 's',
-      },
-      className
-    ),
-    key: icon,
-    ...rest,
-  })
+        key: icon,
+        ...rest,
+      })}
+    </div>
+  )
 }
 
 export default Icon

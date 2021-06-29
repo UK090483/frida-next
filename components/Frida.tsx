@@ -13,7 +13,7 @@ const Frida: React.FC<FridaProps> = ({
 }) => {
   return (
     <span className={`inline whitespace-nowrap text-frida-${color}`}>
-      #Meet
+      Meet
       <span
         style={{
           textDecorationThickness: '0.16em',

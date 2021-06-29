@@ -1,4 +1,4 @@
-html {
+/* html {
   &.is-loading,
   &.is-loading * {
     @apply cursor-wait !important;
@@ -15,4 +15,4 @@ body {
   &--content {
     @apply mx-auto;
   }
-}
+} */

@@ -1,4 +1,3 @@
-import FridaImage from '@components/fridaImage/FridaImage'
 import Layout from '@components/generic/Layout'
 import { imageMeta } from '@lib/api'
 import { SiteResult } from '@lib/queries/cache'
@@ -7,6 +6,7 @@ import { ImageMetaResult } from '@lib/queries/snippets'
 import BodyParser from 'pageBuilder/BodyParser'
 import React from 'react'
 import { FridaLocation } from 'types'
+import Photo from '@components/photo'
 
 export const postSingleView = `
 title,
@@ -78,12 +78,8 @@ const PostSingle: React.FC<PostSingleProps> = (props) => {
             <h1 className="header-small pb-10">{_title}</h1>
           </div>
 
-          <div className="w-full  md:w-1/2">
-            <FridaImage
-              className="w-full h-full"
-              photo={headerImage}
-              layout="fill"
-            />
+          <div className="relative w-full  md:w-1/2">
+            <Photo photo={headerImage} layout="fill" />
           </div>
         </div>
 

@@ -1,170 +1,91 @@
-//@ts-nocheck
-import React, { useState, useEffect, useRef } from 'react'
-import { useIntersection } from 'use-intersection'
-import cx from 'classnames'
-import { buildSrcSet, buildSrc } from '@lib/helpers'
 import { ImageLayout } from 'types'
+import Image, { ImageLoader, ImageProps } from 'next/image'
+
+import { imageBuilder } from '@lib/sanity'
+import { ImageMetaResult } from '@lib/queries/snippets'
 
 interface PhotoProps {
   alt?: string
-  width?: number | string
-  height?: number | string
-  photo: any
+  width?: number
+  height?: number
+  photo: ImageMetaResult | undefined | null
   srcSizes?: number[]
   sizes?: string
   layout?: ImageLayout
   hasPlaceholder?: boolean
   forceLoad?: boolean
-  onLoad?: Function
   className?: string
   quality?: number
 }
-const imageCache = Object.create({})
 
-const inImageCache = (cacheKey) => {
-  return imageCache[cacheKey] || false
-}
-
-const activateCacheForImage = (cacheKey) => {
-  if (cacheKey) {
-    imageCache[cacheKey] = true
-  }
-}
-
-const getImageCacheKey = (props) => {
-  const { photo, onLoad, alt, ...rest } = props
-  return JSON.stringify({ id: photo.id, ...rest })
+const myLoader: ImageLoader = ({ src, width, quality }) => {
+  return (
+    imageBuilder
+      .image(src)
+      .width(width)
+      .quality(quality || 75)
+      .url() || ''
+  )
 }
 
 const Photo: React.FC<PhotoProps> = (props) => {
   const {
     alt,
     photo,
-    width,
+    width = 300,
     height,
-    srcSizes = [400, 800, 1000],
-    sizes = '(min-width: 940px) 50vw, 100vw',
-    layout = 'intrinsic',
-    quality = 80,
-    hasPlaceholder = true,
-    forceLoad,
-    onLoad,
+    sizes = '(min-width: 640px) 100vw',
+    layout = 'responsive',
+    quality = 75,
     className,
   } = props
 
   if (!photo) return null
 
-  const imageRef = useRef()
-  const [isLoaded, setIsLoaded] = useState(false)
+  const placeHolder = photo.lqip
+  const _height = height || width / photo.aspectRatio
 
-  // const isLoaded = false
-  const isIntersecting = useIntersection(imageRef, {
-    once: true,
-    rootMargin: '250px',
-    threshold: 0.1,
-  })
-  const cacheKey = React.useCallback(getImageCacheKey(props), [])
+  let dynamicProps: { [k: string]: unknown } = {
+    width: 300,
+    height: _height,
+    placeholder: 'blur',
+    blurDataURL: placeHolder,
+  }
+  let _layout: ImageProps['layout'] = 'responsive'
 
-  useEffect(() => {
-    imageCache[cacheKey] && setIsLoaded(true)
-  }, [])
-
-  // define our aspect ratio if not a background fill
-  const aspect =
-    typeof width === 'number' && typeof height === 'number'
-      ? (height / width) * 100
-      : 100 / (photo.customRatio || photo.aspectRatio)
-
-  const aspectCustom =
-    layout === 'intrinsic' ? { paddingTop: `${aspect}%` } : null
-
-  // define our src and srcset
-
-  const src = buildSrc(photo, { width, height, quality })
-
-  const srcset = buildSrcSet(photo, {
-    srcSizes,
-    ...(width ? { width } : {}),
-    ...(height ? { height } : {}),
-    ...(quality ? { quality } : {}),
-    ...(aspect ? { aspect } : {}),
-  })
-
-  // handle our image onLoad
-  function handleLoad() {
-    activateCacheForImage(cacheKey)
-    requestAnimationFrame(() => {
-      if (!isLoaded) setIsLoaded(true)
-    })
+  if (layout === 'contain') {
+    dynamicProps = { objectFit: 'contain' }
+    _layout = 'fill'
   }
 
-  const objectPosition =
-    layout === 'fill' && photo.hotspot
-      ? {
-          objectPosition: `${photo.hotspot.x * 100}% ${photo.hotspot.y * 100}%`,
-        }
-      : {}
+  if (layout === 'fill') {
+    dynamicProps = { objectFit: 'cover' }
+    if (photo.hotspot) {
+      dynamicProps.objectPosition = `${photo.hotspot.x * 100}% ${
+        photo.hotspot.y * 100
+      }%`
+    }
+    _layout = 'fill'
+  }
 
-  // trigger any onLoad callbacks
-  useEffect(() => {
-    if (isLoaded && onLoad) onLoad()
-  }, [isLoaded])
+  if (process.env.NODE_ENV === 'production') {
+    dynamicProps.placeholder = 'blur'
+    dynamicProps.blurDataURL = placeHolder
+  }
 
   return (
-    <figure className={className ? className : ''}>
-      <div
-        className={cx('ar', {
-          'has-fill': layout === 'fill' || layout === 'contain',
-        })}
-        style={{ ...aspectCustom }}
-      >
-        <picture>
-          <img
-            draggable="false"
-            ref={imageRef}
-            width={width}
-            height={height}
-            src={forceLoad || isIntersecting ? src : null}
-            srcSet={forceLoad || isIntersecting ? srcset : null}
-            sizes={sizes}
-            decoding="async"
-            onLoad={handleLoad}
-            alt={photo.alt || photo.asset?.altText || alt}
-            className={cx(getSize(layout), { 'is-loaded': isLoaded })}
-            style={{ ...objectPosition }}
-          />
-        </picture>
-
-        {hasPlaceholder && (
-          <div
-            className={cx(
-              `absolute inset-0 ${
-                isLoaded ? 'opacity-0' : 'opacity-100'
-              } transition-opacity duration-1000`,
-              'ar--placeholder '
-            )}
-          >
-            <img
-              src={photo.lqip}
-              alt={photo.alt || photo.asset?.altText || alt}
-              role="presentation"
-            />
-          </div>
-        )}
-      </div>
-    </figure>
+    <Image
+      {...dynamicProps}
+      className={'photo ' + (className || '')}
+      quality={quality}
+      loader={myLoader}
+      src={photo.asset._ref}
+      layout={_layout}
+      alt={alt || 'image'}
+      sizes={sizes}
+      draggable={false}
+    />
   )
-}
-
-const getSize = (layout: ImageLayout) => {
-  switch (layout) {
-    case 'intrinsic':
-      return 'object-cover'
-    case 'fill':
-      return 'object-cover'
-    case 'contain':
-      return 'object-contain'
-  }
 }
 
 export default Photo

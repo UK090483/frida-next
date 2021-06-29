@@ -3,14 +3,11 @@ import { useIntersection } from 'react-use'
 import { mouseLinkProps } from '@components/generic/Mouse/mouseRemote'
 import cx from 'classnames'
 import { FridaColors } from 'types'
-import { motion, Variant, Variants } from 'framer-motion'
+import { motion, Variants } from 'framer-motion'
 import { useRouter } from 'next/router'
-import {
-  useAddItem,
-  useCheckout,
-  useSiteContext,
-  useToggleCart,
-} from '@lib/context'
+import { useSiteContext } from 'lib/context/context'
+import useToggleCart from '@lib/context/useToggleCart'
+import useCheckout from '@lib/context/useCheckout'
 
 type BuyButtonProps = {
   handleAddToCard?: () => void
@@ -19,7 +16,7 @@ type BuyButtonProps = {
 }
 
 const BuyButton: React.FC<BuyButtonProps> = (props) => {
-  const { handleAddToCard = () => {}, isInCart = false } = props
+  const { handleAddToCard = () => null, isInCart = false } = props
   //   const { availability, addToCart, inCart, checkoutUrl } = props
 
   const intersectionRef = React.useRef(null)
@@ -43,7 +40,7 @@ const BuyButton: React.FC<BuyButtonProps> = (props) => {
 
   const openCart = useToggleCart()
 
-  const { isLoading, isAdding } = useSiteContext()
+  const { isAdding } = useSiteContext()
 
   const toCardText = locale === 'en' ? 'add to cart' : 'In den Warenkorb'
   const soldText = locale === 'en' ? 'sold' : 'Leider Verkauft'
@@ -122,7 +119,7 @@ const BButton: React.FC<BButtonProps> = ({
       animate={show ? 'visible' : 'hidden'}
       onClick={onClick}
       {...mouseLinkProps}
-      className={`rounded-full text-frida-white  py-3.5 text-sm-fluid font-bold overflow-hidden whitespace-nowrap ${cx(
+      className={`rounded-full leading-none text-frida-white  py-3.5 text-sm-fluid font-bold overflow-hidden whitespace-nowrap ${cx(
         `bg-frida-${color}  ${className}`
       )}`}
     >

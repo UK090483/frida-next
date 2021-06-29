@@ -65,9 +65,9 @@ const PageTitle: React.FC<PageTitleProps> = ({
           <Link href="/">
             <div
               className={classNames(
-                'font-bold',
-                { 'text-base-fluid md:text-lg-fluid ': title.length >= 16 },
-                { 'text-lg-fluid': title.length < 16 }
+                'font-bold text-md-fluid'
+                // { 'text-md-fluid ': title.length >= 16 },
+                // { 'text-md-fluid': title.length < 16 }
               )}
               ref={ref}
               onMouseEnter={() => {

@@ -2,12 +2,12 @@ import { usePage } from '@lib/queries/usePage'
 import { getAllDocPathsCached } from '@lib/queries/fetchDocPathApi'
 import { handleStaticProps } from '@lib/queries/handleStaticProps'
 
-import Error from '@pages/404'
+import Error from 'pages/404'
 import PageBuilder from 'contentTypes/Page/Page'
-import { GetStaticPaths, GetStaticProps } from 'next'
+import type { GetStaticPaths, GetStaticProps } from 'next'
 import React from 'react'
-import { FridaColors, FridaLocation } from 'types'
-import { SiteResult } from '@lib/queries/cache'
+import type { FridaColors, FridaLocation } from 'types'
+import type { SiteResult } from '@lib/queries/cache'
 import { body, PageBodyResult } from 'pageBuilder/pageBuilderQueries'
 
 export const pageQuery = `
@@ -32,7 +32,7 @@ export type PageResult = {
   site: SiteResult
 }
 
-type PageProps = {
+export type PageProps = {
   data: PageResult | null
   lang: FridaLocation
   slug: string

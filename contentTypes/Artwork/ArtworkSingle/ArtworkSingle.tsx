@@ -1,6 +1,6 @@
 import Section from '@components/Section'
 import { ArtworkSingleViewResult } from 'contentTypes/Artwork/ArtworkSingle/artworksQueries'
-import Carousel from '@components/Carousel'
+import Carousel from '@components/CardCarousel'
 import ArtworkCard from 'contentTypes/Artwork/ArtworkCard'
 import React from 'react'
 import Button from '@components/buttons/button'

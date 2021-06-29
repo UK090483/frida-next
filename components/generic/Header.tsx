@@ -25,7 +25,7 @@ const Header: React.FC<HeaderProps> = ({
   lang,
   navItems = [],
 }) => (
-  <header className="fixed top-2 md:top-3 w-full px-frida_side md:px-5 z-10  pointer-events-none">
+  <header className="fixed top-frida_side_big md:top-frida_side_big w-full px-frida_side md:px-frida_side_big z-10  pointer-events-none">
     <div className="w-full flex justify-between items-center">
       {title && (
         <PageTitle
@@ -57,7 +57,7 @@ const ModalHeader: React.FC<ModalHeaderProps> = ({
   initialColor,
   link = true,
   children,
-  lang,
+
   backHref = '/',
 }) => (
   <div className="fixed top-2 md:top-3 w-full px-2 md:px-5 z-10 pointer-events-none">

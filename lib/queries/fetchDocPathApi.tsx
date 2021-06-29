@@ -1,6 +1,6 @@
 // import { getAllDocSlugs } from '@lib/api'
 import { shouldCash } from '@lib/constants'
-import { getSanityClient } from '@lib/sanity'
+import { getSanityClient } from '@lib/sanity.server'
 import { cache } from './cache'
 
 const getAllDocSlugs: (doc: string) => Promise<null | { slug: string }[]> =

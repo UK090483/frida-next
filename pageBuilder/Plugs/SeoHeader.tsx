@@ -26,36 +26,30 @@ const SeoHeaderPlug: React.FC<SeoHeaderPlugResult> = (props) => {
   const _text =
     text &&
     text.split('\n').map((line, i) => (
-      <span key={i}>
+      <React.Fragment key={i}>
         {line}
         <br />
-      </span>
+      </React.Fragment>
     ))
 
-  const styledText: () => React.ReactElement = () => {
-    return (
-      <span
-        className={classNames(
-          { 'header-big': headerStyle === 'Header-big' },
-          { 'header-medium': headerStyle === 'Header-medium' },
-          { 'header-small': headerStyle === 'Header-small' },
-          ` text-frida-${headerColor}`
-        )}
-      >
-        {_text}
-      </span>
-    )
-  }
+  const className = classNames(
+    { 'header-big': headerStyle === 'Header-big' },
+    { 'header-medium': headerStyle === 'Header-medium' },
+    { 'header-small': headerStyle === 'Header-small' },
+    { subheader: headerStyle === 'SubHeader' },
+    ` text-frida-${headerColor}`
+  )
 
   switch (headerType) {
     case 'H1':
-      return <h1>{styledText()}</h1>
+      return <h1 className={className}>{_text}</h1>
     case 'H2':
-      return <h2>{styledText()}</h2>
+      return <h2 className={className}>{_text}</h2>
     case 'H3':
-      return <h3>{styledText()}</h3>
+      return <h3 className={className}>{_text}</h3>
+
     default:
-      return <h1>{styledText()}</h1>
+      return <h1 className={className}>{_text}</h1>
   }
 }
 

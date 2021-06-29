@@ -1,6 +1,6 @@
-import { FridaPreviewData } from '@pages/api/preview'
-import { ParsedUrlQuery } from 'querystring'
-import { FridaLocation } from 'types'
+import type { FridaPreviewData } from 'pages/api/preview'
+import type { ParsedUrlQuery } from 'querystring'
+import type { FridaLocation } from 'types'
 import { fetchPageWithCache } from './fetchPageApi'
 
 type handleStaticPropsProps = {
@@ -57,5 +57,6 @@ export const handleStaticProps: (
       data: pageData || null,
       lang: locale || null,
     },
+    revalidate: 1,
   }
 }

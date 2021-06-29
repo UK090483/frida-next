@@ -38,7 +38,7 @@ const generateSeo: (
   let shareTitle = defaultSeo.shareTitle
   let shareDesc = defaultSeo.shareDesc
   let shareGraphic = defaultSeo.shareGraphic
-  let siteTitle = defaultSeo.siteTitle
+  const siteTitle = defaultSeo.siteTitle
   let url = 'https://meetfrida.art/'
   const docSeo = document.seo
 
@@ -99,6 +99,7 @@ const getFittedImageSrc = (image: any, IB: ImageUrlBuilder) => {
       .width(1200)
       .height(630)
       .fit('fill')
+      .format('png')
       .ignoreImageParams()
       .bg('f5c5d9')
       .pad(20)

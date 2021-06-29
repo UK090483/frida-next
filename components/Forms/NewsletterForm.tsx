@@ -2,6 +2,7 @@ import React, { useState, useReducer } from 'react'
 import { useForm } from 'react-hook-form'
 import { m, AnimatePresence } from 'framer-motion'
 import cx from 'classnames'
+import Image from 'next/image'
 
 import { fadeAnim } from '@lib/animate'
 import { useRouter } from 'next/router'
@@ -117,7 +118,7 @@ const Newsletter = () => {
                   }}
                   className={cx(
                     'w-full',
-                    'form-input px-6 text-xs-fluid',
+                    'form-input px-6 text-xs-fluid md:py-3',
                     'rounded-full',
                     'bg-frida-pink border-0 text-frida-white'
                   )}
@@ -168,10 +169,11 @@ const Newsletter = () => {
           >
             <div>
               <div className="flex justify-center items-center ">
-                <img
+                <Image
                   width={100}
                   height={100}
                   src="/Icons_Newsletter_success.png"
+                  alt="newsletter success"
                 />
               </div>
               <p className="p-8 text-center">
@@ -193,10 +195,11 @@ const Newsletter = () => {
           >
             <div>
               <div className="flex justify-center items-center ">
-                <img
+                <Image
                   width={100}
                   height={100}
                   src="/Icons_Newsletter_error.png"
+                  alt="newsletter error"
                 />
               </div>
               <div className="p-8 text-center">

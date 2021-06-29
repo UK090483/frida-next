@@ -34,6 +34,10 @@ module.exports = withBundleAnalyzer({
   webpack(config, options) {
     const { dev, isServer, buildId, webpack } = options
 
+    config.experiments= {
+      topLevelAwait: true
+    }
+
     // Do not run type checking twice:
     if (dev && isServer) {
       config.plugins.push(new ForkTsCheckerWebpackPlugin())
@@ -59,9 +63,9 @@ module.exports = withBundleAnalyzer({
     // should handle (these are only required when setting up domain routing)
     // Note: subdomains must be included in the domain value to be matched e.g. "fr.example.com".
   },
-  future: {
-    webpack5: true,
-  },
+  // future: {
+  //   webpack5: true,
+  // },
   productionBrowserSourceMaps: true,
   env: {
     // Needed for Sanity powered data
@@ -86,6 +90,11 @@ module.exports = withBundleAnalyzer({
 
     // Needed for SendGrid forms
     SENDGRID_API_KEY: process.env.SENDGRID_API_KEY,
+  },
+  eslint: {
+    // Warning: Dangerously allow production builds to successfully complete even if
+    // your project has ESLint errors.
+    ignoreDuringBuilds: true,
   },
   async redirects() {
     const sanityRedirects = await fetchSanityRedirects()

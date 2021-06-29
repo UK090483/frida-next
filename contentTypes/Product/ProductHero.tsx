@@ -8,11 +8,12 @@ import ProductHeroWrap from '@components/ProductComponents/ProductHeroWrap'
 import ProductMagnifyImage from '@components/ProductComponents/ProductMagnifyImage'
 import ProductName from '@components/ProductComponents/ProductName'
 import Price from '@components/ProductComponents/ProductPrice'
-import { useAddItem, useCartItems } from '@lib/context'
+import { useAddItem, useCartItems } from '@lib/context/useShopItem'
 import ProductForm from '@components/ProductComponents/product-form'
 import React from 'react'
 import { FridaLocation } from 'types'
 import { ProductSingleViewResult } from './ProductSingle'
+import { mouseLinkProps } from '@components/generic/Mouse/mouseRemote'
 
 interface ProductHeroProps extends ProductSingleViewResult {
   lang: FridaLocation
@@ -35,6 +36,21 @@ const ProductHero: React.FC<ProductHeroProps> = (props) => {
     (acc, item) => ({ ...acc, [item.id]: item }),
     {} as { [k: string]: any }
   )
+  // const photosByVariantsId = variants.reduce((acc, item) => {
+  //   const o = item.options.map((i) => `${i.name}:${i.value}`)
+  //   const res = galleryPhotos?.filter((i) => {
+  //     return o.includes(i.forOption)
+  //   })
+  //   return { ...acc, [item.id]: res }
+  // }, {} as { [k: string]: any })
+
+  const photosIncVariantsId = variants.reduce((acc, item) => {
+    const o = item.options.map((i) => `${i.name}:${i.value}`)
+    const res = galleryPhotos?.filter((i) => {
+      return o.includes(i.forOption)
+    })
+    return { ...acc, [item.id]: res }
+  }, {} as { [k: string]: any })
 
   const [{ activeVariantId, quantity, isInCart }, setState] = React.useState({
     activeVariantId: variants && variants[0] && variants[0].id,
@@ -49,16 +65,16 @@ const ProductHero: React.FC<ProductHeroProps> = (props) => {
   const cardItems = useCartItems()
 
   React.useEffect(() => {
-    //@ts-ignore
     const itemInCart = cardItems.find((item) => item.id === activeVariantId)
 
     if (itemInCart) {
       return setState((oS) => ({
-        ...oS, //@ts-ignore
+        ...oS,
         quantity: itemInCart.quantity,
         isInCart: true,
       }))
     }
+
     return setState((oS) => ({
       ...oS,
       itemInCart: 1,
@@ -83,25 +99,24 @@ const ProductHero: React.FC<ProductHeroProps> = (props) => {
           </div>
           {galleryPhotos && (
             <div className="flex h-24 flex-shrink-0 ">
-              {galleryPhotos.map((item) => {
-                return item.photos.map((photo, index) => {
-                  return (
-                    <div
-                      key={index}
-                      className={'p-2'}
-                      onClick={() => {
-                        console.log(item.forOption)
-                      }}
-                    >
-                      <Photo
-                        photo={photo}
-                        width={100}
-                        height={100}
-                        layout="contain"
-                        className="w-20 h-20"
-                      />
-                    </div>
-                  )
+              {Object.entries(photosIncVariantsId).map(([id, item]) => {
+                //@ts-ignore
+                return item.map((image) => {
+                  //@ts-ignore
+                  return image.photos.map((photo, index) => {
+                    return (
+                      <button
+                        {...mouseLinkProps}
+                        key={index}
+                        className={'relative m-2 w-20 h-20'}
+                        onClick={() => {
+                          setState((oS) => ({ ...oS, activeVariantId: id }))
+                        }}
+                      >
+                        <Photo photo={photo} layout="fill" />
+                      </button>
+                    )
+                  })
                 })
               })}
             </div>

@@ -1,14 +1,13 @@
 import LangSwitch from '@components/generic/LangSwitcher'
-import { useSiteContext, useToggleCart, useToggleMegaNav } from '@lib/context'
-import React from 'react'
+import { useSiteContext } from '@lib/context/context'
 import { FridaLocation } from 'types'
-import useBodyScrollStop from '../../helper/useBodyScrollStop'
-
 import { setMouse } from '../Mouse/mouseRemote'
 import BigButtons from './BigButtons'
 import Burger from './Burger'
 import Links from './Links'
 import Icon from 'components/Icon'
+import useToggleCart from '@lib/context/useToggleCart'
+import { useToggleMegaNav } from '@lib/context/useUi'
 
 type NavProps = {
   items: any[]
@@ -16,42 +15,25 @@ type NavProps = {
 }
 
 const Nav: React.FC<NavProps> = ({ items, lang }) => {
-  const { stopBodyScroll, enableBodyScroll } = useBodyScrollStop()
-
   const {
     meganav: { isOpen },
   } = useSiteContext()
 
   const toggleCard = useToggleCart()
-
   const toggleNav = useToggleMegaNav()
-
-  const handleMenu = () => {
-    toggleNav('toggle')
-
-    if (isOpen) {
-      enableBodyScroll()
-    } else {
-      stopBodyScroll()
-    }
-  }
 
   return (
     <div className="z-90 ">
       <div className="pointer-events-auto flex bg-frida-grey bg-opacity-50 rounded-full ">
         <LangSwitch />
-        <Burger
-          onClick={() => {
-            handleMenu()
-          }}
-        ></Burger>
+        <Burger onClick={toggleNav}></Burger>
       </div>
       <Icon
         onClick={() => {
           toggleCard()
         }}
         icon="cart"
-        className="absolute top-10 right-frida_side md:top-20 md:right-5 pointer-events-auto"
+        className="absolute top-10 right-frida_side md:top-20 md:right-frida_side_big pointer-events-auto"
       />
       <div
         onMouseEnter={() => {
@@ -77,7 +59,7 @@ const Nav: React.FC<NavProps> = ({ items, lang }) => {
             bgColor="black"
             color="white"
             className="absolute top-2 mr-frida_side right-0 md:top-6  md:mr-8 border-frida-white border-3"
-            onClick={handleMenu}
+            onClick={toggleNav}
           />
         )}
         <BigButtons open={isOpen}></BigButtons>

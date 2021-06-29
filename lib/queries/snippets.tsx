@@ -18,5 +18,5 @@ export type ImageMetaResult = {
   id: string
   type: string
   aspectRatio: number
-  lqip: number
+  lqip: string
 }

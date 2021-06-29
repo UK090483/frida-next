@@ -6,7 +6,18 @@ export default {
     { name: 'name', type: 'string', title: 'Name' },
     { name: 'label', type: 'string', title: 'Label' },
     { name: 'label_en', type: 'string', title: 'Label En' },
-
+    {
+      title: 'Background Color',
+      name: 'bgColor',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'White', value: 'white' },
+          { title: 'Grey', value: 'grey' }
+        ]
+      },
+      initialValue: 'white'
+    },
     {
       title: 'Type',
       name: 'type',
@@ -47,5 +58,17 @@ export default {
         }
       ]
     }
-  ]
+  ],
+  preview: {
+    select: {
+      type: 'type',
+      name:'name'
+    },
+    prepare({ type,name }) {
+      return {
+        title: `Artists ${type}`,
+        subtitle: name
+      }
+    }
+  }
 }

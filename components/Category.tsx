@@ -5,6 +5,7 @@ import cx from 'classnames'
 import { ConditionalWrapper } from '@lib/helpers'
 import { buildInternalLink } from '@components/helper/buildInternalLink'
 import { mouseLinkProps } from '@components/generic/Mouse/mouseRemote'
+import { FridaLocation } from 'types'
 
 type CategoryItem = {
   images: React.ReactNode[]
@@ -19,20 +20,23 @@ type CategoryItem = {
 
 type CategoryProps = {
   items: CategoryItem[]
+  lang: FridaLocation
 }
 
-const Category: React.FC<CategoryProps> = ({ items }) => {
+const Category: React.FC<CategoryProps> = ({ items, lang }) => {
   return (
     <Section type="full" backgroundColor="white">
-      <div className="grid gap-6 md:gap-12 grid-cols-12  grid-flow-row p-6 md:p-12">
+      <div className="grid gap-4 lg:gap-20 grid-cols-12  grid-flow-row px-frida_side md:px-frida_7% pt-4 pb-4 lg:pb-20">
         {items.map((item, index) => {
           const {
             size = 'm',
             sizeMobile = 'm',
             internalLink,
             urlParams = '',
+            label,
+            label_en,
           } = item
-
+          const _label = lang === 'en' && label_en ? label_en : label
           return (
             <ConditionalWrapper
               key={index}
@@ -74,10 +78,13 @@ const Category: React.FC<CategoryProps> = ({ items }) => {
               >
                 {item.images && item.images[0] && item.images[0]}
 
-                {item.label && (
-                  <div className="py-2 px-6 rounded-full font-extrabold text-frida-black absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-frida-white whitespace-nowrap">
-                    {item.label}
-                  </div>
+                {_label && (
+                  // <div className="py-2 px-6 text-base-fluid rounded-full font-extrabold text-frida-black absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-frida-white whitespace-nowrap">
+                  //   {_label}
+                  // </div>
+                  <button className="button is-responsive  absolute bg-frida-white border-frida-white top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                    {_label}
+                  </button>
                 )}
               </div>
             </ConditionalWrapper>

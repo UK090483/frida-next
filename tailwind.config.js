@@ -65,6 +65,7 @@ module.exports = {
       spacing: {
         'frida_7%': '7%',
         frida_side: '0.6rem',
+        frida_side_big: '1.2rem',
       },
       transitionProperty: {
         'max-height': 'max-height',
@@ -91,6 +92,7 @@ module.exports = {
       },
       fontSize: {
         xxs: '.625rem',
+        md:'20rem'
       },
       zIndex: {
         '-1': '-10',
@@ -124,6 +126,11 @@ module.exports = {
         'vh/3': 'calc(100vh / 3)',
         'vh/4': 'calc(100vh / 4)',
         'vh/5': 'calc(100vh / 5)',
+        'vh/7': 'calc(100vh / 7)',
+        'vh/8': 'calc(100vh / 8)',
+        'vh/9': 'calc(100vh / 9)',
+        'vh-90': '90vh',
+        'vh-45': '45vh',
         vw: '100vw',
         'vw/2': '50vw',
         'vw/3': 'calc(100vw / 3)',
@@ -137,6 +144,8 @@ module.exports = {
         'absolut-xl': '900px',
         'absolut-xxl': '1200px',
         'fit-content': 'fit-content',
+        'vw/1-5':  'calc(100vw / 1.5)',
+        'vw/3-5': 'calc(100vw / 3.5)',
         vh: '100vh',
         'vh/2': '50vh',
         'vh/3': 'calc(100vh / 3)',
@@ -192,6 +201,12 @@ module.exports = {
         base: {
           min: '16px',
           max: '30px',
+          minvw: '320px',
+          maxvw: '1400px',
+        },
+        md: {
+          min: '18px',
+          max: '40px',
           minvw: '320px',
           maxvw: '1400px',
         },

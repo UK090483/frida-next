@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { AnimatePresence, m } from 'framer-motion'
-import Cookies from 'js-cookie'
 
 import { useHasMounted } from '@lib/helpers'
 
 import { useRouter } from 'next/router'
 import Button from 'components/buttons/button'
 import Icon from './Icon'
+import useCookie from '@lib/context/useCookie'
 
 const barAnim = {
   show: {
@@ -32,16 +32,14 @@ const CookieBar: React.FC = () => {
   const message_en =
     'We use cookies to make your experience on our website pleasant and to improve it!'
 
-  const [declined, setDeclined] = useState(false)
-
   const hasMounted = useHasMounted()
-  const { acceptedCookies, onAcceptCookies } = useAcceptCookies()
+  const { accepted, declined, acceptCookies, declineCookies } = useCookie()
 
   if (!hasMounted || !message) return null
 
   return (
     <AnimatePresence>
-      {!acceptedCookies && !declined && (
+      {!accepted && !declined && (
         <m.div
           initial="hide"
           animate="show"
@@ -62,7 +60,7 @@ const CookieBar: React.FC = () => {
 
             <div className={'flex justify-between items-center w-full md:w-60'}>
               <Button
-                onClick={() => onAcceptCookies()}
+                onClick={() => acceptCookies()}
                 label={locale === 'en' ? 'Accept' : 'Einverstanden'}
                 type="click"
                 size="s"
@@ -71,7 +69,7 @@ const CookieBar: React.FC = () => {
               </Button>
 
               <Icon
-                onClick={() => setDeclined(true)}
+                onClick={() => declineCookies()}
                 icon="x"
                 size="s"
                 color="pink"
@@ -83,26 +81,6 @@ const CookieBar: React.FC = () => {
       )}
     </AnimatePresence>
   )
-}
-
-function useAcceptCookies(cookieName = 'accept_cookies') {
-  const [acceptedCookies, setAcceptedCookies] = useState(true)
-
-  useEffect(() => {
-    if (!Cookies.get(cookieName)) {
-      setAcceptedCookies(false)
-    }
-  }, [])
-
-  const acceptCookies = () => {
-    setAcceptedCookies(true)
-    Cookies.set(cookieName, 'accepted', { expires: 365 })
-  }
-
-  return {
-    acceptedCookies,
-    onAcceptCookies: acceptCookies,
-  }
 }
 
 export default React.memo(CookieBar)

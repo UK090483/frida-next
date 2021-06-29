@@ -2,23 +2,38 @@ import * as React from 'react'
 
 import { theme } from 'tailwind.config'
 
-export interface IShowBreakingPointsProps {}
+const ShowBreakingPoints: React.FC = () => {
+  const [w, setW] = React.useState(0)
+  const [ratio, setRatio] = React.useState(0)
 
-const ShowBreakingPoints: React.FC<IShowBreakingPointsProps> = () => {
+  React.useEffect(() => {
+    if (window) {
+      const checkSize = () => {
+        setW(window.innerWidth)
+        setRatio(window.devicePixelRatio)
+      }
+      checkSize()
+      window.onresize = checkSize
+    }
+  }, [])
+
   return (
-    <div className="flex w-10 overflow-hidden justify-end items-center  fixed bottom-0 right-0 border border-gray-400 rounded  bg-gray-300 text-pink-600 text-sm">
-      {theme &&
-        theme.screens &&
-        Object.entries(theme.screens).map(([name], index) => (
-          <span
-            key={name}
-            className={` px-3 ${
-              index === 0 ? '' : 'hidden'
-            } ${name}:inline  font-extrabold`}
-          >
-            {name}
-          </span>
-        ))}
+    <div className="fixed bottom-0 right-0">
+      <div>{`${w}`}</div>
+      <div className="flex w-10 overflow-hidden justify-end items-center   border border-gray-400 rounded  bg-gray-300 text-pink-600 text-sm">
+        {theme &&
+          theme.screens &&
+          Object.entries(theme.screens).map(([name], index) => (
+            <span
+              key={name}
+              className={`px-3 ${
+                index === 0 ? '' : 'hidden'
+              } ${name}:inline  font-extrabold`}
+            >
+              {name}
+            </span>
+          ))}
+      </div>
     </div>
   )
 }

@@ -1,14 +1,9 @@
 import React from 'react'
 import Link from 'next/link'
-// import { PostCardResult } from '@lib/queries/snippets'
-import FridaImage, {
-  ARTWORK_IMAGE_PROPS,
-} from '@components/fridaImage/FridaImage'
 import { mouseLinkProps } from '@components/generic/Mouse/mouseRemote'
 import { FridaLocation } from 'types'
-import { useModalContext } from '@lib/modalContext'
-
 import { ImageMetaResult, imageMeta } from '@lib/queries/snippets'
+import Photo from '@components/photo'
 
 export const postCardQuery = `
 'slug':slug.current,
@@ -44,9 +39,7 @@ const PostCard: React.FC<PostCardProps> = (props) => {
     previewImage,
     slug,
     title,
-    excerpt,
     title_en,
-    excerpt_en,
     lang,
     categories,
     categories_en,
@@ -56,31 +49,24 @@ const PostCard: React.FC<PostCardProps> = (props) => {
   if (!previewImage) return null
 
   const _title = lang === 'en' && title_en ? title_en : title
-  const _excerpt = lang === 'en' && excerpt_en ? excerpt_en : excerpt
+  // const _excerpt = lang === 'en' && excerpt_en ? excerpt_en : excerpt
   const _categories =
     lang === 'en' && categories_en ? categories_en : categories
-  const { pushAsModal } = useModalContext()
+
   return (
     <Link href={`/post/${slug}`} passHref>
       <a
         {...mouseLinkProps}
         className="p-2 flex flex-wrap-reverse md:flex-nowrap justify-between  w-full  mb-16"
-        onClick={(e) => {
-          // e.preventDefault()
-          // pushAsModal(`/post/${slug}`, 'post')
-        }}
       >
         <div className="w-full md:w-2/3 mt-4 md:mt-0 md:pr-frida_7% flex flex-col justify-between ">
           <h2 className="header-small">{_title}</h2>
           <Infos categories={_categories} createdAt={createdAt} />
         </div>
 
-        <FridaImage
-          className=" w-full md:w-96 h-80 mx-auto"
-          photo={previewImage}
-          {...ARTWORK_IMAGE_PROPS}
-          layout="fill"
-        />
+        <div className=" relative w-full md:w-96 h-80 mx-auto">
+          <Photo photo={previewImage} layout="fill" />
+        </div>
       </a>
     </Link>
   )
@@ -96,7 +82,10 @@ const Infos: React.FC<{
   return (
     <div className="mb-8 flex items-center">
       {categories.map((cat) => (
-        <div className="text-xs-fluid inline-block border-2 px-8 py-1 rounded-full mr-3">
+        <div
+          key={cat}
+          className="text-xs-fluid inline-block border-2 px-8 py-1 rounded-full mr-3"
+        >
           {cat}
         </div>
       ))}
@@ -109,7 +98,7 @@ const formatDate = (date: null | string) => {
   if (!date) return ''
   const _date = new Date(date)
   const f = new Intl.DateTimeFormat('en')
-  let d = f.format(_date).split('/')
+  const d = f.format(_date).split('/')
 
   return `${d[1]} / ${d[0]} / ${d[2]}`
 }

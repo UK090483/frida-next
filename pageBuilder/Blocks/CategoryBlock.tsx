@@ -3,6 +3,7 @@ import Photo from '@components/photo'
 import { PageBuilderBlockBase } from '../pageBuilderQueries'
 import { imageMeta, ImageMetaResult } from '@lib/queries/snippets'
 import React from 'react'
+import { FridaLocation } from 'types'
 
 const categoryItem = `
 ...,
@@ -36,9 +37,11 @@ export interface CategoryBlockResult extends PageBuilderBlockBase {
   _type: 'categories'
   items: CategoryItem[]
 }
-
-const CategoryBlock: React.FC<CategoryBlockResult> = (props) => {
-  const { items } = props
+interface CategoryBlockProps extends CategoryBlockResult {
+  lang: FridaLocation
+}
+const CategoryBlock: React.FC<CategoryBlockProps> = (props) => {
+  const { items, lang } = props
 
   if (!items) return <div></div>
 
@@ -47,13 +50,13 @@ const CategoryBlock: React.FC<CategoryBlockResult> = (props) => {
     images: [
       ...(item.images
         ? item.images.map((image) => (
-            <Photo photo={image} layout="fill" className="w-full h-full" />
+            <Photo key={image.id} photo={image} layout="fill" />
           ))
         : []),
     ],
   }))
 
-  return <Category items={_items}></Category>
+  return <Category lang={lang} items={_items}></Category>
 }
 
 export default CategoryBlock

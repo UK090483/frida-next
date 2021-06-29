@@ -1,4 +1,4 @@
-import { getSanityClient } from '@lib/sanity'
+import { getSanityClient } from '@lib/sanity.server'
 import { cache, buildCache } from './cache'
 import { PageBodyResult } from '../../pageBuilder/pageBuilderQueries'
 import { FridaPreviewData } from '@pages/api/preview'

@@ -1,5 +1,5 @@
 import { PageBuilderBlockBase } from '../pageBuilderQueries'
-import Carousel from '@components/Carousel'
+import Carousel from '@components/CardCarousel'
 import ArtworkCard, {
   artworkCardQuery,
   ArtworkCardResult,

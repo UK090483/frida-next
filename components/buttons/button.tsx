@@ -33,19 +33,21 @@ const Button: React.FC<LinkProps | ClickProps> = (props) => {
   } = props
 
   const className = cx(
+    'button',
     { 'mr-6': position === 'inline' },
-    { 'block mb-2': position === 'left' },
-    { 'block ml-auto mb-2': position === 'right' },
-    { 'block mx-auto mb-2': position === 'center' },
-    { 'px-8 py-3 text-sm-fluid border-4': size === 'm' },
-    { 'px-6 py-2 text-sx-fluid border-3': size === 's' },
-    `text-frida-${color}  hover:text-frida-${backgroundColor} hover:bg-frida-${color}  border-solid border-frida-${color}   rounded-full font-bold `
+    { 'block mb-2 w-fit-content': position === 'left' },
+    { 'block ml-auto mb-2 w-fit-content': position === 'right' },
+    { 'block mx-auto mb-2 w-fit-content': position === 'center' },
+    { 'is-large': size === 'l' },
+    { 'is-medium': size === 'm' },
+    { 'is-small': size === 's' },
+    `text-frida-${color}  hover:text-frida-${backgroundColor} hover:bg-frida-${color}  border-solid border-frida-${color}   `
   )
 
   if (props.type === 'link') {
     return (
       <Link href={props.link} passHref>
-        <a {...mouseLinkProps} className={`${className} ${extraClasses}`}>
+        <a {...mouseLinkProps} className={` ${className} ${extraClasses}`}>
           {label}
         </a>
       </Link>
@@ -55,7 +57,7 @@ const Button: React.FC<LinkProps | ClickProps> = (props) => {
   if (props.type === 'externalLink') {
     return (
       <a
-        style={{ cursor: 'none', width: 'fit-content' }}
+        style={{ cursor: 'none' }}
         {...mouseLinkProps}
         className={`${className} ${extraClasses}`}
         href={props.link}

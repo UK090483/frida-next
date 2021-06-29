@@ -14,20 +14,20 @@ export default {
     hotspot: true
   },
   fields: [
-    {
-      title: 'Display Size (aspect ratio)',
-      name: 'customRatio',
-      type: 'number',
-      options: {
-        isHighlighted: true,
-        list: crops
-      },
-      validation: Rule => {
-        return Rule.custom((field, context) =>
-          'asset' in context.parent && field === undefined ? 'Required!' : true
-        )
-      }
-    },
+    // {
+    //   title: 'Display Size (aspect ratio)',
+    //   name: 'customRatio',
+    //   type: 'number',
+    //   options: {
+    //     isHighlighted: true,
+    //     list: crops
+    //   },
+    //   validation: Rule => {
+    //     return Rule.custom((field, context) =>
+    //       'asset' in context.parent && field === undefined ? 'Required!' : true
+    //     )
+    //   }
+    // },
     {
       title: 'Alternative text',
       name: 'alt',

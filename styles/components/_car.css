@@ -1,0 +1,44 @@
+.car {
+  @apply: overflow-scroll;
+  /* scroll-snap-type: x mandatory; */
+
+  &--inner {
+    @apply: flex;
+
+   
+    width:fit-content;
+  }
+
+  &--item {
+        /* scroll-snap-align: start;
+        scroll-snap-stop: normal; */
+      width:  calc(100vw / 1.5);
+      
+  }
+}
+
+.scrollSnap{
+    scroll-snap-type: x mandatory;
+
+
+    &--item {
+          scroll-snap-align: start;
+        scroll-snap-stop: normal; 
+        width:  calc(100vw / 1.5);
+       
+    }
+}
+
+.hideScrollbar {
+    -ms-overflow-style: none; /* for Internet Explorer, Edge */
+    scrollbar-width: none; /* for Firefox */
+    overflow-y: scroll; 
+}
+
+.hideScrollbar::-webkit-scrollbar {
+    display: none; /* for Chrome, Safari, and Opera */
+}
+
+.noMouseEvents {
+    pointer-events: none;
+}

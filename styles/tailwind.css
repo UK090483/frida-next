@@ -7,6 +7,10 @@
 @tailwind utilities;
 
 @layer utilities {
+
+  .hero {
+    min-height:750px;
+  }
  
   .header-big {
     @apply text-3xl-fluid font-bold;
@@ -26,6 +30,7 @@
 
   .text-normal {
     @apply text-base-fluid;
+    line-height: 1.3em;
   }
 
   .text-small {

@@ -10,7 +10,6 @@ export default {
       title: 'Navigation Items',
       of: [{ type: 'navigationItem' }]
     },
-
     {
       name: 'agbSite',
       type: 'reference',
@@ -22,6 +21,13 @@ export default {
       type: 'reference',
       title: 'Imprint Site',
       to: [{ type: 'page' }]
+    },
+    {
+      name: 'homePage',
+      type: 'reference',
+      title: 'HomePage',
+      to: [{ type: 'page' }],
+      validation: Rule => Rule.required()
     }
   ],
   preview: {

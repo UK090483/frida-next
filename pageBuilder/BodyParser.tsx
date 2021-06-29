@@ -1,5 +1,36 @@
 import React from 'react'
+// import dynamic from 'next/dynamic'
 
+// const ArtistBlock = dynamic(() => import('./Blocks/ArtistsBlock'), {
+//   ssr: false,
+// })
+// const ArtworksBlock = dynamic(() => import('./Blocks/ArtworkBlock'), {
+//   ssr: false,
+// })
+// const PostBlock = dynamic(() => import('./Blocks/PostsBlock'), {
+//   ssr: false,
+// })
+// const ProductsBlock = dynamic(() => import('./Blocks/ProductsBlock'), {
+//   ssr: false,
+// })
+// const CarouselHeroBlock = dynamic(() => import('./Blocks/CarouselHeroBlock'), {
+//   ssr: false,
+// })
+// const CategoryBlock = dynamic(() => import('./Blocks/CategoryBlock'), {
+//   ssr: false,
+// })
+// const Section = dynamic(() => import('./Blocks/SectionBlock'), {
+//   ssr: false,
+// })
+// const RT = dynamic(() => import('./Blocks/RichText'), {
+//   ssr: false,
+// })
+// const Marquee = dynamic(() => import('./Blocks/Marquee'), {
+//   ssr: false,
+// })
+// const Quotes = dynamic(() => import('./Blocks/QuotesBlock'), {
+//   ssr: false,
+// })
 import ArtistBlock from './Blocks/ArtistsBlock'
 import ArtworksBlock from './Blocks/ArtworkBlock'
 import PostBlock from './Blocks/PostsBlock'
@@ -59,7 +90,7 @@ const BodyParser: React.FC<ContentParserProps> = (props) => {
             case 'carouselHero':
               return <CarouselHeroBlock lang={lang} {...blok} key={blok._key} />
             case 'categories':
-              return <CategoryBlock {...blok} key={blok._key} />
+              return <CategoryBlock lang={lang} {...blok} key={blok._key} />
             case 'embed':
               return <EmbedPlug {...blok} key={blok._key} />
             case 'button':

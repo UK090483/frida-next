@@ -4,7 +4,7 @@
 
 // import { getStaticRoute, getDynamicRoute } from '@lib/routes'
 
-// import { useProductCount } from '@lib/context'
+// import { useProductCount } from '@lib/context/context'
 
 // const Link = ({ link, children, ...rest }) => {
 //   const isLink = !!link.url

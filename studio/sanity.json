@@ -2,7 +2,7 @@
   "root": true,
   "api": {
     "projectId": "ypuaahj7",
-    "dataset": "test2"
+    "dataset": "production"
   },
   "project": {
     "name": "Frida",
@@ -20,11 +20,14 @@
     "dashboard-widget-document-list",
     "media-library",
     "vercel-deploy",
-    "note-field"
+    "note-field",
+    "google-analytics"
   ],
   "env": {
     "development": {
-      "plugins": ["@sanity/vision"]
+      "plugins": [
+        "@sanity/vision"
+      ]
     }
   },
   "parts": [

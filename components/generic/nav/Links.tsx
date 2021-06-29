@@ -4,7 +4,7 @@ import { mouseLinkProps } from '../Mouse/mouseRemote'
 import useBodyScrollStop from '@components/helper/useBodyScrollStop'
 import { m } from 'framer-motion'
 import { FridaLocation } from 'types'
-import { useToggleMegaNav } from '@lib/context'
+import { useToggleMegaNav } from '@lib/context/useUi'
 
 const Links: React.FC<{
   open: boolean
@@ -55,7 +55,7 @@ const Links: React.FC<{
         {...mouseLinkProps}
         onClick={() => {
           enableBodyScroll()
-          toggleNav('toggle')
+          toggleNav()
         }}
         className="relative pt-20 pl-8 md:pl-32"
       >

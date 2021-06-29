@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import Photo from '@components/photo'
 import Link from 'next/link'
 import { QuoteResult } from 'pageBuilder/Blocks/QuotesBlock'
@@ -31,7 +33,7 @@ const Quote: React.FC<QuoteProps> = (props) => {
     <ConditionalWrapper
       condition={!!link}
       wrapperFalse={(children) => (
-        <div className="bg-frida-black  flex flex-wrap md:flex-nowrap px-frida_side md:px-6 pt-12 group ">
+        <div className="bg-frida-black  flex flex-wrap md:flex-nowrap px-frida_side md:px-12 py-12 group ">
           {children}
         </div>
       )}
@@ -43,7 +45,7 @@ const Quote: React.FC<QuoteProps> = (props) => {
             }}
             draggable="false"
             {...mouseLinkProps}
-            className="bg-frida-black  flex flex-wrap md:flex-nowrap px-frida_side md:px-6 pt-12 group "
+            className="bg-frida-black  flex flex-wrap md:flex-nowrap px-frida_side md:px-12 py-12 group "
           >
             {children}
           </a>
@@ -51,7 +53,7 @@ const Quote: React.FC<QuoteProps> = (props) => {
       )}
     >
       <div className="w-full h-vh/3 md:h-vh/2 md:w-2/3 md:pr-12 items-center">
-        <p className="text-frida-pink text-base-fluid"> {_quote}</p>
+        <p className="text-frida-pink text-normal font-bold">{_quote}</p>
         <div className="text-frida-white text-base-fluid font-bold mb-0">
           {author}
         </div>
@@ -59,18 +61,13 @@ const Quote: React.FC<QuoteProps> = (props) => {
       </div>
 
       <div className="w-full h-vh/2  md:w-1/3 relative flex items-end">
-        <Photo
-          photo={authorImage}
-          width={300}
-          layout="contain"
-          className="absolute h-full w-2/3  right-0 top-0 transform transition-transform group-hover:translate-x-6 "
-        />
-        <Photo
-          photo={targetImage}
-          width={300}
-          layout="contain"
-          className="w-1/2 h-2/3  transform transition-transform group-hover:-translate-x-6 "
-        />
+        <div className="absolute h-full w-2/3  right-0 top-0 transform transition-transform group-hover:translate-x-6 ">
+          <Photo photo={authorImage} layout="contain" />
+        </div>
+
+        <div className="w-1/2 h-2/3  transform transition-transform group-hover:-translate-x-6 ">
+          <Photo photo={targetImage} layout="contain" />
+        </div>
       </div>
     </ConditionalWrapper>
   )

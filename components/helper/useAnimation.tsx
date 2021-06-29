@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from 'react'
 
 type useAnimationState = {
-  direction: "in" | "out" | null
+  direction: 'in' | 'out' | null
   isAnimating: boolean
   current: boolean
   shouldRender: boolean
@@ -19,49 +19,58 @@ const useAnimation = (time: number) => {
   const { direction, isAnimating, current, shouldRender, setCurrent } = state
 
   useEffect(() => {
+    let timeout: NodeJS.Timeout | undefined
     if (isAnimating)
-      setTimeout(() => {
-        setState(state => ({
+      timeout = setTimeout(() => {
+        setState((state) => ({
           ...state,
           isAnimating: false,
           direction: null,
-          ...(state.direction === "out" ? { shouldRender: false } : {}),
+          ...(state.direction === 'out' ? { shouldRender: false } : {}),
         }))
       }, time)
-    return () => {}
-  }, [isAnimating])
+    return () => {
+      if (timeout) {
+        clearTimeout(timeout)
+      }
+    }
+  }, [isAnimating, time])
 
   useEffect(() => {
     if (current === setCurrent) return
     setTimeout(() => {
-      setState(state => ({
+      setState((state) => ({
         ...state,
         current: setCurrent,
       }))
     }, 10)
-  }, [setCurrent])
+  }, [setCurrent, current])
 
-  const animate = (direction: "in" | "out" | "toggle") => {
+  const animate = (direction: 'in' | 'out' | 'toggle') => {
     switch (direction) {
-      case "toggle":
-        setState(state => ({ ...state, current: !current, isAnimating: true }))
+      case 'toggle':
+        setState((state) => ({
+          ...state,
+          current: !current,
+          isAnimating: true,
+        }))
         break
-      case "in":
-        setState(state => ({
+      case 'in':
+        setState((state) => ({
           ...state,
           isAnimating: true,
           shouldRender: true,
           setCurrent: true,
-          direction: "in",
+          direction: 'in',
         }))
 
         break
-      case "out":
-        setState(state => ({
+      case 'out':
+        setState((state) => ({
           ...state,
           current: false,
           isAnimating: true,
-          direction: "out",
+          direction: 'out',
         }))
         break
 

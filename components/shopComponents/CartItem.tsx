@@ -1,20 +1,16 @@
 import React from 'react'
 import Link from 'next/link'
 
-import { hasObject } from '@lib/helpers'
+// import { hasObject } from '@lib/helpers'
 
 import Photo from '@components/photo'
 import ProductPrice from '@components/ProductComponents/ProductPrice'
-
 import ProductCounter from '@components/ProductComponents/ProductCounter'
 
-import {
-  useUpdateItem,
-  useRemoveItem,
-  useToggleCart,
-  FetchVariantResult,
-} from '@lib/context'
 import Button from '@components/buttons/button'
+import useToggleCart from '@lib/context/useToggleCart'
+import { useRemoveItem, useUpdateItem } from '@lib/context/useShopItem'
+import { FetchVariantResult } from '@lib/context/helper'
 
 type CartItemProps = {
   item: FetchVariantResult
@@ -30,19 +26,18 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
     updateItem(item.lineID, quantity)
   }
 
-  const defaultPhoto = item.photos.cart?.find((set) => !set.forOption)
-  const variantPhoto = item.photos.cart?.find((set) => {
-    const option = set.forOption
-      ? {
-          name: set.forOption.split(':')[0],
-          value: set.forOption.split(':')[1],
-        }
-      : {}
-    return option.value && hasObject(item.options, option)
-  })
+  // const defaultPhoto = item.photos.cart?.find((set) => !set.forOption)
+  // const variantPhoto = item.photos.cart?.find((set) => {
+  //   const option = set.forOption
+  //     ? {
+  //         name: set.forOption.split(':')[0],
+  //         value: set.forOption.split(':')[1],
+  //       }
+  //     : {}
+  //   return option.value && hasObject(item.options, option)
+  // })
 
   const defaultI = item.photos.default && item.photos.default[0]
-  const photos = variantPhoto || defaultPhoto
 
   const photo = defaultI
 
@@ -51,12 +46,14 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
   return (
     <div className="cart-item">
       {photo && (
-        <Photo
-          photo={photo}
-          srcSizes={[400]}
-          sizes="(min-width: 768px) 400px, 35vw'"
-          className="cart-item--photo"
-        />
+        <div className="relative cart-item--photo">
+          <Photo
+            photo={photo}
+            srcSizes={[400]}
+            sizes="(min-width: 768px) 400px, 35vw'"
+            layout="contain"
+          />
+        </div>
       )}
       <div className="cart-item--details">
         <div className="cart-item--header">
@@ -102,12 +99,6 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
             }}
             position="auto"
           />
-          {/* <button
-            onClick={() => removeItem(item.lineID)}
-            className="btn is-text"
-          >
-            Remove
-          </button> */}
         </div>
       </div>
     </div>

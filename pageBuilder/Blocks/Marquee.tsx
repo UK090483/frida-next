@@ -35,6 +35,7 @@ type TextItem = {
   text: string
   text_en?: string
 }
+
 type imageItem = {
   _type: 'photo'
   photo: any

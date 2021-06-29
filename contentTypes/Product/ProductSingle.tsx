@@ -5,7 +5,6 @@ import { imageMeta } from '@lib/api'
 
 import { ImageMetaResult } from '@lib/queries/snippets'
 import { SiteResult } from '@lib/queries/cache'
-import { site } from '@lib/queries/pageQueries'
 
 export const productSingleViewQuery = `
 ...,
@@ -28,8 +27,6 @@ optionSettings[]{
   forOption,
   color
 },
-
-
 'price':price/100,
 "variants": *[_type == "productVariant" && productID == ^.productID && wasDeleted != true && isDraft != true]{
   "id": variantID,
@@ -63,7 +60,11 @@ export type ProductSingleViewResult = {
     title: string
     options: { name: string; position: number; value: string }[]
   }[]
-  options: any[]
+  optionSettings?: { forOption: string; color: unknown }[]
+  options:
+    | { name: string; position: string; values: string[] }[]
+    | undefined
+    | null
 }
 
 interface ProductSingleProps extends ProductSingleViewResult {

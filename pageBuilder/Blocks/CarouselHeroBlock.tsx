@@ -1,12 +1,11 @@
-import FridaImage from '@components/fridaImage/FridaImage'
-import CarouselHero from '@components/CarussellHero/CarussellHero'
+import CarouselHero from '@components/CarouselHero/CarouselHero'
 import { PageBuilderBlockBase } from '../pageBuilderQueries'
 import { imageMeta, ImageMetaResult } from '@lib/queries/snippets'
-
 import React from 'react'
 import { FridaColors, FridaLocation } from 'types'
 import BodyParser from '../BodyParser'
 import { richTextQuery } from './RichText'
+import Photo from '@components/photo'
 
 export const carouselHeroBlockQuery = `
 _type == "carouselHero" => {
@@ -48,7 +47,11 @@ const CarouselHeroBlock: React.FC<CarouselHeroBlockProps> = (props) => {
       />
     ),
     image: (
-      <FridaImage photo={item.photo} layout="fill" className="w-full h-full" />
+      <Photo
+        photo={item.photo}
+        layout="fill"
+        sizes="(min-width: 640px) 50vw ,100vw"
+      />
     ),
   }))
 

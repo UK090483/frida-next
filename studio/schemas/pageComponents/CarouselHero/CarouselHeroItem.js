@@ -29,12 +29,38 @@ export default {
           { title: 'Black', value: 'black' }
         ],
         layout: 'radio'
-      }
+      },
+      initialValue:'white'
     },
     {
       title: 'Image',
       name: 'image',
       type: 'figure'
     }
-  ]
+  ],
+  preview: {
+    select: {
+      image: 'image',
+      content: 'content',
+      bgColor:'bgColor'
+     
+    },
+    prepare({ image ,content,bgColor }) {
+     
+
+      const block = (content || []).find(block => block._type === 'block')
+
+      return {
+        
+        subtitle: bgColor,
+        title: block
+          ? block.children
+              .filter(child => child._type === 'span')
+              .map(span => span.text)
+              .join('')
+          : 'No title',
+        media: image
+      }
+    }
+  }
 }

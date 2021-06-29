@@ -1,9 +1,19 @@
-//@ts-nocheck
+import { ProductSingleViewResult } from 'contentTypes/Product/ProductSingle'
 import React from 'react'
 
 import ProductOption from './product-option'
 
-const ProductForm = ({ product, activeVariant, onVariantChange }) => {
+type ProductFormProps = {
+  product: ProductSingleViewResult
+  activeVariant: string
+  onVariantChange: (id: string) => void
+}
+
+const ProductForm: React.FC<ProductFormProps> = ({
+  product,
+  activeVariant,
+  onVariantChange,
+}) => {
   if (!product?.options?.length) return null
 
   return (
@@ -11,6 +21,7 @@ const ProductForm = ({ product, activeVariant, onVariantChange }) => {
       {product.options?.map(
         (option, key) =>
           option.values?.length && (
+            //@ts-ignore
             <ProductOption
               key={key}
               position={key}

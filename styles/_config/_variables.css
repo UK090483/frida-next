@@ -12,7 +12,7 @@
   /* --pageBG-hsl: 60, 14%, 95%;
   --pageText-hsl: 0, 0%, 0%; */
 }
-
+/* 
 [data-theme='dark'] {
   --pageBG: #000000;
   --pageText: #f4f4f0;
@@ -27,9 +27,9 @@
 
   --pageBG-hsl: 0, 0%, 0%;
   --pageText-hsl: 90, 100%, 56%;
-}
+} */
 
-@custom-media --xs (min-width: 480px);
+/* @custom-media --xs (min-width: 480px);
 @custom-media --sm (min-width: 768px);
 @custom-media --md (min-width: 940px);
 @custom-media --lg (min-width: 1200px);
@@ -39,4 +39,4 @@
 @custom-media --smMax (max-width: 767px);
 @custom-media --mdMax (max-width: 939px);
 @custom-media --lgMax (max-width: 1199px);
-@custom-media --xlMax (max-width: 1599px);
+@custom-media --xlMax (max-width: 1599px); */

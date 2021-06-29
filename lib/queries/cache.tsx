@@ -1,4 +1,4 @@
-import { getSanityClient } from '@lib/sanity'
+import { getSanityClient } from '@lib/sanity.server'
 import axios from 'axios'
 import {
   artistCardQuery,
@@ -15,7 +15,7 @@ export const cache = accessCache('public/build.cache.json')
 
 const cashQuery = `
 {
-  'artworks':*[_type=='artwork' && defined(shopify_variant_id )]{
+  'artworks':*[_type=='artwork' ]{
     ${artworkCardQuery}
   },
   'artists':*[_type=='artist'&& defined(slug.current)]{
@@ -115,7 +115,7 @@ class SiteCash {
     }
     return siteResult ? siteResult : null
   }
-  shuffle = (array: any[]) => {
+  shuffle = (array: unknown[]) => {
     let m = array.length,
       t,
       i
@@ -130,47 +130,3 @@ class SiteCash {
 }
 
 export const buildCache = new SiteCash()
-
-// export const getSiteCache: (
-//   isPreview?: boolean
-// ) => Promise<undefined | CacheResult> = async (isPreview = false) => {
-//   let site
-//   if (shouldCashSite && !isPreview) {
-//     site = (await cache.get(siteCacheKey)) as any
-
-//     if (!site) {
-//       const siteResult = await getSanityClient().fetch(cashQuery)
-
-//       if (siteResult.artworks && Array.isArray(siteResult.artworks)) {
-//         siteResult.artworks = shuffle(siteResult.artworks)
-//       }
-
-//       console.log(`build Cache with ${siteResult.artworks.length} Artworks`)
-//       await cache.put(siteCacheKey, siteResult)
-//       site = siteResult
-//     } else {
-//       console.log('site Data from Cache')
-//     }
-//   } else {
-//     const siteResult = await getSanityClient().fetch(cashQuery)
-
-//     if (siteResult.artworks && Array.isArray(siteResult.artworks)) {
-//       siteResult.artworks = shuffle(siteResult.artworks)
-//     }
-//     site = siteResult
-//   }
-//   return site ? site : undefined
-// }
-
-// function shuffle(array: any[]) {
-//   let m = array.length,
-//     t,
-//     i
-//   while (m) {
-//     i = Math.floor(Math.random() * m--)
-//     t = array[m]
-//     array[m] = array[i]
-//     array[i] = t
-//   }
-//   return array
-// }

@@ -1,8 +1,8 @@
-import ButtonNav from '@components/CarussellHero/ButtonNav'
-import { QuoteResult, QuotesBlockResult } from 'pageBuilder/Blocks/QuotesBlock'
+import ButtonNav from '@components/buttons/ButtonNav'
+import 'keen-slider/keen-slider.min.css'
+import { useKeenSlider } from 'keen-slider/react'
+import { QuoteResult } from 'pageBuilder/Blocks/QuotesBlock'
 import React from 'react'
-import Carousel from 'react-multi-carousel'
-import 'react-multi-carousel/lib/styles.css'
 import Quote from './Quote'
 
 type QuotesBlock = {
@@ -10,36 +10,31 @@ type QuotesBlock = {
 }
 
 const Quotes: React.FC<QuotesBlock> = ({ items }) => {
-  const [state, setState] = React.useState(0)
-  const carousel = React.useRef<null | Carousel>(null)
-  const [swiping, setSwiping] = React.useState(false)
   const hasMultiple = items.length > 1
 
-  const onChange = (value: number) => {
-    setState(value)
-  }
+  const [sliderRef, slider] = useKeenSlider<HTMLDivElement>({
+    slidesPerView: 1,
+    loop: true,
+    mode: 'snap',
+  })
 
   const setNext = () => {
-    if (carousel.current) {
-      carousel.current.goToSlide((state + 1) % items.length)
-    }
+    slider && slider.next()
   }
 
   const setPrev = () => {
-    if (carousel.current) {
-      carousel.current.goToSlide(state === 0 ? items.length - 1 : state - 1)
-    }
+    slider && slider.prev()
   }
 
   React.useEffect(() => {
     if (typeof window === `undefined` && hasMultiple) return
     const interval = setInterval(() => {
-      setNext()
+      slider && slider.next()
     }, 5000)
     return () => {
       clearInterval(interval)
     }
-  }, [items.length, state])
+  }, [hasMultiple, slider])
 
   if (!hasMultiple && items.length === 1) {
     return (
@@ -51,38 +46,17 @@ const Quotes: React.FC<QuotesBlock> = ({ items }) => {
 
   return (
     <div className="relative " data-color={'black'}>
-      <Carousel
-        infinite={true}
-        ssr={true}
-        ref={carousel}
-        beforeChange={(number) => {
-          setSwiping(true)
-          onChange(number)
-        }}
-        afterChange={() => {
-          setSwiping(false)
-        }}
-        responsive={{
-          mobile: {
-            breakpoint: { max: 4000, min: 0 },
-            items: 1,
-          },
-        }}
-        customRightArrow={<></>}
-        customLeftArrow={<></>}
-        draggable={true}
-        showDots={false}
-      >
+      <div ref={sliderRef} className="keen-slider">
         {items.map((item, index) => (
-          <Quote {...item} key={index} isSwiping={swiping} />
+          <div key={index} className="keen-slider__slide">
+            <Quote {...item} />
+          </div>
         ))}
-      </Carousel>
+      </div>
 
-      <ButtonNav
-        className=" bg-frida-black pb-2 pl-frida_side md:pl-6"
-        setNext={setNext}
-        setPrev={setPrev}
-      />
+      <div className="absolute bottom-12  pl-frida_side md:pl-12 ">
+        <ButtonNav setNext={setNext} setPrev={setPrev} />
+      </div>
     </div>
   )
 }

@@ -7,15 +7,12 @@ import { centsToPrice } from '@lib/helpers'
 import CartItem from './CartItem'
 import Button from '@components/buttons/button'
 
-import {
-  useSiteContext,
-  useCartTotals,
-  useCartCount,
-  useCartItems,
-  useCheckout,
-  useToggleCart,
-} from '@lib/context'
+import { useSiteContext } from '@lib/context/context'
 import { useRouter } from 'next/router'
+import useToggleCart from '@lib/context/useToggleCart'
+import useCheckout from '@lib/context/useCheckout'
+import { useCartItems } from '@lib/context/useShopItem'
+import { useCartTotals, useCartCount } from '@lib/context/useCart'
 
 type CartProps = {
   data: any

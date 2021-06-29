@@ -1,17 +1,15 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import Frida from '@components/Frida'
-import FridaImage, {
-  ARTWORK_IMAGE_PROPS,
-} from '@components/fridaImage/FridaImage'
 import { mouseLinkProps } from '@components/generic/Mouse/mouseRemote'
-import { useModalContext } from '@lib/modalContext'
+// import { useModalContext } from '@lib/modalContext'
 import { ImageMetaResult } from '@lib/queries/snippets'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
 import classNames from 'classnames'
 import { GalleryTypes } from 'types'
+import Photo from './photo'
 
 interface CardWrapPros {
   galleryType: GalleryTypes
@@ -42,7 +40,7 @@ const CardWrap: React.FC<CardWrapPros> = (props) => {
     banner,
   } = props
 
-  const { pushAsModal, saveScroll } = useModalContext()
+  // const { pushAsModal, saveScroll } = useModalContext()
   const router = useRouter()
 
   const isCarousel = galleryType === 'carousel'
@@ -56,38 +54,37 @@ const CardWrap: React.FC<CardWrapPros> = (props) => {
         draggable={false}
         {...mouseLinkProps}
         className={classNames(
-          `block mx-auto w-full  bg-frida-white`,
+          `block mx-auto w-full  bg-frida-white `,
           { 'px-frida_side md:px-6 max-w-lg': isGrid || isMasonry },
           { 'mb-8': isGrid },
           { 'mb-20': isMasonry },
           {
-            'p-4 transform scale-75 lg:scale-100 max-w-md ': isCarousel,
+            'p-4 transform scale-75 lg:scale-100 max-w-sm ': isCarousel,
           }
         )}
         onClick={(e) => {
           e.preventDefault()
-
-          if (modal) {
-            !isSwiping && pushAsModal(`/${type}/${slug}`, type)
-          } else {
-            saveScroll(router.asPath)
+          if (!isSwiping) {
             router.push(`/${type}/${slug}`, `/${type}/${slug}`, {
               scroll: false,
             })
           }
         }}
       >
-        <FridaImage
-          {...ARTWORK_IMAGE_PROPS}
-          photo={photo}
+        <div
           className={classNames(
             { 'aspect-w-9 aspect-h-12': isCarousel },
             { 'w-full': isMasonry },
             { 'aspect-w-9 aspect-h-12': isGrid }
           )}
-          layout={isCarousel || isGrid ? layout : 'intrinsic'}
-          alt={alt || 'artwork '}
-        />
+        >
+          <Photo
+            sizes="(min-width: 640px) 33vw"
+            photo={photo}
+            layout={isCarousel || isGrid ? layout : 'intrinsic'}
+            alt={alt || type}
+          />
+        </div>
 
         {title && (
           <div

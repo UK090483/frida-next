@@ -126,8 +126,23 @@ export default {
   ],
   preview: {
     select: {
-      title: 'anzeigeName',
-      subtitle: 'name'
+      anzeigeName: 'anzeigeName',
+      slug:'slug',
+      mainImage:'mainImage'
+      
+    },
+    prepare({ anzeigeName,slug,mainImage }) {
+      return {
+        title: anzeigeName,
+        subtitle: slug ? slug.current :'',
+        media: mainImage
+      }
     }
   }
+  // preview: {
+  //   select: {
+  //     title: 'anzeigeName',
+  //     subtitle: 'name'
+  //   }
+  // }
 }

@@ -1,6 +1,5 @@
 import Button from '@components/buttons/button'
-import Carousel from '@components/Carousel'
-import FridaImage from '@components/fridaImage/FridaImage'
+import Carousel from '@components/CardCarousel'
 import Photo from '@components/photo'
 import Section from '@components/Section'
 import { ImageMetaResult } from '@lib/queries/snippets'
@@ -57,7 +56,9 @@ const ArtistHero: React.FC<ArtistHeroProps> = ({ photo }) => {
   return (
     <div data-color="white">
       {photo && (
-        <FridaImage photo={photo} layout="fill" className="h-vh w-full" />
+        <div className="h-vh w-full">
+          <Photo photo={photo} layout="fill" />
+        </div>
       )}
     </div>
   )
@@ -111,13 +112,10 @@ const ArtistImages: React.FC<ArtistSingleProps> = (props) => {
       <div className="flex flex-row flex-wrap md:grid  grid-cols-11 grid-rows-5  w-full h-vh py-12">
         {relatedArtworks.slice(2, 4).map((item, index) => {
           return (
-            <Photo
-              srcSizes={[100, 400]}
+            <div
               key={item.slug}
-              photo={item.photo}
-              width={100}
               className={classNames(
-                `w-full`,
+                `relative w-full`,
                 {
                   'col-start-1 col-span-7  row-start-1 row-span-3': index === 1,
                 },
@@ -125,8 +123,9 @@ const ArtistImages: React.FC<ArtistSingleProps> = (props) => {
                   'col-start-5 col-span-7 row-start-3 row-span-3': index === 0,
                 }
               )}
-              layout="fill"
-            />
+            >
+              {<Photo photo={item.photo} layout="fill" />}
+            </div>
           )
         })}
       </div>

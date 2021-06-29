@@ -1,8 +1,13 @@
 @import '_config/_variables';
 @import '_config/_mixins';
 @import 'base/_typography';
-/*
+
 @import 'base/_buttons';
+@import 'components/_carouselHero';
+@import 'components/_car';
+
+/*
+
 
 @import 'base/_forms';
 @import 'base/_labels';
