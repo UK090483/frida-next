@@ -96,7 +96,7 @@ export function hasObject(recs, vals) {
   if (!recs) return false
 
   return recs.some(function (obj) {
-    for (var x in obj) if (x in vals && obj[x] != vals[x]) return false
+    for (const x in obj) if (x in vals && obj[x] != vals[x]) return false
     return true
   })
 }
@@ -141,6 +141,7 @@ export const Keys = {
   RIGHT: 39,
   UP: 38,
   DOWN: 40,
+  RETURN: 45,
 }
 
 export const isBrowser = typeof window !== 'undefined'
@@ -208,7 +209,7 @@ const buildSrcSet: (
   }
 ) => string = (image, { srcSizes, aspect, format, quality }) => {
   const sizes = srcSizes.map((width) => {
-    let imgSrc = buildSrc(image, {
+    const imgSrc = buildSrc(image, {
       width,
       height: aspect && Math.round(width * aspect) / 100,
       ...{ format },

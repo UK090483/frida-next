@@ -15,10 +15,10 @@ type CarouselProps = {
 }
 const defaultResponsive: TOptions['breakpoints'] = {
   '(min-width: 768px)': {
-    slidesPerView: 2.5,
+    slidesPerView: 3.5,
   },
   '(min-width: 1600px)': {
-    slidesPerView: 3.5,
+    slidesPerView: 4.5,
   },
 }
 

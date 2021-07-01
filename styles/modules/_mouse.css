@@ -2,7 +2,7 @@
   .frida_mouse_active {
     a,
     button {
-      cursor: none;
+      cursor: none !important;
     }
 
     cursor: none;

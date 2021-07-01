@@ -69,12 +69,12 @@
 }
 
 @layer base {
-  * {
-    -webkit-user-select: none; /* Chrome all / Safari all */
-    -moz-user-select: none; /* Firefox all */
-    -ms-user-select: none; /* IE 10+ */
+  /* * {
+    -webkit-user-select: none; 
+    -moz-user-select: none; 
+    -ms-user-select: none; 
     user-select: none;
-  }
+  } */
   h1 {
     @apply header-big;
   }
@@ -116,10 +116,37 @@
 
 }
 
+
+
 .frida-text-block > :last-child {
   margin-bottom: 0;
 }
 
 .ReactModal__Body--open {
   overflow: hidden;
+}
+
+.hide-cursor{
+  cursor:none !important;
+}
+
+@keyframes anvil {
+  0% {
+    transform: scale(1) translateY(0px);
+    opacity: 0;
+    box-shadow: 0 0 0 rgba(241, 241, 241, 0);
+  }
+  1% {
+    transform: scale(0.96) translateY(10px);
+    opacity: 0;
+    box-shadow: 0 0 0 rgba(241, 241, 241, 0);
+  }
+  100% {
+    transform: scale(1) translateY(0px);
+    opacity: 1;
+    box-shadow: 0 0 500px rgba(241, 241, 241, 0);
+  }
+}
+.popup-content {
+  -webkit-animation: anvil 0.2s cubic-bezier(0.38, 0.1, 0.36, 0.9) forwards;
 }

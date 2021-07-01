@@ -20,7 +20,6 @@ interface CardWrapPros {
   l?: 'fixed-contain' | 'fixed-fill' | 'intrinsic'
   photo: ImageMetaResult | null
   title?: string
-  modal?: boolean
   alt?: string
   banner?: React.ReactElement | undefined
 }
@@ -35,7 +34,6 @@ const CardWrap: React.FC<CardWrapPros> = (props) => {
     galleryType,
     layout = 'contain',
     title,
-    modal = false,
     alt,
     banner,
   } = props
@@ -59,7 +57,7 @@ const CardWrap: React.FC<CardWrapPros> = (props) => {
           { 'mb-8': isGrid },
           { 'mb-20': isMasonry },
           {
-            'p-4 transform scale-75 lg:scale-100 max-w-sm ': isCarousel,
+            'p-4 transform scale-75 lg:scale-100  max-w-xs ': isCarousel,
           }
         )}
         onClick={(e) => {
@@ -79,7 +77,7 @@ const CardWrap: React.FC<CardWrapPros> = (props) => {
           )}
         >
           <Photo
-            sizes="(min-width: 640px) 33vw"
+            sizes="(min-width: 640px) 20vw"
             photo={photo}
             layout={isCarousel || isGrid ? layout : 'intrinsic'}
             alt={alt || type}
@@ -87,13 +85,7 @@ const CardWrap: React.FC<CardWrapPros> = (props) => {
         </div>
 
         {title && (
-          <div
-            // className={` h-8  ${
-            //   artistName && artistName.length > 18 ? 'text-xxs-fluid' : 'text-xl'
-            // } font-bold mt-3`}
-
-            className={` h-8 text-sm-fluid font-bold mt-4`}
-          >
+          <div className={` h-8 text-sm-fluid font-bold mt-4`}>
             <Frida text={title} textColor={'pink'}></Frida>
           </div>
         )}

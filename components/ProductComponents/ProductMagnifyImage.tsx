@@ -1,12 +1,19 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable @next/next/no-img-element */
 import { ARTWORK_IMAGE_PROPS } from '@components/fridaImage/FridaImage'
-import { buildSrc, buildSrcSet } from '@lib/helpers'
+import {
+  buildSrc,
+  // buildSrcSet
+} from '@lib/helpers'
+import { ImageMetaResult } from '@lib/queries/snippets'
 import React, { useRef, useState, useEffect } from 'react'
 import { setMouse } from '../generic/Mouse/mouseRemote'
 const SCALE = [2, 3]
 
 type ProductMagnifyImageProps = {
   alt?: string
-  photo: any
+  photo: ImageMetaResult | null | undefined
 }
 
 const ProductMagnifyImage: React.FC<ProductMagnifyImageProps> = ({
@@ -17,15 +24,12 @@ const ProductMagnifyImage: React.FC<ProductMagnifyImageProps> = ({
   const RootRef = useRef<null | HTMLDivElement>(null)
   const loupImageRef = useRef<null | HTMLImageElement>(null)
 
-  if (!photo) return null
-
-  const { aspectRatio } = photo
-
+  const aspectRatio = photo?.aspectRatio || 0.5
   const isLandscape = aspectRatio > 1
 
-  const bigImageSrc = buildSrc(photo, { width: 1200 })
-  const smallImageSrc = buildSrc(photo, { ...ARTWORK_IMAGE_PROPS })
-  const smallImageSrcset = buildSrcSet(photo, { ...ARTWORK_IMAGE_PROPS })
+  const bigImageSrc = photo && buildSrc(photo, { width: 1200 })
+  const smallImageSrc = photo && buildSrc(photo, { ...ARTWORK_IMAGE_PROPS })
+  // const smallImageSrcset = buildSrcSet(photo, { ...ARTWORK_IMAGE_PROPS })
 
   useEffect(() => {
     const loupImage = loupImageRef.current
@@ -50,6 +54,8 @@ const ProductMagnifyImage: React.FC<ProductMagnifyImageProps> = ({
 
   const [showGlass, setShowGlass] = useState(false)
   const [pos, setPos] = useState({
+    left: 0,
+    top: 0,
     x: 50,
     y: 50,
     pageX: 0,
@@ -63,38 +69,37 @@ const ProductMagnifyImage: React.FC<ProductMagnifyImageProps> = ({
     setScale((scale + 1) % SCALE.length)
   }
 
-  const handleMouseMove = (e: MouseEvent) => {
+  const handleMouseMove = (e: React.MouseEvent) => {
     const imageClientRef = imageRef.current?.getBoundingClientRect()
-
     if (!imageClientRef) return
+    const { left, width, height, top } = imageClientRef
+    const { pageX, pageY } = e
+    const x = ((pageX - left) / (width - 20)) * -100
+    const y = ((pageY - window.scrollY - top) / height) * -100
 
-    let x = ((e.pageX - imageClientRef.left) / imageClientRef.width) * -100
-    let y =
-      ((e.pageY - window.scrollY - imageClientRef.top) /
-        imageClientRef.height) *
-      -100
     setPos({
-      width: imageClientRef.width,
-      height: imageClientRef.height,
-      x: x,
-      y: y,
-      pageX: e.pageX,
-      pageY: e.pageY - window.scrollY - imageClientRef.top + 100,
-      // pageYn: e.pageY,
+      left: left,
+      top,
+      width,
+      height,
+      x,
+      y,
+      pageX,
+      pageY,
     })
   }
 
   return (
     <div
-      className="w-full h-full  flex-shrink-1 flex justify-center items-center "
+      className="w-full h-full  flex-shrink-1 flex justify-center items-center"
       ref={RootRef}
     >
       {smallImageSrc && (
         <img
           className={`${
             isLandscape ? 'max-w-full w-full' : 'max-h-full h-full'
-          } border-3 border-frida-red `}
-          onMouseMove={(e: any) => {
+          }`}
+          onMouseMove={(e) => {
             handleMouseMove(e)
           }}
           onMouseEnter={() => {
@@ -105,9 +110,6 @@ const ProductMagnifyImage: React.FC<ProductMagnifyImageProps> = ({
             setShowGlass(false)
             setMouse('hide', false)
           }}
-          // width={isLandscape ? 'auto' : '100%'}
-          // height={isLandscape ? '100%' : 'auto'}
-          // height={100}
           onClick={handleClick}
           ref={imageRef}
           src={smallImageSrc}
@@ -129,8 +131,8 @@ const ProductMagnifyImage: React.FC<ProductMagnifyImageProps> = ({
               height: `${pos.height * SCALE[scale]}px`,
               transform: ` translateX(${pos.x}%) translateY(${pos.y}%)`,
               position: 'absolute',
-              top: '98.5px',
-              left: '98.5px',
+              top: pos.top,
+              left: pos.left,
               maxWidth: '1000%',
             }}
             src={bigImageSrc}

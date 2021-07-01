@@ -5,11 +5,14 @@ import { isBrowser } from '@lib/helpers'
 import { AnimatePresence, domAnimation, LazyMotion } from 'framer-motion'
 import Head from 'next/head'
 import Router from 'next/router'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import 'resize-observer-polyfill'
 import '../styles/app.css'
 import '../styles/tailwind.css'
-import type { AppProps, NextWebVitalsMetric } from 'next/app'
+import type {
+  AppProps,
+  //  NextWebVitalsMetric
+} from 'next/app'
 
 const MyApp = ({ Component, pageProps, router }: AppProps) => {
   const [isLoading, setLoading] = useState(false)
@@ -30,8 +33,7 @@ const MyApp = ({ Component, pageProps, router }: AppProps) => {
   useEffect(() => {
     Router.events.on('routeChangeStart', (url) => {
       // Bail if we're just changing a URL parameter
-      //@ts-ignore
-      window.fridaScrollHeight = window.scrollY
+
       if (
         url.indexOf('?') > -1 &&
         url.split('?')[0] === router.asPath.split('?')[0]
@@ -49,28 +51,27 @@ const MyApp = ({ Component, pageProps, router }: AppProps) => {
     Router.events.on('routeChangeError', () => {
       setLoading(false)
     })
-  }, [])
+  }, [router.asPath])
 
   // intelligently add focus states if keyboard is used
-  //@ts-ignore
-  const handleFirstTab = (event) => {
+
+  const handleFirstTab = useCallback((event: KeyboardEvent) => {
     if (event.keyCode === 9) {
       if (isBrowser) {
         document.body.classList.add('is-tabbing')
         window.removeEventListener('keydown', handleFirstTab)
       }
     }
-  }
+  }, [])
 
   useEffect(() => {
     window.addEventListener('keydown', handleFirstTab)
     return () => {
       window.removeEventListener('keydown', handleFirstTab)
     }
-  }, [])
+  }, [handleFirstTab])
 
   return (
-    // <ModalContextProvider>
     <SiteContextProvider data={{ ...pageProps?.data?.site }}>
       <LazyMotion features={domAnimation}>
         {isLoading && (
@@ -80,17 +81,9 @@ const MyApp = ({ Component, pageProps, router }: AppProps) => {
         )}
 
         <AnimatePresence
-          // initial={false}
+          initial={false}
           onExitComplete={() => {
-            // console.log(window.savedScroll, window.savedPath)
-            //@ts-ignore
-            if (window.savedScroll && window.savedPath === router.asPath) {
-              //@ts-ignore
-              window.scrollTo(0, window.savedScroll)
-            } else {
-              window.scrollTo(0, 0)
-            }
-
+            window.scrollTo(0, 0)
             document.body.classList.remove('overflow-hidden')
           }}
         >
@@ -98,15 +91,14 @@ const MyApp = ({ Component, pageProps, router }: AppProps) => {
         </AnimatePresence>
 
         <Cart data={{ ...pageProps?.data?.site }} />
-        {/* <Modal />  */}
+
         <ShowBreakingPoints />
       </LazyMotion>
     </SiteContextProvider>
-    // </ModalContextProvider>
   )
 }
-export function reportWebVitals(metric: NextWebVitalsMetric) {
-  console.log(metric)
-}
+// export function reportWebVitals(metric: NextWebVitalsMetric) {
+//    console.log(metric)
+// }
 
 export default MyApp

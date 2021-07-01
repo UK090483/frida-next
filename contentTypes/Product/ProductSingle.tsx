@@ -45,26 +45,39 @@ optionSettings[]{
 seo,
 'site':'getSite'
 `
+export interface ProductGalleryPhotos {
+  forOption: string
+  photos: ImageMetaResult[]
+}
+export interface ProductVariant {
+  id: string
+  price: number
+  title: string
+  inStock: boolean
+  lowStock: boolean
+  options: { name: string; position: number; value: string }[]
+}
+export interface IProductOption {
+  name: string
+  position: number
+  values: string[]
+}
+export interface IProductOptionSetting {
+  forOption: string
+  color: unknown
+}
 
 export type ProductSingleViewResult = {
   inStock: boolean
-  galleryPhotos: { forOption: string; photos: ImageMetaResult[] }[] | null
-  listingPhotos: { listingPhoto: ImageMetaResult[] }[]
+  galleryPhotos: ProductGalleryPhotos[] | null
+  listingPhotos: { listingPhoto: ImageMetaResult }[]
   price: number
   title: null | string
   title_en: null | string
   site: SiteResult
-  variants: {
-    id: string
-    price: number
-    title: string
-    options: { name: string; position: number; value: string }[]
-  }[]
-  optionSettings?: { forOption: string; color: unknown }[]
-  options:
-    | { name: string; position: string; values: string[] }[]
-    | undefined
-    | null
+  variants: ProductVariant[]
+  optionSettings?: IProductOptionSetting[]
+  options: IProductOption[] | undefined | null
 }
 
 interface ProductSingleProps extends ProductSingleViewResult {

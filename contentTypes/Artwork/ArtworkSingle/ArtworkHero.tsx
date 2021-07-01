@@ -4,7 +4,7 @@ import ProductImageWrap from '@components/ProductComponents/ProductHeroImageWrap
 import ProductInfoWrap from '@components/ProductComponents/ProductHeroInfoWrap'
 import ProductHeroWrap from '@components/ProductComponents/ProductHeroWrap'
 import ProductHints from '@components/ProductComponents/productHints'
-// import SocialShare from '../SocialShare/SocialShare'
+import SocialShare from '@components/SocialShare/SocialShare'
 import ProductMagnifyImage from '@components/ProductComponents/ProductMagnifyImage'
 import ProductName from '@components/ProductComponents/ProductName'
 import Price from '@components/ProductComponents/ProductPrice'
@@ -59,7 +59,6 @@ const ArtworkHero: React.FC<ArtworkHeroProps> = ({ artwork, lang }) => {
             } cm ${stil}`}
           </div>
           {price && <Price price={price} />}
-          <div className="pb-12">{/* <SocialShare /> */}</div>
 
           <BuyButton
             isInCart={itemInCart}
@@ -70,7 +69,9 @@ const ArtworkHero: React.FC<ArtworkHeroProps> = ({ artwork, lang }) => {
               })
             }}
           />
+          <SocialShare className="py-8" />
         </div>
+
         {hints && <ProductHints items={hints} lang={lang} />}
         <PaymentInfo lang={lang} />
       </ProductInfoWrap>

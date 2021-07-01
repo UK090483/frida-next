@@ -1,5 +1,5 @@
-import React, { useState, useReducer } from 'react'
-import { useForm } from 'react-hook-form'
+import React, { useState } from 'react'
+
 import { m, AnimatePresence } from 'framer-motion'
 import cx from 'classnames'
 import Image from 'next/image'
@@ -25,18 +25,16 @@ const Newsletter = () => {
   const registerNow = locale === 'en' ? 'Register Now!' : 'Jetzt eintragen!'
   const send = locale === 'en' ? 'Send' : 'Senden'
 
-  const [
-    { isSubmitting, success, email, errors, hasError, verified, state },
-    setState,
-  ] = useState<NewsletterState>({
-    email: '',
-    state: 'init',
-    verified: false,
-    isSubmitting: false,
-    success: false,
-    errors: { email: false },
-    hasError: false,
-  })
+  const [{ isSubmitting, email, errors, verified, state }, setState] =
+    useState<NewsletterState>({
+      email: '',
+      state: 'init',
+      verified: false,
+      isSubmitting: false,
+      success: false,
+      errors: { email: false },
+      hasError: false,
+    })
 
   const setEmail = (email: string) => {
     setState((os) => ({ ...os, email, verified: verifyMail(email) }))
@@ -48,6 +46,7 @@ const Newsletter = () => {
     e.preventDefault()
 
     if (verifyMail(email)) {
+      return
     }
 
     setState((os) => ({ ...os, email, state: 'submitting' }))

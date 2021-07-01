@@ -1,11 +1,14 @@
-import { ProductSingleViewResult } from 'contentTypes/Product/ProductSingle'
+import {
+  ProductSingleViewResult,
+  ProductVariant,
+} from 'contentTypes/Product/ProductSingle'
 import React from 'react'
 
 import ProductOption from './product-option'
 
 type ProductFormProps = {
   product: ProductSingleViewResult
-  activeVariant: string
+  activeVariant: ProductVariant
   onVariantChange: (id: string) => void
 }
 
@@ -21,7 +24,6 @@ const ProductForm: React.FC<ProductFormProps> = ({
       {product.options?.map(
         (option, key) =>
           option.values?.length && (
-            //@ts-ignore
             <ProductOption
               key={key}
               position={key}

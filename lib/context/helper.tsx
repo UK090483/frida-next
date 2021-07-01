@@ -20,7 +20,6 @@ export type FetchVariantResult = {
   options: { name: string; position: number; value: string }
 }
 export const fetchVariant = async (id: string) => {
-  console.log('fetch variant')
   let variant: FetchVariantResult | null = null
   try {
     const res = await fetch(`/api/productCard/?id=${id}`)
@@ -29,7 +28,7 @@ export const fetchVariant = async (id: string) => {
   } catch (error) {
     return null
   }
-  console.log(variant)
+
   // as FetchVariantResult | null
 
   return variant

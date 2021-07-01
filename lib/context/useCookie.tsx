@@ -1,10 +1,9 @@
-import { useContext, useState, useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 import { SiteContext } from './context'
 import Cookies from 'js-cookie'
 import { cookieName } from './helper'
 import ReactGA from 'react-ga'
 import { useRouter } from 'next/router'
-// Access our cart item count
 
 function useCookie() {
   const {
@@ -14,10 +13,10 @@ function useCookie() {
     },
   } = useContext(SiteContext)
 
-  const [isDeclined, setIsDeclined] = useState(false)
   const router = useRouter()
 
   useEffect(() => {
+    if (process.env.NODE_ENV === 'development') return
     if (accepted) {
       ReactGA.initialize(process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS || '', {
         debug: true,
@@ -27,7 +26,7 @@ function useCookie() {
         ReactGA.pageview(location.pathname)
       })
     }
-  }, [accepted])
+  }, [accepted, router.events])
 
   const acceptCookies = () => {
     setContext((prev) => ({

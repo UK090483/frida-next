@@ -1,22 +1,24 @@
-//@ts-nocheck
-
 import React from 'react'
 import cx from 'classnames'
 
 import { hasObject } from '@lib/helpers'
-import RadioGroup from '@components/radio-group'
+import RadioGroup, { RadioGroupValue } from '@components/radio-group'
 import RadioItem from '@components/radio-item'
-
+import type {
+  IProductOption,
+  IProductOptionSetting,
+  ProductVariant,
+} from 'contentTypes/Product/ProductSingle'
 import Swatch from '@components/swatch'
 
 type ProductOptionProps = {
-  option: any
-  optionSettings: any
-  position: any
-  variants: any
-  activeVariant: any
-  strictMatch: boolean
-  hideLabels: boolean
+  option: IProductOption
+  optionSettings: IProductOptionSetting[] | undefined
+  position: number
+  variants: ProductVariant[]
+  activeVariant: ProductVariant
+  strictMatch?: boolean
+  hideLabels?: boolean
   onChange: (val: string) => void
 }
 
@@ -35,17 +37,18 @@ const ProductOption: React.FC<ProductOptionProps> = ({
     ...activeVariant.options.slice(position + 1),
   ]
 
+  const activeValue = activeVariant.options.find(
+    (opt) => opt.name === option.name
+  )
+
   return (
     <div
       key={position}
       className={`option is-${option.name.toLowerCase().replace(' ', '-')}`}
     >
       {!hideLabels && <div className="option--title">{option.name}</div>}
-
       <RadioGroup
-        value={
-          activeVariant.options.find((opt) => opt.name === option.name).value
-        }
+        value={activeValue && activeValue.value}
         onChange={(value) => {
           changeOption(option.name, value, variants, activeVariant, onChange)
         }}
@@ -115,7 +118,13 @@ const ProductOption: React.FC<ProductOptionProps> = ({
 }
 
 // handle option changes
-const changeOption = (name, value, variants, activeVariant, changeCallback) => {
+const changeOption = (
+  name: string,
+  value: RadioGroupValue,
+  variants: ProductVariant[],
+  activeVariant: ProductVariant,
+  changeCallback: (val: string) => void
+) => {
   const newOptions = activeVariant.options.map((opt) =>
     opt.name === name ? { ...opt, value: value } : opt
   )

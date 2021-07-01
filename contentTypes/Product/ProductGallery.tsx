@@ -11,7 +11,7 @@ type ProductGalleryProps = {
   lang: FridaLocation
 }
 
-const ProductGallery: React.FC<ProductGalleryProps> = ({ items, lang }) => {
+const ProductGallery: React.FC<ProductGalleryProps> = ({ items }) => {
   if (!items) return null
   return (
     <>
