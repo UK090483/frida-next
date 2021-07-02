@@ -4,13 +4,11 @@ import { theme } from 'tailwind.config'
 
 const ShowBreakingPoints: React.FC = () => {
   const [w, setW] = React.useState(0)
-  const [ratio, setRatio] = React.useState(0)
 
   React.useEffect(() => {
     if (window) {
       const checkSize = () => {
         setW(window.innerWidth)
-        setRatio(window.devicePixelRatio)
       }
       checkSize()
       window.onresize = checkSize

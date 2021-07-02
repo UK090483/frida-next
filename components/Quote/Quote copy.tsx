@@ -33,7 +33,7 @@ const Quote: React.FC<QuoteProps> = (props) => {
     <ConditionalWrapper
       condition={!!link}
       wrapperFalse={(children) => (
-        <div className="bg-frida-black h-full grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-6 px-frida_side md:px-12 py-12 group ">
+        <div className="bg-frida-black  flex flex-wrap md:flex-nowrap px-frida_side md:px-12 py-12 group ">
           {children}
         </div>
       )}
@@ -45,14 +45,14 @@ const Quote: React.FC<QuoteProps> = (props) => {
             }}
             draggable="false"
             {...mouseLinkProps}
-            className="bg-frida-black h-full grid grid-cols-1  md:grid-cols-3 gap-0 md:gap-6 px-frida_side md:px-12 py-12 group "
+            className="bg-frida-black  flex flex-wrap md:flex-nowrap px-frida_side md:px-12 py-12 group "
           >
             {children}
           </a>
         </Link>
       )}
     >
-      <div className="w-full col-span-2   md:pr-12 items-center  pb-8">
+      <div className="w-full  md:w-2/3 md:pr-12 items-center  pb-8">
         <p className="text-frida-pink text-normal font-bold">{_quote}</p>
         <div className="text-frida-white text-base-fluid font-bold mb-0">
           {author}
@@ -60,7 +60,7 @@ const Quote: React.FC<QuoteProps> = (props) => {
         <p className="text-frida-white text-sm-fluid"> {_subtitle}</p>
       </div>
 
-      <div className="w-full h-full min-h-[300px] md:min-h-[400px]  relative flex items-end ">
+      <div className="w-full h-vh/2  md:w-1/3 relative flex items-end ">
         <div className="absolute h-full w-2/3  right-0 top-0 transform transition-transform group-hover:translate-x-6 ">
           <Photo photo={authorImage} layout="contain" />
         </div>

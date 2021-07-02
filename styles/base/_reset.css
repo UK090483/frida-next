@@ -1,4 +1,4 @@
-*,
+/* *,
 ::before,
 ::after {
   border: 0px solid;
@@ -233,4 +233,4 @@ textarea,
 [aria-hidden="false"][hidden]:not(:focus) {
   clip: rect(0, 0, 0, 0);
   position: absolute;
-}
+} */

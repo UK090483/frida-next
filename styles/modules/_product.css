@@ -58,7 +58,7 @@
   }
 
   &--actions {
-    @apply sm:flex sticky bottom-0 mt-4 p-4 md:p-8 border-t bg-pageBG is-textured text-center;
+    @apply sm:flex sticky bottom-0 mt-4 p-4 md:p-8 border-t bg-pageBG  text-center;
 
     .counter {
       @apply hidden sm:inline-flex;
@@ -83,6 +83,7 @@
   }
 
   &--swatch {
-    @apply clean-btn p-0 bg-transparent;
+    /* clean-btn */
+    @apply  p-0 bg-transparent;
   }
 }

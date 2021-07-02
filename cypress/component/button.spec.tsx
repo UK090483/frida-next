@@ -4,6 +4,8 @@ import { mount } from '@cypress/react'
 import Button from '../../components/buttons/button'
 
 describe('<Button />', () => {
+
+  
   beforeEach(() => {
     // given
     mount(
@@ -13,7 +15,8 @@ describe('<Button />', () => {
         onClick={() => {
           return
         }}
-      />
+      />,
+      {}
     )
   })
 

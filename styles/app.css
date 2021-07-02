@@ -1,10 +1,11 @@
 @import '_config/_variables';
 @import '_config/_mixins';
-@import 'base/_typography';
+
 
 @import 'base/_buttons';
 @import 'components/_carouselHero';
 @import 'components/_car';
+@import 'components/_carousels';
 
 /*
 
@@ -45,5 +46,5 @@
 
 @import 'base/_media';
 @import 'modules/_mouse';
-@import 'components/_marquees';
+/* @import 'components/_marquees'; */
 @import 'modules/_cart';

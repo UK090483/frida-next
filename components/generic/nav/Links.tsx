@@ -1,7 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
 import { mouseLinkProps } from '../Mouse/mouseRemote'
-import useBodyScrollStop from '@components/helper/useBodyScrollStop'
 import { m } from 'framer-motion'
 import { FridaLocation } from 'types'
 import { useToggleMegaNav } from '@lib/context/useUi'
@@ -16,7 +15,6 @@ const Links: React.FC<{
   }[]
   lang: FridaLocation
 }> = ({ open, items, lang }) => {
-  const { enableBodyScroll } = useBodyScrollStop()
   const toggleNav = useToggleMegaNav()
 
   const container = {
@@ -54,10 +52,10 @@ const Links: React.FC<{
         variants={container}
         {...mouseLinkProps}
         onClick={() => {
-          enableBodyScroll()
+          // enableBodyScroll()
           toggleNav()
         }}
-        className="relative pt-20 pl-8 md:pl-32"
+        className="relative pt-20 pl-8 md:pl-32 list-none"
       >
         {items.map((route, index) => {
           const label =

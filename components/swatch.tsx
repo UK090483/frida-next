@@ -1,7 +1,8 @@
+//@ts-nocheck
 import React from 'react'
 import { contrastColor } from 'contrast-color'
 
-const Swatch = ({ label, color }) => {
+const Swatch = ({ label, color }: { label: string; color: unknown }) => {
   if (!color) return null
 
   return (
@@ -19,4 +20,3 @@ const Swatch = ({ label, color }) => {
 }
 
 export default Swatch
-

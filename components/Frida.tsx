@@ -1,4 +1,5 @@
 import React from 'react'
+import classNames from 'classnames'
 import { FridaColors } from '../types'
 
 type FridaProps = {
@@ -12,14 +13,18 @@ const Frida: React.FC<FridaProps> = ({
   color = 'black',
 }) => {
   return (
-    <span className={`inline whitespace-nowrap text-frida-${color}`}>
+    <span className={`inline  whitespace-nowrap text-frida-${color}`}>
       Meet
       <span
         style={{
-          textDecorationThickness: '0.16em',
+          textDecorationThickness: '0.18em',
         }}
         color={color}
-        className={`border-frida-${color} text-frida-${textColor} underline decoration-frida-${color} `}
+        className={classNames(
+          `border-frida-${color} text-frida-${textColor} underline decoration-frida-${color}`,
+          { 'decoration-frida-black': color === 'black' },
+          { 'decoration-frida-white': color === 'white' }
+        )}
       >
         {text}
       </span>

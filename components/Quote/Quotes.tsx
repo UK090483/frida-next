@@ -1,5 +1,4 @@
 import ButtonNav from '@components/buttons/ButtonNav'
-import 'keen-slider/keen-slider.min.css'
 import { useKeenSlider } from 'keen-slider/react'
 import { QuoteResult } from 'pageBuilder/Blocks/QuotesBlock'
 import React from 'react'
@@ -54,7 +53,7 @@ const Quotes: React.FC<QuotesBlock> = ({ items }) => {
         ))}
       </div>
 
-      <div className="absolute bottom-12  pl-frida_side md:pl-12 ">
+      <div className="absolute bottom-frida_side md:bottom-12  pl-frida_side md:pl-12 ">
         <ButtonNav setNext={setNext} setPrev={setPrev} />
       </div>
     </div>

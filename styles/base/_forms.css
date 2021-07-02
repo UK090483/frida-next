@@ -1,8 +1,8 @@
-.form {
+/* .form {
   @apply relative;
 
   &--error {
-    /* Error Message styles */
+  
     @apply bg-pageBG border p-4 md:p-4 text-center;
 
     &-reset {
@@ -11,12 +11,12 @@
   }
 
   &--success {
-    /* Success Message styles */
+    
     @apply bg-pageBG border p-4 md:p-4 text-center;
   }
-}
+} */
 
-.control {
+/* .control {
   @apply flex flex-col relative text-left bg-pageBG;
 
   &--group {
@@ -100,16 +100,16 @@
         }
       }
     }
-  }
+  } */
 
-  &--error {
+  /* &--error {
     @apply absolute bottom-full left-1/2 transform -translate-x-1/2 translate-y-1/2 px-2 rounded-full bg-pageText text-pageBG text-xs leading-normal font-semibold;
   }
 
   &--pot {
     @apply hidden;
-  }
-
+  } */
+/* 
   input[type='text'],
   input[type='email'],
   input[type='number'],
@@ -124,9 +124,9 @@
       -webkit-text-fill-color: var(--pageText);
       -webkit-box-shadow: 0 0 0 100em var(--pageBG) inset;
     }
-  }
+  } */
 
-  input[type='checkbox'] {
+  /* input[type='checkbox'] {
     @apply sr-only;
 
     &:focus {
@@ -153,12 +153,12 @@
   &.has-error {
     input,
     textarea {
-      /* Form Control Error styles */
+      
     }
   }
-}
+} */
 
-::-webkit-input-placeholder {
+/* ::-webkit-input-placeholder {
   @apply text-pageText;
 }
 ::-moz-placeholder {
@@ -169,4 +169,4 @@
 }
 :-moz-placeholder {
   @apply text-pageText;
-}
+} */

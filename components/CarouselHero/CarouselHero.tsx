@@ -3,7 +3,6 @@ import HeroNav from './HeroNav'
 import CarouselItem from './CarouselItem'
 import ButtonNav from '../buttons/ButtonNav'
 import KeenSlider, { useKeenSlider } from 'keen-slider/react'
-import 'keen-slider/keen-slider.min.css'
 import { FridaColors } from '../../types'
 
 export type CarouselHeroItem = {
@@ -81,7 +80,10 @@ const CarouselHero: React.FC<CarouselHeroProps> = ({ items }) => {
     <div className="carousel-Hero">
       <div ref={sliderRef} className="keen-slider">
         {items.map((item, index) => (
-          <div key={index} className="keen-slider__slide">
+          <div
+            key={index}
+            className="keen-slider__slide keen-slider__slide--fullwidth"
+          >
             <CarouselItem {...item} />
           </div>
         ))}

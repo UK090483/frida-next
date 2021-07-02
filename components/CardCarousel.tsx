@@ -3,7 +3,6 @@ import { FridaColors } from 'types'
 import Section from './Section'
 import { useKeenSlider } from 'keen-slider/react'
 import type { TOptions } from 'keen-slider'
-import 'keen-slider/keen-slider.min.css'
 
 import Icon from './Icon'
 

@@ -1,18 +1,17 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {
+   mode: 'jit',
   purge: {
     content: [
       './components/**/*.tsx',
       './contentTypes/**/*.tsx',
-      './lib/**/*.tsx',
-      './modules/**/*.tsx',
       './pages/**/*.tsx',
       './pageBuilder/**/*.tsx',
     ],
     options: {
       safelist: [
-        'py-4', // for Dropdown... don't know why
+        
         'decoration-frida-black',
         'decoration-frida-pink',
         'decoration-frida-white',

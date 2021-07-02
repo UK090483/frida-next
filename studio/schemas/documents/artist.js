@@ -1,6 +1,7 @@
 
 import { BsPeopleCircle } from 'react-icons/bs'
 
+
 export default {
   name: 'artist',
   type: 'document',
