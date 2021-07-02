@@ -1,4 +1,3 @@
-import FridaImage from '@components/fridaImage/FridaImage'
 import cx from 'classnames'
 import React from 'react'
 import { FridaColors } from '../types'
@@ -17,7 +16,7 @@ const Section: React.FC<SectionProps> = (props) => {
     backgroundColor = 'white',
     type = 'normal',
     className = '',
-    bgImage,
+    // bgImage,
   } = props
 
   return (
@@ -38,13 +37,13 @@ const Section: React.FC<SectionProps> = (props) => {
       )}
       data-color={backgroundColor}
     >
-      {bgImage && (
+      {/* {bgImage && (
         <FridaImage
           className="absolute top-0 bottom-0 left-0 right-0 "
           photo={bgImage}
           layout="fill"
         />
-      )}
+      )} */}
 
       <div
         className={cx(

@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable @next/next/no-img-element */
-import { ARTWORK_IMAGE_PROPS } from '@components/fridaImage/FridaImage'
+
 import {
   buildSrc,
   // buildSrcSet
@@ -28,7 +28,7 @@ const ProductMagnifyImage: React.FC<ProductMagnifyImageProps> = ({
   const isLandscape = aspectRatio > 1
 
   const bigImageSrc = photo && buildSrc(photo, { width: 1200 })
-  const smallImageSrc = photo && buildSrc(photo, { ...ARTWORK_IMAGE_PROPS })
+  const smallImageSrc = photo && buildSrc(photo, {})
   // const smallImageSrcset = buildSrcSet(photo, { ...ARTWORK_IMAGE_PROPS })
 
   useEffect(() => {

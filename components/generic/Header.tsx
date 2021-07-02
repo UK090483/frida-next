@@ -2,7 +2,7 @@ import Link from 'next/link'
 import React from 'react'
 import { FridaColors, FridaLocation } from '../../types'
 import Nav from './nav/Nav'
-import PageTitle from './pageTitle'
+import PageTitle from './PageTitle'
 
 type HeaderProps = {
   color?: FridaColors
