@@ -3,8 +3,8 @@ import Carousel from '@components/CardCarousel'
 import ArtworkCard, {
   artworkCardQuery,
   ArtworkCardResult,
-} from 'contentTypes/Artwork/ArtworkCard'
-import Artworks from 'contentTypes/Artwork/ArtworkGallery'
+} from 'PageTypes/Artwork/ArtworkCard'
+import Artworks from 'PageTypes/Artwork/ArtworkGallery'
 import React from 'react'
 import { FridaLocation } from 'types'
 

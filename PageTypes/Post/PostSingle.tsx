@@ -1,12 +1,12 @@
 import Layout from '@components/generic/Layout'
-import { imageMeta } from '@lib/api'
+
 import { SiteResult } from '@lib/queries/cache'
 import { body, PageBodyResult } from 'pageBuilder/pageBuilderQueries'
-import { ImageMetaResult } from '@lib/queries/snippets'
+import { ImageMetaResult, imageMeta } from '@lib/queries/snippets'
 import BodyParser from 'pageBuilder/BodyParser'
 import React from 'react'
 import { FridaLocation } from 'types'
-import Photo from '@components/photo'
+import Photo from '@components/Photo'
 
 export const postSingleView = `
 title,

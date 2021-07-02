@@ -7,7 +7,7 @@ import OverlayCTA from '@components/Adds/Overlay'
 import CookieBar from '@components/Cookie'
 
 import NewsletterCTA from 'components/Adds/NewsletterCTA'
-import { PageResult } from '@pages/[...slug]'
+import type { PageResult } from './pageQueries'
 
 interface PageProps {
   data: PageResult

@@ -1,7 +1,7 @@
 import {
   ProductSingleViewResult,
   ProductVariant,
-} from 'contentTypes/Product/ProductSingle'
+} from 'PageTypes/Product/ProductSingle'
 import React from 'react'
 
 import ProductOption from './product-option'

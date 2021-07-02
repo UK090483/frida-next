@@ -1,12 +1,12 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import Photo from '@components/photo'
+import Photo from '@components/Photo'
 import Link from 'next/link'
 import { QuoteResult } from 'pageBuilder/Blocks/QuotesBlock'
 import React from 'react'
 import { mouseLinkProps } from '@components/generic/Mouse/mouseRemote'
 import { useRouter } from 'next/router'
-import ConditionalWrapper from '@components/helper/ConditionalWraper'
+import ConditionalWrapper from '@lib/helper/ConditionalWraper'
 
 interface QuoteProps extends QuoteResult {
   isSwiping?: boolean

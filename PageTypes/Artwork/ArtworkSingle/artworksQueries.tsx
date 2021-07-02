@@ -2,10 +2,14 @@ import { SiteResult } from '@lib/queries/cache'
 import {
   artworkCardQuery,
   ArtworkCardResult,
-} from 'contentTypes/Artwork/ArtworkCard'
+} from 'PageTypes/Artwork/ArtworkCard'
 import { QuoteResult, QuoteQuery } from 'pageBuilder/Blocks/QuotesBlock'
 
-import { imageMeta, ImageMetaResult } from '../../../lib/queries/snippets'
+import {
+  imageMeta,
+  ImageMetaResult,
+  SeoResult,
+} from '../../../lib/queries/snippets'
 
 const productHintQuery = `
 text,
@@ -58,6 +62,7 @@ seo,
 `
 
 export type ArtworkSingleViewResult = {
+  _type: 'artwork'
   slug: string
   artistName: null | string
   artistDescription: null | string
@@ -84,4 +89,5 @@ export type ArtworkSingleViewResult = {
   shopify_variant_id: null | string
   site: SiteResult
   hints?: ProductHintResult[] | null
+  seo: null | Partial<SeoResult>
 }

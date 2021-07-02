@@ -6,7 +6,7 @@ import Error from 'pages/404'
 import ProductSingle, {
   productSingleViewQuery,
   ProductSingleViewResult,
-} from 'contentTypes/Product/ProductSingle'
+} from 'PageTypes/Product/ProductSingle'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import React from 'react'
 import { FridaLocation } from 'types'

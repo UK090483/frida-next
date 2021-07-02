@@ -3,9 +3,7 @@ import Section from '../../components/Section'
 
 import BodyParser from '../BodyParser'
 import { PageBuilderBlockBase } from 'pageBuilder/pageBuilderQueries'
-import { imageMeta } from '@lib/api'
-
-import { ImageMetaResult } from '@lib/queries/snippets'
+import { imageMeta, ImageMetaResult } from '@lib/queries/snippets'
 import { FridaColors, FridaLocation, FridaSizes } from 'types'
 import classNames from 'classnames'
 import { richTextQuery } from './RichText'

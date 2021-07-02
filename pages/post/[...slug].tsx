@@ -5,7 +5,7 @@ import Error from '@pages/404'
 import PostSingle, {
   PostPageResult,
   postSingleView,
-} from 'contentTypes/Post/PostSingle'
+} from 'PageTypes/Post/PostSingle'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import React from 'react'
 import { FridaLocation } from 'types'

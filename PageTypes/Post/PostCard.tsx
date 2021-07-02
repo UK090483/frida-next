@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { mouseLinkProps } from '@components/generic/Mouse/mouseRemote'
 import { FridaLocation } from 'types'
 import { ImageMetaResult, imageMeta } from '@lib/queries/snippets'
-import Photo from '@components/photo'
+import Photo from '@components/Photo'
 
 export const postCardQuery = `
 'slug':slug.current,

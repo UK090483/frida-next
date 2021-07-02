@@ -1,4 +1,4 @@
-import Photo from '@components/photo'
+import Photo from '@components/Photo'
 import * as React from 'react'
 import { ImageLayout } from 'types'
 interface IFridaImageProps {

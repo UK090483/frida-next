@@ -62,7 +62,7 @@ const BuyButton: React.FC<BuyButtonProps> = (props) => {
       <div
         className={`flex w-80 lg:w-vw/4 z-10 ${
           isOut && !isNavOpen
-            ? 'fixed bottom-3 left-1/2 transform -translate-x-1/2 lg:translate-x-0 lg:left-unset lg:bottom-unset lg:top-3.5 lg:right-32'
+            ? 'fixed bottom-3 left-1/2 transform -translate-x-1/2  lg:translate-x-0 lg:translate-y-1.5 lg:left-unset lg:bottom-unset lg:top-frida_side_big lg:right-32'
             : ''
         }`}
       >

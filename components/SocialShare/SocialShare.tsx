@@ -20,7 +20,7 @@ const SocialShare: React.FC<SocialShareProps> = ({ url, className }) => {
 
   return (
     <div className={`${className}`}>
-      <button className={` w-72 group  relative`}>
+      {/* <button className={` w-72 group  relative`}>
         <div className="flex h-12 align-bottom absolute w-72 top-6 left-14  delay-100 opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity">
           <SBWrap className="w-10 left-0 ">
             <FacebookShareButton
@@ -47,7 +47,7 @@ const SocialShare: React.FC<SocialShareProps> = ({ url, className }) => {
           </SBWrap>
         </div>
         <Icon icon="share" bgColor="grey" />
-      </button>
+      </button> */}
     </div>
   )
 }

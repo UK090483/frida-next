@@ -3,12 +3,13 @@ import { shouldCash } from '@lib/constants'
 import { getSanityClient } from '@lib/sanity.server'
 import { cache } from './cache'
 
-const getAllDocSlugs: (doc: string) => Promise<null | { slug: string }[]> =
-  async (doc) => {
-    return await getSanityClient().fetch(
-      `*[_type == "${doc}"]{ "slug": slug.current }`
-    )
-  }
+export const getAllDocSlugs: (
+  doc: string
+) => Promise<null | { slug: string }[]> = async (doc) => {
+  return await getSanityClient().fetch(
+    `*[_type == "${doc}"]{ "slug": slug.current }`
+  )
+}
 
 export const getAllDocPathsCached = async (doc: string) => {
   let allPages

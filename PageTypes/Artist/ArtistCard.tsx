@@ -1,11 +1,9 @@
 import Card from '@components/Card'
-import { imageMeta } from '@lib/api'
-import { ImageMetaResult } from '@lib/queries/snippets'
+import { ImageMetaResult, imageMeta } from '@lib/queries/snippets'
 import React from 'react'
 import { GalleryTypes } from 'types'
 
 export const artistCardQuery = `
-     
     'slug':slug.current,
     'name':anzeigeName,
      'photo':*[_type == 'artwork'  && references(^._id) ][0].image {${imageMeta}},

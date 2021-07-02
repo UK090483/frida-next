@@ -20,3 +20,14 @@ export type ImageMetaResult = {
   aspectRatio: number
   lqip: string
 }
+
+export type SeoResult = {
+  metaTitle: string
+  metaDesc: string
+  shareTitle: string
+  shareGraphic: ImageMetaResult
+  shareDesc: string
+  siteTitle: string
+  url: string
+  shareGraphicSrc: string
+}

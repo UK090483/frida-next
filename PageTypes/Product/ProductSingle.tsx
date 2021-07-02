@@ -1,9 +1,7 @@
 import ProductHero from './ProductHero'
 import React from 'react'
 import { FridaLocation } from 'types'
-import { imageMeta } from '@lib/api'
-
-import { ImageMetaResult } from '@lib/queries/snippets'
+import { imageMeta, ImageMetaResult } from '@lib/queries/snippets'
 import { SiteResult } from '@lib/queries/cache'
 
 export const productSingleViewQuery = `
@@ -82,8 +80,6 @@ export type ProductSingleViewResult = {
 
 interface ProductSingleProps extends ProductSingleViewResult {
   lang: FridaLocation
-  shopifyProduct?: any
-  isModal?: boolean
 }
 
 const ProductSingle: React.FC<ProductSingleProps> = (props) => {

@@ -1,13 +1,10 @@
 import { getSanityClient } from '@lib/sanity.server'
 import axios from 'axios'
-import {
-  artistCardQuery,
-  ArtistCardResult,
-} from 'contentTypes/Artist/ArtistCard'
+import { artistCardQuery, ArtistCardResult } from 'PageTypes/Artist/ArtistCard'
 import {
   artworkCardQuery,
   ArtworkCardResult,
-} from 'contentTypes/Artwork/ArtworkCard'
+} from 'PageTypes/Artwork/ArtworkCard'
 import { accessCache } from 'next-build-cache'
 import { body, PageBodyResult } from '../../pageBuilder/pageBuilderQueries'
 

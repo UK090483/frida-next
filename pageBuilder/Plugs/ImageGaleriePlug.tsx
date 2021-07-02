@@ -1,4 +1,4 @@
-import Photo from '@components/photo'
+import Photo from '@components/Photo'
 import { imageMeta, ImageMetaResult } from '@lib/queries/snippets'
 import classNames from 'classnames'
 import React from 'react'

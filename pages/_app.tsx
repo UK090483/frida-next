@@ -1,4 +1,4 @@
-import ShowBreakingPoints from '@components/helper/showBreakingPoints'
+import ShowBreakingPoints from '@lib/helper/showBreakingPoints'
 import Cart from '@components/shopComponents/Cart'
 import { SiteContextProvider } from '@lib/context/context'
 import { isBrowser } from '@lib/helpers'

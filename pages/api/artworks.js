@@ -1,5 +1,5 @@
 import sanityClient from '@sanity/client'
-import { artworkCardQuery } from 'contentTypes/Artwork/ArtworkCard'
+import { artworkCardQuery } from 'PageTypes/Artwork/ArtworkCard'
 
 const sanity = sanityClient({
   dataset: process.env.SANITY_PROJECT_DATASET,

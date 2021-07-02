@@ -1,5 +1,5 @@
 import Category from '@components/Category'
-import Photo from '@components/photo'
+import Photo from '@components/Photo'
 import { PageBuilderBlockBase } from '../pageBuilderQueries'
 import { imageMeta, ImageMetaResult } from '@lib/queries/snippets'
 import React from 'react'

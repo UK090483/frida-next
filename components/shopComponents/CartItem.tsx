@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 // import { hasObject } from '@lib/helpers'
 
-import Photo from '@components/photo'
+import Photo from '@components/Photo'
 import ProductPrice from '@components/ProductComponents/ProductPrice'
 import ProductCounter from '@components/ProductComponents/ProductCounter'
 

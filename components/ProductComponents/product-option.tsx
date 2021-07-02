@@ -8,7 +8,7 @@ import type {
   IProductOption,
   IProductOptionSetting,
   ProductVariant,
-} from 'contentTypes/Product/ProductSingle'
+} from 'PageTypes/Product/ProductSingle'
 import Swatch from '@components/swatch'
 
 type ProductOptionProps = {

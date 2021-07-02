@@ -3,7 +3,7 @@ import Section from '@components/Section'
 import Link from 'next/link'
 import cx from 'classnames'
 import { ConditionalWrapper } from '@lib/helpers'
-import { buildInternalLink } from '@components/helper/buildInternalLink'
+import { buildInternalLink } from '@lib/helper/buildInternalLink'
 import { mouseLinkProps } from '@components/generic/Mouse/mouseRemote'
 import { FridaLocation } from 'types'
 

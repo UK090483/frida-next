@@ -1,12 +1,12 @@
 import React from 'react'
 
-import ArtistGallery from 'contentTypes/Artist/ArtistGallery'
+import ArtistGallery from 'PageTypes/Artist/ArtistGallery'
 import { FridaColors, FridaLocation } from 'types'
 import Carousel from '@components/CardCarousel'
 import ArtistCard, {
   artistCardQuery,
   ArtistCardResult,
-} from 'contentTypes/Artist/ArtistCard'
+} from 'PageTypes/Artist/ArtistCard'
 import { PageBuilderBlockBase } from '../pageBuilderQueries'
 
 export const artistsBlockQuery = `

@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { getSanityClient } from '@lib/sanity.server'
-import { imageMeta } from '@lib/api'
+import { imageMeta } from '@lib/queries/snippets'
 
 export interface FridaPreviewData {
   token: string | undefined

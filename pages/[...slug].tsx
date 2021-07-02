@@ -1,36 +1,12 @@
-import { usePage } from '@lib/queries/usePage'
 import { getAllDocPathsCached } from '@lib/queries/fetchDocPathApi'
 import { handleStaticProps } from '@lib/queries/handleStaticProps'
-
-import Error from 'pages/404'
-import PageBuilder from 'contentTypes/Page/Page'
+import { usePage } from '@lib/queries/usePage'
+import PageBuilder from 'PageTypes/Page/Page'
+import { PageResult } from 'PageTypes/Page/pageQueries'
 import type { GetStaticPaths, GetStaticProps } from 'next'
+import Error, { pageQuery } from 'pages/404'
 import React from 'react'
-import type { FridaColors, FridaLocation } from 'types'
-import type { SiteResult } from '@lib/queries/cache'
-import { body, PageBodyResult } from 'pageBuilder/pageBuilderQueries'
-
-export const pageQuery = `
-...,
-'slug':slug.current,
-footer->{${body}},
-${body}
-'site':'getSite'
-`
-
-export type PageResult = {
-  content: PageBodyResult
-  title?: string
-  title_en?: string
-  slug: null | string
-  footer?: any
-  pageHeader?: null | {
-    initialPageTitleColor: FridaColors
-    hideMenu?: null | boolean
-    withOutHomeLink?: null | boolean
-  }
-  site: SiteResult
-}
+import type { FridaLocation } from 'types'
 
 export type PageProps = {
   data: PageResult | null

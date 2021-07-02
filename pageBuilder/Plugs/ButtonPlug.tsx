@@ -2,7 +2,7 @@ import React from 'react'
 import Button from '@components/buttons/button'
 
 import { FridaColors } from 'types'
-import { buildInternalLink } from '@components/helper/buildInternalLink'
+import { buildInternalLink } from '@lib/helper/buildInternalLink'
 
 export const buttonPlugQuery = ` 
 _type == "button" => {

@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react'
 import { FridaColors } from 'types'
 import cx from 'classnames'
-import useAnimation from '../helper/useAnimation'
+import useAnimation from '../../lib/helper/useAnimation'
+import useLocalStorage from '@lib/helper/useLocalStorage'
 
 type OverlayCTA = {
   color: FridaColors
@@ -10,8 +11,11 @@ type OverlayCTA = {
 
 const OverlayCTA: React.FC<OverlayCTA> = ({ color = 'pink', item }) => {
   const { current, animate, shouldRender } = useAnimation(500)
+  const [val, setVal] = useLocalStorage<string>('newsletterCTA', 'init')
+
   const close = () => {
     animate('out')
+    setVal('dismissed')
   }
   useEffect(() => {
     const timeOut = setTimeout(() => {

@@ -9,7 +9,7 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import classNames from 'classnames'
 import { GalleryTypes } from 'types'
-import Photo from './photo'
+import Photo from './Photo'
 
 interface CardWrapPros {
   galleryType: GalleryTypes

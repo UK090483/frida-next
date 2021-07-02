@@ -1,7 +1,7 @@
 import { GetServerSideProps } from 'next'
 import { SitemapStream, streamToPromise } from 'sitemap'
 import { createGzip } from 'zlib'
-import { getAllDocSlugs } from '@lib/api'
+import { getAllDocSlugs } from '@lib/queries/fetchDocPathApi'
 
 const Sitemap = () => {
   return (
@@ -17,7 +17,8 @@ let sitemap: Buffer | null = null
 
 const addUrls = async (smStream: SitemapStream) => {
   const allPages = await getAllDocSlugs('page')
-  const allCollections = await getAllDocSlugs('collection')
+  const allArtists = await getAllDocSlugs('artist')
+  const allArtworks = await getAllDocSlugs('artwork')
 
   allPages &&
     allPages.map((page) => {
@@ -28,10 +29,18 @@ const addUrls = async (smStream: SitemapStream) => {
       })
     })
 
-  allCollections &&
-    allCollections.map((collection) => {
+  allArtists &&
+    allArtists.map((artist) => {
       smStream.write({
-        url: `/${collection.slug}`,
+        url: `artist/${artist.slug}`,
+        changefreq: 'weekly',
+        priority: 0.7,
+      })
+    })
+  allArtworks &&
+    allArtworks.map((artwork) => {
+      smStream.write({
+        url: `artwork/${artwork.slug}`,
         changefreq: 'weekly',
         priority: 0.7,
       })

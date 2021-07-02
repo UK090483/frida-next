@@ -3,14 +3,14 @@ import { usePage } from '@lib/queries/usePage'
 import {
   artworkSingleViewQuery,
   ArtworkSingleViewResult,
-} from 'contentTypes/Artwork/ArtworkSingle/artworksQueries'
+} from 'PageTypes/Artwork/ArtworkSingle/artworksQueries'
 import { getAllDocPathsCached } from '@lib/queries/fetchDocPathApi'
 import {
   handleStaticProps,
   TemplateProps,
 } from '@lib/queries/handleStaticProps'
 import Error from '@pages/404'
-import ArtworkSingle from 'contentTypes/Artwork/ArtworkSingle/ArtworkSingle'
+import ArtworkSingle from 'PageTypes/Artwork/ArtworkSingle/ArtworkSingle'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import React from 'react'
 

@@ -1,12 +1,28 @@
+import cx from 'classnames'
+import { AnimatePresence, m } from 'framer-motion'
+import Image from 'next/image'
+import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 
-import { m, AnimatePresence } from 'framer-motion'
-import cx from 'classnames'
-import Image from 'next/image'
-
-import { fadeAnim } from '@lib/animate'
-import { useRouter } from 'next/router'
-
+const fadeAnim = {
+  show: {
+    opacity: 1,
+    transition: {
+      duration: 0.2,
+      delay: 0.1,
+      ease: 'linear',
+      when: 'beforeChildren',
+    },
+  },
+  hide: {
+    opacity: 0,
+    transition: {
+      duration: 0.2,
+      ease: 'linear',
+      when: 'beforeChildren',
+    },
+  },
+}
 type NewsletterState = {
   email: string
   state: 'init' | 'submitting' | 'success' | 'error'

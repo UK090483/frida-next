@@ -1,7 +1,7 @@
 import React, { useRef } from 'react'
 import { useIntersection } from 'use-intersection'
 import Marq from 'react-fast-marquee'
-import Photo from '@components/photo'
+import Photo from '@components/Photo'
 import { FridaColors, FridaLocation } from 'types'
 
 type TextItem = {

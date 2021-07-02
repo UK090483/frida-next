@@ -3,11 +3,11 @@ import { usePage } from '@lib/queries/usePage'
 import { getAllDocPathsCached } from '@lib/queries/fetchDocPathApi'
 import { handleStaticProps } from '@lib/queries/handleStaticProps'
 import Error from '@pages/404'
-import ArtistSingle from 'contentTypes/Artist/ArtistSingle'
+import ArtistSingle from 'PageTypes/Artist/ArtistSingle'
 import {
   artworkCardQuery,
   ArtworkCardResult,
-} from 'contentTypes/Artwork/ArtworkCard'
+} from 'PageTypes/Artwork/ArtworkCard'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import React from 'react'
 import { FridaLocation } from 'types'

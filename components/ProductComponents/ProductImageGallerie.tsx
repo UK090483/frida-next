@@ -1,10 +1,10 @@
 import { mouseLinkProps } from '@components/generic/Mouse/mouseRemote'
-import Photo from '@components/photo'
+import Photo from '@components/Photo'
 import { ImageMetaResult } from '@lib/queries/snippets'
 import {
   ProductSingleViewResult,
   ProductGalleryPhotos,
-} from 'contentTypes/Product/ProductSingle'
+} from 'PageTypes/Product/ProductSingle'
 import * as React from 'react'
 
 interface IProductImageGalleryProps {

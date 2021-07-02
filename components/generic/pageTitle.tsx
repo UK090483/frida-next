@@ -1,4 +1,4 @@
-import ConditionalWrapper from '@components/helper/ConditionalWraper'
+import ConditionalWrapper from '@lib/helper/ConditionalWraper'
 import Link from 'next/link'
 import React, { useEffect, useRef } from 'react'
 import { FridaColors } from 'types'

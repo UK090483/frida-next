@@ -63,7 +63,10 @@ const ArtworkHero: React.FC<ArtworkHeroProps> = ({ artwork, lang }) => {
           <BuyButton
             isInCart={itemInCart}
             handleAddToCard={() => {
-              if (!shopify_variant_id) return
+              if (!shopify_variant_id) {
+                console.error('shopify_variant_id missing')
+                return
+              }
               addItem(shopify_variant_id, 1, undefined).then(() => {
                 console.log('bla')
               })

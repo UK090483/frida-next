@@ -5,7 +5,7 @@ import React from 'react'
 import { FridaColors, FridaLocation } from 'types'
 import BodyParser from '../BodyParser'
 import { richTextQuery } from './RichText'
-import Photo from '@components/photo'
+import Photo from '@components/Photo'
 
 export const carouselHeroBlockQuery = `
 _type == "carouselHero" => {
