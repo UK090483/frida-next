@@ -1,7 +1,7 @@
 import { getSanityClient } from '@lib/sanity.server'
 import { cache, buildCache } from './cache'
-import { PageBodyResult } from '../../pageBuilder/pageBuilderQueries'
-import { FridaPreviewData } from '@pages/api/preview'
+import type { PageBodyResult } from '../../pageBuilder/pageBuilderQueries'
+import type { FridaPreviewData } from '@pages/api/preview'
 import { shouldCash } from '@lib/constants'
 
 export const fetchPageWithCache = async (

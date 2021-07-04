@@ -8,10 +8,9 @@ _type == "imagePlug" => {
   ...,
   _type,
   _key,
-  'image':asset->,
-   ${imageMeta},
    customWidth,
    customHeight,
+   ${imageMeta}
 }
 `
 export interface ImagePlugResult extends ImageMetaResult {
@@ -20,20 +19,25 @@ export interface ImagePlugResult extends ImageMetaResult {
   customWidth?: FridaSizes | null
   customHeight?: FridaSizes | null
   layout?: 'fill' | 'contain'
-  photo: any
 }
 
 const ImagePlug: React.FC<ImagePlugResult> = (props) => {
-  const { customWidth, customHeight, layout = 'contain', ...rest } = props
+  const {
+    customWidth,
+    customHeight,
+
+    layout = 'contain',
+    ...rest
+  } = props
+
+  if (!rest.asset) return null
 
   const _layout = customHeight ? layout : 'intrinsic'
 
   return (
-    <Photo
-      width={50}
-      photo={rest}
-      layout={_layout}
+    <div
       className={classNames(
+        'relative',
         { 'w-full mx-auto': !customWidth },
         { 'mx-auto w-full': !!customWidth },
         { 'w-full xs:max-w-sm ': customWidth === 's' },
@@ -47,7 +51,9 @@ const ImagePlug: React.FC<ImagePlugResult> = (props) => {
         { 'h-vh/2': customHeight === 'xl' },
         { 'h-vh': customHeight === 'xxl' }
       )}
-    />
+    >
+      <Photo photo={rest} layout={_layout} />
+    </div>
   )
 }
 

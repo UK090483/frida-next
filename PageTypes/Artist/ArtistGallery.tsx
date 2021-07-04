@@ -12,10 +12,9 @@ type ArtworksProps = {
   lang: FridaLocation
 }
 
-const ArtistGallery: React.FC<ArtworksProps> = ({ items, lang }) => {
-  if (!items) return null
+const ArtistGallery: React.FC<ArtworksProps> = ({ items = [] }) => {
   const router = useRouter()
-  let query = router.query
+  const query = router.query
 
   const stile = items.reduce((acc, item) => {
     if (!item.stil) return acc
@@ -24,7 +23,7 @@ const ArtistGallery: React.FC<ArtworksProps> = ({ items, lang }) => {
   }, [] as string[])
 
   const filterElements = () => {
-    let res = items.filter((artist) => {
+    const res = items.filter((artist) => {
       let res = true
 
       if (query.stil && query.stil !== 'clear' && res) {
@@ -53,7 +52,7 @@ const ArtistGallery: React.FC<ArtworksProps> = ({ items, lang }) => {
             type="grid"
             items={[
               filterElements().map((item) => (
-                <ArtistCard type={'grid'} {...item} />
+                <ArtistCard key={item.slug} type={'grid'} {...item} />
               )),
             ]}
           />

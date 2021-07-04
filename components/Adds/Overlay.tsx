@@ -11,6 +11,7 @@ type OverlayCTA = {
 
 const OverlayCTA: React.FC<OverlayCTA> = ({ color = 'pink', item }) => {
   const { current, animate, shouldRender } = useAnimation(500)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [val, setVal] = useLocalStorage<string>('newsletterCTA', 'init')
 
   const close = () => {
@@ -19,9 +20,8 @@ const OverlayCTA: React.FC<OverlayCTA> = ({ color = 'pink', item }) => {
   }
   useEffect(() => {
     const timeOut = setTimeout(() => {
-      animate('in')
+      // animate('in')
     }, 1000)
-
     return () => {
       clearTimeout(timeOut)
     }

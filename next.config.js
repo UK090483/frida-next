@@ -1,3 +1,4 @@
+
 const sanityClient = require('@sanity/client')
 const client = sanityClient({
   dataset: process.env.SANITY_PROJECT_DATASET,
@@ -7,14 +8,16 @@ const client = sanityClient({
 })
 
 // see breakdown of code bloat
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true',
-})
+// const withBundleAnalyzer = require('@next/bundle-analyzer')({
+//   enabled: process.env.ANALYZE === 'true',
+// })
 
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
-
+const withPreact = require('next-plugin-preact');
 // get redirects from Sanity for Vercel
 async function fetchSanityRedirects() {
+
+
   const data = await client.fetch(
     `*[_type == "redirect"]{ from, to, isPermanent }`
   )
@@ -30,7 +33,7 @@ async function fetchSanityRedirects() {
   return redirects
 }
 
-module.exports = withBundleAnalyzer({
+module.exports = withPreact({
   webpack(config, options) {
     const { dev, isServer, buildId, webpack } = options
 
@@ -63,10 +66,8 @@ module.exports = withBundleAnalyzer({
     // should handle (these are only required when setting up domain routing)
     // Note: subdomains must be included in the domain value to be matched e.g. "fr.example.com".
   },
-  // future: {
-  //   webpack5: true,
-  // },
-  productionBrowserSourceMaps: true,
+  
+  
   env: {
     // Needed for Sanity powered data
     SANITY_PROJECT_DATASET: process.env.SANITY_PROJECT_DATASET,

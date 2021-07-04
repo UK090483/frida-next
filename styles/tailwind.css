@@ -2,29 +2,24 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-
 @layer utilities {
-
   .hero {
-    min-height:750px;
+    min-height: 750px;
   }
- 
+
   .header-big {
     @apply text-3xl-fluid font-bold;
-    line-height: 1.1em;
   }
+
   .header-medium {
     @apply text-2xl-fluid font-bold;
-    line-height: 1.1em;
   }
   .header-small {
     @apply text-lg-fluid font-bold;
-    line-height: 1em;
   }
   .subheader {
     @apply text-base-fluid font-bold;
@@ -32,7 +27,6 @@
 
   .text-normal {
     @apply text-base-fluid;
-    line-height: 1.3em;
   }
 
   .text-small {
@@ -40,6 +34,13 @@
   }
   .text-xsmall {
     @apply text-xs-fluid;
+  }
+
+  .header-big,
+  .header-medium,
+  .header-small,
+  .subheader {
+    line-height: 1.2em;
   }
 
   .text-fill-menu {
@@ -71,54 +72,23 @@
 }
 
 @layer base {
-  /* * {
-    -webkit-user-select: none; 
-    -moz-user-select: none; 
-    -ms-user-select: none; 
-    user-select: none;
-  } */
-  h1 {
-    @apply header-big;
-  }
-  h2 {
-    @apply header-medium;
-  }
-  h3 {
-    @apply text-xl-fluid font-bold;
-  }
-  h4 {
-    @apply header-small;
-  }
   p,
-  li {
-    @apply text-base-fluid;
-  }
-
-  p {
-    @apply mb-5;
-  }
-  ul {
-    @apply list-disc pl-7 pb-8;
-  }
-  li {
-    @apply list-item;
-  }
   h1,
   h2,
   h3,
-  h4{
-    @apply break-normal;
+  h4 {
+    @apply break-normal pb-4;
+
     hyphens: auto;
-    line-height: 1.1em;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
   }
-  p{
-    @apply break-normal;
+  p {
     line-height: 1.5em;
   }
-  
 }
-
-
 
 .frida-text-block > :last-child {
   margin-bottom: 0;
@@ -128,8 +98,8 @@
   overflow: hidden;
 }
 
-.hide-cursor{
-  cursor:none !important;
+.hide-cursor {
+  cursor: none !important;
 }
 
 @keyframes anvil {

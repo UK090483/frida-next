@@ -2,7 +2,7 @@ import { ImageLayout } from 'types'
 import Image, { ImageLoader, ImageProps } from 'next/image'
 
 import { imageBuilder } from '@lib/sanity'
-import { ImageMetaResult } from '@lib/queries/snippets'
+import type { ImageMetaResult } from '@lib/queries/snippets'
 
 interface PhotoProps {
   alt?: string
@@ -18,14 +18,20 @@ interface PhotoProps {
   quality?: number
 }
 
-const myLoader: ImageLoader = ({ src, width, quality }) => {
-  return (
-    imageBuilder
-      .image(src)
-      .width(width)
-      .quality(quality || 75)
-      .url() || ''
-  )
+const customLoader: (props: { photo: ImageMetaResult }) => ImageLoader = ({
+  photo,
+}) => {
+  const loader: ImageLoader = ({ width, quality }) => {
+    return (
+      imageBuilder
+        .image(photo)
+        .width(width)
+        .quality(quality || 75)
+        .url() || ''
+    )
+  }
+
+  return loader
 }
 
 const Photo: React.FC<PhotoProps> = (props) => {
@@ -41,6 +47,12 @@ const Photo: React.FC<PhotoProps> = (props) => {
   } = props
 
   if (!photo) return null
+  // console.log('-----------------------------')
+  // console.log(photo)
+  // console.log(photo.hotspot)
+  // console.log(photo.crop)
+
+  const imageLoader = customLoader({ photo })
 
   const placeHolder = photo.lqip
   const _height = height || width / photo.aspectRatio
@@ -60,7 +72,7 @@ const Photo: React.FC<PhotoProps> = (props) => {
 
   if (layout === 'fill') {
     dynamicProps = { objectFit: 'cover' }
-    if (photo.hotspot) {
+    if (photo.hotspot && photo.crop) {
       dynamicProps.objectPosition = `${photo.hotspot.x * 100}% ${
         photo.hotspot.y * 100
       }%`
@@ -78,7 +90,7 @@ const Photo: React.FC<PhotoProps> = (props) => {
       {...dynamicProps}
       className={'photo ' + (className || '')}
       quality={quality}
-      loader={myLoader}
+      loader={imageLoader}
       src={photo.asset._ref}
       layout={_layout}
       alt={alt || 'image'}

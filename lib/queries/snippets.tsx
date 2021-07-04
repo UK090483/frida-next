@@ -14,7 +14,8 @@ export type ImageMetaResult = {
   alt: string | null
   asset: any
   customRation: number
-  hotspot: any
+  hotspot?: { x: number; y: number } | null
+  crop?: { bottom: number; top: number; right: number; left: number } | null
   id: string
   type: string
   aspectRatio: number

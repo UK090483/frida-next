@@ -1,4 +1,3 @@
-// import { getAllDocSlugs } from '@lib/api'
 import { shouldCash } from '@lib/constants'
 import { getSanityClient } from '@lib/sanity.server'
 import { cache } from './cache'

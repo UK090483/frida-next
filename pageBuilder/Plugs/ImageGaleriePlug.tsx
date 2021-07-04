@@ -19,11 +19,9 @@ export interface ImageGalleryPlugResult {
   _type: 'imageGalleryPlug'
   _key: string
   items: ImageMetaResult[]
-
   rows?: number
   rows_mobile?: number
   ratio: '1:1' | '16:9' | '2:3' | '3:2'
-  photo: any
 }
 
 const ImageGalleryPlug: React.FC<ImageGalleryPlugResult> = (props) => {

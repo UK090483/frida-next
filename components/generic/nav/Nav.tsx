@@ -34,13 +34,21 @@ const Nav: React.FC<NavProps> = ({ items, lang }) => {
         <LangSwitch />
         <Burger onClick={toggleNav}></Burger>
       </div>
-      <Icon
+      <div className="absolute  right-frida_side md:top-20 md:right-frida_side_big pointer-events-auto">
+        <Icon
+          onClick={() => {
+            toggleCard()
+          }}
+          icon="cart"
+        />
+      </div>
+      {/* <Icon
         onClick={() => {
           toggleCard()
         }}
         icon="cart"
-        className="absolute top-10 right-frida_side md:top-20 md:right-frida_side_big pointer-events-auto"
-      />
+        className="absolute  right-frida_side md:top-20 md:right-frida_side_big pointer-events-auto"
+      /> */}
       <div
         onMouseEnter={() => {
           setMouse('color', false)

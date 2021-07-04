@@ -9,6 +9,7 @@ export const artistCardQuery = `
      'photo':*[_type == 'artwork'  && references(^._id) ][0].image {${imageMeta}},
      'stil':*[_type == 'artwork' && references(^._id)].stil->name
 `
+
 export type ArtistCardResult = {
   name: string
   slug: string
