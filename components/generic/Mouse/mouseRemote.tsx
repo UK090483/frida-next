@@ -2,7 +2,7 @@ import MouseClassNames from './classNames'
 
 let mouseNeeded = false
 
-const throttle = throttled(20, (mouse, e) => {
+const throttle = throttled(30, (mouse, e) => {
   mouse.style.left = e.pageX - 15 + 'px'
   mouse.style.top = e.pageY - 15 + 'px'
 })

@@ -4,15 +4,11 @@ import { mouseLinkProps } from '../Mouse/mouseRemote'
 import { m } from 'framer-motion'
 import { FridaLocation } from 'types'
 import { useToggleMegaNav } from '@lib/context/useUi'
+import { NavItems } from './Nav'
 
 const Links: React.FC<{
   open: boolean
-  items: {
-    internalLink: null | string
-    link: null | string
-    label: null | string
-    label_en: null | string
-  }[]
+  items: NavItems[]
   lang: FridaLocation
 }> = ({ open, items, lang }) => {
   const toggleNav = useToggleMegaNav()

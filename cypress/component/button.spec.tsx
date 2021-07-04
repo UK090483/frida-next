@@ -4,8 +4,6 @@ import { mount } from '@cypress/react'
 import Button from '../../components/buttons/button'
 
 describe('<Button />', () => {
-
-  
   beforeEach(() => {
     // given
     mount(
@@ -16,7 +14,10 @@ describe('<Button />', () => {
           return
         }}
       />,
-      {}
+      {
+        stylesheet:
+          'http://localhost:33755/__cypress/iframes//home/konrad/Schreibtisch/WepProjects/frida-next/tailwind.css',
+      }
     )
   })
 

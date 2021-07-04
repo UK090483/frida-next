@@ -9,8 +9,14 @@ import Icon from 'components/Icon'
 import useToggleCart from '@lib/context/useToggleCart'
 import { useToggleMegaNav } from '@lib/context/useUi'
 
+export type NavItems = {
+  internalLink: null | string
+  link: null | string
+  label: null | string
+  label_en: null | string
+}
 type NavProps = {
-  items: any[]
+  items: NavItems[]
   lang: FridaLocation
 }
 
