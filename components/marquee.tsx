@@ -3,6 +3,7 @@ import { useIntersection } from 'use-intersection'
 import Marq from 'react-fast-marquee'
 import Photo from '@components/Photo'
 import { FridaColors, FridaLocation } from 'types'
+import { ImageMetaResult } from '@lib/queries/snippets'
 
 type TextItem = {
   _type: 'simple'
@@ -11,7 +12,7 @@ type TextItem = {
 }
 type imageItem = {
   _type: 'photo'
-  photo: any
+  photo: null | ImageMetaResult
 }
 
 interface MarqueeProps {
@@ -30,7 +31,7 @@ interface MarqueeProps {
 
 const Marquee: React.FC<MarqueeProps> = ({ data = {}, lang }) => {
   const {
-    items,
+    items = [],
     speed,
     reverse,
     pauseable,
@@ -39,8 +40,6 @@ const Marquee: React.FC<MarqueeProps> = ({ data = {}, lang }) => {
     color = 'black',
     colorHover = 'black',
   } = data
-
-  if (!items?.length) return null
 
   const marqueeRef = useRef<HTMLDivElement | null>(null)
   const isIntersecting = useIntersection(marqueeRef, {
@@ -63,13 +62,12 @@ const Marquee: React.FC<MarqueeProps> = ({ data = {}, lang }) => {
         {[...items, ...items, ...items, ...items].map((item, key) => {
           switch (item._type) {
             case 'simple':
-              const { text, text_en } = item
               return (
                 <div
                   key={key}
                   className={`header-small w-fit-content flex items-center`}
                 >
-                  {lang === 'en' && text_en ? text_en : text}
+                  {lang === 'en' && item.text_en ? item.text_en : item.text}
                 </div>
               )
             case 'photo':
@@ -77,9 +75,10 @@ const Marquee: React.FC<MarqueeProps> = ({ data = {}, lang }) => {
                 <div
                   key={key}
                   className="relative  w-vw/3 md:w-vw/6  "
-                  style={{ flex: item.photo.aspectRatio }}
+                  style={{ flex: item.photo?.aspectRatio }}
                 >
                   <Photo
+                    loading="eager"
                     photo={item.photo}
                     hasPlaceholder={false}
                     forceLoad={isIntersecting}

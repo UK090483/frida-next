@@ -10,7 +10,7 @@ import {
 } from 'PageTypes/Artwork/ArtworkCard'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import React from 'react'
-import { FridaLocation } from 'types'
+import { FridaColors, FridaLocation } from 'types'
 import { SiteResult } from '@lib/queries/cache'
 import { body, PageBodyResult } from 'pageBuilder/pageBuilderQueries'
 import { imageMeta, ImageMetaResult } from '@lib/queries/snippets'
@@ -18,6 +18,7 @@ import { imageMeta, ImageMetaResult } from '@lib/queries/snippets'
 export const artistSingleView = `
 ...,
 ${body}
+initBgColor,
 'prevImage':prevImage{${imageMeta}},
 'mainImage':mainImage{${imageMeta}},
 'imageGallery':imageGallery[]{${imageMeta}},
@@ -34,6 +35,7 @@ instagramLink,
 `
 
 export type ArtistPageResult = {
+  initBgColor: FridaColors
   slug: string
   name: string | null
   prevImage: ImageMetaResult | null
@@ -71,6 +73,7 @@ const ArtworkTemplate: React.FC<ArtworkTemplateProps> = (props) => {
   return (
     <>
       <Layout
+        initialColor={data?.initBgColor ? data.initBgColor : 'white'}
         preview={preview}
         lang={lang}
         title={pageData.name || ''}

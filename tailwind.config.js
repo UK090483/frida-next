@@ -1,11 +1,11 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {
-   mode: 'jit',
+    mode: 'jit',
   purge: {
     content: [
       './components/**/*.tsx',
-      './contentTypes/**/*.tsx',
+      './PageTypes/**/*.tsx',
       './pages/**/*.tsx',
       './pageBuilder/**/*.tsx',
     ],

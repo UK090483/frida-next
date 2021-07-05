@@ -16,6 +16,7 @@ interface PhotoProps {
   forceLoad?: boolean
   className?: string
   quality?: number
+  loading?: 'eager' | 'lazy'
 }
 
 const customLoader: (props: { photo: ImageMetaResult }) => ImageLoader = ({
@@ -44,6 +45,7 @@ const Photo: React.FC<PhotoProps> = (props) => {
     layout = 'responsive',
     quality = 75,
     className,
+    loading = 'lazy',
   } = props
 
   if (!photo) return null
@@ -87,6 +89,7 @@ const Photo: React.FC<PhotoProps> = (props) => {
 
   return (
     <Image
+      loading={loading}
       {...dynamicProps}
       className={'photo ' + (className || '')}
       quality={quality}

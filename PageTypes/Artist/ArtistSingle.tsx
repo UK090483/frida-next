@@ -8,14 +8,16 @@ import classNames from 'classnames'
 import ArtworkCard from 'PageTypes/Artwork/ArtworkCard'
 import BodyParser from 'pageBuilder/BodyParser'
 import React from 'react'
-import { FridaLocation } from 'types'
+import { FridaColors, FridaLocation } from 'types'
 
 interface ArtistSingleProps extends ArtistPageResult {
   lang: FridaLocation
 }
 
 const ArtistSingle: React.FC<ArtistSingleProps> = (props) => {
-  const { relatedArtworks, lang, content, mainImage } = props
+  const { relatedArtworks, lang, content, mainImage, initBgColor } = props
+
+  const _initBgColor = initBgColor ? initBgColor : 'white'
 
   const heroImage =
     mainImage && mainImage.asset
@@ -28,7 +30,9 @@ const ArtistSingle: React.FC<ArtistSingleProps> = (props) => {
         lang={lang}
         content={content}
         extraComponents={{
-          artistHero: <ArtistHero photo={heroImage} />,
+          artistHero: (
+            <ArtistHero photo={heroImage} initBgColor={_initBgColor} />
+          ),
           artistInfo: <ArtistInfo {...props} />,
           artistWorks: <ArtistWorks {...props} />,
           artistImages: <ArtistImages {...props} />,
@@ -39,7 +43,7 @@ const ArtistSingle: React.FC<ArtistSingleProps> = (props) => {
 
   return (
     <>
-      <ArtistHero photo={heroImage} />
+      <ArtistHero photo={heroImage} initBgColor={_initBgColor} />
       <ArtistInfo {...props} />
       <ArtistImages {...props} />
       <ArtistWorks {...props} />
@@ -51,10 +55,11 @@ export default ArtistSingle
 
 type ArtistHeroProps = {
   photo?: ImageMetaResult
+  initBgColor: FridaColors
 }
-const ArtistHero: React.FC<ArtistHeroProps> = ({ photo }) => {
+const ArtistHero: React.FC<ArtistHeroProps> = ({ photo, initBgColor }) => {
   return (
-    <div data-color="white">
+    <div data-color={initBgColor}>
       {photo && (
         <div className="h-vh w-full">
           <Photo photo={photo} layout="fill" />
@@ -73,8 +78,12 @@ const ArtistInfo: React.FC<ArtistSingleProps> = (props) => {
   return (
     <>
       <Section className="pb-20" backgroundColor="white" type="text">
-        <h1 className="header-medium text-frida-pink pt-10 pb-8">
-          <span className="text-frida-black">#Meet</span>
+        <h1
+          className={`${
+            name && name.length < 10 ? 'header-medium' : 'header-small'
+          }  text-frida-pink pt-10 pb-8`}
+        >
+          <span className="text-frida-black">Meet</span>
           {name}
         </h1>
         {_description && <p className="text-base-fluid">{_description}</p>}
@@ -106,14 +115,18 @@ const ArtistInfo: React.FC<ArtistSingleProps> = (props) => {
 }
 
 const ArtistImages: React.FC<ArtistSingleProps> = (props) => {
-  const { relatedArtworks } = props
+  const { relatedArtworks, imageGallery } = props
+  const _gallery = imageGallery
+    ? imageGallery
+    : relatedArtworks.map((i) => i.photo).slice(2, 4)
+
   return (
     <Section>
       <div className="flex flex-row flex-wrap md:grid  grid-cols-11 grid-rows-5  w-full h-vh py-12">
-        {relatedArtworks.slice(2, 4).map((item, index) => {
+        {_gallery.map((item, index) => {
           return (
             <div
-              key={item.slug}
+              key={index}
               className={classNames(
                 `relative w-full`,
                 {
@@ -124,7 +137,7 @@ const ArtistImages: React.FC<ArtistSingleProps> = (props) => {
                 }
               )}
             >
-              {<Photo photo={item.photo} layout="fill" />}
+              {<Photo photo={item} layout="fill" />}
             </div>
           )
         })}

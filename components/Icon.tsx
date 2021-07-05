@@ -6,21 +6,16 @@
 import { MailIcon, ShareIcon } from '@heroicons/react/outline'
 import {
   ArrowNarrowLeftIcon,
-  ArrowNarrowRightIcon,
-  MenuIcon,
-  XIcon,
-  PlusIcon,
   MinusIcon,
-  ShoppingBagIcon,
+  PlusIcon,
 } from '@heroicons/react/solid'
-
-import { BiShoppingBag } from 'react-icons/bi'
 import classNames from 'classnames'
 import React from 'react'
 import { FaFacebook, FaTwitter, FaWhatsapp } from 'react-icons/fa'
 import { GoCreditCard } from 'react-icons/go'
 import { FridaColors } from 'types'
 import { mouseLinkProps } from './generic/Mouse/mouseRemote'
+
 // import { getIcon } from './svgs'
 
 interface IconsObject {

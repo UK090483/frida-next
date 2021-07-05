@@ -77,9 +77,7 @@
   h2,
   h3,
   h4 {
-    @apply break-normal pb-4;
-
-    hyphens: auto;
+    @apply break-words pb-4;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;

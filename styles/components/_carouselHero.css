@@ -6,7 +6,7 @@
   }
   &--content {
 
-    @apply p-10 w-full md:w-1/2 flex  items-center h-vh/2 md:h-vh-90;
+    @apply p-10 w-full md:w-1/2  flex  items-center h-vh/2 md:h-vh-90;
    
   }
 

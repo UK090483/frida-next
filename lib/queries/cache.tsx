@@ -83,6 +83,7 @@ class SiteCash {
       : 'http://localhost:3000/build.cache.json'
 
   getData = async (isPreview = false) => {
+    console.log(`get Data isPrev: ${isPreview}`)
     if (isPreview) {
       return await this.getPreviewCache()
     }

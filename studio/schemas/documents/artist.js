@@ -47,6 +47,21 @@ export default {
       fieldset: 'images'
     },
     {
+      title: "Approximate Background Color of MainImage",
+      name: "initBgColor",
+      type: "string",
+      options: {
+        list: [
+          { title: "White", value: "white" },
+          { title: "Pink", value: "pink" },
+          { title: "Black", value: "black" },
+        ],
+        layout: "radio",
+      },
+      fieldset: 'images'
+
+    },
+    {
       name:'imageGallery',
       type :'array',
       title:'Gallery',
