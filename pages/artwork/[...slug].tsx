@@ -31,7 +31,7 @@ const ArtworkTemplate: React.FC<TemplateProps<ArtworkSingleViewResult>> = (
       preview={preview}
       lang={lang}
       title={pageData.artistName || 'Frida'}
-      navItems={pageData.site.navigation.items}
+      navItems={pageData.site.navigation?.items}
       data={pageData}
     >
       <ArtworkSingle lang={lang} {...pageData} />

@@ -7,6 +7,7 @@ export default {
   title: 'Footer',
   icon: CgCardHearts,
   fields: [
+   
     {
       name: 'name',
       type: 'string',

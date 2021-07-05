@@ -49,14 +49,12 @@ export default {
     select: {
       asset: 'asset',
       alt: 'alt',
-      customRatio: 'customRatio'
+      
     },
-    prepare({ alt, customRatio, asset }) {
-      const crop = crops.find(crop => crop.value === customRatio)
-
+    prepare({ alt,  asset }) {
+     
       return {
         title: alt || '(alt text missing)',
-        subtitle: crop.title,
         media: asset
       }
     }

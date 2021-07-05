@@ -3,7 +3,7 @@ import { body, PageBodyResult } from 'pageBuilder/pageBuilderQueries'
 import { FridaColors } from 'types'
 
 export const pageQuery = `
-...,
+
 'slug':slug.current,
 footer->{${body}},
 ${body}
@@ -15,7 +15,7 @@ export type PageResult = {
   title?: string
   title_en?: string
   slug: null | string
-  footer?: any
+  footer?: PageBodyResult
   pageHeader?: null | {
     initialPageTitleColor: FridaColors
     hideMenu?: null | boolean

@@ -18,7 +18,11 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     maxAge: 2000000,
   })
 
-  const _slug = `${type === 'page' ? '' : `/${type}`}/${slug}?preview=true`
+  if (type === 'indexPage') {
+    return res.redirect('/')
+  }
+
+  const _slug = `${type === 'page' ? '' : `/${type}`}/${slug}`
 
   res.redirect(_slug)
 }

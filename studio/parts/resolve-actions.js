@@ -5,6 +5,7 @@ import defaultResolve, {
 } from 'part:@sanity/base/document-actions'
 
 import { FiEye } from 'react-icons/fi'
+import { defaultFooterId } from '../../shared'
 
 const remoteURL = window.location.protocol + '//' + window.location.hostname
 const localURL = 'http://localhost:3000'
@@ -24,7 +25,7 @@ const singletons = [
   'seoSettings'
 ]
 
-const singletonsID = ['3667a872-9775-477c-b33b-09370c28524f']
+const singletonsID = [defaultFooterId]
 
 const editAndDelete = ['product', 'productVariant']
 

@@ -32,12 +32,12 @@ const generateSeo: (
   document: Document,
   imageBuilder: ImageUrlBuilder
 ) => any = (defaultSeo, document, imageBuilder) => {
-  let metaTitle = defaultSeo.metaTitle || ''
-  let metaDesc = defaultSeo.metaDesc || ''
-  let shareTitle = defaultSeo.shareTitle || ''
-  let shareDesc = defaultSeo.shareDesc || ''
-  let shareGraphic = defaultSeo.shareGraphic
-  const siteTitle = defaultSeo.siteTitle || 'MeetFrida'
+  let metaTitle = defaultSeo?.metaTitle || ''
+  let metaDesc = defaultSeo?.metaDesc || ''
+  let shareTitle = defaultSeo?.shareTitle || ''
+  let shareDesc = defaultSeo?.shareDesc || ''
+  let shareGraphic = defaultSeo?.shareGraphic
+  const siteTitle = defaultSeo?.siteTitle || 'MeetFrida'
   let url = 'https://meetfrida.art/'
   const docSeo = document.seo
 

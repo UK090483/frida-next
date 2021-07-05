@@ -7,7 +7,7 @@ export default {
   type: 'object',
   fields: [
     { name: 'label', type: 'string', title: 'Label' },
-
+    { name: 'label_en', type: 'string', title: 'Label En' },
     {
       title: 'Internal link',
       description: 'Use this to link between pages on the website',

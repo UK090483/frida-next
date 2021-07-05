@@ -4,6 +4,8 @@ import React from 'react'
 import { GalleryTypes } from 'types'
 
 export const artistCardQuery = `
+    'mainImage':mainImage {${imageMeta}},
+    'prevImage':prevImage {${imageMeta}},
     'slug':slug.current,
     'name':anzeigeName,
      'photo':*[_type == 'artwork'  && references(^._id) ][0].image {${imageMeta}},
@@ -11,9 +13,11 @@ export const artistCardQuery = `
 `
 
 export type ArtistCardResult = {
+  prevImage: ImageMetaResult | null
+  mainImage: ImageMetaResult | null
   name: string
   slug: string
-  photo: ImageMetaResult
+  photo: ImageMetaResult | null
   stil: string[]
 }
 
@@ -23,8 +27,9 @@ interface ArtistCardProps extends ArtistCardResult {
 }
 
 const ArtistCard: React.FC<ArtistCardProps> = (props) => {
-  const { name, photo, slug, isSwiping, type } = props
-  if (!photo) return null
+  const { name, photo, slug, isSwiping, type, prevImage, mainImage } = props
+
+  const _photo = prevImage || mainImage || photo
 
   return (
     <Card
@@ -32,7 +37,7 @@ const ArtistCard: React.FC<ArtistCardProps> = (props) => {
       slug={slug}
       type="artist"
       galleryType={type}
-      photo={photo}
+      photo={_photo}
       title={name}
       layout="fill"
       alt={`Artist ${name}`}

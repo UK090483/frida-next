@@ -10,7 +10,7 @@ export default function resolveProductionUrl(document) {
     case 'page':
       return `${url}&slug=${document.slug.current}&type=page`
     case 'indexPage':
-      return `${url}&slug=''&type=page`
+      return `${url}&slug=''&type=indexPage`
     case 'artwork':
       return `${url}&slug=${document.slug.current}&type=artwork`
     case 'post':

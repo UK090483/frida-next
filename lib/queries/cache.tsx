@@ -7,6 +7,7 @@ import {
 } from 'PageTypes/Artwork/ArtworkCard'
 import { accessCache } from 'next-build-cache'
 import { body, PageBodyResult } from '../../pageBuilder/pageBuilderQueries'
+import { defaultFooterId } from 'shared'
 
 export const cache = accessCache('public/build.cache.json')
 
@@ -19,7 +20,7 @@ const cashQuery = `
     ${artistCardQuery}
   },
   'site':{
-    'footer':*[_type=='footer' && _id== '3667a872-9775-477c-b33b-09370c28524f' ][0]{${body}},
+    'footer':*[_type=='footer' && _id== '${defaultFooterId}' ][0]{${body}},
     "seo": *[_type == "seoSettings"][0]{
       siteTitle,
       metaTitle,
@@ -54,13 +55,14 @@ export type SiteResult = {
     shareDesc: string | null
     shareGraphic: any | null
   }
-  navigation: {
+  navigation: null | {
     items: {
       label: string
       label_en: string | null
       link: string | null
       internalLink: string | null
     }[]
+
     agbSite?: string | null
     imprintSite?: string | null
   }

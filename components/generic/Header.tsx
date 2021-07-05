@@ -11,7 +11,7 @@ type HeaderProps = {
   nav?: boolean
   initialColor?: FridaColors
   link?: boolean
-  navItems: any[]
+  navItems?: null | any[]
   lang: FridaLocation
 }
 
@@ -36,7 +36,7 @@ const Header: React.FC<HeaderProps> = ({
         ></PageTitle>
       )}
       {children}
-      {nav && <Nav items={navItems} lang={lang} />}
+      {nav && navItems && <Nav items={navItems} lang={lang} />}
     </div>
   </header>
 )

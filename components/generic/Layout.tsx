@@ -3,7 +3,6 @@ import { m, Variants } from 'framer-motion'
 import { useRouter } from 'next/router'
 import BodyParser from 'pageBuilder/BodyParser'
 import React from 'react'
-import useSWR from 'swr'
 import { FridaColors, FridaLocation } from 'types'
 import Footer from './Footer'
 import Header from './Header'
@@ -58,7 +57,7 @@ const Layout: React.FC<LayoutProps> = (props) => {
   //@ts-ignore
   const footer = data.footer || data.site.footer
 
-  const navItems = data.site.navigation.items
+  const navItems = data.site.navigation?.items
 
   return (
     <>
@@ -86,8 +85,8 @@ const Layout: React.FC<LayoutProps> = (props) => {
         {/* <CookieConsent /> */}
         {footer && <BodyParser lang={props.lang} content={footer.content} />}
         <Footer
-          imprintSlug={data.site.navigation.imprintSite}
-          agbSlug={data.site.navigation.agbSite}
+          imprintSlug={data.site.navigation?.imprintSite}
+          agbSlug={data.site.navigation?.agbSite}
         />
       </m.div>
       <Mouse />
