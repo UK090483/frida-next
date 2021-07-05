@@ -73,7 +73,10 @@ const Nav: React.FC<NavProps> = ({ items, lang }) => {
             bgColor="black"
             color="white"
             className="absolute top-2 mr-frida_side right-0 md:top-6  md:mr-8 border-frida-white border-3"
-            onClick={toggleNav}
+            onClick={() => {
+              console.log('click')
+              toggleNav()
+            }}
           />
         )}
         <BigButtons open={isOpen}></BigButtons>

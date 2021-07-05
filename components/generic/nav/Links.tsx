@@ -48,7 +48,6 @@ const Links: React.FC<{
         variants={container}
         {...mouseLinkProps}
         onClick={() => {
-          // enableBodyScroll()
           toggleNav()
         }}
         className="relative pt-20 pl-8 md:pl-32 list-none"
