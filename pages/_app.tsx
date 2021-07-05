@@ -17,6 +17,7 @@ import type {
 const MyApp = ({ Component, pageProps, router }: AppProps) => {
   const [isLoading, setLoading] = useState(false)
 
+  console.log(process.env.BLA)
   // The scroll location on the page is not restored on history changes
   useEffect(() => {
     window.history.scrollRestoration = 'manual'

@@ -41,7 +41,14 @@ const Button: React.FC<LinkProps | ClickProps> = (props) => {
     { 'is-large': size === 'l' },
     { 'is-medium': size === 'm' },
     { 'is-small': size === 's' },
-    `text-frida-${color}  hover:text-frida-${backgroundColor} hover:bg-frida-${color}  border-solid border-frida-${color}   `
+    { 'text-frida-red hover:bg-frida-red': color === 'red' },
+    { 'text-frida-black hover:bg-frida-black': color === 'black' },
+    { 'text-frida-pink hover:bg-frida-pink': color === 'pink' },
+    { 'text-frida-white hover:bg-frida-white': color === 'white' },
+    { 'hover:text-frida-red': backgroundColor === 'red' },
+    { 'hover:text-frida-black': backgroundColor === 'black' },
+    { 'hover:text-frida-pink': backgroundColor === 'pink' },
+    { 'hover:text-frida-white': backgroundColor === 'white' }
   )
 
   if (props.type === 'link') {

@@ -33,9 +33,10 @@ async function fetchSanityRedirects() {
   return redirects
 }
 
-module.exports = withPreact({
+module.exports =(bla)=>withPreact({
+  
   webpack(config, options) {
-    const { dev, isServer, buildId, webpack } = options
+    const { dev, isServer, buildId, webpack, } = options
 
     config.experiments= {
       topLevelAwait: true
@@ -73,6 +74,7 @@ module.exports = withPreact({
     SANITY_PROJECT_DATASET: process.env.SANITY_PROJECT_DATASET,
     SANITY_PROJECT_ID: process.env.SANITY_PROJECT_ID,
     SANITY_API_TOKEN: process.env.SANITY_API_TOKEN,
+    BLA:bla,
 
     // Needed for Shopify product syncs
     SHOPIFY_STORE_ID: process.env.SHOPIFY_STORE_ID,

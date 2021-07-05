@@ -10,7 +10,7 @@ type PageTitleProps = {
   title: string
   color: FridaColors
   link: boolean
-  initialColor: FridaColors
+  initialColor: FridaColors | 'white/pink'
 }
 
 const PageTitle: React.FC<PageTitleProps> = ({
@@ -18,7 +18,7 @@ const PageTitle: React.FC<PageTitleProps> = ({
   link,
   initialColor = 'white',
 }) => {
-  const ref = useRef<null | HTMLDivElement>(null)
+  const ref = useRef<null | HTMLAnchorElement>(null)
   const observers = useRef<IntersectionObserver[]>([])
   const [bgCurrent, setBgCurrent] = React.useState<string | null>(null)
   const [counter, setCounter] = React.useState(0)
@@ -62,8 +62,8 @@ const PageTitle: React.FC<PageTitleProps> = ({
       condition={link}
       wrapperTrue={(children) => {
         return (
-          <Link href="/">
-            <div
+          <Link href="/" passHref>
+            <a
               className={classNames(
                 'font-bold text-md-fluid'
                 // { 'text-md-fluid ': title.length >= 16 },
@@ -78,7 +78,7 @@ const PageTitle: React.FC<PageTitleProps> = ({
               }}
             >
               {children}
-            </div>
+            </a>
           </Link>
         )
       }}
@@ -89,8 +89,20 @@ const PageTitle: React.FC<PageTitleProps> = ({
       <div {...mouseLinkProps} className={'pointer-events-auto'}>
         <Frida
           text={title}
-          textColor={bgCurrent ? getColor(bgCurrent).textColor : initialColor}
-          color={bgCurrent ? getColor(bgCurrent).color : 'black'}
+          textColor={
+            bgCurrent
+              ? getColor(bgCurrent).textColor
+              : initialColor === 'white/pink'
+              ? 'pink'
+              : 'white'
+          }
+          color={
+            bgCurrent
+              ? getColor(bgCurrent).color
+              : initialColor === 'white/pink'
+              ? 'white'
+              : 'black'
+          }
         ></Frida>
       </div>
     </ConditionalWrapper>

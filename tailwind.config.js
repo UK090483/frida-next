@@ -1,7 +1,7 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {
-    mode: 'jit',
+  mode: 'jit',
   purge: {
     content: [
       './components/**/*.tsx',
@@ -11,7 +11,6 @@ module.exports = {
     ],
     options: {
       safelist: [
-        
         'decoration-frida-black',
         'decoration-frida-pink',
         'decoration-frida-white',

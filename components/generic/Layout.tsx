@@ -35,7 +35,7 @@ type LayoutProps = {
   lang: FridaLocation
   title: string
   header?: string | React.ReactElement
-  initialColor?: FridaColors
+  initialColor?: FridaColors | 'white/pink'
   children: React.ReactNode
   navItems?: any
   data: { site: SiteResult }

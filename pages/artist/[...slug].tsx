@@ -70,10 +70,12 @@ const ArtworkTemplate: React.FC<ArtworkTemplateProps> = (props) => {
   if (isError) {
     return <Error />
   }
+
+  const _initialColor = pageData?.initBgColor ? data.initBgColor : 'white'
   return (
     <>
       <Layout
-        initialColor={data?.initBgColor ? data.initBgColor : 'white'}
+        initialColor={'black'}
         preview={preview}
         lang={lang}
         title={pageData.name || ''}

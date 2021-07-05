@@ -9,7 +9,7 @@ type HeaderProps = {
   title?: string
   left?: React.ReactNode
   nav?: boolean
-  initialColor?: FridaColors
+  initialColor?: FridaColors | 'white/pink'
   link?: boolean
   navItems?: null | any[]
   lang: FridaLocation
