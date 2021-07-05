@@ -1,6 +1,5 @@
 import { SiteResult } from '@lib/queries/cache'
 import { m, Variants } from 'framer-motion'
-import { useRouter } from 'next/router'
 import BodyParser from 'pageBuilder/BodyParser'
 import React from 'react'
 import { FridaColors, FridaLocation } from 'types'
@@ -98,18 +97,25 @@ const Layout: React.FC<LayoutProps> = (props) => {
 export default Layout
 
 const PreviewIndexer: React.FC = () => {
-  const router = useRouter()
-  const clear = () => {
-    fetch('/api/clearPreview').then(() => {
-      router.reload()
-    })
-  }
+  // const router = useRouter()
+  // const clear = () => {
+  //   fetch('/api/clearPreview').then(() => {
+  //     router.reload()
+  //   })
+  // }
   return (
-    <button
-      onClick={clear}
+    // eslint-disable-next-line @next/next/no-html-link-for-pages
+    <a
       className="fixed left-2 bottom-2 border-frida-red border-3 p-3 rounded-md "
+      href="/api/clearPreview"
     >
-      Preview Mode Active
-    </button>
+      Exit Preview
+    </a>
+    // <button
+    //   onClick={clear}
+
+    // >
+    //   Preview Mode Active
+    // </button>
   )
 }
