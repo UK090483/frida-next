@@ -50,6 +50,16 @@ const link = (props: any) => {
   )
 }
 
+const list = (props: any) => {
+  return (
+    <ul
+      className={`${'list-disc'} list-outside pl-8 text-base-fluid pb-3 leading-[1.1em]`}
+    >
+      {props.children}
+    </ul>
+  )
+}
+
 const classes: { [k: string]: string } = {
   'custom-header-big': 'header-big',
   'custom-header-medium': 'header-medium',
@@ -79,6 +89,7 @@ const BlockRenderer = (props: any) => {
 }
 
 const serializer = {
+  list,
   types: {
     button: ButtonPlug,
     embed: EmbedPlug,

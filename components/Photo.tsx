@@ -48,7 +48,7 @@ const Photo: React.FC<PhotoProps> = (props) => {
     loading = 'lazy',
   } = props
 
-  if (!photo) return null
+  if (!photo || !photo.asset) return null
   // console.log('-----------------------------')
   // console.log(photo)
   // console.log(photo.hotspot)
