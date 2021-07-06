@@ -34,7 +34,7 @@ const Nav: React.FC<NavProps> = ({ items, lang }) => {
         <LangSwitch />
         <Burger onClick={toggleNav}></Burger>
       </div>
-      <div className="absolute  right-frida_side md:top-20 md:right-frida_side_big pointer-events-auto">
+      <div className="absolute  right-frida_side top-12 md:top-20 md:right-frida_side_big pointer-events-auto">
         <Icon
           onClick={() => {
             toggleCard()

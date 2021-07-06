@@ -116,10 +116,13 @@ const ArtistInfo: React.FC<ArtistSingleProps> = (props) => {
 
 const ArtistImages: React.FC<ArtistSingleProps> = (props) => {
   const { relatedArtworks, imageGallery } = props
+
+  // const hasImageGallery = imageGallery && imageGallery.length > 0
   const _gallery = imageGallery
     ? imageGallery
     : relatedArtworks.map((i) => i.photo).slice(2, 4)
 
+  // console.log(imageGallery)
   return (
     <Section>
       <div className="flex flex-row flex-wrap md:grid  grid-cols-11 grid-rows-5  w-full h-vh py-12">

@@ -36,6 +36,7 @@ interface PostCardProps extends PostCardResult {
 
 const PostCard: React.FC<PostCardProps> = (props) => {
   const {
+    headerImage,
     previewImage,
     slug,
     title,
@@ -46,10 +47,12 @@ const PostCard: React.FC<PostCardProps> = (props) => {
     createdAt,
   } = props
 
-  if (!previewImage) return null
+  const _prevImage = previewImage ? previewImage : headerImage
+
+  if (!_prevImage) return null
 
   const _title = lang === 'en' && title_en ? title_en : title
-  // const _excerpt = lang === 'en' && excerpt_en ? excerpt_en : excerpt
+
   const _categories =
     lang === 'en' && categories_en ? categories_en : categories
 
@@ -65,7 +68,7 @@ const PostCard: React.FC<PostCardProps> = (props) => {
         </div>
 
         <div className=" relative w-full md:w-96 h-80 mx-auto">
-          <Photo photo={previewImage} layout="fill" />
+          <Photo photo={_prevImage} layout="fill" />
         </div>
       </a>
     </Link>
