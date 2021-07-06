@@ -21,7 +21,18 @@ export default {
             : true
         )
       }
-    }
+    },
+    {
+      title: "Fillmode",
+      name: "fill",
+      type: "string",
+      options: {
+        list: [
+          { title: "Fill", value: "fill" },
+          { title: "Contain", value: "contain" },
+        ],
+      },
+    },
   ],
   preview: {
     select: {

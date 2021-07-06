@@ -8,19 +8,21 @@ _type == "imageGalleryPlug" => {
   ...,
   _type,
   _key,
-  'items':items[]{${imageMeta}},
+  'items':items[]{${imageMeta},fill},
   rows,
   rows_mobile,
   ratio,
   
 }
 `
+
 export interface ImageGalleryPlugResult {
   _type: 'imageGalleryPlug'
   _key: string
   items: ImageMetaResult[]
   rows?: number
   rows_mobile?: number
+
   ratio: '1:1' | '16:9' | '2:3' | '3:2'
 }
 
@@ -52,13 +54,10 @@ const ImageGalleryPlug: React.FC<ImageGalleryPlugResult> = (props) => {
     >
       {items.map((photo) => {
         return (
-          <Photo
+          <div
             key={photo.id}
-            srcSizes={[300]}
-            photo={photo}
-            layout="fill"
             className={classNames(
-              'w-full ',
+              'w-full',
               {
                 'aspect-w-10 aspect-h-10': ratio === '1:1',
               },
@@ -72,7 +71,13 @@ const ImageGalleryPlug: React.FC<ImageGalleryPlugResult> = (props) => {
                 'aspect-w-2 aspect-h-3': ratio === '2:3',
               }
             )}
-          />
+          >
+            <Photo
+              srcSizes={[300]}
+              photo={photo}
+              layout={photo.fill || 'contain'}
+            />
+          </div>
         )
       })}
     </div>

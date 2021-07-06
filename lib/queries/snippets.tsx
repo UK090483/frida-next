@@ -20,6 +20,7 @@ export type ImageMetaResult = {
   type: string
   aspectRatio: number
   lqip: string
+  fill?: 'fill' | 'contain'
 }
 
 export type SeoResult = {
