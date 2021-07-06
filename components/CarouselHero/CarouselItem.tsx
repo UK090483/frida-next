@@ -4,7 +4,7 @@ import Section from '../Section'
 import { CarouselHeroItem } from './CarouselHero'
 
 const CarouselItem: React.FC<CarouselHeroItem> = (props) => {
-  const { color, image, content } = props
+  const { color = 'white', image, content } = props
 
   return (
     <Section type="full" backgroundColor={color}>

@@ -59,7 +59,7 @@ const PostSingle: React.FC<PostSingleProps> = (props) => {
       ? lang === 'en'
         ? categories[0].title_en
         : categories[0].title
-      : 'no Category'
+      : 'Frida'
 
   const _title = lang === 'en' && title_en ? title_en : title
 
@@ -73,7 +73,7 @@ const PostSingle: React.FC<PostSingleProps> = (props) => {
         navItems={site?.navigation?.items}
         data={props}
       >
-        <div className="flex h-vh flex-wrap  bg-frida-white">
+        <div data-color="pink" className="flex h-vh flex-wrap  bg-frida-pink">
           <div className="w-full  md:w-1/2 flex justify-center items-center p-20 mt-28">
             <h1 className="header-small pb-10">{_title}</h1>
           </div>
