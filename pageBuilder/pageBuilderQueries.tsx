@@ -41,6 +41,7 @@ import { ImageGalleryPlugResult } from 'pageBuilder/Plugs/ImageGaleriePlug'
 import { ImagePlugResult } from 'pageBuilder/Plugs/ImagePlug'
 import { SeoHeaderPlugResult } from 'pageBuilder/Plugs/SeoHeader'
 import { InnerSectionPlugResult } from './Plugs/innerSection'
+import { SpacerPlugResult } from './Plugs/Spacer'
 
 export type PageBuilderBlockBase = {
   _type: string
@@ -80,4 +81,5 @@ export type PageBodyResult = (
   | QuotesBlockResult
   | ImageGalleryPlugResult
   | InnerSectionPlugResult
+  | SpacerPlugResult
 )[]

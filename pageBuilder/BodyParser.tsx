@@ -52,6 +52,7 @@ import ComponentNotFound from './component_not_found'
 import { FridaLocation } from 'types'
 import { PageBodyResult } from './pageBuilderQueries'
 import InnerSectionPlug from './Plugs/innerSection'
+import SpacerPlug from './Plugs/Spacer'
 
 type ContentParserProps = {
   content: PageBodyResult
@@ -105,6 +106,8 @@ const BodyParser: React.FC<ContentParserProps> = (props) => {
               return <ImageGalleryPlug {...blok} key={blok._key} />
             case 'innerSection':
               return <InnerSectionPlug {...blok} key={blok._key} />
+            case 'spacer':
+              return <SpacerPlug {...blok} key={blok._key} />
 
             default:
               return (

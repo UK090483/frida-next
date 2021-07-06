@@ -69,14 +69,8 @@ import productCartPhotos from './objects/product-cart-photos'
 import productOption from './objects/product-option'
 import productOptionValue from './objects/product-option-value'
 import productOptionSettings from './objects/product-option-settings'
-
 import simplePortableText from './objects/portable-simple'
-
 import productHint from './objects/productHint'
-
-// Plugs
-
-
 
 const objects = [
   Seo,
@@ -115,10 +109,10 @@ import Artists from './pageComponents/Artists'
 import Posts from './pageComponents/Posts'
 import Products from './pageComponents/Products'
 
-
 import marquee from './pageComponents/marquee'
 import Quotes from './pageComponents/Quotes'
 
+// Plugs
 import Button from './pageComponents/plugs/Button'
 import image from './pageComponents/plugs/Image'
 import SeoHeader from './pageComponents/plugs/SeoHeader'
@@ -127,16 +121,15 @@ import imageGallery from './pageComponents/plugs/ImageGallery'
 import innerSection from './pageComponents/plugs/innerSection'
 import innerSectionItem from './pageComponents/plugs/innerSectionItem'
 
+
 const pageComponents = [
   Section,
   CarouselHero,
   Categories,
-
   Artworks,
   Artists,
   Posts,
   Products,
-
   Button,
   image,
   SeoHeader,
@@ -144,7 +137,6 @@ const pageComponents = [
   imageGallery,
   Quotes,
   marquee,
- 
 ]
 
 export default createSchema({

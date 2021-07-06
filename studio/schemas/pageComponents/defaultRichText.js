@@ -183,7 +183,7 @@ export default {
               render: props => {
                 return (
                   <span>
-                    #Meet
+                    Meet
                     <span style={{ textDecoration: 'underline' }}>
                       {props.children}
                     </span>
@@ -200,6 +200,7 @@ export default {
     { type: 'imagePlug' },
     { type: 'seoHeader' },
     { type: 'imageGalleryPlug' },
-    { type: 'innerSection' }
+    { type: 'innerSection' },
+    { type: 'spacer' }
   ]
 }
