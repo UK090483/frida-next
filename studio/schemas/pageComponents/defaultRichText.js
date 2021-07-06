@@ -126,6 +126,41 @@ export default {
         ],
         annotations: [
           {
+            name: 'link',
+            type: 'object',
+            title: 'Link',
+            fields: [
+              // {
+              //   title: 'Internal link',
+              //   description: 'Use this to link between pages on the website',
+              //   name: 'internalLink',
+              //   type: 'reference',
+              //   to: [
+              //     { type: 'indexPage' },
+              //     { type: 'page' },
+              //     { type: 'artwork' },
+              //     { type: 'artist' }
+              //   ]
+              // },
+              {
+                title: 'External link',
+                name: 'link',
+                type: 'url'
+              },
+            ],
+            blockEditor: {
+              icon: () => 'Hyper',
+              render: props => {
+                return (
+                  <a style={{textDecoration:'underline', color:'red'}}>
+                      {props.children}
+                    
+                  </a>
+                )
+              }
+            }
+          },
+          {
             name: 'frida',
             type: 'object',
             title: 'Frida',
@@ -144,7 +179,7 @@ export default {
               }
             ],
             blockEditor: {
-              icon: () => 'Frida',
+             
               render: props => {
                 return (
                   <span>

@@ -1,3 +1,4 @@
+import { mouseLinkProps } from '@components/generic/Mouse/mouseRemote'
 // @ts-ignore
 import BlockContent from '@sanity/block-content-to-react'
 import { imageGalleryPlugQuery } from 'pageBuilder/Plugs/ImageGaleriePlug'
@@ -34,6 +35,19 @@ const white = (props: any) => {
 }
 const frida = (props: any) => {
   return <Frida textColor={props.mark.color} text={props.children} />
+}
+const link = (props: any) => {
+  return (
+    <a
+      {...mouseLinkProps}
+      target="_blank"
+      rel="noreferrer"
+      href={props?.mark?.link}
+      className="text-frida-red underline"
+    >
+      {props.children}
+    </a>
+  )
 }
 
 const classes: { [k: string]: string } = {
@@ -74,6 +88,7 @@ const serializer = {
     pink,
     white,
     frida,
+    link,
   },
 }
 
