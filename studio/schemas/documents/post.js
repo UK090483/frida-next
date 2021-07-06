@@ -57,6 +57,11 @@ export default {
       ]
     },
     {
+      name: 'default_header',
+      type: 'boolean',
+      title: 'Use default Header',
+    },
+    {
       name: 'content',
       type: 'array',
       title: 'Page sections',

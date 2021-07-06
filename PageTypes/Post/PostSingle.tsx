@@ -9,6 +9,7 @@ import { FridaLocation } from 'types'
 import Photo from '@components/Photo'
 
 export const postSingleView = `
+...,
 title,
 title_en,
 'createdAt':_createdAt,
@@ -33,6 +34,7 @@ export type PostPageResult = {
   headerImage: ImageMetaResult
   previewImage: ImageMetaResult | null
   content: null | PageBodyResult
+  default_header?: null | boolean
   site: SiteResult
 }
 
@@ -49,7 +51,7 @@ const PostSingle: React.FC<PostSingleProps> = (props) => {
     title,
     title_en,
     site,
-
+    default_header,
     preview = false,
     categories,
   } = props
@@ -73,15 +75,17 @@ const PostSingle: React.FC<PostSingleProps> = (props) => {
         navItems={site?.navigation?.items}
         data={props}
       >
-        <div data-color="pink" className="flex h-vh flex-wrap  bg-frida-pink">
-          <div className="w-full  md:w-1/2 flex justify-center items-center p-20 mt-28">
-            <h1 className="header-small pb-10">{_title}</h1>
-          </div>
+        {default_header !== false && (
+          <div data-color="pink" className="flex h-vh flex-wrap  bg-frida-pink">
+            <div className="w-full  md:w-1/2 flex justify-center items-center p-20 mt-28">
+              <h1 className="header-small pb-10">{_title}</h1>
+            </div>
 
-          <div className="relative w-full  md:w-1/2">
-            <Photo photo={headerImage} layout="fill" />
+            <div className="relative w-full  md:w-1/2">
+              <Photo photo={headerImage} layout="fill" />
+            </div>
           </div>
-        </div>
+        )}
 
         {content && <BodyParser lang={lang} content={content} />}
       </Layout>
