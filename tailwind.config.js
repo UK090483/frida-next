@@ -119,6 +119,7 @@ module.exports = {
         // 'frida-grey': '#3c3c3e',
       },
       height: {
+        heroMin: '700px',
         vh: '100vh',
         'vh/2': '50vh',
         'vh/3': 'calc(100vh / 3)',

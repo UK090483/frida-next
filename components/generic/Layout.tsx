@@ -37,7 +37,7 @@ type LayoutProps = {
   initialColor?: FridaColors | 'white/pink'
   children: React.ReactNode
   navItems?: any
-  data: { site: SiteResult }
+  data?: { site: SiteResult }
   preview: boolean
   page?: any
   schema?: any
@@ -54,13 +54,13 @@ const Layout: React.FC<LayoutProps> = (props) => {
   } = props
 
   //@ts-ignore
-  const footer = data.footer || data.site.footer
+  const footer = data?.footer || data?.site.footer
 
-  const navItems = data.site.navigation?.items
+  const navItems = data?.site.navigation?.items
 
   return (
     <>
-      {data.site && <SEO site={data.site} page={data} />}
+      {data?.site && <SEO site={data.site} page={data} />}
 
       <m.div
         key={title}
@@ -84,8 +84,8 @@ const Layout: React.FC<LayoutProps> = (props) => {
         {/* <CookieConsent /> */}
         {footer && <BodyParser lang={props.lang} content={footer.content} />}
         <Footer
-          imprintSlug={data.site.navigation?.imprintSite}
-          agbSlug={data.site.navigation?.agbSite}
+          imprintSlug={data?.site.navigation?.imprintSite}
+          agbSlug={data?.site.navigation?.agbSite}
         />
       </m.div>
       <Mouse />

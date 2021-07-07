@@ -22,7 +22,7 @@ const singletons = [
   'headerSettings',
   'footerSettings',
   'cartSettings',
-  'seoSettings'
+   'seoSettings'
 ]
 
 const singletonsID = [defaultFooterId]
@@ -53,6 +53,7 @@ export default function resolveDocumentActions(props) {
   const canPreview = previews.indexOf(props.type) > -1
   const isSingleID = singletonsID.indexOf(props.id) > -1
 
+  
   if (isSingleID) {
     return [
       PublishAction,
@@ -77,6 +78,6 @@ export default function resolveDocumentActions(props) {
       ...(canPreview ? [PreviewAction] : [])
     ]
   }
-
+  
   return [...defaultResolve(props), ...(canPreview ? [PreviewAction] : [])]
 }

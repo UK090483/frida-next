@@ -6,7 +6,8 @@ import EditIcon from 'part:@sanity/base/edit-icon'
 
 // Web preview
 // import IframePreview from '../components/previews/iframe/IframePreview'
-import SeoPreview from '../components/seo/seoPreviews'
+
+import SeoPreview from '../components/previews/seo/seo-preview'
 
 // a11y preview
 // import ColorblindPreview from "../components/previews/a11y/colorblind-filter/ColorblindPreview";
@@ -30,12 +31,12 @@ export default S.listItem()
           .documentId(documentId)
           .schemaType('artist')
           .views([
-            S.view.form().icon(EditIcon)
-            // S.view
-            //   .component(SeoPreview)
-            //   .options({ previewURL })
-            //   .icon(EyeIcon)
-            //   .title("SEO Preview"),
+            S.view.form().icon(EditIcon),
+            S.view
+            .component(SeoPreview)
+            .options({ previewURL })
+            .icon(EyeIcon)
+            .title('SEO Preview')
           ])
       )
   )

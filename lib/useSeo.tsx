@@ -105,7 +105,30 @@ const generateSeo: (
       [getFittedImageSrc(cShareGraphic, imageBuilder), cShareGraphicSrc],
       shareGraphicSrc
     )
-    url = `${url}artist/${document.slug || ''}`
+
+    url = `${url}artist/${document.slug?.current || document.slug || url}`
+  }
+
+  if (document._type === 'post') {
+    metaTitle = getDefined([docSeo?.metaTitle, document.title], metaTitle)
+    metaDesc = getDefined([docSeo?.metaDesc, document.excerpt], metaDesc)
+    shareTitle = getDefined([docSeo?.shareTitle, document.title], shareTitle)
+    shareDesc = getDefined([docSeo?.shareDesc, document.excerpt], shareDesc)
+    url = `${url}post/${document.slug?.current || document.slug || url}`
+
+    const cShareGraphic = getDefined(
+      [docSeo?.shareGraphic, document.headerImage, document.prevImage],
+      null
+    )
+
+    shareGraphicSrc = getDefined(
+      [
+        getImageSrc(docSeo?.shareGraphic, imageBuilder),
+        getFittedImageSrc(cShareGraphic, imageBuilder),
+        cShareGraphicSrc,
+      ],
+      shareGraphicSrc
+    )
   }
 
   return {
@@ -142,12 +165,12 @@ const getFittedImageSrc = (
   )
 }
 
-const getImageSrc = (image: ImageMetaResult, IB: ImageUrlBuilder) => {
+const getImageSrc = (
+  image: ImageMetaResult | null | undefined,
+  IB: ImageUrlBuilder
+) => {
   return (
-    IB &&
-    image &&
-    image.asset &&
-    IB.image(image.asset).width(1200).height(630).url()
+    IB && image && image.asset && IB.image(image).width(1200).height(630).url()
   )
 }
 

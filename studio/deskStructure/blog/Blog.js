@@ -41,11 +41,7 @@ export default S.listItem()
                   .schemaType('post')
                   .views([
                     S.view.form().icon(EditIcon),
-                    S.view
-                      .component(IframePreview)
-                      .options({ previewURL })
-                      .title('Web Preview')
-                      .icon(EyeIcon),
+                   
                     S.view
                       .component(SeoPreview)
                       .options({ previewURL })

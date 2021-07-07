@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 
+const audienceId = '06987ef843'
 const fadeAnim = {
   show: {
     opacity: 1,
@@ -25,12 +26,14 @@ const fadeAnim = {
 }
 type NewsletterState = {
   email: string
+  fullName: string
   state: 'init' | 'submitting' | 'success' | 'error'
   verified: boolean
   isSubmitting: boolean
   success: boolean
   errors: { email: boolean }
   hasError: boolean
+  errorMsg?: string
 }
 
 const Newsletter = () => {
@@ -41,9 +44,10 @@ const Newsletter = () => {
   const registerNow = locale === 'en' ? 'Register Now!' : 'Jetzt eintragen!'
   const send = locale === 'en' ? 'Send' : 'Senden'
 
-  const [{ isSubmitting, email, errors, verified, state }, setState] =
+  const [{ isSubmitting, email, errors, verified, state, fullName }, setState] =
     useState<NewsletterState>({
       email: '',
+      fullName: '',
       state: 'init',
       verified: false,
       isSubmitting: false,
@@ -61,40 +65,42 @@ const Newsletter = () => {
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault()
 
-    if (verifyMail(email)) {
+    if (!verifyMail(email)) {
       return
     }
 
-    setState((os) => ({ ...os, email, state: 'submitting' }))
+    setState((os) => ({ ...os, state: 'submitting' }))
 
-    setTimeout(() => {
-      setState((os) => ({ ...os, email, state: 'error' }))
-    }, 3000)
-
-    setTimeout(() => {
-      setState((os) => ({ ...os, email, state: 'init' }))
-    }, 6000)
-
-    // setSubmitting(true)
-    // setError(false)
-    // fetch('/api/mailchimp/newsletter-join', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({
-    //     listID: klaviyoListID,
-    //     ...data,
-    //   }),
-    // })
-    //   .then((res) => res.json())
-    //   .then((res) => {
-    //     setSubmitting(false)
-    //     setSuccess(true)
-    //   })
-    //   .catch((error) => {
-    //     setSubmitting(false)
-    //     setError(true)
-    //     console.log(error)
-    //   })
+    fetch('/api/mailchimp/newsletter-join', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        audienceID: audienceId,
+        email,
+        fullName,
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        setState((os) => ({
+          ...os,
+          email,
+          state: res.error ? 'error' : 'success',
+          submiting: false,
+          error: !!res.error,
+          success: !res.error,
+        }))
+      })
+      .catch(() => {
+        setState((os) => ({
+          ...os,
+          email,
+          state: 'error',
+          submiting: false,
+          hasError: true,
+          success: false,
+        }))
+      })
   }
 
   return (

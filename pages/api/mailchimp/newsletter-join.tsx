@@ -1,12 +1,13 @@
-import crypto from 'crypto'
+//@ts-ignore
 import mailchimp from '@mailchimp/mailchimp_marketing'
+import type { NextApiRequest, NextApiResponse } from 'next'
 
 mailchimp.setConfig({
   apiKey: process.env.MAILCHIMP_API_KEY,
   server: process.env.MAILCHIMP_SERVER,
 })
 
-export default async function send(req, res) {
+export default async function send(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
     return res.status(404).json({ error: 'must be a POST request' })
   }
@@ -16,7 +17,7 @@ export default async function send(req, res) {
   } = req
 
   // honeypot
-  if (req.body.fullname !== '') {
+  if (req.body.fullName !== '') {
     console.log('stuck in honey')
     return res.status(200).json({ status: 202 })
   }
@@ -28,13 +29,16 @@ export default async function send(req, res) {
       .json({ error: 'must contain an email address and audience ID' })
   }
 
-  const subHash = crypto.createHash('md5').update(email).digest('hex')
-
-  const sendData = await mailchimp.lists.setListMember(audienceID, subHash, {
-    email_address: email,
-    status_if_new: 'subscribed',
-  })
-
-  res.statusCode = 200
-  res.json({ sendData })
+  try {
+    await mailchimp.lists.addListMember(audienceID, {
+      email_address: email,
+      status: 'pending',
+      tags: ['Newsletter'],
+    })
+    return res.status(201).json({ error: '' })
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    console.log(error)
+    return res.status(500).json({ error: error.message || error.toString() })
+  }
 }

@@ -45,6 +45,8 @@ const PostCard: React.FC<PostCardProps> = (props) => {
     categories,
     categories_en,
     createdAt,
+    excerpt,
+    excerpt_en,
   } = props
 
   const _prevImage = previewImage ? previewImage : headerImage
@@ -52,6 +54,7 @@ const PostCard: React.FC<PostCardProps> = (props) => {
   if (!_prevImage) return null
 
   const _title = lang === 'en' && title_en ? title_en : title
+  const _excerpt = lang === 'en' && excerpt_en ? excerpt_en : excerpt
 
   const _categories =
     lang === 'en' && categories_en ? categories_en : categories
@@ -60,10 +63,14 @@ const PostCard: React.FC<PostCardProps> = (props) => {
     <Link href={`/post/${slug}`} passHref>
       <a
         {...mouseLinkProps}
-        className="p-2 flex flex-wrap-reverse md:flex-nowrap justify-between  w-full  mb-16"
+        className=" p-frida_side flex flex-wrap-reverse md:flex-nowrap justify-between  w-full  md:mb-16"
       >
         <div className="w-full md:w-2/3 mt-4 md:mt-0 md:pr-frida_7% flex flex-col justify-between ">
-          <h2 className="header-small">{_title}</h2>
+          <div>
+            <h2 className="header-small pb-0">{_title}</h2>
+            <h3 className="text-sm-fluid opacity-50">{_excerpt}</h3>
+          </div>
+
           <Infos categories={_categories} createdAt={createdAt} />
         </div>
 

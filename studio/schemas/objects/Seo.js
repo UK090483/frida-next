@@ -51,6 +51,9 @@ export default {
       name: "shareGraphic",
       type: "image",
       description: "Share graphics will be cropped to 1200x630",
+      options: {
+        hotspot: true
+      },
     },
   ],
 };
