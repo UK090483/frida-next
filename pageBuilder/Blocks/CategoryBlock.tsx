@@ -68,6 +68,7 @@ const CategoryBlock: React.FC<CategoryBlockProps> = (props) => {
                 key={image.id}
                 photo={image}
                 layout="fill"
+                maxWidth={800}
               />
             )
           })

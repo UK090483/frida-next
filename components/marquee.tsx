@@ -82,6 +82,7 @@ const Marquee: React.FC<MarqueeProps> = ({ data = {}, lang }) => {
                     photo={item.photo}
                     hasPlaceholder={false}
                     forceLoad={isIntersecting}
+                    maxWidth={300}
                   />
                 </div>
               )

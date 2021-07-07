@@ -81,6 +81,7 @@ const CardWrap: React.FC<CardWrapPros> = (props) => {
             photo={photo}
             layout={isCarousel || isGrid ? layout : 'intrinsic'}
             alt={alt || type}
+            maxWidth={isCarousel ? 320 : 400}
           />
         </div>
 

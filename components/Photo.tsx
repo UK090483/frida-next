@@ -17,16 +17,22 @@ interface PhotoProps {
   className?: string
   quality?: number
   loading?: 'eager' | 'lazy'
+  maxWidth?: number
 }
 
-const customLoader: (props: { photo: ImageMetaResult }) => ImageLoader = ({
-  photo,
-}) => {
+const customLoader: (props: {
+  photo: ImageMetaResult
+  maxWidth?: number
+}) => ImageLoader = ({ photo, maxWidth }) => {
   const loader: ImageLoader = ({ width, quality }) => {
+    let _width = width
+    if (maxWidth && width > maxWidth) {
+      _width = maxWidth
+    }
     return (
       imageBuilder
         .image(photo)
-        .width(width)
+        .width(_width)
         .quality(quality || 75)
         .url() || ''
     )
@@ -46,6 +52,7 @@ const Photo: React.FC<PhotoProps> = (props) => {
     quality = 75,
     className,
     loading = 'lazy',
+    maxWidth,
   } = props
 
   if (!photo || !photo.asset) return null
@@ -54,7 +61,7 @@ const Photo: React.FC<PhotoProps> = (props) => {
   // console.log(photo.hotspot)
   // console.log(photo.crop)
 
-  const imageLoader = customLoader({ photo })
+  const imageLoader = customLoader({ photo, maxWidth })
 
   const placeHolder = photo.lqip
   const _height = height || width / photo.aspectRatio
@@ -89,9 +96,9 @@ const Photo: React.FC<PhotoProps> = (props) => {
 
   return (
     <Image
-      loading={loading}
       {...dynamicProps}
       className={'photo ' + (className || '')}
+      loading={loading}
       quality={quality}
       loader={imageLoader}
       src={photo.asset._ref}

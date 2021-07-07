@@ -13,7 +13,7 @@ const client = sanityClient({
 // })
 
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
-const withPreact = require('next-plugin-preact');
+// const withPreact = require('next-plugin-preact');
 // get redirects from Sanity for Vercel
 async function fetchSanityRedirects() {
 
@@ -33,7 +33,7 @@ async function fetchSanityRedirects() {
   return redirects
 }
 
-module.exports =(bla)=>withPreact({
+module.exports =()=>({
   
   webpack(config, options) {
     const { dev, isServer, buildId, webpack, } = options

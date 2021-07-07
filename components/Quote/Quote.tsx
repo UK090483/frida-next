@@ -62,11 +62,11 @@ const Quote: React.FC<QuoteProps> = (props) => {
 
       <div className="w-full h-full min-h-[300px] md:min-h-[400px]  relative flex items-end ">
         <div className="absolute h-full w-2/3  right-0 top-0 transform transition-transform group-hover:translate-x-6 ">
-          <Photo photo={authorImage} layout="contain" />
+          <Photo photo={authorImage} layout="contain" maxWidth={320} />
         </div>
 
         <div className="w-1/2 h-2/3  transform transition-transform group-hover:-translate-x-6 ">
-          <Photo photo={targetImage} layout="contain" />
+          <Photo photo={targetImage} layout="contain" maxWidth={320} />
         </div>
       </div>
     </ConditionalWrapper>
