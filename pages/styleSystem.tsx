@@ -4,7 +4,7 @@ import Icon from '@components/Icon'
 import Section from '@components/Section'
 import * as React from 'react'
 
-const Style: React.FC = () => {
+const StyleSystem: React.FC = () => {
   return (
     <Layout title="style" lang="de" preview={false}>
       <div className="h-vh/3"></div>
@@ -95,4 +95,4 @@ const Style: React.FC = () => {
   )
 }
 
-export default Style
+export default StyleSystem
