@@ -20,6 +20,12 @@ const addUrls = async (smStream: SitemapStream) => {
   const allArtists = await getAllDocSlugs('artist')
   const allArtworks = await getAllDocSlugs('artwork')
 
+  smStream.write({
+    url: `/`,
+    changefreq: 'weekly',
+    priority: 0.8,
+  })
+
   allPages &&
     allPages.map((page) => {
       smStream.write({
