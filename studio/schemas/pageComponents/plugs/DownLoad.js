@@ -6,13 +6,14 @@ export default {
   name: 'download',
   type: 'object',
   validation: Rule => Rule.custom(fields => {
-    console.log(fields)
+   
     if(fields.image && fields.file){
       return 'you can just set Image OR File... Erase the one you do not use'
     }
     if(!fields.image && !fields.file){
       return 'you need to use one download source: Image or File'
     }
+    return true
   }).error(),
  
   fields: [
