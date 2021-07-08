@@ -1,7 +1,7 @@
 const Robots = () => {
   return (
     <div>
-      Should not be navigated via Next Link. Use a standard {`<a>`} tag!
+    Should not be navigated via Next Link. Use a standard {`<a>`} tag!
     </div>
   )
 }
