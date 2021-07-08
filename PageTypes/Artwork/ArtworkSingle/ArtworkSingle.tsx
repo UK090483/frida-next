@@ -45,7 +45,7 @@ const ArtworkSingle: React.FC<ArtworkSingleProps> = (props) => {
           <h2 className="text-lg-fluid font-bold">
             {lang === 'en' ? `About the Artwork` : `Über das Kunstwerk`}
           </h2>
-          <p className="text-base-fluid">{_description}</p>
+          <p className="text-base-fluid whitespace-pre-line">{_description}</p>
         </Section>
       )}
 
@@ -54,7 +54,9 @@ const ArtworkSingle: React.FC<ArtworkSingleProps> = (props) => {
           {lang === 'en' ? `About the Artist` : `Über den Künstler`}
         </h2>
         {_artistDescription && (
-          <p className="text-base-fluid">{_artistDescription}</p>
+          <p className="text-base-fluid whitespace-pre-line">
+            {_artistDescription}
+          </p>
         )}
         <div className="flex flex-col items-center  md:flex-row">
           {artistSlug && (

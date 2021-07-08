@@ -53,6 +53,7 @@ import { FridaLocation } from 'types'
 import { PageBodyResult } from './pageBuilderQueries'
 import InnerSectionPlug from './Plugs/innerSection'
 import SpacerPlug from './Plugs/Spacer'
+import DownLoadPlug from './Plugs/DownLoadPlug'
 
 type ContentParserProps = {
   content: PageBodyResult
@@ -108,6 +109,8 @@ const BodyParser: React.FC<ContentParserProps> = (props) => {
               return <InnerSectionPlug {...blok} key={blok._key} />
             case 'spacer':
               return <SpacerPlug {...blok} key={blok._key} />
+            case 'download':
+              return <DownLoadPlug {...blok} key={blok._key} />
 
             default:
               return (

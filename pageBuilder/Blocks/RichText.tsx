@@ -1,6 +1,7 @@
 import { mouseLinkProps } from '@components/generic/Mouse/mouseRemote'
 // @ts-ignore
 import BlockContent from '@sanity/block-content-to-react'
+import { downloadPlugQuery } from 'pageBuilder/Plugs/DownLoadPlug'
 import { imageGalleryPlugQuery } from 'pageBuilder/Plugs/ImageGaleriePlug'
 import { imagePlugQuery } from 'pageBuilder/Plugs/ImagePlug'
 import { innerSectionPlugQuery } from 'pageBuilder/Plugs/innerSection'
@@ -17,8 +18,8 @@ content[]{
   ${embedPlugQuery},
   ${imagePlugQuery},
   ${imageGalleryPlugQuery},
-  ${innerSectionPlugQuery}
-
+  ${innerSectionPlugQuery},
+  ${downloadPlugQuery},
 }
 `
 

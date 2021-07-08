@@ -71,13 +71,14 @@ import productOptionValue from './objects/product-option-value'
 import productOptionSettings from './objects/product-option-settings'
 import simplePortableText from './objects/portable-simple'
 import productHint from './objects/productHint'
+import file from './objects/file'
 
 const objects = [
   Seo,
   PageHeader,
   defaultRichText,
   innerRichText,
-
+  file,
   Spacer,
   Supporter,
   SupporterLogo,
@@ -120,9 +121,11 @@ import Embed from './pageComponents/plugs/Embed'
 import imageGallery from './pageComponents/plugs/ImageGallery'
 import innerSection from './pageComponents/plugs/innerSection'
 import innerSectionItem from './pageComponents/plugs/innerSectionItem'
+import Download from './pageComponents/plugs/DownLoad'
 
 
 const pageComponents = [
+
   Section,
   CarouselHero,
   Categories,
@@ -137,6 +140,7 @@ const pageComponents = [
   imageGallery,
   Quotes,
   marquee,
+  Download,
 ]
 
 export default createSchema({

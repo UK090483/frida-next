@@ -75,6 +75,7 @@ const ArtistInfo: React.FC<ArtistSingleProps> = (props) => {
 
   const _description =
     lang === 'en' && description_en ? description_en : description
+
   return (
     <>
       <Section className="pb-20" backgroundColor="white" type="text">
@@ -86,7 +87,9 @@ const ArtistInfo: React.FC<ArtistSingleProps> = (props) => {
           <span className="text-frida-black">Meet</span>
           {name}
         </h1>
-        {_description && <p className="text-base-fluid">{_description}</p>}
+        {_description && (
+          <p className="text-base-fluid whitespace-pre-line">{_description}</p>
+        )}
         <div className="flex flex-wrap justify-center md:justify-start  ">
           {webLink && (
             <Button
@@ -117,12 +120,10 @@ const ArtistInfo: React.FC<ArtistSingleProps> = (props) => {
 const ArtistImages: React.FC<ArtistSingleProps> = (props) => {
   const { relatedArtworks, imageGallery } = props
 
-  // const hasImageGallery = imageGallery && imageGallery.length > 0
   const _gallery = imageGallery
     ? imageGallery
     : relatedArtworks.map((i) => i.photo).slice(2, 4)
 
-  // console.log(imageGallery)
   return (
     <Section>
       <div className="flex flex-row flex-wrap md:grid  grid-cols-11 grid-rows-5  w-full h-vh py-12">

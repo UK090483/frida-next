@@ -40,6 +40,7 @@ import { EmbedPlugResult } from 'pageBuilder/Plugs/EmbedPlug'
 import { ImageGalleryPlugResult } from 'pageBuilder/Plugs/ImageGaleriePlug'
 import { ImagePlugResult } from 'pageBuilder/Plugs/ImagePlug'
 import { SeoHeaderPlugResult } from 'pageBuilder/Plugs/SeoHeader'
+import { DownloadPlugResult } from './Plugs/DownLoadPlug'
 import { InnerSectionPlugResult } from './Plugs/innerSection'
 import { SpacerPlugResult } from './Plugs/Spacer'
 
@@ -60,7 +61,8 @@ content[]{
   ${sectionBlockQuery},
   ${richTextQuery},
   ${MarqueeBlockQuery},
-  ${QuotesBlockQuery}
+  ${QuotesBlockQuery},
+ 
 },
 `
 
@@ -82,4 +84,5 @@ export type PageBodyResult = (
   | ImageGalleryPlugResult
   | InnerSectionPlugResult
   | SpacerPlugResult
+  | DownloadPlugResult
 )[]

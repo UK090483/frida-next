@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { mouseLinkProps } from '../generic/Mouse/mouseRemote'
 import { FridaColors } from '../../types'
 import cx from 'classnames'
+import { imageMeta } from '@lib/queries/snippets'
 
 interface ButtonProps {
   label: string
@@ -16,6 +17,7 @@ interface ButtonProps {
 interface LinkProps extends ButtonProps {
   type: 'link' | 'externalLink'
   link: string
+  download?: boolean
 }
 interface ClickProps extends ButtonProps {
   type: 'click'
@@ -41,10 +43,18 @@ const Button: React.FC<LinkProps | ClickProps> = (props) => {
     { 'is-large': size === 'l' },
     { 'is-medium': size === 'm' },
     { 'is-small': size === 's' },
-    { 'text-frida-red hover:bg-frida-red': color === 'red' },
-    { 'text-frida-green hover:bg-frida-green': color === 'green' },
-    { 'text-frida-black hover:bg-frida-black': color === 'black' },
-    { 'text-frida-pink hover:bg-frida-pink': color === 'pink' },
+    { 'text-frida-red border-frida-red hover:bg-frida-red': color === 'red' },
+    {
+      'text-frida-green border-frida-green hover:bg-frida-green':
+        color === 'green',
+    },
+    {
+      'text-frida-black border-frida-black hover:bg-frida-black':
+        color === 'black',
+    },
+    {
+      'text-frida-pink border-frida-pink hover:bg-frida-pink': color === 'pink',
+    },
     { 'text-frida-white hover:bg-frida-white': color === 'white' },
     { 'hover:text-frida-red': backgroundColor === 'red' },
     { 'hover:text-frida-black': backgroundColor === 'black' },
@@ -55,7 +65,12 @@ const Button: React.FC<LinkProps | ClickProps> = (props) => {
   if (props.type === 'link') {
     return (
       <Link href={props.link} passHref>
-        <a {...mouseLinkProps} className={` ${className} ${extraClasses}`}>
+        <a
+          target="_blank"
+          {...(props.download === true ? { download: true } : {})}
+          {...mouseLinkProps}
+          className={` ${className} ${extraClasses}`}
+        >
           {label}
         </a>
       </Link>

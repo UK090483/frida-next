@@ -201,6 +201,7 @@ export default {
     { type: 'seoHeader' },
     { type: 'imageGalleryPlug' },
     { type: 'innerSection' },
-    { type: 'spacer' }
+    { type: 'spacer' },
+    { type: 'download' }
   ]
 }
