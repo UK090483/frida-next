@@ -6,6 +6,7 @@ import { FridaColors, FridaLocation } from 'types'
 import BodyParser from '../BodyParser'
 import { richTextQuery } from './RichText'
 import Photo from '@components/Photo'
+import CarouselItem from '@components/CarouselHero/CarouselItem'
 
 export const carouselHeroBlockQuery = `
 _type == "carouselHero" => {
@@ -35,6 +36,30 @@ const CarouselHeroBlock: React.FC<CarouselHeroBlockProps> = (props) => {
   const { carouselHeroItems, lang } = props
 
   if (!carouselHeroItems) return <></>
+
+  // if (carouselHeroItems.length === 1)
+  //   return (
+  //     <CarouselItem
+  //       color={carouselHeroItems[0].bgColor}
+  //       content={
+  //         <BodyParser
+  //           lang="de"
+  //           content={
+  //             lang === 'en' && carouselHeroItems[0].content_en
+  //               ? carouselHeroItems[0].content_en
+  //               : carouselHeroItems[0].content
+  //           }
+  //         />
+  //       }
+  //       image={
+  //         <Photo
+  //           photo={carouselHeroItems[0].photo}
+  //           layout="fill"
+  //           sizes="(min-width: 640px) 50vw ,100vw"
+  //         />
+  //       }
+  //     />
+  //   )
 
   const items = carouselHeroItems.map((item) => ({
     color: item.bgColor,

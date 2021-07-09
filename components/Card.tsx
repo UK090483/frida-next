@@ -57,7 +57,7 @@ const CardWrap: React.FC<CardWrapPros> = (props) => {
           { 'mb-8': isGrid },
           { 'mb-20': isMasonry },
           {
-            'p-4 transform scale-75 lg:scale-100  max-w-xs ': isCarousel,
+            'p-4 transform scale-75 lg:scale-100  max-w-[340px] ': isCarousel,
           }
         )}
         onClick={(e) => {
@@ -86,7 +86,11 @@ const CardWrap: React.FC<CardWrapPros> = (props) => {
         </div>
 
         {title && (
-          <div className={` h-8 text-sm-fluid font-bold mt-4`}>
+          <div
+            className={` h-8 flex items-center ${
+              title.length > 17 ? 'text-xs-fluid' : 'text-sm-fluid'
+            } font-bold mt-4`}
+          >
             <Frida text={title} textColor={'pink'}></Frida>
           </div>
         )}

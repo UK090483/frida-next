@@ -25,6 +25,7 @@ const CarouselHero: React.FC<CarouselHeroProps> = ({ items }) => {
     slidesPerView: 1,
     loop: true,
     mode: 'snap',
+    centered: true,
     duration: 1000,
     dragStart: () => {
       setPause(true)
@@ -77,7 +78,7 @@ const CarouselHero: React.FC<CarouselHeroProps> = ({ items }) => {
   }, [hasMultiple, pause, slider])
 
   return (
-    <div className="carousel-Hero">
+    <div className="relative">
       <div ref={sliderRef} className="keen-slider">
         {items.map((item, index) => (
           <div
