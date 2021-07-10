@@ -19,8 +19,6 @@ const ArtistSingle: React.FC<ArtistSingleProps> = (props) => {
   const { relatedArtworks, lang, content, mainImage, initBgColor, quotes } =
     props
 
-  console.log(props)
-
   const _initBgColor = initBgColor ? initBgColor : 'white'
 
   const heroImage =
