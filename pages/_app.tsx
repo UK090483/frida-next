@@ -1,4 +1,4 @@
-import ShowBreakingPoints from '@lib/helper/showBreakingPoints'
+// import ShowBreakingPoints from '@lib/helper/showBreakingPoints'
 import Cart from '@components/shopComponents/Cart'
 import { SiteContextProvider } from '@lib/context/context'
 import { isBrowser } from '@lib/helpers'
@@ -14,6 +14,8 @@ import type {
   //  NextWebVitalsMetric
 } from 'next/app'
 
+import ChromeFix from 'lib/chromeFix'
+
 const MyApp = ({ Component, pageProps, router }: AppProps) => {
   const [isLoading, setLoading] = useState(false)
 
@@ -26,6 +28,9 @@ const MyApp = ({ Component, pageProps, router }: AppProps) => {
   useEffect(() => {
     if (isBrowser) {
       document.documentElement.classList.toggle('is-loading', isLoading)
+
+      // @ts-ignore
+      new ChromeFix()
     }
   }, [isLoading])
 
@@ -92,7 +97,7 @@ const MyApp = ({ Component, pageProps, router }: AppProps) => {
 
         <Cart data={{ ...pageProps?.data?.site }} />
 
-        <ShowBreakingPoints />
+        {/* <ShowBreakingPoints /> */}
       </LazyMotion>
     </SiteContextProvider>
   )

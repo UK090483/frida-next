@@ -50,7 +50,7 @@ const Category: React.FC<CategoryProps> = ({ items, lang }) => {
                     <a
                       {...mouseLinkProps}
                       className={cx(
-                        'h-vw/2 md:h-vw/3 lg:h-vw/5 relative row-span-3 ',
+                        'h-vw-50 md:h-vw-30 lg:h-vw/5 relative row-span-3 ',
                         { ' md:col-span-3': size === 's' },
                         { ' md:col-span-6': size === 'm' },
                         { ' md:col-span-9 ': size === 'l' },

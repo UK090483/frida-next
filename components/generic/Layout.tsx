@@ -97,12 +97,6 @@ const Layout: React.FC<LayoutProps> = (props) => {
 export default Layout
 
 const PreviewIndexer: React.FC = () => {
-  // const router = useRouter()
-  // const clear = () => {
-  //   fetch('/api/clearPreview').then(() => {
-  //     router.reload()
-  //   })
-  // }
   return (
     // eslint-disable-next-line @next/next/no-html-link-for-pages
     <a
@@ -111,11 +105,5 @@ const PreviewIndexer: React.FC = () => {
     >
       Exit Preview
     </a>
-    // <button
-    //   onClick={clear}
-
-    // >
-    //   Preview Mode Active
-    // </button>
   )
 }

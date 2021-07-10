@@ -31,7 +31,7 @@ const Section: React.FC<SectionProps> = (props) => {
         'relative',
         `bg-frida-${backgroundColor}`,
         {
-          'min-h-screen flex flex-col justify-center': type === 'hero',
+          'h-vh-100 flex flex-col justify-center': type === 'hero',
         },
         className
       )}
@@ -55,7 +55,7 @@ const Section: React.FC<SectionProps> = (props) => {
             'px-frida_side  md:px-frida_7% ': type === 'normal',
           },
           {
-            'max-w-7xl px-5 ': type === 'medium-wide',
+            'px-frida_side max-w-7xl ': type === 'medium-wide',
           },
           {
             'px-frida_side  max-w-5xl md:px-5': type === 'text',

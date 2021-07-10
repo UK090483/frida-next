@@ -7,6 +7,21 @@
 @tailwind utilities;
 
 @layer utilities {
+  .stop-fix-android-vh {
+    transition: unset;
+  }
+
+  .fix-android-vh {
+    transition: height 999999s;
+    
+  }
+
+  .fix-vh {
+    @apply fix-android-vh md:fix-android-vh;
+  }
+
+
+
   .hero {
     min-height: 750px;
   }
@@ -86,7 +101,6 @@
   p {
     line-height: 1.5em;
   }
-  
 }
 
 .frida-text-block > :last-child {

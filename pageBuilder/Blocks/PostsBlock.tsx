@@ -2,8 +2,9 @@ import React from 'react'
 
 import PostGallery from 'PageTypes/Post/PostGallery'
 import { FridaLocation } from 'types'
-import { postCardQuery, PostCardResult } from 'PageTypes/Post/PostCard'
+
 import { PageBuilderBlockBase } from '../pageBuilderQueries'
+import { postCardQuery, PostCardResult } from 'PageTypes/Post/PostQueries'
 
 export const postsBlockQuery = `
 _type == "posts" => {

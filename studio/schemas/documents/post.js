@@ -57,6 +57,11 @@ export default {
       ]
     },
     {
+      title: 'Release date',
+      name: 'releaseDate',
+      type: 'date',
+    },
+    {
       name: 'default_header',
       type: 'boolean',
       title: 'Use default Header',

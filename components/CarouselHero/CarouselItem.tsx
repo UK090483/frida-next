@@ -8,11 +8,13 @@ const CarouselItem: React.FC<CarouselHeroItem> = (props) => {
 
   return (
     <Section type="full" backgroundColor={color}>
-      <div className="carousel-Hero--item ">
-        <div className="carousel-Hero--content">
+      <div className=" w-full relative flex flex-wrap h-vh-90">
+        <div className="p-10 w-full md:w-1/2  flex  items-center h-1/2 md:h-full ">
           <div>{content}</div>
         </div>
-        <div className="carousel-Hero--image">{image}</div>
+        <div className="relative  w-full md:w-1/2 flex justify-center items-center  h-1/2 md:h-full ">
+          {image}
+        </div>
       </div>
     </Section>
   )

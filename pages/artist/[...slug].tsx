@@ -14,6 +14,7 @@ import { FridaColors, FridaLocation } from 'types'
 import { SiteResult } from '@lib/queries/cache'
 import { body, PageBodyResult } from 'pageBuilder/pageBuilderQueries'
 import { imageMeta, ImageMetaResult } from '@lib/queries/snippets'
+import { QuoteQuery, QuoteResult } from 'pageBuilder/Blocks/QuotesBlock'
 
 export const artistSingleView = `
 ...,
@@ -28,6 +29,7 @@ description,
 description_en,
 webLink,
 instagramLink,
+'quotes':*[_type == 'quote' && references(^._id)]{${QuoteQuery}},
 'relatedArtworks':*[_type == 'artwork' && references(^._id)]{
     ${artworkCardQuery}
 },
@@ -46,6 +48,7 @@ export type ArtistPageResult = {
   webLink: string | null
   instagramLink: string | null
   relatedArtworks: ArtworkCardResult[]
+  quotes: QuoteResult[]
   content?: PageBodyResult
   site: SiteResult
 }
@@ -70,8 +73,8 @@ const ArtworkTemplate: React.FC<ArtworkTemplateProps> = (props) => {
   if (isError) {
     return <Error />
   }
-
-  const _initialColor = pageData?.initBgColor ? data.initBgColor : 'white'
+  // TODO: handle init colo
+  // const _initialColor = pageData?.initBgColor ? data.initBgColor : 'white'
   return (
     <>
       <Layout

@@ -2,7 +2,7 @@ import * as React from 'react'
 import HeroNav from './HeroNav'
 import CarouselItem from './CarouselItem'
 import ButtonNav from '../buttons/ButtonNav'
-import KeenSlider, { useKeenSlider } from 'keen-slider/react'
+import KeenSlider, { useKeenSlider } from 'lib/slider/react'
 import { FridaColors } from '../../types'
 
 export type CarouselHeroItem = {
@@ -91,13 +91,13 @@ const CarouselHero: React.FC<CarouselHeroProps> = ({ items }) => {
       </div>
 
       {hasMultiple && (
-        <div className="carousel-Hero--navRight">
+        <div className="absolute top-0 flex h-vh-90 items-end right-frida_side md:right-frida_side_big pointer-events-none pb-2 ">
           <ButtonNav setNext={setNext} setPrev={setPrev} />
         </div>
       )}
 
       {hasMultiple && (
-        <div className="carousel-Hero--navLeft">
+        <div className="absolute top-0 flex h-vh-90 items-end left-0 pointer-events-none transform -translate-y-1/2 md:translate-y-0">
           <HeroNav
             pause={pause}
             current={state % items.length}

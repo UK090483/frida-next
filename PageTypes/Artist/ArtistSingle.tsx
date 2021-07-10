@@ -9,13 +9,17 @@ import ArtworkCard from 'PageTypes/Artwork/ArtworkCard'
 import BodyParser from 'pageBuilder/BodyParser'
 import React from 'react'
 import { FridaColors, FridaLocation } from 'types'
+import Quotes from '@components/Quote/Quotes'
 
 interface ArtistSingleProps extends ArtistPageResult {
   lang: FridaLocation
 }
 
 const ArtistSingle: React.FC<ArtistSingleProps> = (props) => {
-  const { relatedArtworks, lang, content, mainImage, initBgColor } = props
+  const { relatedArtworks, lang, content, mainImage, initBgColor, quotes } =
+    props
+
+  console.log(props)
 
   const _initBgColor = initBgColor ? initBgColor : 'white'
 
@@ -47,6 +51,7 @@ const ArtistSingle: React.FC<ArtistSingleProps> = (props) => {
       <ArtistInfo {...props} />
       <ArtistImages {...props} />
       <ArtistWorks {...props} />
+      {quotes.length > 0 && <Quotes items={quotes} />}
     </>
   )
 }
@@ -61,7 +66,7 @@ const ArtistHero: React.FC<ArtistHeroProps> = ({ photo, initBgColor }) => {
   return (
     <div data-color={initBgColor}>
       {photo && (
-        <div className="h-vh w-full">
+        <div className="h-vh w-full fix-vh">
           <Photo photo={photo} layout="fill" />
         </div>
       )}
@@ -122,11 +127,11 @@ const ArtistImages: React.FC<ArtistSingleProps> = (props) => {
 
   const _gallery = imageGallery
     ? imageGallery
-    : relatedArtworks.map((i) => i.photo).slice(2, 4)
+    : relatedArtworks.map((i) => i.photo).slice(1, 3)
 
   return (
     <Section>
-      <div className="flex flex-row flex-wrap md:grid  grid-cols-11 grid-rows-5  w-full h-vh py-12">
+      <div className="flex flex-row flex-wrap md:grid gap-4 grid-cols-11 grid-rows-5  w-full h-screen py-12 ">
         {_gallery.map((item, index) => {
           return (
             <div
