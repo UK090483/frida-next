@@ -1,34 +1,27 @@
-import { SanityUpdateHandler } from '@lib/SyncApi/handleSanityUpdate'
+import SanityUpdateHandler from '@lib/SyncApi/SanityUpdateHandler'
 import sanityClient, { SanityClient } from '@sanity/client'
+
 import type { NextApiRequest, NextApiResponse } from 'next'
 const { SANITY_PROJECT_DATASET, SANITY_PROJECT_ID, SANITY_API_TOKEN } =
   process.env
 
-const handleCreate = async (
-  id: string,
-  s: SanityClient,
-  transactionId: string
-) => {}
+const handleCreate = async (id: string, s: SanityClient) => {
+  const updater = new SanityUpdateHandler(id, s)
+  await updater.run()
+}
 
-const handleDeleted = async (
-  id: string,
-  s: SanityClient,
-  transactionId: string
-) => {}
+const handleDeleted = async (id: string, s: SanityClient) => {
+  s && console.log('delete' + id)
+}
 
-const handleUpdate = async (
-  id: string,
-  s: SanityClient,
-  transactionId: string
-) => {
-  // const updater = new SanityUpdateHandler(id, s)
-  // await updater.run()
+const handleUpdate = async (id: string, s: SanityClient) => {
+  const updater = new SanityUpdateHandler(id, s)
+  await updater.run()
 }
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   const {
     body: {
-      transactionId,
       ids: { created, deleted, updated },
     },
   } = req
@@ -52,23 +45,17 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
   if (created.length > 0) {
     await Promise.all(
-      created.map(
-        (id: string) => sanity && handleCreate(id, sanity, transactionId)
-      )
+      created.map((id: string) => sanity && handleCreate(id, sanity))
     )
   }
   if (deleted.length > 0) {
     await Promise.all(
-      updated.map(
-        (id: string) => sanity && handleDeleted(id, sanity, transactionId)
-      )
+      updated.map((id: string) => sanity && handleDeleted(id, sanity))
     )
   }
   if (updated.length > 0) {
     await Promise.all(
-      updated.map(
-        (id: string) => sanity && handleUpdate(id, sanity, transactionId)
-      )
+      updated.map((id: string) => sanity && handleUpdate(id, sanity))
     )
   }
 

@@ -1,5 +1,8 @@
-import { SanityUpdateHandler } from '@lib/SyncApi/handleSanityUpdate'
-import { SanityProduct, sanitySyncArtworkQuery } from '@lib/SyncApi/sanitySync'
+// import { SanityUpdateHandler } from '@lib/SyncApi/old/handleSanityUpdate copy'
+import {
+  SanityProduct,
+  sanitySyncArtworkQuery,
+} from '@lib/SyncApi/SanityArtwork'
 import sanityClient, { SanityClient } from '@sanity/client'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
@@ -53,14 +56,14 @@ class sanityShopifySync {
 
   syncArtwork = async (sanityDocId: string) => {
     if (!this.s) return
-    const sanityUpdateHandler = new SanityUpdateHandler(sanityDocId, this.s)
-    await sanityUpdateHandler.run()
+    // const sanityUpdateHandler = new SanityUpdateHandler(sanityDocId, this.s)
+    // await sanityUpdateHandler.run()
   }
 
   syncArtworks = async () => {
     if (!this.sanityArtworks) return null
 
-    for (let artworkId of this.sanityArtworks) {
+    for (const artworkId of this.sanityArtworks) {
       await this.syncArtwork(artworkId)
     }
   }
