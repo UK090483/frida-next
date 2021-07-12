@@ -65,7 +65,6 @@ const Button: React.FC<LinkProps | ClickProps> = (props) => {
     return (
       <Link href={props.link} passHref>
         <a
-          target="_blank"
           {...(props.download === true ? { download: true } : {})}
           {...mouseLinkProps}
           className={` ${className} ${extraClasses}`}
@@ -79,6 +78,8 @@ const Button: React.FC<LinkProps | ClickProps> = (props) => {
   if (props.type === 'externalLink') {
     return (
       <a
+        rel="noreferrer"
+        target="_blank"
         style={{ cursor: 'none' }}
         {...mouseLinkProps}
         className={`${className} ${extraClasses}`}

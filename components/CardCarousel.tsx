@@ -46,7 +46,7 @@ const Carousel: React.FC<CarouselProps> = ({
       {header && (
         <div className={`text-md-fluid   font-bold px-frida_7% `}>{header}</div>
       )}
-      <div className={`  py-3 md:py-12 relative`}>
+      <div className={`py-3 md:py-12 relative`}>
         <div ref={sliderRef} className="keen-slider">
           {items.map((item, index) => (
             <div key={index} className="keen-slider__slide ">
@@ -73,7 +73,7 @@ const CustomArrow: React.FC<CustomArrowProps> = ({ onClick }) => {
       onClick={onClick}
       icon="arrowRight"
       bgColor="white"
-      className="absolute transform -translate-y-1/2  top-1/2 right-2 md:right-5"
+      className="absolute transform -translate-y-1/2 top-1/2 right-2 md:right-5"
     />
   )
 }
