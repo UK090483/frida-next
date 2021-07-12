@@ -1,12 +1,13 @@
 import Button from '@components/buttons/button'
-import Layout from '@components/generic/Layout'
+import Frida from '@components/Frida'
+// import Layout from '@components/generic/Layout'
 import Icon from '@components/Icon'
 import Section from '@components/Section'
 import * as React from 'react'
 
 const StyleSystem: React.FC = () => {
   return (
-    <Layout title="style" lang="de" preview={false}>
+    <>
       <div className="h-vh/3"></div>
 
       <p className="pl-8 text-xl-fluid underline font-mono pt-32 pb-10">Typo</p>
@@ -91,7 +92,31 @@ const StyleSystem: React.FC = () => {
           <Icon icon="email" size="s" />
         </div>
       </Section>
-    </Layout>
+      <p className="pl-8 text-xl-fluid underline font-mono pt-32 pb-10">
+        Frida
+      </p>
+
+      <Section backgroundColor="pink">
+        <p className="header-big">
+          <Frida text="Jason Engelhart i" />
+        </p>
+        <p className="header-medium">
+          <Frida text="Jason Engelhart i" />
+        </p>
+        <p className="header-small">
+          <Frida text="Jason Engelhart i" />
+        </p>
+        <p className="subheader">
+          <Frida text="Jason Engelhart i" />
+        </p>
+        <p className="text-base-fluid">
+          <Frida text="Jason Engelhart i" /> Nunc aliquam eu elit ac rutrum.
+          Vivamus molestie faucibus ipsum, eu eleifend metus tempus nec.
+          Suspendisse nibh risus, efficitur in turpis et, feugiat tincidunt sem.
+          Nullam est tellus, tristique vitae
+        </p>
+      </Section>
+    </>
   )
 }
 

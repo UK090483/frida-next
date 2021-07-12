@@ -1,5 +1,5 @@
-import { SanityClient } from '@sanity/client'
-import { imageBuilder } from '@lib/sanity'
+import type { SanityClient } from '@sanity/client'
+import { imageBuilder } from '../sanity'
 import axios from 'axios'
 const { SANITY_PROJECT_DATASET, SANITY_PROJECT_ID, SANITY_API_TOKEN } =
   process.env
@@ -55,19 +55,22 @@ export default class SanityArtwork {
 
   fetch = async () => {
     try {
-      const res = await axios({
-        url: `https://${SANITY_PROJECT_ID}.api.sanity.io/v2021-06-07/data/doc/${SANITY_PROJECT_DATASET}/${this.id}`,
-        headers: { Authorization: `Bearer ${SANITY_API_TOKEN}` },
-      })
+      const res = await axios.get(
+        `https://${SANITY_PROJECT_ID}.api.sanity.io/v2021-06-07/data/doc/${SANITY_PROJECT_DATASET}/${this.id}`,
+        { headers: { Authorization: `Bearer ${SANITY_API_TOKEN}` } }
+      )
 
       const doc = res?.data?.documents && res?.data?.documents[0]
+
       this.loaded = true
       if (!doc) return null
+
       if (doc._type !== 'artwork') return null
 
-      if (doc.image.asset) {
-        doc.imageSrc = imageBuilder.image(doc.image.asset).url()
+      if (doc.image?.asset) {
+        doc.imageSrc = imageBuilder.image(doc.image.asset).width(600).url()
       }
+
       if (!doc.description) {
         doc.description = ''
       }

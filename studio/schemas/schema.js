@@ -72,8 +72,10 @@ import productOptionSettings from './objects/product-option-settings'
 import simplePortableText from './objects/portable-simple'
 import productHint from './objects/productHint'
 import file from './objects/file'
+import link from './objects/link'
 
 const objects = [
+  link,
   Seo,
   PageHeader,
   defaultRichText,

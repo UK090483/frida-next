@@ -53,13 +53,13 @@ const ArtworkHero: React.FC<ArtworkHeroProps> = ({ artwork, lang }) => {
             ></ProductName>
           )}
 
-          <div className="text-xs-fluid font-bold pb-6">
+          <div className="text-xs-fluid pb-2">
             {`${medium}, ${width}*${height} ${
               depth ? '*' + depth : ''
             } cm ${stil}`}
           </div>
           {price && <Price price={price} />}
-
+          <SocialShare className="pb-6 pt-2" />
           <BuyButton
             isInCart={itemInCart}
             handleAddToCard={() => {
@@ -67,16 +67,14 @@ const ArtworkHero: React.FC<ArtworkHeroProps> = ({ artwork, lang }) => {
                 console.error('shopify_variant_id missing')
                 return
               }
-              addItem(shopify_variant_id, 1, undefined).then(() => {
-                console.log('bla')
-              })
+              addItem(shopify_variant_id, 1, undefined).then(() => null)
             }}
           />
-          <SocialShare className="py-8" />
-        </div>
+          <div className="pb-10"></div>
 
-        {hints && <ProductHints items={hints} lang={lang} />}
-        <PaymentInfo lang={lang} />
+          {hints && <ProductHints items={hints} lang={lang} />}
+          <PaymentInfo lang={lang} />
+        </div>
       </ProductInfoWrap>
     </ProductHeroWrap>
   )

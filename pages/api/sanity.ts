@@ -1,4 +1,5 @@
 import SanityUpdateHandler from '@lib/SyncApi/SanityUpdateHandler'
+import SanityEraseHandler from '@lib/SyncApi/SaniyEraseHandler'
 import sanityClient, { SanityClient } from '@sanity/client'
 
 import type { NextApiRequest, NextApiResponse } from 'next'
@@ -11,7 +12,9 @@ const handleCreate = async (id: string, s: SanityClient) => {
 }
 
 const handleDeleted = async (id: string, s: SanityClient) => {
-  s && console.log('delete' + id)
+  console.log('delete')
+  const erase = new SanityEraseHandler(`drafts.${id}`, s)
+  await erase.run()
 }
 
 const handleUpdate = async (id: string, s: SanityClient) => {
@@ -50,7 +53,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   }
   if (deleted.length > 0) {
     await Promise.all(
-      updated.map((id: string) => sanity && handleDeleted(id, sanity))
+      deleted.map((id: string) => sanity && handleDeleted(id, sanity))
     )
   }
   if (updated.length > 0) {

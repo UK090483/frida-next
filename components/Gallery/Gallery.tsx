@@ -31,7 +31,7 @@ const Gallery: React.FC<GalleryProps> = ({ items, type = 'masonry' }) => {
 
   if (type === 'grid') {
     return (
-      <div className="grid grid-cols-1 md:grid-cols-3 md:px-frida_7%">
+      <div className="grid grid-cols-1 md:gap-12 lg:gap-16 md:grid-cols-2  lg:grid-cols-3 md:px-frida_7%">
         {items.slice(0, page * load).map((item) => item)}
         {hasNextPage && <div ref={sentryRef}>Load </div>}
       </div>

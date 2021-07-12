@@ -244,9 +244,9 @@ const Icon: React.FC<IconProps> = ({
 }) => {
   if (!Icons[icon]) return <div>icon</div>
   return (
-    <div
+    <span
       className={classNames(
-        `rounded-full bg-frida-${bgColor} text-frida-${color}`,
+        `block rounded-full bg-frida-${bgColor} text-frida-${color}`,
         {
           'w-8 h-8 md:w-12 md:h-12 p-2': size === 'm',
         },
@@ -264,7 +264,7 @@ const Icon: React.FC<IconProps> = ({
         ...rest,
         // style: {},
       })}
-    </div>
+    </span>
   )
 }
 

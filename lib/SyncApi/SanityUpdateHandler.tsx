@@ -42,8 +42,6 @@ export default class SanityUpdateHandler {
   shouldUpdate = async () => {
     const shopifyChecksum = await this.shopifyArtwork.getCheckSum()
     const sanityChecksum = await this.sanityArtwork.getCheckSum()
-    console.log(shopifyChecksum)
-    console.log(sanityChecksum)
     const hasChanged = sanityChecksum !== shopifyChecksum
     if (!hasChanged) {
       log('info', 'checksum is equal, sync done!')

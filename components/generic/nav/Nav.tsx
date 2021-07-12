@@ -30,11 +30,9 @@ const Nav: React.FC<NavProps> = ({ items, lang }) => {
 
   return (
     <div className="z-90 ">
-      <div className="pointer-events-auto flex bg-frida-grey bg-opacity-50 rounded-full ">
-        <LangSwitch />
-        <Burger onClick={toggleNav}></Burger>
-      </div>
-      <div className="absolute  right-frida_side top-12 md:top-20 md:right-frida_side_big pointer-events-auto">
+      <Burger onClick={toggleNav}></Burger>
+      <div className="pointer-events-auto flex bg-frida-grey bg-opacity-50 rounded-full "></div>
+      <div className="absolute  right-frida_side top-12 md:top-0.5 md:right-20  pointer-events-auto">
         <Icon
           onClick={() => {
             toggleCard()
@@ -42,18 +40,12 @@ const Nav: React.FC<NavProps> = ({ items, lang }) => {
           icon="cart"
         />
       </div>
-      {/* <Icon
-        onClick={() => {
-          toggleCard()
-        }}
-        icon="cart"
-        className="absolute  right-frida_side md:top-20 md:right-frida_side_big pointer-events-auto"
-      /> */}
+
       <div
         onMouseEnter={() => {
           setMouse('color', false)
         }}
-        className={`fixed z-90 w-screen h-vh-100 top-0 right-0 left-0 bottom-0 bg-transparent `}
+        className={`fixed z-90 w-screen h-vh-100 top-0 right-0 left-0 bottom-0 bg-transparent  `}
         style={{ pointerEvents: isOpen ? 'auto' : 'none' }}
         id="main-menu"
       >
@@ -67,6 +59,7 @@ const Nav: React.FC<NavProps> = ({ items, lang }) => {
 
         <Links open={isOpen} items={items} lang={lang} />
 
+        {isOpen && <LangSwitch />}
         {isOpen && (
           <Icon
             icon="x"

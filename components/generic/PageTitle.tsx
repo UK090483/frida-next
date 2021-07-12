@@ -65,7 +65,7 @@ const PageTitle: React.FC<PageTitleProps> = ({
           <Link href="/" passHref>
             <a
               className={classNames(
-                'font-bold text-md-fluid'
+                'font-bold text-md-fluid  transform -translate-y-2'
                 // { 'text-md-fluid ': title.length >= 16 },
                 // { 'text-md-fluid': title.length < 16 }
               )}

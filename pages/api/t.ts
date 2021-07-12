@@ -1,5 +1,6 @@
-import SanityUpdateHandler from '@lib/SyncApi/SanityUpdateHandler'
+// import SanityUpdateHandler from '@lib/SyncApi/SanityUpdateHandler'
 // import SanityArtwork from '@lib/SyncApi/SanityArtwork'
+import FetchShopify from '@lib/SyncApi/FetchShopify'
 import ShopifyArtwork from '@lib/SyncApi/ShopifyArtwork'
 import sanityClient, { SanityClient } from '@sanity/client'
 import type { NextApiRequest, NextApiResponse } from 'next'
@@ -19,26 +20,34 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     })
   }
 
-  if (!sanity) return res.status(200).json({ message: 'no client' })
+  if (!sanity)
+    return res.status(200).json({
+      message: 'we are not getting there',
+    })
 
-  // const Artwork = new SanityArtwork(
-  //   '47287fe6-6479-4116-84fb-57a2b9ac0175',
-  //   sanity
-  // )
-
-  const Updater = new SanityUpdateHandler(
-    '18986427-0b41-463e-9543-90a896b2bd7e',
-    sanity
+  const artworks: any[] = await sanity.fetch(
+    `*[_type=='artwork' && !(_id in path('drafts.**'))]{ _id, name,shopify_product_id}`
   )
 
-  const shopifyA = new ShopifyArtwork('6730999726240')
+  const count = artworks.length
+  const countWith = artworks.filter((i) => !!i.shopify_product_id).length
+  const countNotDuplicates = [
+    ...new Set(
+      artworks
+        .filter((i) => !!i.shopify_product_id)
+        .map((i) => i.shopify_product_id)
+    ),
+  ].length
 
-  shopifyA.getData()
-
-  await Updater.run()
-
+  const sorted = artworks
+    .filter((i) => !!i.shopify_product_id)
+    .sort((a, b) => a.shopify_product_id - b.shopify_product_id)
   return res.status(200).json({
     message: 'we are getting there',
+    count,
+    countWith,
+    countNotDuplicates,
+    sorted,
   })
 }
 

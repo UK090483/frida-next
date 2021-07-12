@@ -30,6 +30,8 @@ const Section: React.FC<SectionProps> = (props) => {
       className={cx(
         'relative',
         `bg-frida-${backgroundColor}`,
+        { 'bg-frida-green': backgroundColor === 'green' },
+
         {
           'h-vh-100 flex flex-col justify-center': type === 'hero',
         },

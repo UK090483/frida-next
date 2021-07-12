@@ -64,7 +64,7 @@ const ArtistHero: React.FC<ArtistHeroProps> = ({ photo, initBgColor }) => {
   return (
     <div data-color={initBgColor}>
       {photo && (
-        <div className="h-vh w-full fix-vh">
+        <div className="hero relative">
           <Photo photo={photo} layout="fill" />
         </div>
       )}
@@ -81,7 +81,7 @@ const ArtistInfo: React.FC<ArtistSingleProps> = (props) => {
 
   return (
     <>
-      <Section className="pb-20" backgroundColor="white" type="text">
+      <Section className="py-16 md:py-28" backgroundColor="white" type="text">
         <h1
           className={`${
             name && name.length < 10 ? 'header-medium' : 'header-small'
@@ -93,7 +93,7 @@ const ArtistInfo: React.FC<ArtistSingleProps> = (props) => {
         {_description && (
           <p className="text-base-fluid whitespace-pre-line">{_description}</p>
         )}
-        <div className="flex flex-wrap justify-center md:justify-start  ">
+        <div className="flex flex-wrap justify-center md:justify-start  pt-16">
           {webLink && (
             <Button
               label="Website"
@@ -128,7 +128,7 @@ const ArtistImages: React.FC<ArtistSingleProps> = (props) => {
     : relatedArtworks.map((i) => i.photo).slice(1, 3)
 
   return (
-    <Section>
+    <Section type="text" className="horizontal-padding">
       <div className="flex flex-row flex-wrap md:grid gap-4 grid-cols-11 grid-rows-5  w-full h-screen py-12 ">
         {_gallery.map((item, index) => {
           return (

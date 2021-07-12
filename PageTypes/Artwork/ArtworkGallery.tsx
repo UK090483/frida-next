@@ -16,10 +16,10 @@ const Artworks: React.FC<ArtworksProps> = (props) => {
 
   const artists = [...new Set(items.map((item) => item.artistName))]
 
-  let query = router.query
+  const query = router.query
 
   const filterElements = () => {
-    let res = items.filter((artwork) => {
+    const res = items.filter((artwork) => {
       let res = true
       if (query.artist && query.artist !== 'clear') {
         res = artwork.artistName === query.artist
@@ -36,7 +36,7 @@ const Artworks: React.FC<ArtworksProps> = (props) => {
         query.price !== 'clear' &&
         res
       ) {
-        let range = query.price.split('-')
+        const range = query.price.split('-')
 
         res =
           artwork.price >= parseInt(range[0]) &&

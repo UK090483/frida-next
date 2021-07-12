@@ -38,56 +38,40 @@ const Category: React.FC<CategoryProps> = ({ items, lang }) => {
           } = item
           const _label = lang === 'en' && label_en ? label_en : label
           return (
-            <ConditionalWrapper
+            <div
               key={index}
-              condition={!!internalLink}
-              wrapper={(children: React.ReactChildren) => {
-                return (
-                  <Link
-                    href={`${buildInternalLink(internalLink)}${urlParams}`}
-                    passHref
-                  >
-                    <a
-                      {...mouseLinkProps}
-                      className={cx(
-                        'h-vw-50 md:h-vw-30 lg:h-vw/5 relative row-span-3 ',
-                        { ' md:col-span-3': size === 's' },
-                        { ' md:col-span-6': size === 'm' },
-                        { ' md:col-span-9 ': size === 'l' },
-                        { 'col-span-3 ': sizeMobile === 's' },
-                        { 'col-span-6': sizeMobile === 'm' },
-                        { 'col-span-12 ': sizeMobile === 'l' }
-                      )}
-                    >
-                      {children}
-                    </a>
-                  </Link>
-                )
-              }}
+              className={cx(
+                'h-[30vw] md:h-[16vw]  relative row-span-3',
+                { ' md:col-span-3': size === 's' },
+                { ' md:col-span-6': size === 'm' },
+                { ' md:col-span-9 ': size === 'l' },
+                { 'col-span-3 ': sizeMobile === 's' },
+                { 'col-span-6': sizeMobile === 'm' },
+                { 'col-span-12 ': sizeMobile === 'l' }
+              )}
             >
-              <div
-                className={cx(
-                  'h-vw/2 md:h-vw/3 lg:h-vw/5 relative row-span-3 ',
-                  { ' md:col-span-3': size === 's' },
-                  { ' md:col-span-6': size === 'm' },
-                  { ' md:col-span-9 ': size === 'l' },
-                  { 'col-span-3 ': sizeMobile === 's' },
-                  { 'col-span-6': sizeMobile === 'm' },
-                  { 'col-span-12 ': sizeMobile === 'l' }
-                )}
+              <ConditionalWrapper
+                condition={!!internalLink}
+                wrapper={(children: React.ReactChildren) => {
+                  return (
+                    <Link
+                      href={`${buildInternalLink(internalLink)}${urlParams}`}
+                      passHref
+                    >
+                      <a {...mouseLinkProps}>{children}</a>
+                    </Link>
+                  )
+                }}
               >
                 {item.images && item.images[0] && item.images[0]}
 
                 {_label && (
-                  // <div className="py-2 px-6 text-base-fluid rounded-full font-extrabold text-frida-black absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-frida-white whitespace-nowrap">
-                  //   {_label}
-                  // </div>
                   <button className="button is-responsive  absolute bg-frida-white border-frida-white top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                     {_label}
                   </button>
                 )}
-              </div>
-            </ConditionalWrapper>
+              </ConditionalWrapper>
+            </div>
           )
         })}
       </div>

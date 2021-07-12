@@ -20,17 +20,24 @@ const PaymentInfo: React.FC<{ lang: FridaLocation }> = ({ lang }) => {
     <div className="w-full">
       <p className="text-sm-fluid">
         {questionsText}
-        <a href="mailto:name@email.com"> {helpText}</a>
+        <a href="mailto:name@email.com" className="underline font-bold">
+          {helpText}
+        </a>
       </p>
 
-      <div className="flex  sm:flex-nowrap  justify-between">
-        <div className="pr-2">
-          <Icon icon="creditCard" color="black" bgColor="grey" />
-          <p className="text-sm-fluid">{savePaymentText}</p>
+      <div className="flex flex-wrap sm:flex-nowrap  justify-between">
+        <div className="flex items-start">
+          <div>
+            <Icon icon="creditCard" color="black" bgColor="grey" />
+          </div>
+
+          <p className="text-sm-fluid px-4">{savePaymentText}</p>
         </div>
-        <div>
-          <Icon icon="email" color="black" bgColor="grey" />
-          <p className="text-sm-fluid">{versandText}</p>
+        <div className="flex items-start justify-start ">
+          <div>
+            <Icon icon="email" color="black" bgColor="grey" />
+          </div>
+          <p className="text-sm-fluid px-4">{versandText}</p>
         </div>
       </div>
     </div>

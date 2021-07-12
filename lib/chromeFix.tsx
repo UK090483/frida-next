@@ -13,6 +13,10 @@ const VHChromeFix = function () {
       vh: 90,
     },
     {
+      selector: '.hero',
+      vh: 90,
+    },
+    {
       selector: '.h-vh-40',
       vh: 40,
     },

@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SanityArtwork getData success 1`] = `
+Object {
+  "_type": "artwork",
+  "description": "",
+}
+`;

@@ -1,6 +1,6 @@
-import { mouseLinkProps } from '@components/generic/Mouse/mouseRemote'
 // @ts-ignore
 import BlockContent from '@sanity/block-content-to-react'
+import LinkMark, { linkMarkQuery } from 'pageBuilder/marks/link'
 import { downloadPlugQuery } from 'pageBuilder/Plugs/DownLoadPlug'
 import { imageGalleryPlugQuery } from 'pageBuilder/Plugs/ImageGaleriePlug'
 import { imagePlugQuery } from 'pageBuilder/Plugs/ImagePlug'
@@ -11,9 +11,17 @@ import { PageBuilderBlockBase } from '../pageBuilderQueries'
 import ButtonPlug, { buttonPlugQuery } from '../Plugs/ButtonPlug'
 import EmbedPlug, { embedPlugQuery } from '../Plugs/EmbedPlug'
 
+const marksQuery = `
+markDefs[]{
+  ...,
+  ${linkMarkQuery},
+}
+`
+
 export const richTextQuery = `
 content[]{
   ...,
+  ${marksQuery},
   ${buttonPlugQuery},
   ${embedPlugQuery},
   ${imagePlugQuery},
@@ -38,17 +46,7 @@ const frida = (props: any) => {
   return <Frida textColor={props.mark.color} text={props.children} />
 }
 const link = (props: any) => {
-  return (
-    <a
-      {...mouseLinkProps}
-      target="_blank"
-      rel="noreferrer"
-      href={props?.mark?.link}
-      className="text-frida-red underline"
-    >
-      {props.children}
-    </a>
-  )
+  return <LinkMark {...props.mark}>{props.children}</LinkMark>
 }
 
 const list = (props: any) => {

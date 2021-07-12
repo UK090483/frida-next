@@ -8,6 +8,7 @@ type ProductNameProps = {
   name: ArtworkRecord['artworkName']
   size: 's' | 'm' | 'l'
   truncate?: boolean
+  className?: string
 }
 
 const ProductName: React.FC<ProductNameProps> = ({
@@ -15,6 +16,7 @@ const ProductName: React.FC<ProductNameProps> = ({
   name = 'name missing',
   size = 'm',
   truncate = false,
+  className = '',
 }) => {
   const stringArray = [...name.split(' ')]
   const firstWord = stringArray.shift()
@@ -24,8 +26,9 @@ const ProductName: React.FC<ProductNameProps> = ({
     <div
       className={classnames(
         { 'whitespace-nowrap  overflow-hidden truncate': truncate },
-        { 'text-base-fluid font-bold pb-6 pt-2': size === 'l' },
-        { 'text-sm-fluid': size === 'm' }
+        { 'text-base-fluid font-bold  py-2': size === 'l' },
+        { 'text-sm-fluid': size === 'm' },
+        `${className}`
       )}
     >
       <span>

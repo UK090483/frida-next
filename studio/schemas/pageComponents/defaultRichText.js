@@ -130,31 +130,19 @@ export default {
             type: 'object',
             title: 'Link',
             fields: [
-              // {
-              //   title: 'Internal link',
-              //   description: 'Use this to link between pages on the website',
-              //   name: 'internalLink',
-              //   type: 'reference',
-              //   to: [
-              //     { type: 'indexPage' },
-              //     { type: 'page' },
-              //     { type: 'artwork' },
-              //     { type: 'artist' }
-              //   ]
-              // },
+              { title: 'Link', name: 'link', type: 'link' },
               {
-                title: 'External link',
-                name: 'link',
-                type: 'url'
-              },
+                title: 'As Button',
+                name: 'asButton',
+                type: 'boolean'
+              }
             ],
             blockEditor: {
               icon: () => 'Hyper',
               render: props => {
                 return (
-                  <a style={{textDecoration:'underline', color:'red'}}>
-                      {props.children}
-                    
+                  <a style={{ textDecoration: 'underline', color: 'red' }}>
+                    {props.children}
                   </a>
                 )
               }
@@ -179,7 +167,6 @@ export default {
               }
             ],
             blockEditor: {
-             
               render: props => {
                 return (
                   <span>

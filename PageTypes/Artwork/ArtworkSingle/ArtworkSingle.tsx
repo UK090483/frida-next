@@ -41,15 +41,23 @@ const ArtworkSingle: React.FC<ArtworkSingleProps> = (props) => {
       <ArtworkHero lang={lang} artwork={props} />
 
       {_description && (
-        <Section className="py-16" backgroundColor="grey" type="text">
+        <Section
+          className="horizontal-padding"
+          backgroundColor="grey"
+          type="text"
+        >
           <h2 className="text-lg-fluid font-bold">
             {lang === 'en' ? `About the Artwork` : `Über das Kunstwerk`}
           </h2>
-          <p className="text-base-fluid whitespace-pre-line">{_description}</p>
+          <p className="text-base-fluid  whitespace-pre-line">{_description}</p>
         </Section>
       )}
 
-      <Section className="py-16" backgroundColor="pink" type="text">
+      <Section
+        className="horizontal-padding"
+        backgroundColor="pink"
+        type="text"
+      >
         <h2 className="text-lg-fluid font-bold">
           {lang === 'en' ? `About the Artist` : `Über den Künstler`}
         </h2>
@@ -58,7 +66,7 @@ const ArtworkSingle: React.FC<ArtworkSingleProps> = (props) => {
             {_artistDescription}
           </p>
         )}
-        <div className="flex flex-col items-center  md:flex-row">
+        <div className="flex  items-center  flex-col  flex-wrap pt-16">
           {artistSlug && (
             <Button
               label="Artist Page"
@@ -67,7 +75,7 @@ const ArtworkSingle: React.FC<ArtworkSingleProps> = (props) => {
               color="red"
               backgroundColor="pink"
               position="auto"
-              className="mr-0 md:mr-3 mb-2"
+              className="mr-0 md:mr-3 mb-4"
             />
           )}
           {artistWebLink && (
@@ -78,7 +86,7 @@ const ArtworkSingle: React.FC<ArtworkSingleProps> = (props) => {
               color="red"
               position="auto"
               backgroundColor="pink"
-              className="mr-0 md:mr-3 mb-2"
+              className="mr-0 md:mr-3 mb-4"
             />
           )}
           {instagramLink && (

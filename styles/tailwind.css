@@ -7,7 +7,7 @@
 @tailwind utilities;
 
 @layer utilities {
-  .stop-fix-android-vh {
+  /* .stop-fix-android-vh {
     transition: unset;
   }
 
@@ -20,10 +20,14 @@
     @apply fix-android-vh md:fix-android-vh;
   }
 
+ */
 
-
+  .horizontal-padding{
+ 
+    @apply py-16  md:py-28;
+  }
   .hero {
-    min-height: 750px;
+    @apply h-vh-90 min-h-[600px] md:min-h-[750px];
   }
 
   .header-big {

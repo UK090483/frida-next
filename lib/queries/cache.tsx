@@ -36,6 +36,12 @@ const cashQuery = `
         link,
         'internalLink':internalLink->slug.current
       },
+      'footerItems': footerNav[]{
+        label,
+        label_en,
+        link,
+        'internalLink':internalLink->{'type':_type, 'slug':slug.current},
+      },
       'agbSite':agbSite->slug.current,
       'imprintSite':imprintSite->slug.current,
     }
@@ -61,6 +67,13 @@ export type SiteResult = {
       label_en: string | null
       link: string | null
       internalLink: string | null
+    }[]
+
+    footerItems?: {
+      label?: string
+      label_en?: string | null
+      link?: string | null
+      internalLink?: { type: string; slug: string }
     }[]
 
     agbSite?: string | null

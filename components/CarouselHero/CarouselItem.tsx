@@ -8,7 +8,7 @@ const CarouselItem: React.FC<CarouselHeroItem> = (props) => {
 
   return (
     <Section type="full" backgroundColor={color}>
-      <div className=" w-full relative flex flex-wrap h-vh-90">
+      <div className=" w-full relative flex flex-wrap hero">
         <div className="p-10 w-full md:w-1/2  flex  items-center h-1/2 md:h-full ">
           <div>{content}</div>
         </div>

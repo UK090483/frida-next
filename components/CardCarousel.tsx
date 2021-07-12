@@ -38,15 +38,15 @@ const Carousel: React.FC<CarouselProps> = ({
   }
 
   return (
-    <Section type="full" backgroundColor="white">
+    <Section
+      type="full"
+      backgroundColor={bgColor}
+      className="horizontal-padding"
+    >
       {header && (
-        <div
-          className={`text-lg-fluid  bg-frida-${bgColor} font-bold px-frida_7% pt-14`}
-        >
-          {header}
-        </div>
+        <div className={`text-md-fluid   font-bold px-frida_7% `}>{header}</div>
       )}
-      <div className={`bg-frida-${bgColor}  py-3 md:py-12 relative`}>
+      <div className={`  py-3 md:py-12 relative`}>
         <div ref={sliderRef} className="keen-slider">
           {items.map((item, index) => (
             <div key={index} className="keen-slider__slide ">

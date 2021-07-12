@@ -33,7 +33,7 @@ export default class FetchShopify {
       return res
     } catch (error) {
       const e = error as AxiosError
-      console.log(e.response?.data?.errors)
+      log('error', e.response?.data?.errors)
       return null
     }
   }
@@ -80,7 +80,8 @@ export default class FetchShopify {
   }
   setChecksum = async (checksum: string) => {
     this.checkInitState()
-    await this.fetch(
+    log('info', `setting checksum `)
+    const res = await this.fetch(
       `products/${this.productId}/metafields.json`,
       {
         metafield: {
@@ -92,7 +93,32 @@ export default class FetchShopify {
       },
       'POST'
     )
+
+    if (!(res?.data?.metafield?.value === checksum)) {
+      log('error', `Error setting checksum ${res?.data}`)
+    }
   }
+  setSanityIdMeta = async (sanityId: string) => {
+    this.checkInitState()
+    log('info', `setting SanityIdMeta  `)
+    const res = await this.fetch(
+      `products/${this.productId}/metafields.json`,
+      {
+        metafield: {
+          key: 'sanityId_syncData',
+          namespace: 'syncData',
+          value: sanityId,
+          value_type: 'string',
+        },
+      },
+      'POST'
+    )
+
+    if (!(res?.data?.metafield?.value === sanityId)) {
+      log('error', `Error setting SanityIdMeta ${res?.data}`)
+    }
+  }
+
   createProduct = async (product: SanityProduct, checksum: string) => {
     log('info', `creating product ${product.name} `)
 
@@ -102,8 +128,9 @@ export default class FetchShopify {
         {
           product: {
             title: product.name,
+            status: 'active',
             body_html: `<p>${product.description || ' '}</p>`,
-            vendor: 'frida',
+            vendor: 'MeetFrida',
             product_type: 'artwork',
             published_scope: 'global',
             images: [
@@ -141,6 +168,7 @@ export default class FetchShopify {
       }
 
       await this.setChecksum(checksum)
+      await this.setSanityIdMeta(product._id)
 
       const { handle, variants, id } = res.data.product
 
@@ -157,19 +185,36 @@ export default class FetchShopify {
       return null
     }
   }
+  setProductDraft = async (productId: string) => {
+    const res = await this.fetch(
+      `products/${productId}.json`,
+      {
+        product: {
+          id: 632910392,
+          status: 'draft',
+        },
+      },
+      'PUT'
+    )
+    await this.setChecksum('draft')
+    console.log(res?.data)
+  }
+
   updateProduct = async (
     productId: string,
     product: SanityProduct,
     checksum: string
   ) => {
+    log('info', `updating Product `)
     try {
       const res = await this.fetch(
         `products/${productId}.json`,
         {
           product: {
+            status: 'active',
             title: product.name,
             body_html: `<p>${product.description}</p>`,
-            vendor: 'frida',
+            vendor: 'MeetFrida',
             product_type: 'artwork',
             published_scope: 'global',
             images: [
@@ -190,8 +235,11 @@ export default class FetchShopify {
         },
         'PUT'
       )
+
       if (!res) return null
       await this.setChecksum(checksum)
+      await this.setSanityIdMeta(product._id)
+
       const { handle, variants, id } = res.data.product
 
       return {

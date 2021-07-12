@@ -3,7 +3,6 @@ import Link from 'next/link'
 import { mouseLinkProps } from '../generic/Mouse/mouseRemote'
 import { FridaColors } from '../../types'
 import cx from 'classnames'
-import { imageMeta } from '@lib/queries/snippets'
 
 interface ButtonProps {
   label: string

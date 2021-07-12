@@ -62,7 +62,7 @@ module.exports = {
       },
       spacing: {
         'frida_7%': '7%',
-        frida_side: '0.6rem',
+        frida_side: '16px',
         frida_side_big: '1.2rem',
       },
       transitionProperty: {

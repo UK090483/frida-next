@@ -51,6 +51,7 @@ const Layout: React.FC<LayoutProps> = (props) => {
     title,
     header = 'default',
     initialColor = 'white',
+    lang,
   } = props
 
   //@ts-ignore
@@ -84,6 +85,8 @@ const Layout: React.FC<LayoutProps> = (props) => {
         {/* <CookieConsent /> */}
         {footer && <BodyParser lang={props.lang} content={footer.content} />}
         <Footer
+          lang={lang}
+          nav={data?.site.navigation?.footerItems}
           imprintSlug={data?.site.navigation?.imprintSite}
           agbSlug={data?.site.navigation?.agbSite}
         />

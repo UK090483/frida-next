@@ -54,4 +54,7 @@ export default class ShopifyArtwork {
   ) => {
     return await this.fetchShopify.updateProduct(productId, product, checksum)
   }
+  draftArtwork = async (productId: string) => {
+    return await this.fetchShopify.setProductDraft(productId)
+  }
 }

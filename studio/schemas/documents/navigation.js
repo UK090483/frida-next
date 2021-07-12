@@ -7,28 +7,16 @@ export default {
     {
       name: 'item',
       type: 'array',
-      title: 'Navigation Items',
+      title: 'Main Navigation',
       of: [{ type: 'navigationItem' }]
     },
     {
-      name: 'agbSite',
-      type: 'reference',
-      title: 'Agb Site',
-      to: [{ type: 'page' }]
+      name: 'footerNav',
+      type: 'array',
+      title: 'Footer Navigation',
+      of: [{ type: 'navigationItem' }]
     },
-    {
-      name: 'imprintSite',
-      type: 'reference',
-      title: 'Imprint Site',
-      to: [{ type: 'page' }]
-    },
-    // {
-    //   name: 'homePage',
-    //   type: 'reference',
-    //   title: 'HomePage',
-    //   to: [{ type: 'page' }],
-    //   validation: Rule => Rule.required()
-    // }
+  
   ],
   preview: {
     prepare() {

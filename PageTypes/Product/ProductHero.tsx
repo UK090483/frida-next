@@ -97,8 +97,9 @@ const ProductHero: React.FC<ProductHeroProps> = (props) => {
               })
             }}
           />
+
+          <PaymentInfo lang={lang} />
         </div>
-        <PaymentInfo lang={lang} />
       </ProductInfoWrap>
     </ProductHeroWrap>
   )

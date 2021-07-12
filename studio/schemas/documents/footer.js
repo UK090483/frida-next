@@ -14,6 +14,7 @@ export default {
       title: 'Name',
       validation: Rule => Rule.required()
     },
+   
 
     defaultBockContent
   ]

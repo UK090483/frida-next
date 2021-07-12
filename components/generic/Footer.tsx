@@ -5,21 +5,26 @@ import Newsletter from 'components/Forms/NewsletterForm'
 import { useRouter } from 'next/router'
 import { mouseLinkProps } from './Mouse/mouseRemote'
 import Link from 'next/link'
+import { buildInternalLink } from '@lib/helper/buildInternalLink'
+import { FridaLocation } from 'types'
 
 type FooterProps = {
   imprintSlug?: string | null | undefined
   agbSlug?: string | null | undefined
+
+  nav?: any[]
+  lang: FridaLocation
 }
 
 const Footer: React.FC<FooterProps> = (props) => {
-  const { imprintSlug, agbSlug } = props
+  const { nav } = props
   const router = useRouter()
 
   return (
     <div>
       <Section backgroundColor="white">
         <div className="flex flex-wrap lg:flex-nowrap">
-          <div className="w-full py-12 lg:pr-frida_7%">
+          <div className="w-full horizontal-padding lg:pr-frida_7%">
             <p className="text-lg-fluid font-bold">
               {router.locale === 'en' ? 'Stay up to date' : 'Bleib up to date'}
             </p>
@@ -44,20 +49,18 @@ const Footer: React.FC<FooterProps> = (props) => {
       <BigButton></BigButton>
       <Section backgroundColor="red">
         <div className="text-frida-white flex flex-col md:flex-row  items-center justify-evenly  md:justify-between h-52 md:h-24">
-          <a
-            href="http://schwan-communications.com/"
-            target="_blank"
-            rel="noreferrer"
-            {...mouseLinkProps}
-          >
-            © 2020 Schwan Communications
-          </a>
-          <Link href={`/${imprintSlug ? imprintSlug : ''}`} passHref>
-            <a {...mouseLinkProps}>Impressum & Datenschutz</a>
-          </Link>
-          <Link href={`/${agbSlug ? agbSlug : ''}`} passHref>
-            <a {...mouseLinkProps}>AGB</a>
-          </Link>
+          {nav &&
+            nav.map((l, index) => {
+              return (
+                <CustomLink
+                  key={index}
+                  internalLink={l.internalLink}
+                  link={l.link}
+                  label={l.label}
+                  label_en={l.label_en}
+                />
+              )
+            })}
         </div>
       </Section>
     </div>
@@ -65,3 +68,37 @@ const Footer: React.FC<FooterProps> = (props) => {
 }
 
 export default Footer
+
+type CustomLinkPros = {
+  className?: string
+  internalLink?: { type: string; slug: string }
+  link?: string
+  label?: string
+  label_en?: string
+}
+const CustomLink: React.FC<CustomLinkPros> = (props) => {
+  const { className, label, link, internalLink } = props
+  const _internalLink = internalLink && buildInternalLink(internalLink)
+
+  if (_internalLink) {
+    return (
+      <Link href={_internalLink} passHref>
+        <a {...mouseLinkProps} className={className}>
+          {label}
+        </a>
+      </Link>
+    )
+  }
+
+  return (
+    <a
+      {...mouseLinkProps}
+      target="_blank"
+      rel="noreferrer"
+      href={link || '/'}
+      className={className}
+    >
+      {label}
+    </a>
+  )
+}

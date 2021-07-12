@@ -1,7 +1,9 @@
 import defaultResolve, {
   PublishAction,
   DiscardChangesAction,
-  DeleteAction
+  UnpublishAction,
+  DuplicateAction,
+  DeleteAction,
 } from 'part:@sanity/base/document-actions'
 
 import { FiEye } from 'react-icons/fi'
@@ -52,6 +54,18 @@ export default function resolveDocumentActions(props) {
   const canEditDelete = editAndDelete.indexOf(props.type) > -1
   const canPreview = previews.indexOf(props.type) > -1
   const isSingleID = singletonsID.indexOf(props.id) > -1
+  
+
+  // if(props.type === 'artwork'){
+  
+  //   return [
+  //     PublishAction,
+  //     DiscardChangesAction,
+  //     UnpublishAction,
+  //     DuplicateAction,
+  //     ...(props.published ?[]: [DeleteAction]),
+  //   ]
+  // }
 
   
   if (isSingleID) {

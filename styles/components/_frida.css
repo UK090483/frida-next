@@ -1,0 +1,19 @@
+.frida{
+   @apply relative inline  whitespace-nowrap font-bold;
+
+   &--text{
+      @apply relative z-0;
+      padding-left: 0.01em;
+   }
+
+   &--text:before {
+    @apply absolute -z-1 inset-x-0 ;
+    border-color: inherit;
+    content: "";
+    border-style: solid ;
+    border-bottom-width:0.18em;
+    bottom:-0.07em;
+    }
+
+}
+

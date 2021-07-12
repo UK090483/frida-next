@@ -73,10 +73,7 @@ const Infos: React.FC<{
     <div className="mb-3 flex items-center">
       {categories &&
         categories.map((cat) => (
-          <div
-            key={cat}
-            className="text-xs-fluid inline-block border-2 px-8 py-1 rounded-full mr-3"
-          >
+          <div key={cat} className="button is-small mr-3">
             {cat}
           </div>
         ))}
