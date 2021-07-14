@@ -186,7 +186,7 @@ export default class FetchShopify {
     }
   }
   setProductDraft = async (productId: string) => {
-    const res = await this.fetch(
+    await this.fetch(
       `products/${productId}.json`,
       {
         product: {
@@ -197,7 +197,6 @@ export default class FetchShopify {
       'PUT'
     )
     await this.setChecksum('draft')
-    console.log(res?.data)
   }
 
   updateProduct = async (
@@ -205,7 +204,10 @@ export default class FetchShopify {
     product: SanityProduct,
     checksum: string
   ) => {
-    log('info', `updating Product `)
+    if (!this.productId) {
+      this.productId = productId
+    }
+    log('info', `updating Product ${product.name}`)
     try {
       const res = await this.fetch(
         `products/${productId}.json`,
@@ -243,8 +245,8 @@ export default class FetchShopify {
       const { handle, variants, id } = res.data.product
 
       return {
-        shopify_product_id: id,
-        shopify_variant_id: variants[0].id,
+        shopify_product_id: id + '',
+        shopify_variant_id: variants[0].id + '',
         shopify_handle: handle,
       }
     } catch (error) {

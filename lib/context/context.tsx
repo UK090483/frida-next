@@ -71,6 +71,7 @@ export const SiteContext = createContext(initialContext)
 
 // Build a new checkout
 const createNewCheckout = (context: SiteContextState) => {
+  console.log(context.shopifyClient)
   return context.shopifyClient?.checkout.create()
 }
 

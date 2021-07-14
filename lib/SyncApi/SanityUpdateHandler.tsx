@@ -77,12 +77,13 @@ export default class SanityUpdateHandler {
     const sanityData = await this.sanityArtwork.getData()
     const checksum = await this.sanityArtwork.getCheckSum()
     if (sanityData && sanityData.shopify_product_id && checksum) {
-      await this.shopifyArtwork.updateArtwork(
+      const syncData = await this.shopifyArtwork.updateArtwork(
         sanityData.shopify_product_id,
         sanityData,
         checksum
       )
       log('info', '___Update Artwork done !')
+      return syncData
     }
     return
   }

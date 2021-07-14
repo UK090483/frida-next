@@ -171,13 +171,24 @@ export default {
       type: 'seo'
     }
   ],
+  orderings: [
+    {
+      title: 'Artist',
+      name: 'artist',
+      by: [
+        {field: 'artist.anzeigeName', direction: 'asc'}
+      ]
+    },
+  
+   ],
   initialValue: () => ({
     availability: 'availabil'
   }),
   preview: {
     select: {
       media: 'image',
-      title: 'name'
+      title: 'name',
+      subtitle:'artist.anzeigeName'
     }
   }
 }

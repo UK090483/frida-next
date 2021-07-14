@@ -47,6 +47,7 @@ export default class ShopifyArtwork {
   createArtwork = async (product: SanityProduct, checksum: string) => {
     return await this.fetchShopify.createProduct(product, checksum)
   }
+
   updateArtwork = async (
     productId: string,
     product: SanityProduct,

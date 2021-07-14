@@ -1,6 +1,7 @@
 import type { SanityClient } from '@sanity/client'
 import { imageBuilder } from '../sanity'
 import axios from 'axios'
+import { log } from '@lib/SyncApi/logging'
 const { SANITY_PROJECT_DATASET, SANITY_PROJECT_ID, SANITY_API_TOKEN } =
   process.env
 
@@ -79,7 +80,7 @@ export default class SanityArtwork {
     } catch (error) {
       this.loaded = true
 
-      console.error(`${this.errMsg} could not be fetched`)
+      log('error', `${this.errMsg} could not be fetched`)
       return null
     }
 
@@ -139,12 +140,13 @@ export default class SanityArtwork {
     shopify_handle: string
     shopify_variant_id: string
   }) => {
+    log('info', `setting syncData in Sanity`)
     await this.sanityClient.patch(this.id).set(props).commit()
   }
 
   getCheckSum = async () => {
     if (!this.data) {
-      console.log('no data for checksum')
+      log('error', 'no data for checksum')
       return
     }
 

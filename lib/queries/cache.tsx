@@ -13,7 +13,7 @@ export const cache = accessCache('public/build.cache.json')
 
 const cashQuery = `
 {
-  'artworks':*[_type=='artwork' ]{
+  'artworks':*[_type=='artwork' && defined(shopify_variant_id) ]{
     ${artworkCardQuery}
   },
   'artists':*[_type=='artist'&& defined(slug.current)]{
