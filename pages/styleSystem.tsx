@@ -2,6 +2,7 @@ import Button from '@components/buttons/button'
 import Frida from '@components/Frida'
 // import Layout from '@components/generic/Layout'
 import Icon from '@components/Icon'
+import BuyButton from '@components/ProductComponents/BuyButton'
 import Section from '@components/Section'
 import * as React from 'react'
 
@@ -10,7 +11,7 @@ const StyleSystem: React.FC = () => {
     <>
       <div className="h-vh/3"></div>
 
-      <p className="pl-8 text-xl-fluid underline font-mono pt-32 pb-10">Typo</p>
+      <p className="pt-32 pb-10 pl-8 font-mono underline text-xl-fluid">Typo</p>
       <Section>
         <p className="header-big">Header-big</p>
         <p className="header-medium">Header-medium</p>
@@ -34,7 +35,7 @@ const StyleSystem: React.FC = () => {
           faucibus.
         </p>
       </Section>
-      <p className="pl-8 text-xl-fluid underline font-mono pt-32 pb-10">
+      <p className="pt-32 pb-10 pl-8 font-mono underline text-xl-fluid">
         Buttons
       </p>
       <Section>
@@ -57,11 +58,11 @@ const StyleSystem: React.FC = () => {
           onClick={() => ''}
         />
       </Section>
-      <p className="pl-8 text-xl-fluid underline font-mono pt-32 pb-10">
+      <p className="pt-32 pb-10 pl-8 font-mono underline text-xl-fluid">
         Icons
       </p>
       <Section backgroundColor="pink">
-        <div className="flex py-4 justify-around mt-9">
+        <div className="flex justify-around py-4 mt-9">
           <Icon icon="menu" />
           <Icon icon="x" />
           <Icon icon="arrowLeft" />
@@ -76,7 +77,7 @@ const StyleSystem: React.FC = () => {
           <Icon icon="facebook" />
           <Icon icon="email" />
         </div>
-        <div className="flex py-4 justify-around">
+        <div className="flex justify-around py-4">
           <Icon icon="menu" size="s" />
           <Icon icon="x" size="s" />
           <Icon icon="arrowLeft" size="s" />
@@ -92,7 +93,7 @@ const StyleSystem: React.FC = () => {
           <Icon icon="email" size="s" />
         </div>
       </Section>
-      <p className="pl-8 text-xl-fluid underline font-mono pt-32 pb-10">
+      <p className="pt-32 pb-10 pl-8 font-mono underline text-xl-fluid">
         Frida
       </p>
 
@@ -116,6 +117,20 @@ const StyleSystem: React.FC = () => {
           Nullam est tellus, tristique vitae
         </p>
       </Section>
+
+      <p className="pt-32 pb-10 pl-8 font-mono underline text-xl-fluid">
+        Buy Button
+      </p>
+
+      <Section backgroundColor="white" className="h-screen">
+        {/* <BuyButton availability={false} />
+        <div className="pb-10"></div>
+        <BuyButton />
+        <div className="pb-10"></div>
+        <BuyButton isInCart={true} /> */}
+      </Section>
+
+      <Section backgroundColor="white" className="h-screen"></Section>
     </>
   )
 }

@@ -24,7 +24,7 @@ const ArtistSingle: React.FC<ArtistSingleProps> = (props) => {
   const heroImage =
     mainImage && mainImage.asset
       ? mainImage
-      : relatedArtworks && relatedArtworks[1] && relatedArtworks[1].photo
+      : relatedArtworks && relatedArtworks[0] && relatedArtworks[0].photo
 
   if (content && content.length > 0) {
     return (
@@ -64,7 +64,7 @@ const ArtistHero: React.FC<ArtistHeroProps> = ({ photo, initBgColor }) => {
   return (
     <div data-color={initBgColor}>
       {photo && (
-        <div className="hero relative">
+        <div className="relative hero">
           <Photo photo={photo} layout="fill" />
         </div>
       )}
@@ -91,9 +91,9 @@ const ArtistInfo: React.FC<ArtistSingleProps> = (props) => {
           {name}
         </h1>
         {_description && (
-          <p className="text-base-fluid whitespace-pre-line">{_description}</p>
+          <p className="whitespace-pre-line text-base-fluid">{_description}</p>
         )}
-        <div className="flex flex-wrap justify-center md:justify-start  pt-16">
+        <div className="flex flex-wrap justify-center pt-16 md:justify-start">
           {webLink && (
             <Button
               label="Website"
@@ -129,7 +129,7 @@ const ArtistImages: React.FC<ArtistSingleProps> = (props) => {
 
   return (
     <Section type="text" className="horizontal-padding">
-      <div className="flex flex-row flex-wrap md:grid gap-4 grid-cols-11 grid-rows-5  w-full h-screen py-12 ">
+      <div className="flex flex-row flex-wrap w-full h-screen grid-cols-11 grid-rows-5 gap-4 py-12 md:grid ">
         {_gallery.map((item, index) => {
           return (
             <div

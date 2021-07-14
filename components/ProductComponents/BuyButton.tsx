@@ -2,7 +2,7 @@ import React from 'react'
 import { useIntersection } from 'react-use'
 import { mouseLinkProps } from '@components/generic/Mouse/mouseRemote'
 import cx from 'classnames'
-import { FridaColors } from 'types'
+
 import { motion, Variants } from 'framer-motion'
 import { useRouter } from 'next/router'
 import { useSiteContext } from 'lib/context/context'
@@ -11,13 +11,13 @@ import useCheckout from '@lib/context/useCheckout'
 
 type BuyButtonProps = {
   handleAddToCard?: () => void
-
-  isInCart?: boolean
+  shopify_variant_id?: string
+  isInCart: boolean
+  className?: string
 }
 
 const BuyButton: React.FC<BuyButtonProps> = (props) => {
-  const { handleAddToCard = () => null, isInCart = false } = props
-  //   const { availability, addToCart, inCart, checkoutUrl } = props
+  const { handleAddToCard = () => null, isInCart, className = '' } = props
 
   const intersectionRef = React.useRef(null)
 
@@ -58,23 +58,38 @@ const BuyButton: React.FC<BuyButtonProps> = (props) => {
   const checkOut = useCheckout()
 
   return (
-    <div ref={intersectionRef} className=" h-12">
+    <div ref={intersectionRef} className={`h-12 ${className}`}>
       <div
         className={`flex w-80 lg:w-vw/4 z-10 ${
           isOut && !isNavOpen
-            ? 'fixed bottom-3 left-1/2 transform -translate-x-1/2  lg:translate-x-0 lg:translate-y-1.5 lg:left-unset lg:bottom-unset lg:top-frida_side_big lg:right-32'
+            ? 'fixed bottom-3 left-1/2 transform -translate-x-1/2  lg:translate-x-0 lg:translate-y-0.5 lg:left-unset lg:bottom-unset lg:top-frida_side_big lg:right-36'
             : ''
         }`}
       >
+        {/* {!isInCart && (
+          <button className=" bg-frida-green rounded-full leading-none text-frida-white  py-3.5">
+            {isAdding ? isAddingText : availability ? toCardText : soldText}
+          </button>
+        )}
+        {isInCart && (
+          <>
+            <button className=" bg-frida-black text-frida-white">
+              {cartText}
+            </button>
+            <button className=" bg-frida-green text-frida-white">
+              {checkoutText}
+            </button>
+          </>
+        )} */}
         <BButton
           show={!isInCart}
           onClick={handleAdd}
-          color={availability ? 'green' : 'red'}
+          className={`${availability ? 'bg-frida-green' : 'bg-frida-red'}`}
         >
           {isAdding ? isAddingText : availability ? toCardText : soldText}
         </BButton>
 
-        <BButton onClick={openCart} show={isInCart} color="black">
+        <BButton onClick={openCart} show={isInCart} className="bg-frida-black">
           {cartText}
         </BButton>
         <BButton
@@ -82,8 +97,7 @@ const BuyButton: React.FC<BuyButtonProps> = (props) => {
             checkOut && (window.location.href = checkOut)
           }}
           show={isInCart}
-          color="green"
-          className="ml-5"
+          className="ml-5 bg-frida-green"
         >
           {checkoutText}
         </BButton>
@@ -95,7 +109,6 @@ const BuyButton: React.FC<BuyButtonProps> = (props) => {
 export default BuyButton
 
 type BButtonProps = {
-  color: FridaColors
   onClick: () => void
   show: boolean
   className?: string
@@ -103,10 +116,9 @@ type BButtonProps = {
 
 const variants: Variants = {
   hidden: { opacity: 0, y: '100%', display: 'none', width: '50%' },
-  visible: { opacity: 1, y: 0, width: '100%' },
+  visible: { opacity: 1, y: 0, display: 'block', width: '100%' },
 }
 const BButton: React.FC<BButtonProps> = ({
-  color,
   children,
   onClick,
   show,
@@ -120,7 +132,7 @@ const BButton: React.FC<BButtonProps> = ({
       onClick={onClick}
       {...mouseLinkProps}
       className={`rounded-full leading-none text-frida-white  py-3.5 text-sm-fluid font-bold overflow-hidden whitespace-nowrap ${cx(
-        `bg-frida-${color}  ${className}`
+        `${className}`
       )}`}
     >
       {children}

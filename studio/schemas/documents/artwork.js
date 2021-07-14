@@ -155,8 +155,8 @@ export default {
     {
       name: 'shopify_variant_id',
       type: 'string',
-      title: 'Shopify Variant ID'
-      // readOnly: true
+      title: 'Shopify Variant ID',
+       readOnly: true
     },
     {
       name: 'shopify_handle',

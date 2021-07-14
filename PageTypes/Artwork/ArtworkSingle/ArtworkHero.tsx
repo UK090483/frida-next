@@ -53,14 +53,16 @@ const ArtworkHero: React.FC<ArtworkHeroProps> = ({ artwork, lang }) => {
             ></ProductName>
           )}
 
-          <div className="text-xs-fluid pb-2">
+          <div className="pb-2 text-xs-fluid">
             {`${medium}, ${width}*${height} ${
               depth ? '*' + depth : ''
             } cm ${stil}`}
           </div>
           {price && <Price price={price} />}
-          <SocialShare className="pb-6 pt-2" />
+
+          {/* <SocialShare className="pt-2 pb-6" /> */}
           <BuyButton
+            className="my-10"
             isInCart={itemInCart}
             handleAddToCard={() => {
               if (!shopify_variant_id) {
@@ -70,7 +72,6 @@ const ArtworkHero: React.FC<ArtworkHeroProps> = ({ artwork, lang }) => {
               addItem(shopify_variant_id, 1, undefined).then(() => null)
             }}
           />
-          <div className="pb-10"></div>
 
           {hints && <ProductHints items={hints} lang={lang} />}
           <PaymentInfo lang={lang} />

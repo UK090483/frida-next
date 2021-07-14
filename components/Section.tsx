@@ -33,7 +33,7 @@ const Section: React.FC<SectionProps> = (props) => {
         { 'bg-frida-green': backgroundColor === 'green' },
 
         {
-          'h-vh-100 flex flex-col justify-center': type === 'hero',
+          'hero flex flex-col justify-center': type === 'hero',
         },
         className
       )}
