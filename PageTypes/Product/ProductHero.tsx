@@ -49,7 +49,7 @@ const ProductHero: React.FC<ProductHeroProps> = (props) => {
   return (
     <ProductHeroWrap>
       <ProductImageWrap>
-        <div className="flex flex-col max-h-full w-full">
+        <div className="flex flex-col w-full max-h-full">
           <div style={{ height: hasGallery ? 'calc(100% - 6rem)' : '100%' }}>
             <ProductMagnifyImage alt="alt" photo={activePhoto || photo} />
           </div>
@@ -71,23 +71,7 @@ const ProductHero: React.FC<ProductHeroProps> = (props) => {
             name={title || 'title missing'}
             availability={inStock}
           ></ProductName>
-
-          <ProductForm
-            product={props}
-            activeVariant={activeVariant}
-            onVariantChange={(variantId: string) => {
-              setChange({ activeVariantId: variantId })
-            }}
-          />
-
-          <ProductCounter
-            defaultCount={quantity}
-            onUpdate={(count) => {
-              setQuantity(count)
-            }}
-          />
           <Price price={activeVariant ? activeVariant.price : price} />
-          {/* <div className="pb-12">{<SocialShare />}</div> */}
 
           <BuyButton
             isInCart={isInCart}
@@ -97,6 +81,22 @@ const ProductHero: React.FC<ProductHeroProps> = (props) => {
               })
             }}
           />
+          <ProductForm
+            product={props}
+            activeVariant={activeVariant}
+            onVariantChange={(variantId: string) => {
+              setChange({ activeVariantId: variantId })
+            }}
+          />
+          <div className="pb-5"></div>
+          <ProductCounter
+            defaultCount={quantity}
+            onUpdate={(count) => {
+              setQuantity(count)
+            }}
+          />
+          <div className="pb-10"></div>
+          {/* <div className="pb-12">{<SocialShare />}</div> */}
 
           <PaymentInfo lang={lang} />
         </div>

@@ -58,7 +58,8 @@ const Button: React.FC<LinkProps | ClickProps> = (props) => {
     { 'hover:text-frida-red': backgroundColor === 'red' },
     { 'hover:text-frida-black': backgroundColor === 'black' },
     { 'hover:text-frida-pink': backgroundColor === 'pink' },
-    { 'hover:text-frida-white': backgroundColor === 'white' }
+    { 'hover:text-frida-white': backgroundColor === 'white' },
+    { 'hover:text-frida-grey': backgroundColor === 'grey' }
   )
 
   if (props.type === 'link') {
