@@ -39,7 +39,7 @@ const variantQuery = `
         },
         "id": variantID,
         title,
-        price,
+        'price':price/100,
        
         "photos": {
           'default':*[_type == "product" && productID == ^.productID][0].listingPhotos[].listingPhoto{

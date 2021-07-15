@@ -41,9 +41,11 @@ const Nav: React.FC<NavProps> = ({ items, lang }) => {
           icon="cart"
         />
 
-        <div className="absolute inset-0 flex items-center justify-center text-[0.5rem] md:text-[0.65rem] transform translate-y-[0.7rem] pointer-events-none md:font-bold md:translate-y-[0.3rem]">
-          {count}
-        </div>
+        {count > 0 && (
+          <div className="absolute inset-0 flex items-center justify-center text-[0.5rem] md:text-[0.65rem] transform translate-y-[0.7rem] pointer-events-none md:font-bold md:translate-y-[0.3rem]">
+            {count}
+          </div>
+        )}
       </div>
 
       <div
