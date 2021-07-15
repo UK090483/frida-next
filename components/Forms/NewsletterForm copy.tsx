@@ -29,7 +29,6 @@ type NewsletterState = {
   fullName: string
   state: 'init' | 'submitting' | 'success' | 'error'
   verified: boolean
-  showEmailError: boolean
   isSubmitting: boolean
   success: boolean
   errors: { email: boolean }
@@ -44,31 +43,21 @@ const Newsletter = () => {
   const yourEmail = locale === 'en' ? 'Your E-Mail' : 'Deine E-Mail'
   const registerNow = locale === 'en' ? 'Register Now!' : 'Jetzt eintragen!'
   const send = locale === 'en' ? 'Send' : 'Senden'
-  const emailError =
-    locale === 'en' ? 'Email is not valid' : 'Email nicht zulässig'
 
-  const [
-    { isSubmitting, email, errors, verified, state, fullName, showEmailError },
-    setState,
-  ] = useState<NewsletterState>({
-    email: '',
-    showEmailError: false,
-    fullName: '',
-    state: 'init',
-    verified: false,
-    isSubmitting: false,
-    success: false,
-    errors: { email: false },
-    hasError: false,
-  })
+  const [{ isSubmitting, email, errors, verified, state, fullName }, setState] =
+    useState<NewsletterState>({
+      email: '',
+      fullName: '',
+      state: 'init',
+      verified: false,
+      isSubmitting: false,
+      success: false,
+      errors: { email: false },
+      hasError: false,
+    })
 
   const setEmail = (email: string) => {
-    setState((os) => ({
-      ...os,
-      email,
-      verified: verifyMail(email),
-      showEmailError: os.showEmailError ? !verifyMail(email) : false,
-    }))
+    setState((os) => ({ ...os, email, verified: verifyMail(email) }))
   }
 
   // handle form submission
@@ -77,10 +66,7 @@ const Newsletter = () => {
     e.preventDefault()
 
     if (!verifyMail(email)) {
-      return setState((os) => ({
-        ...os,
-        showEmailError: true,
-      }))
+      return
     }
 
     setState((os) => ({ ...os, state: 'submitting' }))
@@ -118,7 +104,7 @@ const Newsletter = () => {
   }
 
   return (
-    <form noValidate={true} onSubmit={(e) => onSubmit(e)}>
+    <form onSubmit={(e) => onSubmit(e)}>
       <AnimatePresence exitBeforeEnter>
         {state === 'init' && (
           <m.div initial="hide" animate="show" exit="hide" variants={fadeAnim}>
@@ -129,12 +115,12 @@ const Newsletter = () => {
               className="hidden"
               aria-hidden="true"
             />
-            <div className="relative flex flex-col items-center ">
-              <div className={`relative text-xs-fluid w-full max-w-md`}>
+            <div className="relative flex flex-wrap md:flex-nowrap">
+              <div className={`relative text-xs-fluid w-full`}>
                 <label
                   htmlFor={`email-${id}`}
                   className={cx(
-                    'absolute inset-0 flex text-frida-white justify-center items-center text-sm-fluid md:text-base-fluid font-bold ',
+                    'absolute py-3 px-6 text-center md:text-left w-full font-bold text-frida-white',
                     {
                       hidden: !!email,
                     }
@@ -152,9 +138,10 @@ const Newsletter = () => {
                     setEmail(e.target.value)
                   }}
                   className={cx(
-                    'font-bold text-sm-fluid md:text-base-fluid  w-full max-w-md text-center',
-                    'form-input',
-                    'bg-frida-pink text-frida-white border-transparent rounded-full'
+                    'w-full',
+                    'form-input px-6 text-xs-fluid md:py-3',
+                    'rounded-full',
+                    'bg-frida-pink border-0 text-frida-white'
                   )}
                 />
 
@@ -168,16 +155,11 @@ const Newsletter = () => {
               <button
                 type="submit"
                 className={cx(
-                  'button is-medium w-full text-frida-white  max-w-md mt-6',
-                  ` ${showEmailError ? 'bg-frida-red' : 'bg-frida-black'}`
+                  ' md:absolute right-0 bg-frida-black mt-3 w-full text-frida-white text-xs-fluid rounded-full md:w-48 md:mt-0 py-3 font-bold'
                 )}
                 disabled={isSubmitting}
               >
-                {email && verified
-                  ? send
-                  : showEmailError
-                  ? emailError
-                  : registerNow}
+                {email && verified ? send : registerNow}
               </button>
             </div>
           </m.div>

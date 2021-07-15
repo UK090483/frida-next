@@ -56,22 +56,32 @@ const Dropdown: React.FunctionComponent<IDropdownProps> = ({
       arrow={false}
       on={['click']}
       trigger={
-        <button className="w-72 h-10 mb-4 mx-2 bg-frida-black text-frida-white   rounded-full leading-3">
-          <div className="flex pr-1 justify-between items-center font-bold">
-            {label}
-            {active && (
+        <div className="relative">
+          <button
+            className={`h-10 mx-2 mb-4 leading-3 rounded-full w-72 bg-frida-black  ${
+              active ? 'text-frida-pink' : 'text-frida-white'
+            }`}
+          >
+            <div className="flex items-center justify-between pr-1 font-bold">
+              {label}
+            </div>
+          </button>
+
+          {active && (
+            <div className="absolute inset-0 flex items-start justify-end">
               <button
+                className="mt-1 mr-3"
                 onClick={() => {
                   onClick({ name: '', value: 'clear' })
                   setActiveItem(-1)
                   popupRemote.current && popupRemote.current.close()
                 }}
               >
-                <Icon size="s" icon="minus" />
+                <Icon size="s" icon="x" />
               </button>
-            )}
-          </div>
-        </button>
+            </div>
+          )}
+        </div>
       }
       position="bottom center"
     >

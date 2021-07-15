@@ -23,9 +23,9 @@ const Footer: React.FC<FooterProps> = (props) => {
   return (
     <div>
       <Section backgroundColor="white">
-        <div className="flex flex-wrap lg:flex-nowrap">
-          <div className="w-full horizontal-padding lg:pr-frida_7%">
-            <p className="text-lg-fluid font-bold">
+        <div className="flex flex-wrap lg:flex-nowrap horizontal-padding">
+          <div className="w-full  lg:pr-frida_7%">
+            <p className="font-bold text-lg-fluid">
               {router.locale === 'en' ? 'Stay up to date' : 'Bleib up to date'}
             </p>
             <p className="text-base-fluid">
@@ -48,7 +48,7 @@ const Footer: React.FC<FooterProps> = (props) => {
       </Section>
       <BigButton></BigButton>
       <Section backgroundColor="red">
-        <div className="text-frida-white flex flex-col md:flex-row  items-center justify-evenly  md:justify-between h-52 md:h-24">
+        <div className="flex flex-col items-center text-frida-white md:flex-row justify-evenly md:justify-between h-52 md:h-24">
           {nav &&
             nav.map((l, index) => {
               return (

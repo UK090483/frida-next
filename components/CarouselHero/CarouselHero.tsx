@@ -91,13 +91,13 @@ const CarouselHero: React.FC<CarouselHeroProps> = ({ items }) => {
       </div>
 
       {hasMultiple && (
-        <div className="absolute top-0 flex hero items-end right-frida_side md:right-frida_side_big pointer-events-none pb-2 ">
+        <div className="absolute top-0 flex items-end pointer-events-none pb-frida_side md:pb-frida_side_big hero right-frida_side md:right-frida_side_big ">
           <ButtonNav setNext={setNext} setPrev={setPrev} />
         </div>
       )}
 
       {hasMultiple && (
-        <div className="absolute top-0 flex hero items-end left-0 pointer-events-none transform -translate-y-1/2 md:translate-y-0">
+        <div className="absolute top-0 left-0 flex items-end pb-2 transform -translate-y-1/2 pointer-events-none hero md:translate-y-0">
           <HeroNav
             pause={pause}
             current={state % items.length}

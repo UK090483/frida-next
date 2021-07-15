@@ -8,6 +8,7 @@ import Links from './Links'
 import Icon from 'components/Icon'
 import useToggleCart from '@lib/context/useToggleCart'
 import { useToggleMegaNav } from '@lib/context/useUi'
+import { useCartCount } from '@lib/context/useCart'
 
 export type NavItems = {
   internalLink: null | string
@@ -27,11 +28,11 @@ const Nav: React.FC<NavProps> = ({ items, lang }) => {
 
   const toggleCard = useToggleCart()
   const toggleNav = useToggleMegaNav()
-
+  const count = useCartCount()
   return (
     <div className="z-90 ">
       <Burger onClick={toggleNav}></Burger>
-      <div className="pointer-events-auto flex bg-frida-grey bg-opacity-50 rounded-full "></div>
+      <div className="flex bg-opacity-50 rounded-full pointer-events-auto bg-frida-grey "></div>
       <div className="absolute  right-frida_side top-12 md:top-0.5 md:right-20  pointer-events-auto">
         <Icon
           onClick={() => {
@@ -39,6 +40,10 @@ const Nav: React.FC<NavProps> = ({ items, lang }) => {
           }}
           icon="cart"
         />
+
+        <div className="absolute inset-0 flex items-center justify-center text-[0.5rem] md:text-[0.65rem] transform translate-y-[0.7rem] pointer-events-none md:font-bold md:translate-y-[0.3rem]">
+          {count}
+        </div>
       </div>
 
       <div
@@ -65,7 +70,7 @@ const Nav: React.FC<NavProps> = ({ items, lang }) => {
             icon="x"
             bgColor="black"
             color="white"
-            className="absolute mt-2 top-frida_side mr-frida_side right-0 md:top-frida_side_big  md:mr-8 border-frida-white border-3"
+            className="absolute right-0 mt-2 top-frida_side mr-frida_side md:top-frida_side_big md:mr-8 border-frida-white border-3"
             onClick={() => {
               toggleNav()
             }}
