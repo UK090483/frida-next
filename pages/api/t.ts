@@ -1,4 +1,4 @@
-import SanityUpdateHandler from '@lib/SyncApi/SanityUpdateHandler'
+// import SanityUpdateHandler from '@lib/SyncApi/SanityUpdateHandler'
 // import SanityArtwork from '@lib/SyncApi/SanityArtwork'
 import FetchShopify from '@lib/SyncApi/FetchShopify'
 
@@ -16,6 +16,10 @@ type SanityArtwork = {
 let allShopifyArtworks: shopifyArtwork[] | null = null
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   let sanity: undefined | SanityClient
+
+  if (req.query.token !== 'konrad') {
+    return res.status(401).json({ message: 'Invalid preview request' })
+  }
 
   if (SANITY_PROJECT_DATASET && SANITY_PROJECT_ID && SANITY_API_TOKEN) {
     sanity = sanityClient({
@@ -72,7 +76,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   const sanityUnconnected = []
   const shopifyProducts = []
 
-  for (const [i, iterator] of allShopifyArtworks.entries()) {
+  for (const iterator of allShopifyArtworks) {
     const artworks = AllSanityArtworks.filter(
       (i) => i.shopify_product_id === iterator.id + ''
     )
@@ -114,22 +118,22 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     }
   }
 
-  const handleConnect = async (id: string) => {
-    if (!sanity) return
-    const updater = new SanityUpdateHandler(id, sanity)
-    const syncData = await updater.updateShopifyArtwork()
-    if (!syncData) {
-      console.log('no syncData')
-      return
-    }
-    await updater.sanityArtwork.setSyncData(syncData)
-  }
+  // const handleConnect = async (id: string) => {
+  //   if (!sanity) return
+  //   const updater = new SanityUpdateHandler(id, sanity)
+  //   const syncData = await updater.updateShopifyArtwork()
+  //   if (!syncData) {
+  //     console.log('no syncData')
+  //     return
+  //   }
+  //   await updater.sanityArtwork.setSyncData(syncData)
+  // }
 
-  const handleCreate = async (id: string) => {
-    if (!sanity) return
-    const updater = new SanityUpdateHandler(id, sanity)
-    await updater.run()
-  }
+  // const handleCreate = async (id: string) => {
+  //   if (!sanity) return
+  //   const updater = new SanityUpdateHandler(id, sanity)
+  //   await updater.run()
+  // }
 
   return res.status(200).json({
     duplicates,

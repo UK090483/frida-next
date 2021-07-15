@@ -76,15 +76,12 @@ const PostSingle: React.FC<PostSingleProps> = (props) => {
         data={props}
       >
         {default_header !== false && (
-          <div
-            data-color="pink"
-            className="flex h-vh md:min-h-[800px] flex-wrap  bg-frida-pink"
-          >
-            <div className="w-full  md:w-1/2 flex justify-center items-center p-20 mt-28">
-              <h1 className="header-small pb-10">{_title}</h1>
+          <div data-color="pink" className="flex flex-wrap hero bg-frida-pink">
+            <div className="flex items-center justify-center w-full p-20 h-1/2 md:h-full md:w-1/2 ">
+              <h1 className="pb-10 header-small">{_title}</h1>
             </div>
 
-            <div className="relative w-full  md:w-1/2">
+            <div className="relative w-full h-1/2 md:h-full md:w-1/2">
               <Photo photo={headerImage} layout="fill" />
             </div>
           </div>
