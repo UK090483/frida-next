@@ -35,7 +35,6 @@ export const fetchVariant = async (id: string) => {
 }
 
 export const fetchArtwork = async (id: string) => {
-  console.log('fetch artwork')
   let variant: FetchVariantResult | null = null
   try {
     const res = await fetch(`/api/productCard/?id=${id}&type=artwork`)
@@ -44,7 +43,7 @@ export const fetchArtwork = async (id: string) => {
   } catch (error) {
     return null
   }
-  console.log(variant)
+
   // as FetchVariantResult | null
 
   return variant

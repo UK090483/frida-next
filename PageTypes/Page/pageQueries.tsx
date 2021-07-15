@@ -3,13 +3,12 @@ import { body, PageBodyResult } from 'pageBuilder/pageBuilderQueries'
 import { FridaColors } from 'types'
 
 export const pageQuery = `
-
+...,
 'slug':slug.current,
 footer->{${body}},
 ${body}
 'site':'getSite'
 `
-
 export type PageResult = {
   content: PageBodyResult
   title?: string
