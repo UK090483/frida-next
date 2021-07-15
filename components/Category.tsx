@@ -55,7 +55,9 @@ const Category: React.FC<CategoryProps> = ({ items, lang }) => {
                 wrapper={(children: React.ReactChildren) => {
                   return (
                     <Link
-                      href={`${buildInternalLink(internalLink)}${urlParams}`}
+                      href={`${buildInternalLink(internalLink)}${
+                        urlParams ? urlParams : ''
+                      }`}
                       passHref
                     >
                       <a {...mouseLinkProps}>{children}</a>
@@ -66,7 +68,7 @@ const Category: React.FC<CategoryProps> = ({ items, lang }) => {
                 {item.images && item.images[0] && item.images[0]}
 
                 {_label && (
-                  <button className="button is-responsive  absolute bg-frida-white border-frida-white top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                  <button className="absolute transform -translate-x-1/2 -translate-y-1/2 button is-responsive bg-frida-white border-frida-white top-1/2 left-1/2">
                     {_label}
                   </button>
                 )}
