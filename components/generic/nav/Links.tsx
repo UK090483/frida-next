@@ -50,7 +50,7 @@ const Links: React.FC<{
         onClick={() => {
           toggleNav()
         }}
-        className="relative pt-20 pl-8 md:pl-32 list-none"
+        className="relative pt-20 pl-8 list-none md:pl-32"
       >
         {items.map((route, index) => {
           const label =
@@ -59,7 +59,7 @@ const Links: React.FC<{
           return (
             <m.li
               key={index}
-              className={`text-frida-white text-md-fluid  font-bold text-fill-menu `}
+              className={`text-frida-white text-xl-fluid md:text-md-fluid  font-bold text-fill-menu `}
               variants={item}
             >
               {route.internalLink ? (
