@@ -4,12 +4,14 @@ import { FridaColors } from 'types'
 
 export const pageQuery = `
 ...,
+type_,
 'slug':slug.current,
 footer->{${body}},
 ${body}
 'site':'getSite'
 `
 export type PageResult = {
+  type_: 'page' | 'indexPage'
   content: PageBodyResult
   title?: string
   title_en?: string

@@ -3,6 +3,9 @@ import { imageBuilder } from '@lib/sanity'
 import generateSeo from '@lib/useSeo'
 import Head from 'next/head'
 import React from 'react'
+import schema from 'studio/schemas/schema'
+import generateSchema from './schema'
+import Schema from './schema'
 
 type SEOProps = {
   site: SiteResult
@@ -12,6 +15,8 @@ type SEOProps = {
 const SEO: React.FC<SEOProps> = (props) => {
   const { site, page } = props
 
+  const seoRes = generateSeo(site.seo, page, imageBuilder)
+
   const {
     metaTitle,
     metaDesc,
@@ -20,7 +25,7 @@ const SEO: React.FC<SEOProps> = (props) => {
     shareDesc,
     siteTitle,
     url,
-  } = generateSeo(site.seo, page, imageBuilder)
+  } = seoRes
 
   return (
     <>
@@ -64,7 +69,7 @@ const SEO: React.FC<SEOProps> = (props) => {
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
         {siteTitle && <meta name="og:site_name" content={siteTitle} />}
-        {/* {schema && generateSchema(schema)} */}
+        {generateSchema(props, seoRes)}
       </Head>
     </>
   )

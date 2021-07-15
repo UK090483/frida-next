@@ -6,6 +6,7 @@ import { FridaColors, FridaLocation } from 'types'
 import Footer from './Footer'
 import Header from './Header'
 import Mouse from './Mouse/mouse'
+
 import SEO from './seo'
 
 const duration = 0.2
@@ -103,7 +104,7 @@ const PreviewIndexer: React.FC = () => {
   return (
     // eslint-disable-next-line @next/next/no-html-link-for-pages
     <a
-      className="fixed left-2 bottom-2 border-frida-red border-3 p-3 rounded-md "
+      className="fixed p-3 rounded-md left-2 bottom-2 border-frida-red border-3 "
       href="/api/clearPreview"
     >
       Exit Preview

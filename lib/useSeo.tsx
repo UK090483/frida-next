@@ -73,7 +73,7 @@ const generateSeo: (
     shareDesc = getDefined([docSeo?.shareDesc], shareDesc)
     shareGraphic = getDefined([docSeo?.shareGraphic], shareGraphic)
     shareGraphicSrc = getDefined([cShareGraphicSrc], shareGraphicSrc)
-    url = `${url}${document.slug?.current || ''}`
+    url = `${url}${document.slug?.current || document.slug || ''}`
   }
   if (document._type === 'artist') {
     const cDescription = `Jetzt Artworks von ${document.anzeigeName} auf MeetFrida entdecken`
