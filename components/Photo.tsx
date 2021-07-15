@@ -61,6 +61,7 @@ const Photo: React.FC<PhotoProps> = (props) => {
   // console.log(photo.hotspot)
   // console.log(photo.crop)
 
+  const _alt = photo.alt || alt
   const imageLoader = customLoader({ photo, maxWidth })
 
   const placeHolder = photo.lqip
@@ -103,7 +104,7 @@ const Photo: React.FC<PhotoProps> = (props) => {
       loader={imageLoader}
       src={photo.asset._ref}
       layout={_layout}
-      alt={alt || 'image'}
+      alt={_alt || 'image'}
       sizes={sizes}
       draggable={false}
     />

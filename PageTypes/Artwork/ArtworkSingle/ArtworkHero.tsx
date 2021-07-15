@@ -4,7 +4,7 @@ import ProductImageWrap from '@components/ProductComponents/ProductHeroImageWrap
 import ProductInfoWrap from '@components/ProductComponents/ProductHeroInfoWrap'
 import ProductHeroWrap from '@components/ProductComponents/ProductHeroWrap'
 import ProductHints from '@components/ProductComponents/productHints'
-import SocialShare from '@components/SocialShare/SocialShare'
+// import SocialShare from '@components/SocialShare/SocialShare'
 import ProductMagnifyImage from '@components/ProductComponents/ProductMagnifyImage'
 import ProductName from '@components/ProductComponents/ProductName'
 import Price from '@components/ProductComponents/ProductPrice'
@@ -31,17 +31,18 @@ const ArtworkHero: React.FC<ArtworkHeroProps> = ({ artwork, lang }) => {
     photo,
     shopify_variant_id,
     hints,
+    artistName,
   } = artwork
 
   const addItem = useAddItem()
   const cardItems = useCartItems()
 
   const itemInCart = !!cardItems.find((item) => item.id === shopify_variant_id)
-
+  const alt = `artwork ${artworkName} by ${artistName}`
   return (
     <ProductHeroWrap>
       <ProductImageWrap>
-        <ProductMagnifyImage alt="alt" photo={photo} />
+        <ProductMagnifyImage alt={alt} photo={photo} />
       </ProductImageWrap>
       <ProductInfoWrap>
         <div className="flex flex-col justify-center h-full mb-4">
