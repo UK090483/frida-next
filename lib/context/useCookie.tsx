@@ -16,13 +16,11 @@ function useCookie() {
   const router = useRouter()
 
   useEffect(() => {
-    if (process.env.NODE_ENV === 'development') return
+    // if (process.env.NODE_ENV === 'development') return
     if (accepted) {
-      ReactGA.initialize(process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS || '', {
-        debug: true,
-      })
-      router.events.on('routeChangeStart', (url) => {
-        ReactGA.set({ page: url })
+      ReactGA.initialize('UA-55149650-1')
+      ReactGA.pageview(location.pathname)
+      router.events.on('routeChangeStart', () => {
         ReactGA.pageview(location.pathname)
       })
     }
