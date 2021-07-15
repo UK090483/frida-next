@@ -67,7 +67,7 @@ const generateSchema = (props: any, seoRes: SeoRes) => {
         '@context': 'https://www.schema.org',
         '@type': 'product',
         name: data.artworkName,
-        image: 'http://www.example.com/image.jpg',
+        image: seoRes.shareGraphicSrc,
         description: data.description,
         offers: {
           '@type': 'Offer',

@@ -2,6 +2,7 @@ import React from 'react'
 
 import Icon from '@components/Icon'
 import { FridaLocation } from 'types'
+import { mouseLinkProps } from '@components/generic/Mouse/mouseRemote'
 
 const PaymentInfo: React.FC<{ lang: FridaLocation }> = ({ lang }) => {
   const questionsText = lang === 'en' ? 'questions?' : ' Du hast eine Frage?'
@@ -22,7 +23,11 @@ const PaymentInfo: React.FC<{ lang: FridaLocation }> = ({ lang }) => {
     <div className="w-full">
       <p className="text-sm-fluid">
         {questionsText}
-        <a href="mailto:name@email.com" className="font-bold underline">
+        <a
+          {...mouseLinkProps}
+          href="mailto:hello@meetfrida.art"
+          className="font-bold underline"
+        >
           {helpText}
         </a>
       </p>
@@ -30,14 +35,24 @@ const PaymentInfo: React.FC<{ lang: FridaLocation }> = ({ lang }) => {
       <div className="flex flex-wrap justify-between sm:flex-nowrap">
         <div className="flex items-start">
           <div>
-            <Icon icon="creditCard" color="black" bgColor="grey" />
+            <Icon
+              withMouseHover={false}
+              icon="creditCard"
+              color="black"
+              bgColor="grey"
+            />
           </div>
 
           <p className="px-4 text-xs-fluid">{savePaymentText}</p>
         </div>
         <div className="flex items-start justify-start ">
           <div>
-            <Icon icon="email" color="black" bgColor="grey" />
+            <Icon
+              withMouseHover={false}
+              icon="email"
+              color="black"
+              bgColor="grey"
+            />
           </div>
           <p className="px-4 text-xs-fluid">{versandText}</p>
         </div>
