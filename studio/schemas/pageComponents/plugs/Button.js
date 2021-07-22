@@ -17,7 +17,8 @@ export default {
         { type: 'indexPage' },
         { type: 'page' },
         { type: 'artwork' },
-        { type: 'artist' }
+        { type: 'artist' },
+        { type: 'post' }
       ]
       // to: [
       //   {

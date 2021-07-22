@@ -8,5 +8,32 @@
   "editor.formatOnSave": false,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
-  }
+  },
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "tsconfig.json": true,
+    "postcss.config.js": true,
+    ".github": true,
+    ".next": true,
+    "**/node_modules": true,
+    ".husky": true,
+    ".babelrc": true,
+    ".eslintignore": true,
+    "README.md": true,
+    ".eslintrc": true,
+    ".gitignore": true,
+    "lint-staged.config.js": true,
+    "netlify.toml": true,
+    "next-env.d.ts": true,
+    "package-lock.json": true,
+    "package.json": true,
+    ".vscode": false,
+    "next.config.js": false,
+    "**/package.json": true,
+    ".env.local": true
+  },
 }

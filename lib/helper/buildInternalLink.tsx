@@ -17,6 +17,9 @@ export const buildInternalLink = (
   if (type === 'product') {
     return `/product/${slug}`
   }
+  if (type === 'post') {
+    return `/post/${slug}`
+  }
 
   return '/'
 }

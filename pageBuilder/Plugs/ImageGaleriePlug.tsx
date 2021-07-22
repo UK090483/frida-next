@@ -74,6 +74,7 @@ const ImageGalleryPlug: React.FC<ImageGalleryPlugResult> = (props) => {
           >
             <Photo
               srcSizes={[300]}
+              maxWidth={400}
               photo={photo}
               layout={photo.fill || 'contain'}
             />

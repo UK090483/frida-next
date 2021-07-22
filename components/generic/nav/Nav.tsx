@@ -30,10 +30,10 @@ const Nav: React.FC<NavProps> = ({ items, lang }) => {
   const toggleNav = useToggleMegaNav()
   const count = useCartCount()
   return (
-    <div className="z-90 ">
+    <div className="relative z-90">
       <Burger onClick={toggleNav}></Burger>
       <div className="flex bg-opacity-50 rounded-full pointer-events-auto bg-frida-grey "></div>
-      <div className="absolute  right-frida_side top-12 md:top-0.5 md:right-20  pointer-events-auto">
+      <div className="absolute right-0 pointer-events-auto top-12 md:top-0 md:right-16">
         <Icon
           onClick={() => {
             toggleCard()
