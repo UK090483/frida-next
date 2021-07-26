@@ -12,7 +12,7 @@ export const artworkCardQuery = `
     'artistName':artist->anzeigeName,
     'slug': slug.current,
     banner,
-    'price': round(price*1.16),
+    'price': price,
     'artworkName':name,
     'photo': image {
       ${imageMeta}
