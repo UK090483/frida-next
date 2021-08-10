@@ -51,6 +51,9 @@ const ArtworkHero: React.FC<ArtworkHeroProps> = ({ artwork, lang }) => {
               size="l"
               name={artworkName}
               availability={availability !== 'sold'}
+              asH1
+              hiddenBefore={`Artwork: `}
+              hiddenAfter={`by ${artistName}`}
             ></ProductName>
           )}
 
