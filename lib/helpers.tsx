@@ -63,7 +63,10 @@ export function useAutoplay(callback, delay) {
 }
 
 // conditionally wrap a component with another
-export const ConditionalWrapper = ({ condition, wrapper, children }) => {
+export const ConditionalWrapper: React.FC<{
+  condition: boolean
+  wrapper: (children: ReactNode) => React.ReactElement
+}> = ({ condition, wrapper, children }) => {
   return condition ? wrapper(children) : children
 }
 

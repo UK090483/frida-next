@@ -30,10 +30,11 @@
     "netlify.toml": true,
     "next-env.d.ts": true,
     "package-lock.json": true,
-    "package.json": true,
+    "package.json": false,
     ".vscode": false,
     "next.config.js": false,
-    "**/package.json": true,
+    "**/package.json": false,
     ".env.local": true
   },
+  "explorerExclude.backup": null,
 }

@@ -18,9 +18,11 @@ interface PhotoProps {
   quality?: number
   loading?: 'eager' | 'lazy'
   maxWidth?: number
+  onLoad?: () => void
 }
 
 const customLoader: (props: {
+  width?: number
   photo: ImageMetaResult
   maxWidth?: number
 }) => ImageLoader = ({ photo, maxWidth }) => {
@@ -33,6 +35,7 @@ const customLoader: (props: {
       imageBuilder
         .image(photo)
         .width(_width)
+        .maxWidth(width)
         .quality(quality || 75)
         .url() || ''
     )
@@ -53,6 +56,7 @@ const Photo: React.FC<PhotoProps> = (props) => {
     className,
     loading = 'lazy',
     maxWidth,
+    onLoad = () => null,
   } = props
 
   if (!photo || !photo.asset) return null
@@ -90,10 +94,8 @@ const Photo: React.FC<PhotoProps> = (props) => {
     _layout = 'fill'
   }
 
-  if (process.env.NODE_ENV === 'production') {
-    dynamicProps.placeholder = 'blur'
-    dynamicProps.blurDataURL = placeHolder
-  }
+  dynamicProps.placeholder = 'blur'
+  dynamicProps.blurDataURL = placeHolder
 
   return (
     <Image
@@ -103,6 +105,9 @@ const Photo: React.FC<PhotoProps> = (props) => {
       quality={quality}
       loader={imageLoader}
       src={photo.asset._ref}
+      onLoadingComplete={() => {
+        onLoad()
+      }}
       layout={_layout}
       alt={_alt || 'image'}
       sizes={sizes}

@@ -6,7 +6,7 @@ import { FridaColors, FridaLocation } from 'types'
 import BodyParser from '../BodyParser'
 import { richTextQuery } from './RichText'
 import Photo from '@components/Photo'
-import CarouselItem from '@components/CarouselHero/CarouselItem'
+// import CarouselItem from '@components/CarouselHero/CarouselItem'
 
 export const carouselHeroBlockQuery = `
 _type == "carouselHero" => {
@@ -75,7 +75,7 @@ const CarouselHeroBlock: React.FC<CarouselHeroBlockProps> = (props) => {
       <Photo
         photo={item.photo}
         layout="fill"
-        sizes="(min-width: 640px) 50vw ,100vw"
+        sizes="(min-width: 640px) 100vw"
       />
     ),
   }))
