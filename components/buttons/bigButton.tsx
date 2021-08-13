@@ -1,14 +1,16 @@
 import React from 'react'
 import { mouseLinkProps } from '../generic/Mouse/mouseRemote'
 
-function BigButtons() {
+const BigButtons: React.FC<{ tabable?: boolean }> = ({ tabable }) => {
   return (
     <div className={`flex flex-wrap md:flex-nowrap`} {...mouseLinkProps}>
       <BigButton
+        tabable={tabable}
         label={'Instagram'}
         link={'https://www.instagram.com/meetfrida.art/'}
       ></BigButton>
       <BigButton
+        tabable={tabable}
         label={'Facebook'}
         link={'https://www.facebook.com/meetfrida.art'}
       ></BigButton>
@@ -19,12 +21,14 @@ function BigButtons() {
 type BigButtonProps = {
   label: string
   link: string
+  tabable?: boolean
 }
 
-const BigButton: React.FC<BigButtonProps> = ({ label, link }) => {
+const BigButton: React.FC<BigButtonProps> = ({ label, link, tabable }) => {
   return (
     <a
-      className="flex justify-center items-center h-14 md:h-36 w-full text-xl-fluid bg-frida-red text-frida-white hover:text-frida-black font-bold text-fill-bigButton hover:bg-frida-pink "
+      tabIndex={tabable ? 0 : -1}
+      className="flex items-center justify-center w-full font-bold h-14 md:h-36 text-xl-fluid bg-frida-red text-frida-white hover:text-frida-black text-fill-bigButton hover:bg-frida-pink "
       target="_blank"
       rel="noopener noreferrer"
       href={link}
@@ -34,42 +38,4 @@ const BigButton: React.FC<BigButtonProps> = ({ label, link }) => {
   )
 }
 
-// const Root = styled.div`
-//   width: 100%;
-//   max-width: 100vw;
-//   display: flex;
-//   flex-wrap: wrap;
-//   background-color: ${({ theme }) => theme.colors.red};
-//   transition: background-color 0.3s;
-//   @media ${({ theme }) => theme.device.tablet} {
-//     flex-wrap: nowrap;
-//   }
-// `
-// const Button = styled.a`
-//   height: 140px;
-//   width: 100%;
-//   height: 80px;
-//   background-color: ${({ theme }) => theme.colors.red};
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   font-size: 2rem;
-//   color: white;
-//   font-weight: 800;
-//   text-decoration: none;
-//   cursor: none;
-
-//   :hover {
-//     transition: background-color 0.3s;
-//     background-color: ${({ theme }) => theme.colors.pink};
-//     -webkit-text-fill-color: transparent;
-//     -webkit-text-stroke-color: ${({ theme }) => theme.colors.black};
-//     -webkit-text-stroke-width: 0.03em;
-//   }
-//   @media ${({ theme }) => theme.device.laptop} {
-//     font-size: 4rem;
-//     width: 50%;
-//     height: 160px;
-//   }
-// `
 export default BigButtons

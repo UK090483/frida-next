@@ -8,6 +8,8 @@ import React from 'react'
 import { FridaLocation } from 'types'
 import Photo from '@components/Photo'
 
+import CarouselHeroItem from '@components/CarouselHero/CarouselItem'
+
 export const postSingleView = `
 ...,
 title,
@@ -76,17 +78,12 @@ const PostSingle: React.FC<PostSingleProps> = (props) => {
         data={props}
       >
         {default_header !== false && (
-          <div data-color="pink" className="flex flex-wrap hero bg-frida-pink">
-            <div className="flex items-center justify-center w-full p-20 h-1/2 md:h-full md:w-1/2 ">
-              <h1 className="pb-10 header-small">{_title}</h1>
-            </div>
-
-            <div className="relative w-full h-1/2 md:h-full md:w-1/2">
-              <Photo photo={headerImage} layout="fill" />
-            </div>
-          </div>
+          <CarouselHeroItem
+            color={'pink'}
+            image={<Photo photo={headerImage} layout="fill" />}
+            content={<h1 className="pb-10 header-small">{_title}</h1>}
+          />
         )}
-
         {content && <BodyParser lang={lang} content={content} />}
       </Layout>
     </>

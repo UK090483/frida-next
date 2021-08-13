@@ -14,9 +14,8 @@ interface ButtonProps {
   position?: 'inline' | 'left' | 'right' | 'center' | 'auto'
 }
 interface LinkProps extends ButtonProps {
-  type: 'link' | 'externalLink'
+  type: 'link' | 'externalLink' | 'download'
   link: string
-  download?: boolean
 }
 interface ClickProps extends ButtonProps {
   type: 'click'
@@ -65,11 +64,7 @@ const Button: React.FC<LinkProps | ClickProps> = (props) => {
   if (props.type === 'link') {
     return (
       <Link href={props.link} passHref>
-        <a
-          {...(props.download === true ? { download: true } : {})}
-          {...mouseLinkProps}
-          className={` ${className} ${extraClasses}`}
-        >
+        <a {...mouseLinkProps} className={` ${className} ${extraClasses}`}>
           {label}
         </a>
       </Link>
@@ -85,6 +80,18 @@ const Button: React.FC<LinkProps | ClickProps> = (props) => {
         {...mouseLinkProps}
         className={`${className} ${extraClasses}`}
         href={props.link}
+      >
+        {label}
+      </a>
+    )
+  }
+  if (props.type === 'download') {
+    return (
+      <a
+        download
+        href={props.link}
+        {...mouseLinkProps}
+        className={` ${className} ${extraClasses}`}
       >
         {label}
       </a>

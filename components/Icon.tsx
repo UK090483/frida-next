@@ -248,10 +248,10 @@ const Icon: React.FC<IconProps> = ({
       className={classNames(
         `block rounded-full bg-frida-${bgColor} text-frida-${color}`,
         {
-          'w-8 h-8 md:w-12 md:h-12 p-2': size === 'm',
+          'w-10 h-10 md:w-12 md:h-12 p-2': size === 'm',
         },
         {
-          'w-8 h-8 p-2 ': size === 's',
+          'w-10 h-10 p-2 ': size === 's',
         },
         className
       )}

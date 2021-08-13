@@ -2,7 +2,8 @@ import Button from '@components/buttons/button'
 import Frida from '@components/Frida'
 // import Layout from '@components/generic/Layout'
 import Icon from '@components/Icon'
-import BuyButton from '@components/ProductComponents/BuyButton'
+
+import ProductName from '@components/ProductComponents/ProductName'
 import Section from '@components/Section'
 import * as React from 'react'
 
@@ -116,18 +117,37 @@ const StyleSystem: React.FC = () => {
           Suspendisse nibh risus, efficitur in turpis et, feugiat tincidunt sem.
           Nullam est tellus, tristique vitae
         </p>
+
+        <div className="w-1/2 overflow-hidden truncate border-2 subheader text-frida-white">
+          <Frida text="TruncatedOOOOOOOOOOOOOO" />
+        </div>
       </Section>
 
       <p className="pt-32 pb-10 pl-8 font-mono underline text-xl-fluid">
-        Buy Button
+        Product Elements
       </p>
 
       <Section backgroundColor="white" className="h-screen">
-        {/* <BuyButton availability={false} />
-        <div className="pb-10"></div>
-        <BuyButton />
-        <div className="pb-10"></div>
-        <BuyButton isInCart={true} /> */}
+        <ProductName availability={true} name="Test pro duct" size="m" />
+        <ProductName availability={false} name="Test pro duct sold" size="m" />
+        <ProductName availability={true} name="Test pro duct" size="l" />
+        <ProductName availability={false} name="Test pro duct sold" size="l" />
+        <div className="w-1/3 border-2">
+          <ProductName
+            availability={false}
+            name="Test wordbrake product sold"
+            size="l"
+          />
+        </div>
+
+        <div className="w-1/3 border-2">
+          <ProductName
+            truncate
+            availability={false}
+            name="Test truncate pro duct sold"
+            size="l"
+          />
+        </div>
       </Section>
 
       <Section backgroundColor="white" className="h-screen"></Section>

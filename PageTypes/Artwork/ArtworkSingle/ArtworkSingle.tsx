@@ -46,10 +46,10 @@ const ArtworkSingle: React.FC<ArtworkSingleProps> = (props) => {
           backgroundColor="grey"
           type="text"
         >
-          <h2 className="text-lg-fluid font-bold">
+          <h2 className="font-bold text-lg-fluid">
             {lang === 'en' ? `About the Artwork` : `Über das Kunstwerk`}
           </h2>
-          <p className="text-base-fluid  whitespace-pre-line">{_description}</p>
+          <p className="whitespace-pre-line text-base-fluid">{_description}</p>
         </Section>
       )}
 
@@ -58,46 +58,49 @@ const ArtworkSingle: React.FC<ArtworkSingleProps> = (props) => {
         backgroundColor="pink"
         type="text"
       >
-        <h2 className="text-lg-fluid font-bold">
+        <h2 className="font-bold text-lg-fluid">
           {lang === 'en' ? `About the Artist` : `Über den Künstler`}
         </h2>
         {_artistDescription && (
-          <p className="text-base-fluid whitespace-pre-line">
+          <p className="whitespace-pre-line text-base-fluid">
             {_artistDescription}
           </p>
         )}
-        <div className="flex  items-center  flex-col  flex-wrap pt-16">
+        <div className="flex flex-col flex-wrap items-center pt-16 md:flex-row">
           {artistSlug && (
             <Button
+              size="s"
               label="Artist Page"
               type="link"
               link={`/artist/${artistSlug}`}
-              color="red"
+              color="black"
               backgroundColor="pink"
               position="auto"
-              className="mr-0 md:mr-3 mb-4"
+              className="mb-4 mr-0 md:mb-0 md:mr-3"
             />
           )}
           {artistWebLink && (
             <Button
+              size="s"
               label="Website"
               type="externalLink"
               link={artistWebLink}
-              color="red"
+              color="black"
               position="auto"
               backgroundColor="pink"
-              className="mr-0 md:mr-3 mb-4"
+              className="mb-4 mr-0 md:mb-0 md:mr-3"
             />
           )}
           {instagramLink && (
             <Button
+              size="s"
               label="Instagram"
               type="externalLink"
               link={instagramLink}
-              color={'red'}
+              color={'black'}
               position="auto"
               backgroundColor="pink"
-              className="mr-0 md:mr-3 mb-2"
+              className="mb-2 mr-0 md:mb-0 md:mr-3"
             />
           )}
         </div>

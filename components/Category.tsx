@@ -26,7 +26,7 @@ type CategoryProps = {
 const Category: React.FC<CategoryProps> = ({ items, lang }) => {
   return (
     <Section type="full" backgroundColor="white">
-      <div className="grid gap-4 lg:gap-20 grid-cols-12  grid-flow-row px-frida_side md:px-frida_7% pt-4 pb-4 lg:pb-20">
+      <div className="grid gap-4 lg:gap-20 grid-cols-12  grid-flow-row px-frida_side md:px-frida_7% pt-4 pb-20 lg:pb-40">
         {items.map((item, index) => {
           const {
             size = 'm',

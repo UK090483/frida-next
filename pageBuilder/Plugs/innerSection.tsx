@@ -39,6 +39,7 @@ export type InnerSectionPlugResult = {
 
 const InnerSectionPlug: React.FC<InnerSectionPlugResult> = (props) => {
   const { items, lang, rows_mobile, rows } = props
+
   return (
     <div
       className={classNames(
@@ -62,9 +63,9 @@ const InnerSectionPlug: React.FC<InnerSectionPlugResult> = (props) => {
       )}
     >
       {items &&
-        items.map((item) => {
+        items.map((item, index) => {
           return (
-            <div className=" py-2" key={item._key}>
+            <div className="py-2 " key={index}>
               <BodyParser lang={lang} content={item.content} />
             </div>
           )

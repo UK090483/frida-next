@@ -21,7 +21,7 @@
     ".next": true,
     "**/node_modules": true,
     ".husky": true,
-    ".babelrc": true,
+    ".babelrc": false,
     ".eslintignore": true,
     "README.md": true,
     ".eslintrc": true,

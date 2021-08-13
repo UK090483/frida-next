@@ -8,7 +8,7 @@ import { postCardQuery, PostCardResult } from 'PageTypes/Post/PostQueries'
 
 export const postsBlockQuery = `
 _type == "posts" => {
-  'items': *[_type == 'post']{
+  'items': *[_type == 'post'] | order(releaseDate desc){
     ${postCardQuery}
   }
 }

@@ -6,7 +6,7 @@ import { PageBuilderBlockBase } from 'pageBuilder/pageBuilderQueries'
 import { imageMeta, ImageMetaResult } from '@lib/queries/snippets'
 import { FridaColors, FridaLocation, FridaSizes } from 'types'
 import classNames from 'classnames'
-import { richTextQuery } from './RichText'
+import { richTextQuery, richTextQueryEn } from './RichText'
 
 export const sectionBlockQuery = `
 _type == "section" => {
@@ -16,6 +16,7 @@ _type == "section" => {
   topSpace,
   bottomSpace,
   ${richTextQuery},
+  ${richTextQueryEn},
   'photo': bgImage {
     ${imageMeta}
   }

@@ -30,6 +30,18 @@ content[]{
   ${downloadPlugQuery},
 }
 `
+export const richTextQueryEn = `
+content_en[]{
+  ...,
+  ${marksQuery},
+  ${buttonPlugQuery},
+  ${embedPlugQuery},
+  ${imagePlugQuery},
+  ${imageGalleryPlugQuery},
+  ${innerSectionPlugQuery},
+  ${downloadPlugQuery},
+}
+`
 
 export interface RichTextQueryResult extends PageBuilderBlockBase {
   _type: 'richText' | 'block'

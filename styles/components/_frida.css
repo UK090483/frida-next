@@ -1,5 +1,5 @@
 .frida{
-   @apply relative inline  whitespace-nowrap font-bold;
+   @apply relative inline  whitespace-nowrap font-bold ;
 
    &--text{
       @apply relative z-0;

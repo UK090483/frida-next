@@ -4,7 +4,7 @@ import { imageMeta, ImageMetaResult } from '@lib/queries/snippets'
 import React from 'react'
 import { FridaColors, FridaLocation } from 'types'
 import BodyParser from '../BodyParser'
-import { richTextQuery } from './RichText'
+import { richTextQuery, richTextQueryEn } from './RichText'
 import Photo from '@components/Photo'
 // import CarouselItem from '@components/CarouselHero/CarouselItem'
 
@@ -13,6 +13,7 @@ _type == "carouselHero" => {
   carouselHeroItems[]{
     ...,
      ${richTextQuery},
+     ${richTextQueryEn},
     'photo': image {
       ${imageMeta}
     }

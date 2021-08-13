@@ -93,23 +93,25 @@ const ArtistInfo: React.FC<ArtistSingleProps> = (props) => {
         {_description && (
           <p className="whitespace-pre-line text-base-fluid">{_description}</p>
         )}
-        <div className="flex flex-wrap justify-center pt-16 md:justify-start">
+        <div className="flex flex-col flex-wrap items-center justify-center pt-16 md:flex-row md:justify-start">
           {webLink && (
             <Button
+              size="s"
               label="Website"
               type="externalLink"
               link={webLink}
-              color="red"
+              color="black"
               backgroundColor="white"
-              className=" md:mb-0 md:mr-3"
+              className="mb-3 md:mb-0 md:mr-3"
             />
           )}
           {instagramLink && (
             <Button
+              size="s"
               label="Instagram"
               type="externalLink"
               link={instagramLink}
-              color="red"
+              color="black"
               backgroundColor="white"
               className=" md:mr-3"
             />

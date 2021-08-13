@@ -5,7 +5,6 @@ import {
   ImageUrlBuilderOptions,
   SanityImageSource,
 } from '@sanity/image-url/lib/types/types'
-import { ImageUrlBuilder } from 'next-sanity-image'
 
 /*  ------------------------------ */
 /*  Generic helper functions

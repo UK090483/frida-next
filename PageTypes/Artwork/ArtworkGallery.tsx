@@ -11,10 +11,12 @@ interface ArtworksProps extends Omit<ArtworksGalleryResult, 'type'> {
 }
 
 const Artworks: React.FC<ArtworksProps> = (props) => {
-  const { items, lang, stil, medium } = props
+  const { items, stil, medium } = props
   const router = useRouter()
 
   const artists = [...new Set(items.map((item) => item.artistName))]
+
+  const artistsSorted = artists.sort((a, b) => a.localeCompare(b))
 
   const query = router.query
 
@@ -54,7 +56,7 @@ const Artworks: React.FC<ArtworksProps> = (props) => {
           {
             label: 'Artist',
             name: 'artist',
-            items: artists?.map((s) => ({ name: s, value: s })),
+            items: artistsSorted?.map((s) => ({ name: s, value: s })),
           },
           {
             label: 'Stil',

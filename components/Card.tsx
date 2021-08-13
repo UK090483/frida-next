@@ -87,11 +87,9 @@ const CardWrap: React.FC<CardWrapPros> = (props) => {
 
         {title && (
           <div
-            className={` h-8 flex items-center ${
-              title.length > 17 ? 'text-xs-fluid' : 'text-sm-fluid'
-            } font-bold mt-4`}
+            className={`h-8 items-center text-sm-fluid truncate text-frida-pink font-bold mt-4`}
           >
-            <Frida text={title} textColor={'pink'}></Frida>
+            <Frida text={title} textColor={'pink'} />
           </div>
         )}
         {children}

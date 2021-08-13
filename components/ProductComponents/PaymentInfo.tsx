@@ -33,7 +33,7 @@ const PaymentInfo: React.FC<{ lang: FridaLocation }> = ({ lang }) => {
       </p>
 
       <div className="flex flex-wrap justify-between sm:flex-nowrap">
-        <div className="flex items-start">
+        <div className="flex items-center pb-2">
           <div>
             <Icon
               withMouseHover={false}
@@ -43,9 +43,9 @@ const PaymentInfo: React.FC<{ lang: FridaLocation }> = ({ lang }) => {
             />
           </div>
 
-          <p className="px-4 text-xs-fluid">{savePaymentText}</p>
+          <p className="px-4 py-0 text-xs-fluid">{savePaymentText}</p>
         </div>
-        <div className="flex items-start justify-start ">
+        <div className="flex items-center pb-2">
           <div>
             <Icon
               withMouseHover={false}
@@ -54,7 +54,7 @@ const PaymentInfo: React.FC<{ lang: FridaLocation }> = ({ lang }) => {
               bgColor="grey"
             />
           </div>
-          <p className="px-4 text-xs-fluid">{versandText}</p>
+          <p className="px-4 py-0 text-xs-fluid">{versandText}</p>
         </div>
       </div>
     </div>

@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-noninteractive-tabindex */
 import React from 'react'
 import Link from 'next/link'
 import { mouseLinkProps } from '../Mouse/mouseRemote'
@@ -63,9 +64,15 @@ const Links: React.FC<{
               variants={item}
             >
               {route.internalLink ? (
-                <Link href={`/${route.internalLink}`}>{label}</Link>
+                <Link href={`/${route.internalLink}`} passHref>
+                  <a tabIndex={open ? 0 : -1}>{label}</a>
+                </Link>
               ) : (
-                route.link && <a href={route.link}>{label}</a>
+                route.link && (
+                  <a tabIndex={open ? 0 : -1} href={route.link}>
+                    {label}
+                  </a>
+                )
               )}
             </m.li>
           )

@@ -42,20 +42,19 @@ const ProductName: React.FC<ProductNameProps> = ({
         condition={asH1}
         wrapper={(children) => <h1>{children}</h1>}
       >
-        <span>
-          <span
-            className={classnames(
-              ' inline-block rounded-full mr-2 ',
-              { ' w-5 h-5 mb-0.5': size === 'l' },
-              { ' w-4 h-4 -mb-0.5': size === 'm' },
-              {
-                'bg-frida-green': availability,
-              },
-              {
-                'bg-frida-red': !availability,
-              }
-            )}
-          ></span>
+        <span
+          className={classnames(
+            'relative before:absolute ml-[1em]',
+            'before:rounded-full before:top-1/2 before:-translate-y-1/2',
+            'before:w-[0.7em] before:h-[0.7em] before:translate-x-[-1em]',
+            {
+              'before:bg-frida-green': availability,
+            },
+            {
+              'before:bg-frida-red': !availability,
+            }
+          )}
+        >
           {hiddenBefore && (
             <span className="inline-block overflow-hidden max-w-0 max-h-0 ">
               {hiddenBefore}

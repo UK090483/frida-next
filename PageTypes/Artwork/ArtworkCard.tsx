@@ -65,18 +65,14 @@ const ArtworkCard: React.FC<ArtworkCardProps> = (props) => {
       alt={`Artwork ${artworkName} by ${artistName}`}
       banner={banner === 'hinzundkunzt' ? <Banner></Banner> : undefined}
     >
-      <div
-        className={`flex ${
-          type === 'carousel' ? '' : 'flex-wrap'
-        }  text-xl pt-1`}
-      >
+      <div className={`flex text-xl pt-4`}>
         <ProductName
-          truncate={type === 'carousel'}
+          truncate
           size={'m'}
           name={artworkName}
           availability={availability === 'availabil'}
         />
-        <div className="pl-2 ml-auto text-right">{price}€</div>
+        <div className="pl-2 ml-auto text-right text-sm-fluid">{price}€</div>
       </div>
     </Card>
   )

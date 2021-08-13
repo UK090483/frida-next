@@ -14,7 +14,7 @@ const HeroNav: React.FC<HeroNavProps> = ({
   pause,
 }) => {
   return (
-    <div className="ml-3 md:ml-12 flex items-center mb-5  pointer-events-auto">
+    <div className="flex items-center mb-5 ml-3 pointer-events-auto md:ml-12">
       {items.map((_, index) => (
         <NavigationItem
           pause={pause}
@@ -46,7 +46,8 @@ const NavigationItem: React.FC<HeroNavItemProps> = ({
   return (
     <>
       <button
-        className=" text-sm-fluid px-2 font-bold"
+        tabIndex={-1}
+        className="px-2 font-bold text-sm-fluid"
         {...mouseLinkProps}
         onClick={() => {
           setValue(num - 1)
