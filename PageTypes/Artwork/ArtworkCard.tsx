@@ -6,7 +6,7 @@ import { GalleryTypes } from 'types'
 import Banner from './banner'
 
 export const artworkCardQuery = `
-
+    _updatedAt,
     'imageAssetId':image.asset._ref,
     availability,
     'artistName':artist->anzeigeName,
@@ -22,6 +22,7 @@ export const artworkCardQuery = `
        
 `
 export type ArtworkCardResult = {
+  _updatedAt: string
   imageAssetId: string
   availability: string
   artistName: string

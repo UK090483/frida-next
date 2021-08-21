@@ -17,6 +17,7 @@ import type {
 import ChromeFix from 'lib/chromeFix'
 
 const MyApp = ({ Component, pageProps, router }: AppProps) => {
+  const lang = pageProps.lang === 'en' ? 'en' : 'de'
   const [isLoading, setLoading] = useState(false)
 
   // The scroll location on the page is not restored on history changes
@@ -95,7 +96,7 @@ const MyApp = ({ Component, pageProps, router }: AppProps) => {
           <Component key={router.asPath.split('?')[0]} {...pageProps} />
         </AnimatePresence>
 
-        <Cart data={{ ...pageProps?.data?.site }} />
+        <Cart data={{ ...pageProps?.data?.site }} lang={lang} />
 
         {/* <ShowBreakingPoints /> */}
       </LazyMotion>

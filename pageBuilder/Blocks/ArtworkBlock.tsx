@@ -28,6 +28,7 @@ export interface ArtworksGalleryResult extends PageBuilderBlockBase {
   stil?: { name: string }[]
   medium?: { name: string }[]
   count?: 'all' | number
+  order?: string[]
 }
 
 interface ArtworksBlockProps extends ArtworksGalleryResult {

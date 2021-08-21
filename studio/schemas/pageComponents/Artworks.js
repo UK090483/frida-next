@@ -32,7 +32,18 @@ export default {
       },
       initialValue: 'carousel'
     },
-
+    {
+      title: 'Order',
+      name: 'order',
+      type: 'array',
+      of: [{type: 'string'}],
+      options: {
+        list: [
+          {title: 'LastEdited first', value: 'lastEdited'},
+          {title: 'Rating', value: 'rating'},
+        ]
+      }
+    },
     {
       name: 'filter',
       type: 'array',

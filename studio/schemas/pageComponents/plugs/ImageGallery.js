@@ -43,6 +43,15 @@ export default {
       options: {
         list: ['1:1', '16:9', '2:3', '3:2']
       }
+    },
+    {
+      name: 'galerieType',
+      title: 'Galerie Type',
+      type: 'string',
+      initialValue: '1:1',
+      options: {
+        list: ['normal', 'carousel']
+      }
     }
   ],
   preview: {

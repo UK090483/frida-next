@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react'
 import Link from 'next/link'
 
@@ -11,11 +13,13 @@ import Button from '@components/buttons/button'
 import useToggleCart from '@lib/context/useToggleCart'
 import { useRemoveItem, useUpdateItem } from '@lib/context/useShopItem'
 import { FetchVariantResult } from '@lib/context/helper'
+import { FridaLocation } from 'types'
 
 type CartItemProps = {
   item: FetchVariantResult
+  lang: FridaLocation
 }
-const CartItem: React.FC<CartItemProps> = ({ item }) => {
+const CartItem: React.FC<CartItemProps> = ({ item, lang }) => {
   const { _type, product } = item
   const { subTitle } = product
   const removeItem = useRemoveItem()
@@ -25,6 +29,8 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
   const changeQuantity = (quantity: number) => {
     updateItem(item.lineID, quantity)
   }
+
+  const removeText = lang === 'en' ? 'remove' : 'entfernen'
 
   // const defaultPhoto = item.photos.cart?.find((set) => !set.forOption)
   // const variantPhoto = item.photos.cart?.find((set) => {
@@ -92,7 +98,7 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
           <Button
             size="s"
             backgroundColor="grey"
-            label="remove"
+            label={removeText}
             type="click"
             onClick={() => {
               removeItem(item.lineID)

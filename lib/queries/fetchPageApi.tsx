@@ -3,6 +3,7 @@ import { cache, buildCache } from './cache'
 import type { PageBodyResult } from '../../pageBuilder/pageBuilderQueries'
 import type { FridaPreviewData } from '@pages/api/preview'
 import { shouldCash } from '@lib/constants'
+import { ArtworkCardResult } from 'PageTypes/Artwork/ArtworkCard'
 
 export const fetchPageWithCache = async (
   query: string,
@@ -54,14 +55,22 @@ export const fetchPageWithCache = async (
 
 const handleBodyQueries = async (body: PageBodyResult, isPreview = false) => {
   const SiteCache = await buildCache.getData(isPreview)
-  const artworks = SiteCache?.artworks ? SiteCache?.artworks : []
+  const artworks: ArtworkCardResult[] = SiteCache?.artworks
+    ? SiteCache?.artworks
+    : []
   const artists = SiteCache?.artists ? SiteCache?.artists : []
 
   return body.map((item) => {
     if (item._type === 'artworks') {
-      const _item = item
-      if (_item.count === 'all') return { ...item, items: [...artworks] }
-      return { ..._item, items: [...getRandom(artworks, 20)] }
+      if (item.count === 'all') return { ...item, items: [...artworks] }
+      if (item.order && item.order.includes('lastEdited')) {
+        return {
+          ...item,
+          items: [...filterLastUpdatetArtworks(artworks).slice(0, 20)],
+        }
+      }
+
+      return { ...item, items: [...getRandom(artworks, 20)] }
     }
     if (item._type === 'artists') {
       const _item = item
@@ -70,6 +79,20 @@ const handleBodyQueries = async (body: PageBodyResult, isPreview = false) => {
     }
     return item
   })
+}
+
+function filterLastUpdatetArtworks(artworks: ArtworkCardResult[]) {
+  try {
+    return artworks
+      .sort((a, b) => {
+        const dateA = new Date(a._updatedAt)
+        const dateB = new Date(b._updatedAt)
+        return dateA.getTime() - dateB.getTime()
+      })
+      .reverse()
+  } catch (error) {
+    return artworks
+  }
 }
 
 function getRandom(arr: unknown[], n: number) {
