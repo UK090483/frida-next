@@ -164,7 +164,12 @@ const ArtistWorks: React.FC<ArtistSingleProps> = (props) => {
         <Carousel
           header={lang === 'en' ? `Works by ${name}` : `Arbeiten von ${name}`}
           items={relatedArtworks.map((item) => (
-            <ArtworkCard key={item.slug} type="carousel" {...item} />
+            <ArtworkCard
+              key={item.slug}
+              type="carousel"
+              {...item}
+              lang={lang}
+            />
           ))}
         />
       )}

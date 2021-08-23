@@ -2,7 +2,7 @@ import Card from '@components/Card'
 import ProductName from '@components/ProductComponents/ProductName'
 import { imageMeta, ImageMetaResult } from '@lib/queries/snippets'
 import React from 'react'
-import { GalleryTypes } from 'types'
+import { FridaLocation, GalleryTypes } from 'types'
 import Banner from './banner'
 
 export const artworkCardQuery = `
@@ -38,6 +38,7 @@ export type ArtworkCardResult = {
 interface ArtworkCardProps extends ArtworkCardResult {
   type: GalleryTypes
   isSwiping?: boolean
+  lang: FridaLocation
 }
 
 const ArtworkCard: React.FC<ArtworkCardProps> = (props) => {
@@ -51,12 +52,19 @@ const ArtworkCard: React.FC<ArtworkCardProps> = (props) => {
     availability,
     price,
     type = 'grid',
+    lang,
   } = props
 
   if (!photo) return null
 
+  const ariaLabel =
+    lang === 'en'
+      ? `Read more aboute the Artwork ${artworkName} by ${artistName}`
+      : `Lies mehr über das Kunstwerk ${artworkName} von ${artistName}`
+
   return (
     <Card
+      ariaLabel={ariaLabel}
       isSwiping={!!isSwiping}
       slug={slug}
       type="artwork"

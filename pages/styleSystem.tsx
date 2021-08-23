@@ -60,6 +60,48 @@ const StyleSystem: React.FC = () => {
         />
       </Section>
       <p className="pt-32 pb-10 pl-8 font-mono underline text-xl-fluid">
+        Buttons Focus State
+      </p>
+      <Section backgroundColor="black" className="py-6">
+        <Button
+          color="grey"
+          backgroundColor="black"
+          label="Button"
+          type="click"
+          onClick={() => ''}
+        />
+        <Button
+          backgroundColor="red"
+          color="grey"
+          size="s"
+          label="Button small"
+          type="click"
+          onClick={() => ''}
+        />
+        <Button
+          backgroundColor="black"
+          color="red"
+          label="Button"
+          type="click"
+          onClick={() => ''}
+        />
+        <Button
+          color="red"
+          size="s"
+          label="Button small"
+          type="click"
+          onClick={() => ''}
+        />
+        <Button color="green" label="Button" type="click" onClick={() => ''} />
+        <Button
+          color="green"
+          size="s"
+          label="Button small"
+          type="click"
+          onClick={() => ''}
+        />
+      </Section>
+      <p className="pt-32 pb-10 pl-8 font-mono underline text-xl-fluid">
         Icons
       </p>
       <Section backgroundColor="pink">
@@ -68,6 +110,7 @@ const StyleSystem: React.FC = () => {
           <Icon icon="x" />
           <Icon icon="arrowLeft" />
           <Icon icon="arrowRight" />
+          <Icon icon="arrowDown" />
           <Icon icon="cart" />
           <Icon icon="creditCard" />
           <Icon icon="minus" />
@@ -83,6 +126,7 @@ const StyleSystem: React.FC = () => {
           <Icon icon="x" size="s" />
           <Icon icon="arrowLeft" size="s" />
           <Icon icon="arrowRight" size="s" />
+          <Icon icon="arrowDown" size="s" />
           <Icon icon="cart" size="s" />
           <Icon icon="creditCard" size="s" />
           <Icon icon="minus" size="s" />

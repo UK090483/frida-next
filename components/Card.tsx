@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import Frida from '@components/Frida'
@@ -22,6 +23,7 @@ interface CardWrapPros {
   title?: string
   alt?: string
   banner?: React.ReactElement | undefined
+  ariaLabel?: string
 }
 
 const CardWrap: React.FC<CardWrapPros> = (props) => {
@@ -36,6 +38,7 @@ const CardWrap: React.FC<CardWrapPros> = (props) => {
     title,
     alt,
     banner,
+    ariaLabel,
   } = props
 
   // const { pushAsModal, saveScroll } = useModalContext()
@@ -48,7 +51,7 @@ const CardWrap: React.FC<CardWrapPros> = (props) => {
   return (
     <Link href={`/${type}/${slug}`} passHref>
       <a
-        role="listitem"
+        aria-label={ariaLabel}
         draggable={false}
         {...mouseLinkProps}
         className={classNames(

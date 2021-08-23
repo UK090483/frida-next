@@ -11,7 +11,7 @@ interface ArtworksProps extends Omit<ArtworksGalleryResult, 'type'> {
 }
 
 const Artworks: React.FC<ArtworksProps> = (props) => {
-  const { items, stil, medium } = props
+  const { items, stil, medium, lang } = props
   const router = useRouter()
 
   const artists = [...new Set(items.map((item) => item.artistName))]
@@ -83,7 +83,7 @@ const Artworks: React.FC<ArtworksProps> = (props) => {
 
       <Gallery
         items={filterElements().map((data) => (
-          <ArtworkCard key={data.slug} type="masonry" {...data} />
+          <ArtworkCard key={data.slug} type="masonry" {...data} lang={lang} />
         ))}
       />
     </div>

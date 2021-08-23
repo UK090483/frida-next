@@ -1,6 +1,6 @@
+import Dropdown from './Dropdown'
 import { useRouter } from 'next/router'
 import * as React from 'react'
-import Select from './Select'
 
 interface IFilterProps {
   filter: {
@@ -16,52 +16,55 @@ const Filter: React.FunctionComponent<IFilterProps> = (props) => {
 
   const slug = (router.query.slug && router.query.slug[0]) || 'noSlug'
 
-  const handleQueries = (type: string, value: string | null) => {
+  const handleQueries = (type: string, value: string) => {
     const q = { ...router.query }
-
-    if (!value) {
-      delete q[type]
-    } else {
-      q[type] = value
-    }
-
     delete q.slug
-
+    q[type] = value
     const queryString = Object.entries(q).reduce((acc, [key, value], index) => {
       if (value === 'clear') return acc
       return `${acc}${index === 0 ? '?' : '&'}${key}=${value}`
     }, '')
-
     router.push(`/${slug}${queryString}`, undefined, {
       shallow: true,
     })
   }
 
   const isActive = (name: string) => {
-    if (router.query[name] && typeof router.query[name] === 'string') {
-      return router.query[name] as string
-    }
-    return null
+    return router.query[name] && router.query[name] !== 'clear'
+      ? ` : ${router.query[name]}`
+      : ''
+  }
+
+  const getLabel = (label: string, name: string) => {
+    const active = isActive(name)
+
+    return (
+      <div
+        className={`w-full h-full  flex  ${
+          active ? 'justify-between' : 'justify-center'
+        } items-center`}
+      >
+        <span className="ml-3">{label + active}</span>
+      </div>
+    )
   }
 
   return (
     <div
-      // className={`flex flex-wrap justify-center xl:flex-nowrap ${
-      //   filter.length > 1 ? 'md:justify-between' : 'md:justify-center'
-      // } items-center w-full px-frida_7% my-20`}
-
-      className="grid grid-cols-1 gap-10 py-20 mx-auto lg:grid-cols-4 md:grid-cols-2 justify-items-center px-frida_side md:px-frida_7%"
+      className={`flex flex-wrap justify-center xl:flex-nowrap ${
+        filter.length > 1 ? 'md:justify-between' : 'md:justify-center'
+      } items-center w-full px-frida_7% my-20`}
     >
       {filter.map((_filter) => {
         if (!_filter.items) return null
         return (
-          <Select
-            active={isActive(_filter.name)}
+          <Dropdown
+            active={!!isActive(_filter.name)}
             key={_filter.name}
-            label={_filter.label}
+            label={getLabel(_filter.label, _filter.name)}
             items={_filter.items}
-            onChange={(value) => {
-              handleQueries(_filter.name, value)
+            onClick={(e) => {
+              handleQueries(_filter.name, e.value)
             }}
           />
         )

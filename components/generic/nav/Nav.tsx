@@ -35,20 +35,21 @@ const Nav: React.FC<NavProps> = ({ items, lang }) => {
     <div className="relative z-90">
       <Burger onClick={toggleNav} open={isOpen}></Burger>
       <div className="flex bg-opacity-50 rounded-full pointer-events-auto bg-frida-grey "></div>
-      <div className="absolute right-0 pointer-events-auto top-14 md:top-0 md:right-16">
-        <Icon
-          onClick={() => {
-            toggleCard()
-          }}
-          icon="cart"
-        />
+      <button
+        onClick={() => {
+          toggleCard()
+        }}
+        aria-label="open Shopping Cart"
+        className="absolute right-0 pointer-events-auto top-14 md:top-0 md:right-16"
+      >
+        <Icon icon="cart" />
 
         {count > 0 && (
           <div className="absolute inset-0 flex items-center justify-center text-[0.5rem] md:text-[0.65rem] transform translate-y-[0.7rem] pointer-events-none md:font-bold md:translate-y-[0.3rem]">
             {count}
           </div>
         )}
-      </div>
+      </button>
 
       <FocusTrap active={isOpen}>
         <div

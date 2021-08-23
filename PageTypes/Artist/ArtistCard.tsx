@@ -1,7 +1,7 @@
 import Card from '@components/Card'
 import { ImageMetaResult, imageMeta } from '@lib/queries/snippets'
 import React from 'react'
-import { GalleryTypes } from 'types'
+import { FridaLocation, GalleryTypes } from 'types'
 
 export const artistCardQuery = `
     'mainImage':mainImage {${imageMeta}},
@@ -24,12 +24,21 @@ export type ArtistCardResult = {
 interface ArtistCardProps extends ArtistCardResult {
   isSwiping?: boolean
   type: GalleryTypes
+  lang: FridaLocation
 }
 
 const ArtistCard: React.FC<ArtistCardProps> = (props) => {
-  const { name, photo, slug, isSwiping, type, prevImage, mainImage } = props
+  const { name, photo, slug, isSwiping, type, prevImage, mainImage, lang } =
+    props
 
   const _photo = prevImage || mainImage || photo
+
+  const altText = lang === 'en' ? `Artist ${name}` : `Künstler ${name}`
+
+  const ariaLabel =
+    lang === 'en'
+      ? `Read more aboute the Artist ${name}`
+      : `Lies mehr über den Künstler ${name}`
 
   return (
     <Card
@@ -40,7 +49,8 @@ const ArtistCard: React.FC<ArtistCardProps> = (props) => {
       photo={_photo}
       title={name}
       layout="fill"
-      alt={`Artist ${name}`}
+      alt={altText}
+      ariaLabel={ariaLabel}
     />
   )
 }

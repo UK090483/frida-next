@@ -9,6 +9,7 @@ const Icons: React.FC<{ onClick: () => void; open: boolean }> = ({
   return (
     // eslint-disable-next-line jsx-a11y/no-redundant-roles
     <button
+      aria-label="open Menu"
       className="pointer-events-auto z-90"
       aria-haspopup="true"
       aria-controls="main-menu"

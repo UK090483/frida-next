@@ -26,12 +26,14 @@ type CarouselState = {
   showNext: boolean
 }
 
-const Carousel: React.FC<CarouselProps> = ({
-  items = [],
-  responsive = defaultResponsive,
-  bgColor = 'grey',
-  header,
-}) => {
+const Carousel: React.FC<CarouselProps> = (props) => {
+  const {
+    items = [],
+    responsive = defaultResponsive,
+    bgColor = 'grey',
+    header,
+  } = props
+
   const [state, setState] = React.useState<CarouselState>({
     showPrev: false,
     showNext: true,
@@ -76,7 +78,7 @@ const Carousel: React.FC<CarouselProps> = ({
       <div className={`py-3 md:py-12 relative`}>
         <div ref={sliderRef} className="keen-slider">
           {items.map((item, index) => (
-            <div key={index} className="keen-slider__slide ">
+            <div key={index} className="keen-slider__slide">
               {item}
             </div>
           ))}

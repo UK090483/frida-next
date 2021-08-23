@@ -115,7 +115,12 @@ const ArtworkSingle: React.FC<ArtworkSingleProps> = (props) => {
               : `Weitere Werke von ${artistName}`
           }
           items={relatedArtworks.map((item) => (
-            <ArtworkCard key={item.slug} type="carousel" {...item} />
+            <ArtworkCard
+              key={item.slug}
+              type="carousel"
+              {...item}
+              lang={lang}
+            />
           ))}
         />
       )}
@@ -125,7 +130,12 @@ const ArtworkSingle: React.FC<ArtworkSingleProps> = (props) => {
           bgColor="pink"
           header={lang === 'en' ? `More Artworks` : `Weitere Werke`}
           items={randomArtworks.map((item) => (
-            <ArtworkCard key={item.slug} type="carousel" {...item} />
+            <ArtworkCard
+              key={item.slug}
+              type="carousel"
+              {...item}
+              lang={lang}
+            />
           ))}
         />
       )}
