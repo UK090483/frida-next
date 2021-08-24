@@ -1,5 +1,5 @@
 .counter {
-  @apply inline-grid h-12 w-32 bg-frida-pink;
+  @apply inline-grid h-14 w-36 bg-frida-pink;
   grid-template-columns: auto auto auto;
 
   &--down,

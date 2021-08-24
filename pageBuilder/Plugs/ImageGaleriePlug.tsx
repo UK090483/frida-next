@@ -1,3 +1,4 @@
+import ImageCarousel from '@components/ImageCarousel'
 import Photo from '@components/Photo'
 import { imageMeta, ImageMetaResult } from '@lib/queries/snippets'
 import classNames from 'classnames'
@@ -12,7 +13,7 @@ _type == "imageGalleryPlug" => {
   rows,
   rows_mobile,
   ratio,
-  
+  galerieType,
 }
 `
 
@@ -22,14 +23,52 @@ export interface ImageGalleryPlugResult {
   items: ImageMetaResult[]
   rows?: number
   rows_mobile?: number
-
+  galerieType?: 'normal' | 'carousel' | null
   ratio: '1:1' | '16:9' | '2:3' | '3:2'
 }
 
 const ImageGalleryPlug: React.FC<ImageGalleryPlugResult> = (props) => {
-  const { items, rows = 4, rows_mobile = 2, ratio = '1:1' } = props
+  const { items, rows = 4, rows_mobile = 2, ratio = '1:1', galerieType } = props
 
   if (!items || items.length < 1) return <div>No Images</div>
+
+  if (galerieType === 'carousel')
+    return (
+      <ImageCarousel
+        rows={rows}
+        rows_mobile={rows_mobile}
+        items={items.map((photo) => {
+          return (
+            <div
+              key={photo.id}
+              className={classNames(
+                'w-full',
+                {
+                  'aspect-w-10 aspect-h-10': ratio === '1:1',
+                },
+                {
+                  'aspect-w-16 aspect-h-9': ratio === '16:9',
+                },
+                {
+                  'aspect-w-3 aspect-h-2': ratio === '3:2',
+                },
+                {
+                  'aspect-w-2 aspect-h-3': ratio === '2:3',
+                }
+              )}
+            >
+              <Photo
+                srcSizes={[300]}
+                maxWidth={800}
+                photo={photo}
+                layout={photo.fill || 'contain'}
+              />
+            </div>
+          )
+        })}
+      />
+    )
+
   return (
     <div
       className={classNames(

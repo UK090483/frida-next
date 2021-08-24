@@ -93,23 +93,25 @@ const ArtistInfo: React.FC<ArtistSingleProps> = (props) => {
         {_description && (
           <p className="whitespace-pre-line text-base-fluid">{_description}</p>
         )}
-        <div className="flex flex-wrap justify-center pt-16 md:justify-start">
+        <div className="flex flex-col flex-wrap items-center justify-center pt-16 md:flex-row md:justify-start">
           {webLink && (
             <Button
+              size="s"
               label="Website"
               type="externalLink"
               link={webLink}
-              color="red"
+              color="black"
               backgroundColor="white"
-              className=" md:mb-0 md:mr-3"
+              className="mb-3 md:mb-0 md:mr-3"
             />
           )}
           {instagramLink && (
             <Button
+              size="s"
               label="Instagram"
               type="externalLink"
               link={instagramLink}
-              color="red"
+              color="black"
               backgroundColor="white"
               className=" md:mr-3"
             />
@@ -129,13 +131,19 @@ const ArtistImages: React.FC<ArtistSingleProps> = (props) => {
 
   return (
     <Section type="text" className="horizontal-padding">
-      <div className="flex flex-row flex-wrap w-full h-screen grid-cols-11 grid-rows-5 gap-4 py-12 md:grid ">
+      <div className="flex flex-row flex-wrap w-full h-screen grid-cols-11 grid-rows-5 py-12 md:grid ">
         {_gallery.map((item, index) => {
           return (
             <div
               key={index}
               className={classNames(
-                `relative w-full`,
+                `relative w-full border-8 ring-8 ring-frida-white border-frida-white`,
+                {
+                  'col-start-1 col-span-4  row-start-4 row-span-2': index === 3,
+                },
+                {
+                  'col-start-6 col-span-6  row-start-1 row-span-2': index === 2,
+                },
                 {
                   'col-start-1 col-span-7  row-start-1 row-span-3': index === 1,
                 },
@@ -144,7 +152,7 @@ const ArtistImages: React.FC<ArtistSingleProps> = (props) => {
                 }
               )}
             >
-              {<Photo photo={item} layout="fill" />}
+              {<Photo photo={item} layout="fill" maxWidth={700} />}
             </div>
           )
         })}
@@ -162,7 +170,12 @@ const ArtistWorks: React.FC<ArtistSingleProps> = (props) => {
         <Carousel
           header={lang === 'en' ? `Works by ${name}` : `Arbeiten von ${name}`}
           items={relatedArtworks.map((item) => (
-            <ArtworkCard key={item.slug} type="carousel" {...item} />
+            <ArtworkCard
+              key={item.slug}
+              type="carousel"
+              {...item}
+              lang={lang}
+            />
           ))}
         />
       )}

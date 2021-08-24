@@ -146,13 +146,30 @@ const Icons: IconsObject = {
       </svg>
     )
   },
+  arrowDown: () => {
+    return (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="3"
+          d="M19 9l-7 7-7-7"
+        />
+      </svg>
+    )
+  },
   x: () => {
     return (
       <svg
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
-        strokeWidth="2"
+        strokeWidth="3"
         strokeLinecap="square"
         strokeLinejoin="square"
         className="w-full max-w-full"
@@ -222,6 +239,7 @@ type IconProps = {
     | 'cart'
     | 'plus'
     | 'minus'
+    | 'arrowDown'
 
   size?: 's' | 'm' | 'l'
   className?: string
@@ -248,10 +266,10 @@ const Icon: React.FC<IconProps> = ({
       className={classNames(
         `block rounded-full bg-frida-${bgColor} text-frida-${color}`,
         {
-          'w-8 h-8 md:w-12 md:h-12 p-2': size === 'm',
+          'w-10 h-10 md:w-12 md:h-12 p-2': size === 'm',
         },
         {
-          'w-8 h-8 p-2 ': size === 's',
+          'w-10 h-10 p-2 ': size === 's',
         },
         className
       )}

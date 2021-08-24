@@ -1,28 +1,28 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState, useEffect } from 'react'
 import FocusTrap from 'focus-trap-react'
 import { m } from 'framer-motion'
 import cx from 'classnames'
-
 import { centsToPrice } from '@lib/helpers'
 import CartItem from './CartItem'
 import Button from '@components/buttons/button'
-
 import { useSiteContext } from '@lib/context/context'
-import { useRouter } from 'next/router'
 import useToggleCart from '@lib/context/useToggleCart'
 import useCheckout from '@lib/context/useCheckout'
 import { useCartItems } from '@lib/context/useShopItem'
 import { useCartTotals, useCartCount } from '@lib/context/useCart'
+import { FridaLocation } from 'types'
 
 type CartProps = {
   data: any
+  lang: FridaLocation
 }
 
-const Cart: React.FC<CartProps> = ({ data }) => {
+const Cart: React.FC<CartProps> = ({ lang }) => {
   // const { cart } = data
 
   const { isCartOpen, isUpdating } = useSiteContext()
-  const { locale } = useRouter()
 
   const { subTotal } = useCartTotals()
 
@@ -34,7 +34,10 @@ const Cart: React.FC<CartProps> = ({ data }) => {
   const [hasFocus, setHasFocus] = useState(false)
   const [checkoutLink, setCheckoutLink] = useState(checkoutURL)
 
-  const yourCartText = locale === 'en' ? 'Your Cart' : 'Warenkorb'
+  const yourCartText = lang === 'en' ? 'Your Cart' : 'Warenkorb'
+  const doneText = lang === 'en' ? 'Done' : 'Fertig'
+  const checkoutText = lang === 'en' ? 'Checkout' : 'zur Kasse'
+  const subtotalText = lang === 'en' ? 'Subtotal' : 'Zwischensumme'
 
   const handleKeyup = (e: React.KeyboardEvent) => {
     if (e.key === 'Escape') {
@@ -42,14 +45,14 @@ const Cart: React.FC<CartProps> = ({ data }) => {
     }
   }
 
-  const goToCheckout = (e: React.MouseEvent) => {
-    e.preventDefault()
-    toggleCart()
+  // const goToCheckout = (e: React.MouseEvent) => {
+  //   e.preventDefault()
+  //   toggleCart()
 
-    setTimeout(() => {
-      checkoutLink && window.open(checkoutLink, '_self')
-    }, 200)
-  }
+  //   setTimeout(() => {
+  //     checkoutLink && window.open(checkoutLink, '_self')
+  //   }, 200)
+  // }
 
   // update our checkout URL to use our custom domain name
   useEffect(() => {
@@ -99,7 +102,7 @@ const Cart: React.FC<CartProps> = ({ data }) => {
                 backgroundColor="pink"
                 type="click"
                 size="s"
-                label="Done"
+                label={doneText}
                 onClick={() => toggleCart()}
                 position="auto"
               />
@@ -107,24 +110,24 @@ const Cart: React.FC<CartProps> = ({ data }) => {
 
             <div className="cart--content">
               {lineItems?.length ? (
-                <CartItems items={lineItems} />
+                <CartItems items={lineItems} lang={lang} />
               ) : (
-                <EmptyCart />
+                <EmptyCart lang={lang} />
               )}
             </div>
 
             {lineItems?.length > 0 && (
               <div className="cart--footer">
                 <div className="cart--subtotal">
-                  <span>Subtotal</span>
-                  <span>${centsToPrice(subTotal)}</span>
+                  <span>{subtotalText}</span>
+                  <span>{centsToPrice(subTotal)}€</span>
                 </div>
 
                 <Button
                   size="s"
                   backgroundColor="pink"
                   type="externalLink"
-                  label={isUpdating ? 'Updating...' : 'Checkout'}
+                  label={isUpdating ? 'Updating...' : checkoutText}
                   link={checkoutLink ? checkoutLink : '/'}
                 />
 
@@ -147,20 +150,25 @@ const Cart: React.FC<CartProps> = ({ data }) => {
   )
 }
 
-const CartItems = ({ items }: { items: any }) => {
+const CartItems = ({ items, lang }: { items: any; lang: FridaLocation }) => {
   return (
     <div className="cart--items">
       {items.map((item: any) => {
-        return <CartItem key={item.id} item={item} />
+        return <CartItem key={item.id} item={item} lang={lang} />
       })}
     </div>
   )
 }
 
-const EmptyCart = () => (
-  <div className="cart--empty">
-    <p>Your cart is empty</p>
-  </div>
-)
+const EmptyCart = ({ lang }: { lang: FridaLocation }) => {
+  const yourCartIsEmptyText =
+    lang === 'en' ? 'Your cart is empty' : 'Dein Warenkorb ist leer'
+
+  return (
+    <div className="cart--empty">
+      <p>{yourCartIsEmptyText}</p>
+    </div>
+  )
+}
 
 export default Cart

@@ -9,7 +9,7 @@ const BigButtons: React.FC<{ open: boolean }> = ({ open }) => {
       }`}
       style={{ position: 'fixed', bottom: 0, width: '100%' }}
     >
-      <BigButton></BigButton>
+      <BigButton tabable={open}></BigButton>
     </div>
   )
 }

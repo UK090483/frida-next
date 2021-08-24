@@ -12,7 +12,7 @@ type ArtworksProps = {
   lang: FridaLocation
 }
 
-const ArtistGallery: React.FC<ArtworksProps> = ({ items = [] }) => {
+const ArtistGallery: React.FC<ArtworksProps> = ({ items = [], lang }) => {
   const router = useRouter()
   const query = router.query
 
@@ -52,7 +52,12 @@ const ArtistGallery: React.FC<ArtworksProps> = ({ items = [] }) => {
             type="grid"
             items={[
               filterElements().map((item) => (
-                <ArtistCard key={item.slug} type={'grid'} {...item} />
+                <ArtistCard
+                  key={item.slug}
+                  type={'grid'}
+                  {...item}
+                  lang={lang}
+                />
               )),
             ]}
           />

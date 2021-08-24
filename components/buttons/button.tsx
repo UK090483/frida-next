@@ -14,9 +14,8 @@ interface ButtonProps {
   position?: 'inline' | 'left' | 'right' | 'center' | 'auto'
 }
 interface LinkProps extends ButtonProps {
-  type: 'link' | 'externalLink'
+  type: 'link' | 'externalLink' | 'download'
   link: string
-  download?: boolean
 }
 interface ClickProps extends ButtonProps {
   type: 'click'
@@ -44,6 +43,9 @@ const Button: React.FC<LinkProps | ClickProps> = (props) => {
     { 'is-small': size === 's' },
     { 'text-frida-red border-frida-red hover:bg-frida-red': color === 'red' },
     {
+      'text-frida-grey border-frida-grey hover:bg-frida-grey': color === 'grey',
+    },
+    {
       'text-frida-green border-frida-green hover:bg-frida-green':
         color === 'green',
     },
@@ -54,22 +56,25 @@ const Button: React.FC<LinkProps | ClickProps> = (props) => {
     {
       'text-frida-pink border-frida-pink hover:bg-frida-pink': color === 'pink',
     },
-    { 'text-frida-white hover:bg-frida-white': color === 'white' },
-    { 'hover:text-frida-red': backgroundColor === 'red' },
-    { 'hover:text-frida-black': backgroundColor === 'black' },
-    { 'hover:text-frida-pink': backgroundColor === 'pink' },
-    { 'hover:text-frida-white': backgroundColor === 'white' },
-    { 'hover:text-frida-grey': backgroundColor === 'grey' }
+    {
+      'text-frida-white hover:bg-frida-white focus:outline-black':
+        color === 'white',
+    },
+    { 'hover:text-frida-red focus-white': backgroundColor === 'red' },
+    {
+      'hover:text-frida-black focus-white': backgroundColor === 'black',
+    },
+    { 'hover:text-frida-pink focus-black': backgroundColor === 'pink' },
+    {
+      'hover:text-frida-white focus-black': backgroundColor === 'white',
+    },
+    { 'hover:text-frida-grey focus-white': backgroundColor === 'grey' }
   )
 
   if (props.type === 'link') {
     return (
       <Link href={props.link} passHref>
-        <a
-          {...(props.download === true ? { download: true } : {})}
-          {...mouseLinkProps}
-          className={` ${className} ${extraClasses}`}
-        >
+        <a {...mouseLinkProps} className={` ${className} ${extraClasses}`}>
           {label}
         </a>
       </Link>
@@ -85,6 +90,18 @@ const Button: React.FC<LinkProps | ClickProps> = (props) => {
         {...mouseLinkProps}
         className={`${className} ${extraClasses}`}
         href={props.link}
+      >
+        {label}
+      </a>
+    )
+  }
+  if (props.type === 'download') {
+    return (
+      <a
+        download
+        href={props.link}
+        {...mouseLinkProps}
+        className={` ${className} ${extraClasses}`}
       >
         {label}
       </a>

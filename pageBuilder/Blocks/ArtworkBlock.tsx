@@ -28,6 +28,7 @@ export interface ArtworksGalleryResult extends PageBuilderBlockBase {
   stil?: { name: string }[]
   medium?: { name: string }[]
   count?: 'all' | number
+  order?: string[]
 }
 
 interface ArtworksBlockProps extends ArtworksGalleryResult {
@@ -47,7 +48,7 @@ const ArtworksBlock: React.FC<ArtworksBlockProps> = (props) => {
     <Carousel
       header={_label}
       items={items.map((item) => (
-        <ArtworkCard key={item.slug} type="carousel" {...item} />
+        <ArtworkCard key={item.slug} type="carousel" {...item} lang={lang} />
       ))}
     />
   )

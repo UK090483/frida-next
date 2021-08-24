@@ -74,6 +74,7 @@ const ProductHero: React.FC<ProductHeroProps> = (props) => {
           <Price price={activeVariant ? activeVariant.price : price} />
 
           <BuyButton
+            className="my-10"
             isInCart={isInCart}
             handleAddToCard={() => {
               addItem(activeVariantId, quantity, undefined).then(() => {

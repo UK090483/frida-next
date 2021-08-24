@@ -5,13 +5,15 @@ import { FridaColors } from 'types'
 
 export const downloadPlugQuery = ` 
 _type == "download" => {
+
   _type,
   _key,
     label,
     bgColor,
     color,
     'imageSrc':image.asset->url,
-    'fileSrc':file.asset->url
+    'fileSrc':file.asset->url,
+    'test':'blaa'
 }
 `
 
@@ -29,16 +31,14 @@ export type DownloadPlugResult = {
 type ButtonPlugProps = DownloadPlugResult
 const DownloadPlug: React.FC<ButtonPlugProps> = (props) => {
   const { imageSrc, fileSrc, color, bgColor, label, position } = props
-
   const src = imageSrc || fileSrc
-
   const link = src ? `/api/downloadFile/?path=${src}` : ''
+
   return (
     <Button
       color={color || 'black'}
       backgroundColor={bgColor || 'white'}
-      type="link"
-      download={true}
+      type="download"
       link={link}
       label={label || 'Download'}
       position={position || 'inline'}

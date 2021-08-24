@@ -48,7 +48,7 @@ const ArtworksBlock: React.FC<ArtistsBlockProps> = (props) => {
       bgColor={bgColor}
       header={_label}
       items={items.map((item) => (
-        <ArtistCard key={item.slug} type={type} {...item} />
+        <ArtistCard key={item.slug} type={type} {...item} lang={lang} />
       ))}
     />
   )

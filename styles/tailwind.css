@@ -6,6 +6,19 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  @apply focus:outline-none;
+}
+
+.is-tabbing a,
+.is-tabbing button,
+.is-tabbing .select{
+  @apply focus:outline-green;
+}
+.is-tabbing .select--option {
+  @apply outline-white;
+}
+
 @layer utilities {
   /* .stop-fix-android-vh {
     transition: unset;
@@ -22,8 +35,7 @@
 
  */
 
-  .horizontal-padding{
- 
+  .horizontal-padding {
     @apply py-16  md:py-28;
   }
   .hero {
@@ -139,3 +151,22 @@
 .popup-content {
   -webkit-animation: anvil 0.2s cubic-bezier(0.38, 0.1, 0.36, 0.9) forwards;
 }
+
+
+.frida-scrollbar::-webkit-scrollbar-track
+{
+  @apply bg-frida-white ;
+}
+
+.frida-scrollbar::-webkit-scrollbar
+{
+  width: 5px;
+  @apply bg-frida-pink ;
+  
+}
+
+.frida-scrollbar::-webkit-scrollbar-thumb
+{
+  @apply bg-frida-pink ;
+}
+

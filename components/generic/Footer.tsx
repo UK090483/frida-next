@@ -42,7 +42,7 @@ const Footer: React.FC<FooterProps> = (props) => {
       <Section backgroundColor="red">
         <div style={{ padding: '50px 0' }}>
           <div className={'text-xl-fluid text-frida-white font-bold'}>
-            GET IN TOUCH WITH FRIDA
+            FOLLOW FRIDA ON SOCIAL MEDIA
           </div>
         </div>
       </Section>

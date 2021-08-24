@@ -57,6 +57,9 @@ module.exports = {
       8: '8px',
     },
     extend: {
+      outline: {
+        green: ['3px dotted #6dd163', '6px'],  
+      },
       inset: {
         unset: 'unset',
       },

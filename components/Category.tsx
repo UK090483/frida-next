@@ -26,7 +26,7 @@ type CategoryProps = {
 const Category: React.FC<CategoryProps> = ({ items, lang }) => {
   return (
     <Section type="full" backgroundColor="white">
-      <div className="grid gap-4 lg:gap-20 grid-cols-12  grid-flow-row px-frida_side md:px-frida_7% pt-4 pb-4 lg:pb-20">
+      <ul className="grid gap-4 lg:gap-20 grid-cols-12  grid-flow-row px-frida_side md:px-frida_7% pt-4 pb-20 lg:pb-40">
         {items.map((item, index) => {
           const {
             size = 'm',
@@ -37,8 +37,13 @@ const Category: React.FC<CategoryProps> = ({ items, lang }) => {
             label_en,
           } = item
           const _label = lang === 'en' && label_en ? label_en : label
+
+          const ariaLabel =
+            lang === 'en' && label_en
+              ? `Read more about ${label_en}`
+              : `Lies mehr über ${label}`
           return (
-            <div
+            <li
               key={index}
               className={cx(
                 'h-[30vw] md:h-[16vw]  relative row-span-3',
@@ -60,7 +65,13 @@ const Category: React.FC<CategoryProps> = ({ items, lang }) => {
                       }`}
                       passHref
                     >
-                      <a {...mouseLinkProps}>{children}</a>
+                      <a
+                        aria-label={ariaLabel}
+                        className="absolute inset-0"
+                        {...mouseLinkProps}
+                      >
+                        {children}
+                      </a>
                     </Link>
                   )
                 }}
@@ -68,15 +79,15 @@ const Category: React.FC<CategoryProps> = ({ items, lang }) => {
                 {item.images && item.images[0] && item.images[0]}
 
                 {_label && (
-                  <button className="absolute transform -translate-x-1/2 -translate-y-1/2 button is-responsive bg-frida-white border-frida-white top-1/2 left-1/2">
+                  <div className="absolute transform -translate-x-1/2 -translate-y-1/2 button is-responsive bg-frida-white border-frida-white top-1/2 left-1/2">
                     {_label}
-                  </button>
+                  </div>
                 )}
               </ConditionalWrapper>
-            </div>
+            </li>
           )
         })}
-      </div>
+      </ul>
     </Section>
   )
 }

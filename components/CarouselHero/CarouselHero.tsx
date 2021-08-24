@@ -4,6 +4,8 @@ import CarouselItem from './CarouselItem'
 import ButtonNav from '../buttons/ButtonNav'
 import KeenSlider, { useKeenSlider } from 'lib/slider/react'
 import { FridaColors } from '../../types'
+import useKeydown from '@lib/helper/useKeydown'
+import { useAutoplay } from '@lib/helpers'
 
 export type CarouselHeroItem = {
   color: FridaColors
@@ -18,8 +20,9 @@ type CarouselHeroProps = {
 const CarouselHero: React.FC<CarouselHeroProps> = ({ items }) => {
   const [state, setState] = React.useState(0)
   const hasMultiple = items.length > 1
-  const timer = React.useRef<null | NodeJS.Timeout>()
   const [pause, setPause] = React.useState(false)
+  const rootRef = React.useRef<null | HTMLDivElement>(null)
+  const tabableElements = React.useRef<null | NodeListOf<Element>>(null)
 
   const [sliderRef, slider] = useKeenSlider<HTMLDivElement>({
     slidesPerView: 1,
@@ -33,19 +36,10 @@ const CarouselHero: React.FC<CarouselHeroProps> = ({ items }) => {
     dragEnd: () => {
       setPause(false)
     },
-    beforeChange: (k: KeenSlider) => {
-      setActiveSlide(k.details().direction)
+    slideChanged: (k: KeenSlider) => {
+      setState(k.details().relativeSlide)
     },
   })
-
-  const setActiveSlide = (dir: 1 | -1 | 0) => {
-    if (dir === 1) {
-      setState((oS) => oS + 1)
-    }
-    if (dir === -1) {
-      setState((oS) => oS - 1)
-    }
-  }
 
   const setNext = () => slider && slider.next()
   const setPrev = () => slider && slider.prev()
@@ -54,38 +48,61 @@ const CarouselHero: React.FC<CarouselHeroProps> = ({ items }) => {
     setState(number)
   }
 
-  React.useEffect(() => {
-    if (!sliderRef || !sliderRef.current) return
-    sliderRef.current.addEventListener('mouseover', () => {
-      setPause(true)
-    })
-    sliderRef.current.addEventListener('mouseout', () => {
-      setPause(false)
-    })
-  }, [sliderRef])
+  useKeydown({ ArrowLeft: setPrev, ArrowRight: setNext })
+
+  const { play, stop } = useAutoplay(() => {
+    slider.next()
+  }, 5000)
 
   React.useEffect(() => {
-    if (typeof window === `undefined` && hasMultiple) return
-    timer.current = setInterval(() => {
-      if (!pause) {
-        slider && slider.next()
-        setActiveSlide(1)
-      }
-    }, 5000)
-    return () => {
-      timer.current && clearInterval(timer.current)
-    }
-  }, [hasMultiple, pause, slider])
+    if (!rootRef.current) return
+    tabableElements.current = rootRef.current.querySelectorAll(
+      'a, button, input, textarea, select, details, [tabindex]:not([tabindex="-1"])'
+    )
+    tabableElements.current.forEach((e) => {
+      e.setAttribute('tabIndex', '-1')
+    })
+  }, [rootRef.current])
+
+  React.useEffect(() => {
+    play()
+    if (!tabableElements.current) return
+    // tabableElements.current.forEach((e) => {
+    //   const i = e.parentElement?.getAttribute('item-index')
+    //   if (i && parseInt(i) - 1 === state) {
+    //     console.log(e)
+    //     e.focus()
+    //   } else {
+    //     e.blur()
+    //   }
+    // })
+  }, [])
 
   return (
-    <div className="relative">
+    <div
+      ref={rootRef}
+      className="relative"
+      onFocus={(e) => {
+        e.stopPropagation()
+        const itemIndex = e.target.parentElement?.getAttribute('item-index')
+        if (itemIndex) {
+          setSlide(parseInt(itemIndex) - 1)
+        }
+      }}
+      onMouseEnter={() => {
+        stop()
+      }}
+      onMouseLeave={() => {
+        play()
+      }}
+    >
       <div ref={sliderRef} className="keen-slider">
         {items.map((item, index) => (
           <div
             key={index}
             className="keen-slider__slide keen-slider__slide--fullwidth"
           >
-            <CarouselItem {...item} />
+            <CarouselItem {...item} index={index} />
           </div>
         ))}
       </div>

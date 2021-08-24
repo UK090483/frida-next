@@ -21,20 +21,49 @@ const defaultResponsive: TOptions['breakpoints'] = {
   },
 }
 
-const Carousel: React.FC<CarouselProps> = ({
-  items = [],
-  responsive = defaultResponsive,
-  bgColor = 'grey',
-  header,
-}) => {
+type CarouselState = {
+  showPrev: boolean
+  showNext: boolean
+}
+
+const Carousel: React.FC<CarouselProps> = (props) => {
+  const {
+    items = [],
+    responsive = defaultResponsive,
+    bgColor = 'grey',
+    header,
+  } = props
+
+  const [state, setState] = React.useState<CarouselState>({
+    showPrev: false,
+    showNext: true,
+  })
+  const { showPrev, showNext } = state
   const [sliderRef, slider] = useKeenSlider<HTMLDivElement>({
     slidesPerView: 1.5,
     mode: 'snap',
     breakpoints: responsive,
+    created(s) {
+      const { size, slidesPerView } = s.details()
+
+      setState((oS) => ({ ...oS, showNext: size > slidesPerView }))
+    },
+    slideChanged(s) {
+      const { relativeSlide, size, slidesPerView } = s.details()
+
+      setState((oS) => ({
+        ...oS,
+        showPrev: relativeSlide > 0,
+        showNext: size - relativeSlide > slidesPerView,
+      }))
+    },
   })
 
   const setNext = () => {
     slider.next()
+  }
+  const setPrev = () => {
+    slider.prev()
   }
 
   return (
@@ -49,13 +78,25 @@ const Carousel: React.FC<CarouselProps> = ({
       <div className={`py-3 md:py-12 relative`}>
         <div ref={sliderRef} className="keen-slider">
           {items.map((item, index) => (
-            <div key={index} className="keen-slider__slide ">
+            <div key={index} className="keen-slider__slide">
               {item}
             </div>
           ))}
         </div>
-
-        <CustomArrow onClick={setNext} />
+        {showPrev && (
+          <CustomArrow
+            icon="arrowLeft"
+            className="absolute transform -translate-y-1/2 top-1/2 left-2 md:left-5"
+            onClick={setPrev}
+          />
+        )}
+        {showNext && (
+          <CustomArrow
+            icon="arrowRight"
+            className="absolute transform -translate-y-1/2 top-1/2 right-2 md:right-5"
+            onClick={setNext}
+          />
+        )}
       </div>
     </Section>
   )
@@ -65,15 +106,16 @@ export default Carousel
 
 type CustomArrowProps = {
   onClick: () => void
+  className: string
+  icon: 'arrowRight' | 'arrowLeft'
 }
 
-const CustomArrow: React.FC<CustomArrowProps> = ({ onClick }) => {
+const CustomArrow: React.FC<CustomArrowProps> = ({
+  onClick,
+  className,
+  icon,
+}) => {
   return (
-    <Icon
-      onClick={onClick}
-      icon="arrowRight"
-      bgColor="white"
-      className="absolute transform -translate-y-1/2 top-1/2 right-2 md:right-5"
-    />
+    <Icon onClick={onClick} icon={icon} bgColor="white" className={className} />
   )
 }

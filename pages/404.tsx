@@ -15,6 +15,7 @@ import ArtistCard, {
 } from 'PageTypes/Artist/ArtistCard'
 import Section from '@components/Section'
 import Carousel from '@components/CardCarousel'
+import { useRouter } from 'next/router'
 export const pageQuery = `
 ...,
 'slug':slug.current,
@@ -27,10 +28,12 @@ interface ErrorPageResult extends PageResult {
   artists: ArtistCardResult[]
 }
 const ErrorPage = (props: any) => {
+  const { locale } = useRouter()
   if (!props) return <div>404</div>
   const data = props.data as ErrorPageResult
   const { site, artists, artworks } = data
 
+  const lang = locale === 'en' ? 'en' : 'de'
   return (
     <Layout
       preview={false}
@@ -56,7 +59,7 @@ const ErrorPage = (props: any) => {
       <Carousel
         header="Latest Artworks"
         items={artworks.map((item) => (
-          <ArtworkCard key={item.slug} type="carousel" {...item} />
+          <ArtworkCard lang={lang} key={item.slug} type="carousel" {...item} />
         ))}
       />
 
@@ -64,7 +67,7 @@ const ErrorPage = (props: any) => {
         bgColor="pink"
         header="Latest Artists"
         items={artists.map((item) => (
-          <ArtistCard key={item.slug} type="carousel" {...item} />
+          <ArtistCard key={item.slug} type="carousel" {...item} lang={lang} />
         ))}
       />
     </Layout>

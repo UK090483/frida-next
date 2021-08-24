@@ -71,8 +71,6 @@ const Newsletter = () => {
     }))
   }
 
-  // handle form submission
-  // @ts-ignore
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault()
 
@@ -168,7 +166,7 @@ const Newsletter = () => {
               <button
                 type="submit"
                 className={cx(
-                  'button is-medium w-full text-frida-white  max-w-md mt-6',
+                  'button is-large font-bold w-full text-frida-white  max-w-md mt-6',
                   ` ${showEmailError ? 'bg-frida-red' : 'bg-frida-black'}`
                 )}
                 disabled={isSubmitting}
