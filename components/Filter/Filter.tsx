@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
 import * as React from 'react'
 import Select from './Select'
+import classNames from 'classnames'
 
 interface IFilterProps {
   filter: {
@@ -46,11 +47,10 @@ const Filter: React.FunctionComponent<IFilterProps> = (props) => {
 
   return (
     <div
-      // className={`flex flex-wrap justify-center xl:flex-nowrap ${
-      //   filter.length > 1 ? 'md:justify-between' : 'md:justify-center'
-      // } items-center w-full px-frida_7% my-20`}
-
-      className="grid grid-cols-1 gap-10 py-20 mx-auto lg:grid-cols-4 md:grid-cols-2 justify-items-center px-frida_side md:px-frida_7%"
+      className={classNames(
+        `grid grid-cols-1 gap-10 py-20 mx-auto  justify-items-center px-frida_side md:px-frida_7%`,
+        { 'lg:grid-cols-4 md:grid-cols-2': filter.length === 4 }
+      )}
     >
       {filter.map((_filter) => {
         if (!_filter.items) return null
