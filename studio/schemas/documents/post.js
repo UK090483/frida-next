@@ -1,3 +1,4 @@
+import client from 'part:@sanity/base/client'
 export default {
   type: 'document',
   name: 'post',
@@ -23,7 +24,8 @@ export default {
       description: 'erreichbar unter meetFrida/posts/....',
       options: {
         source: 'title_en',
-        maxLength: 96
+        maxLength: 96,
+       
       }
     },
     {
@@ -107,3 +109,4 @@ export default {
     }
   }
 }
+

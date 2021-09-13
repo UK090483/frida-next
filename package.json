@@ -22,6 +22,8 @@
     "node": "14.x"
   },
   "dependencies": {
+    "@honeybadger-io/js": "^3.2.4",
+    "@honeybadger-io/react": "^1.0.1",
     "@mailchimp/mailchimp_marketing": "^3.0.25",
     "@reach/rect": "^0.14.0",
     "@sanity/block-content-to-react": "^2.0.7",
@@ -46,6 +48,7 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "focus-trap-react": "^8.3.2",
     "framer-motion": "^4.0.3",
+    "hls.js": "^1.0.10",
     "isomorphic-fetch": "^3.0.0",
     "isomorphic-unfetch": "^3.1.0",
     "js-cookie": "^2.2.1",
@@ -53,6 +56,8 @@
     "keen-slider": "^5.4.0",
     "lodash.debounce": "^4.0.8",
     "lodash.throttle": "^4.1.1",
+    "logrocket": "^2.0.0",
+    "mux-embed": "^4.1.1",
     "next": "^11.0.2-canary.28",
     "next-build-cache": "^1.0.4",
     "next-sanity": "^0.2.0",
@@ -76,6 +81,7 @@
     "react-use": "^17.2.4",
     "reactjs-popup": "^2.0.4",
     "resize-observer-polyfill": "^1.5.1",
+    "sanity-mux-player": "0.0.27",
     "shopify-buy": "^2.11.0",
     "sitemap": "^6.3.3",
     "swr": "^0.5.4",

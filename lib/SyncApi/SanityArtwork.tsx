@@ -27,6 +27,7 @@ export type SanityArtworkData = {
   shopify_variant_id?: string
   description?: string
   availability?: 'sold' | 'availabil'
+  isNft?: boolean
 }
 
 export const sanitySyncArtworkQuery = `

@@ -24,6 +24,7 @@ interface CardWrapPros {
   alt?: string
   banner?: React.ReactElement | undefined
   ariaLabel?: string
+  badge?: string
 }
 
 const CardWrap: React.FC<CardWrapPros> = (props) => {
@@ -39,9 +40,9 @@ const CardWrap: React.FC<CardWrapPros> = (props) => {
     alt,
     banner,
     ariaLabel,
+    badge,
   } = props
 
-  // const { pushAsModal, saveScroll } = useModalContext()
   const router = useRouter()
 
   const isCarousel = galleryType === 'carousel'
@@ -55,7 +56,7 @@ const CardWrap: React.FC<CardWrapPros> = (props) => {
         draggable={false}
         {...mouseLinkProps}
         className={classNames(
-          `block mx-auto w-full  bg-frida-white `,
+          `block mx-auto w-full  bg-frida-white relative`,
           { 'px-frida_side md:px-6 max-w-lg': isGrid || isMasonry },
           { 'mb-8': isGrid },
           { 'mb-20': isMasonry },
@@ -72,6 +73,19 @@ const CardWrap: React.FC<CardWrapPros> = (props) => {
           }
         }}
       >
+        {badge && (
+          <div
+            className={classNames(
+              'absolute z-[1] flex transform ',
+              'items-center justify-center',
+              'w-12 h-12 rounded-full',
+              'top-3 right-3 bg-frida-pink',
+              { 'right-9': isMasonry }
+            )}
+          >
+            {badge}
+          </div>
+        )}
         <div
           className={classNames(
             { 'aspect-w-9 aspect-h-12': isCarousel },

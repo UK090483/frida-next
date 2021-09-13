@@ -12,6 +12,7 @@ import { useAddItem, useCartItems } from '@lib/context/useShopItem'
 import React from 'react'
 import { FridaLocation } from 'types'
 import { ArtworkSingleViewResult } from './artworksQueries'
+import Video from '@components/Video/Video'
 
 type ArtworkHeroProps = {
   lang: FridaLocation
@@ -32,6 +33,10 @@ const ArtworkHero: React.FC<ArtworkHeroProps> = ({ artwork, lang }) => {
     shopify_variant_id,
     hints,
     artistName,
+    video,
+    isNft,
+    nftInfo,
+    nftUrl,
   } = artwork
 
   const addItem = useAddItem()
@@ -39,10 +44,17 @@ const ArtworkHero: React.FC<ArtworkHeroProps> = ({ artwork, lang }) => {
 
   const itemInCart = !!cardItems.find((item) => item.id === shopify_variant_id)
   const alt = `artwork ${artworkName} by ${artistName}`
+
+  const showVideo = isNft && !!video
+
   return (
     <ProductHeroWrap>
       <ProductImageWrap>
-        <ProductMagnifyImage alt={alt} photo={photo} />
+        {showVideo ? (
+          <Video fit="contain" assetDocument={video} loop />
+        ) : (
+          <ProductMagnifyImage alt={alt} photo={photo} />
+        )}
       </ProductImageWrap>
       <ProductInfoWrap>
         <div className="flex flex-col justify-center h-full mb-4">
@@ -57,25 +69,42 @@ const ArtworkHero: React.FC<ArtworkHeroProps> = ({ artwork, lang }) => {
             ></ProductName>
           )}
 
-          <div className="pb-2 text-xs-fluid">
-            {`${medium}, ${width}*${height} ${
-              depth ? '*' + depth : ''
-            } cm ${stil}`}
-          </div>
+          {!isNft && (
+            <div className="pb-2 text-xs-fluid">
+              {`${medium}, ${width}*${height} ${
+                depth ? '*' + depth : ''
+              } cm ${stil}`}
+            </div>
+          )}
+          {isNft && nftInfo && (
+            <div className="pb-2 whitespace-pre-wrap text-xs-fluid">
+              {nftInfo}
+            </div>
+          )}
           {price && <Price price={price} />}
 
           {/* <SocialShare className="pt-2 pb-6" /> */}
-          <BuyButton
-            className="my-10"
-            isInCart={itemInCart}
-            handleAddToCard={() => {
-              if (!shopify_variant_id) {
-                console.error('shopify_variant_id missing')
-                return
-              }
-              addItem(shopify_variant_id, 1, undefined).then(() => null)
-            }}
-          />
+          {!isNft && (
+            <BuyButton
+              className="my-10"
+              isInCart={itemInCart}
+              handleAddToCard={() => {
+                if (!shopify_variant_id) {
+                  console.error('shopify_variant_id missing')
+                  return
+                }
+                addItem(shopify_variant_id, 1, undefined).then(() => null)
+              }}
+            />
+          )}
+          {isNft && (
+            <BuyButton
+              className="my-10"
+              isInCart={itemInCart}
+              nftLink={nftUrl || ' '}
+              handleAddToCard={() => null}
+            />
+          )}
 
           {hints && <ProductHints items={hints} lang={lang} />}
           <PaymentInfo lang={lang} />

@@ -14,10 +14,16 @@ type BuyButtonProps = {
   shopify_variant_id?: string
   isInCart: boolean
   className?: string
+  nftLink?: string
 }
 
 const BuyButton: React.FC<BuyButtonProps> = (props) => {
-  const { handleAddToCard = () => null, isInCart, className = '' } = props
+  const {
+    handleAddToCard = () => null,
+    isInCart,
+    className = '',
+    nftLink,
+  } = props
 
   const intersectionRef = React.useRef(null)
 
@@ -46,6 +52,7 @@ const BuyButton: React.FC<BuyButtonProps> = (props) => {
   const soldText = locale === 'en' ? 'sold' : 'Leider Verkauft'
   const cartText = locale === 'en' ? 'cart' : 'Warenkorb'
   const checkoutText = locale === 'en' ? 'checkout' : 'Kasse'
+  const byNFTText = locale === 'en' ? 'BUY NFT' : 'NFT KAUFEN'
 
   const isAddingText = locale === 'en' ? 'adding...' : 'wir hinzugefügt...'
 
@@ -60,47 +67,52 @@ const BuyButton: React.FC<BuyButtonProps> = (props) => {
   return (
     <div ref={intersectionRef} className={`h-12 ${className}`}>
       <div
-        className={`flex w-80 lg:w-vw/4 z-10 ${
+        className={`flex w-[300px]  md:w-[480px] lg:w-vw/4 z-10  ${
           isOut && !isNavOpen
             ? 'fixed bottom-3 left-1/2 transform -translate-x-1/2  lg:translate-x-0 lg:translate-y-0.5 lg:left-unset lg:bottom-unset lg:top-frida_side_big lg:right-36'
             : ''
         }`}
       >
-        {/* {!isInCart && (
-          <button className=" bg-frida-green rounded-full leading-none text-frida-white  py-3.5">
-            {isAdding ? isAddingText : availability ? toCardText : soldText}
-          </button>
+        {nftLink && (
+          <a
+            className="rounded-full w-full text-center leading-none text-frida-white  py-3.5 px-12 text-sm-fluid font-bold overflow-hidden whitespace-nowrap bg-frida-green"
+            href={nftLink}
+            target="_blank"
+            rel="noreferrer"
+            {...mouseLinkProps}
+          >
+            {byNFTText}
+          </a>
         )}
-        {isInCart && (
-          <>
-            <button className=" bg-frida-black text-frida-white">
-              {cartText}
-            </button>
-            <button className=" bg-frida-green text-frida-white">
-              {checkoutText}
-            </button>
-          </>
-        )} */}
-        <BButton
-          show={!isInCart}
-          onClick={handleAdd}
-          className={`${availability ? 'bg-frida-green' : 'bg-frida-red'}`}
-        >
-          {isAdding ? isAddingText : availability ? toCardText : soldText}
-        </BButton>
 
-        <BButton onClick={openCart} show={isInCart} className="bg-frida-black">
-          {cartText}
-        </BButton>
-        <BButton
-          onClick={() => {
-            checkOut && (window.location.href = checkOut)
-          }}
-          show={isInCart}
-          className="ml-5 bg-frida-green"
-        >
-          {checkoutText}
-        </BButton>
+        {!nftLink && (
+          <>
+            <BButton
+              show={!isInCart}
+              onClick={handleAdd}
+              className={`${availability ? 'bg-frida-green' : 'bg-frida-red'}`}
+            >
+              {isAdding ? isAddingText : availability ? toCardText : soldText}
+            </BButton>
+
+            <BButton
+              onClick={openCart}
+              show={isInCart}
+              className="bg-frida-black"
+            >
+              {cartText}
+            </BButton>
+            <BButton
+              onClick={() => {
+                checkOut && (window.location.href = checkOut)
+              }}
+              show={isInCart}
+              className="ml-5 bg-frida-green"
+            >
+              {checkoutText}
+            </BButton>
+          </>
+        )}
       </div>
     </div>
   )
