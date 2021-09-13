@@ -6,7 +6,7 @@ import useVideo from './useVideo'
 import { MuxResult } from './types'
 import useHls from './useHls'
 import useObjectFit from './useObjectFit'
-import classNames from 'studio/node_modules/classnames'
+import classNames from 'classnames'
 
 export interface IVideoProps {
   assetDocument: MuxResult
