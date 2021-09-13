@@ -1,6 +1,23 @@
 import client from 'part:@sanity/base/client'
 import { CgCardHearts } from 'react-icons/cg'
 
+const requiredWhenNFT = Rule => {
+  return Rule.custom((field, context) => {
+    if (context?.document?.isNft) {
+      return field ? true : 'Required'
+    }
+    return true
+  })
+}
+const requiredWhenNotNFT = Rule => {
+  return Rule.custom((field, context) => {
+    if (context?.document?.isNft) {
+      return true
+    }
+    return field ? true : 'Required'
+  })
+}
+
 export default {
   name: 'artwork',
   type: 'document',
@@ -12,6 +29,32 @@ export default {
       type: 'string',
       title: 'Name',
       validation: Rule => Rule.required()
+    },
+    {
+      name: 'isNft',
+      type: 'boolean',
+      title: 'Is NFT',
+      initialValue: false
+    },
+    {
+      name: 'nftUrl',
+      type: 'url',
+      title: 'NFT URL',
+      hidden: ({ document }) => !document.isNft,
+      validation: Rule => requiredWhenNFT(Rule)
+    },
+    {
+      name: 'nftInfo',
+      type: 'text',
+      title: 'NFT Info',
+      hidden: ({ document }) => !document.isNft,
+      validation: Rule => requiredWhenNFT(Rule)
+    },
+    {
+      name: 'mux',
+      type: 'mux.video',
+      title: 'Video / Gif',
+      hidden: ({ document }) => !document.isNft
     },
     {
       name: 'description',
@@ -29,6 +72,7 @@ export default {
       title: 'Bild',
       validation: Rule => Rule.required()
     },
+
     {
       name: 'artist',
       type: 'reference',
@@ -66,18 +110,21 @@ export default {
       title: 'Weite',
       name: 'width',
       type: 'number',
-      validation: Rule => Rule.required()
+      hidden: ({ document }) => document.isNft,
+      validation: Rule => requiredWhenNotNFT(Rule)
     },
     {
       title: 'Höhe',
       name: 'height',
       type: 'number',
-      validation: Rule => Rule.required()
+      hidden: ({ document }) => document.isNft,
+      validation: Rule => requiredWhenNotNFT(Rule)
     },
     {
       title: 'Deph',
       name: 'depth',
-      type: 'number'
+      type: 'number',
+      hidden: ({ document }) => document.isNft
     },
     {
       title: 'Preis',
@@ -110,14 +157,12 @@ export default {
     },
 
     {
-      name:'hints',
-      type:'array',
+      name: 'hints',
+      type: 'array',
       title: 'Hints',
-      of:[{type:'productHint'}]
+      of: [{ type: 'productHint' }]
     },
 
-
-  
     {
       name: 'alternaiveSlug',
       type: 'slug',
@@ -156,7 +201,7 @@ export default {
       name: 'shopify_variant_id',
       type: 'string',
       title: 'Shopify Variant ID',
-       readOnly: true
+      readOnly: true
     },
     {
       name: 'shopify_handle',
@@ -175,12 +220,9 @@ export default {
     {
       title: 'Artist',
       name: 'artist',
-      by: [
-        {field: 'artist.anzeigeName', direction: 'asc'}
-      ]
-    },
-  
-   ],
+      by: [{ field: 'artist.anzeigeName', direction: 'asc' }]
+    }
+  ],
   initialValue: () => ({
     availability: 'availabil'
   }),
@@ -188,7 +230,7 @@ export default {
     select: {
       media: 'image',
       title: 'name',
-      subtitle:'artist.anzeigeName'
+      subtitle: 'artist.anzeigeName'
     }
   }
 }

@@ -110,7 +110,16 @@ export default S.listItem()
         S.listItem()
           .title('Redirects')
           .child(S.documentTypeList('redirect').title('Redirects'))
-          .icon(FiRepeat)
-      ])
+          .icon(FiRepeat),
+          S.listItem()
+          .title('Medium')
+          .icon(HiOutlineSortDescending)
+          .child(S.documentTypeList('medium')),
+          S.listItem()
+          .title('Stil')
+          .icon(HiOutlineSortDescending)
+          .child(S.documentTypeList('stil')),
+          
+        ])
   )
   .icon(FiSettings)

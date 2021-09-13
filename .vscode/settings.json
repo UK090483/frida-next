@@ -15,11 +15,12 @@
     "**/.hg": true,
     "**/CVS": true,
     "**/.DS_Store": true,
+    "**/Thumbs.db": true,
     "tsconfig.json": true,
     "postcss.config.js": true,
     ".github": true,
     ".next": true,
-    "**/node_modules": true,
+    "**/node_modules": false,
     ".husky": true,
     ".babelrc": false,
     ".eslintignore": true,
@@ -34,7 +35,7 @@
     ".vscode": false,
     "next.config.js": false,
     "**/package.json": false,
-    ".env.local": true
+    ".env.local": false
   },
   "explorerExclude.backup": null,
 }

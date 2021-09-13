@@ -12,7 +12,6 @@ const handleCreate = async (id: string, s: SanityClient) => {
 }
 
 const handleDeleted = async (id: string, s: SanityClient) => {
-  console.log('delete')
   const erase = new SanityEraseHandler(`drafts.${id}`, s)
   await erase.run()
 }

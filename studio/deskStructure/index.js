@@ -7,6 +7,8 @@ import WebPage from './webpage/Webpage'
 import Shop from './Shop'
 import Blog from './blog/Blog'
 
+import Medium from './Medium'
+
 export default () =>
   S.list()
     .title('Content')

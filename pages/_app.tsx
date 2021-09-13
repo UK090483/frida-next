@@ -9,11 +9,22 @@ import React, { useEffect, useState, useCallback } from 'react'
 import 'resize-observer-polyfill'
 import '../styles/app.css'
 import '../styles/tailwind.css'
+// import LogRocket from 'logrocket'
+// LogRocket.init('6dxpjn/test')
 import type {
   AppProps,
   //  NextWebVitalsMetric
 } from 'next/app'
 
+// import Honeybadger from '@honeybadger-io/js'
+// import ErrorBoundary from '@honeybadger-io/react'
+
+// Honeybadger.configure({
+//   apiKey: 'hbp_p1Jh4oN3FCcNBfxecEQxr7m3CSlWjL2saOIR',
+//   environment: 'production',
+//   reportData: true,
+// })
+// Honeybadger.notify('Hello from React')
 import ChromeFix from 'lib/chromeFix'
 
 const MyApp = ({ Component, pageProps, router }: AppProps) => {
@@ -78,6 +89,7 @@ const MyApp = ({ Component, pageProps, router }: AppProps) => {
   }, [handleFirstTab])
 
   return (
+    // <ErrorBoundary honeybadger={Honeybadger}>
     <SiteContextProvider data={{ ...pageProps?.data?.site }}>
       <LazyMotion features={domAnimation}>
         {isLoading && (
@@ -101,6 +113,7 @@ const MyApp = ({ Component, pageProps, router }: AppProps) => {
         {/* <ShowBreakingPoints /> */}
       </LazyMotion>
     </SiteContextProvider>
+    // </ErrorBoundary>
   )
 }
 // export function reportWebVitals(metric: NextWebVitalsMetric) {

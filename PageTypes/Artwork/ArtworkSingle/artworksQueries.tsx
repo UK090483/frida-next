@@ -23,7 +23,11 @@ export type ProductHintResult = {
 }
 
 export const artworkSingleViewQuery = `
+...,
 _type,
+isNft,
+nftInfo,
+nftUrl,
 'slug':slug.current,
 'artistName':artist->anzeigeName,
 'artistDescription':artist->description,
@@ -45,6 +49,7 @@ price,
 'banner':banner,
 'quotes':*[_type == 'quote' &&  (references(^.artist._ref) || references(^._id))]{${QuoteQuery}},
 'image':@.image.asset._ref,
+'video': mux.asset-> ,
 'shopify_handle':shopify_handle,
 'shopify_product_id':shopify_product_id,
 'shopify_variant_id':shopify_variant_id,
@@ -64,6 +69,9 @@ seo,
 export type ArtworkSingleViewResult = {
   _type: 'artwork'
   slug: string
+  isNft: boolean | null
+  nftInfo: string | null
+  nftUrl: string | null
   artistName: null | string
   artistDescription: null | string
   artistDescription_en: null | string
@@ -82,6 +90,7 @@ export type ArtworkSingleViewResult = {
   stil: null | string
   banner: null | string
   photo: null | ImageMetaResult
+  video: any | null
   quotes: QuoteResult[]
   relatedArtworks: ArtworkCardResult[]
   randomArtworks: ArtworkCardResult[]

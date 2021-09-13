@@ -44,7 +44,10 @@ export const getStaticProps: GetStaticProps = async (props) => {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  return await getAllDocPathsCached('artwork')
+  return await getAllDocPathsCached(
+    'artwork',
+    '&& (defined(shopify_variant_id) || isNft)'
+  )
 }
 
 export default ArtworkTemplate

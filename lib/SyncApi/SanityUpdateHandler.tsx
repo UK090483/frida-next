@@ -18,8 +18,14 @@ export default class SanityUpdateHandler {
   shouldRun = async () => {
     log('info', '____________________SanityUpdate')
 
-    if (!(await this.sanityArtwork.getData())) {
+    const artwork = await this.sanityArtwork.getData()
+
+    if (!artwork) {
       log('info', 'not artwork data, done!!!')
+      return false
+    }
+    if (artwork.isNft) {
+      log('info', 'is Nft artwork, no sync , done!!!')
       return false
     }
     log('info', 'start syncing')

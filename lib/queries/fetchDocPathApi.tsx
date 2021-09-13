@@ -3,14 +3,15 @@ import { getSanityClient } from '@lib/sanity.server'
 import { cache } from './cache'
 
 export const getAllDocSlugs: (
-  doc: string
-) => Promise<null | { slug: string }[]> = async (doc) => {
+  doc: string,
+  args?: string
+) => Promise<null | { slug: string }[]> = async (doc, args = '') => {
   return await getSanityClient().fetch(
-    `*[_type == "${doc}"]{ "slug": slug.current }`
+    `*[_type == "${doc}" ${args}]{ "slug": slug.current }`
   )
 }
 
-export const getAllDocPathsCached = async (doc: string) => {
+export const getAllDocPathsCached = async (doc: string, args?: string) => {
   let allPages
   if (shouldCash) {
     const key = `docPaths${doc}`
@@ -23,7 +24,7 @@ export const getAllDocPathsCached = async (doc: string) => {
       console.log(`docPath ${doc} from cache`)
     }
   } else {
-    allPages = await getAllDocSlugs(doc)
+    allPages = await getAllDocSlugs(doc, args)
   }
 
   if (!allPages) return { paths: [], fallback: true }

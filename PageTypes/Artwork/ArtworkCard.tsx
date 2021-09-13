@@ -7,6 +7,7 @@ import Banner from './banner'
 
 export const artworkCardQuery = `
     _updatedAt,
+    isNft,
     'imageAssetId':image.asset._ref,
     availability,
     'artistName':artist->anzeigeName,
@@ -25,6 +26,7 @@ export type ArtworkCardResult = {
   _updatedAt: string
   imageAssetId: string
   availability: string
+  isNft: boolean | null
   artistName: string
   slug: string
   banner: string
@@ -53,6 +55,8 @@ const ArtworkCard: React.FC<ArtworkCardProps> = (props) => {
     price,
     type = 'grid',
     lang,
+
+    isNft,
   } = props
 
   if (!photo) return null
@@ -64,6 +68,7 @@ const ArtworkCard: React.FC<ArtworkCardProps> = (props) => {
 
   return (
     <Card
+      badge={isNft ? 'NFT' : undefined}
       ariaLabel={ariaLabel}
       isSwiping={!!isSwiping}
       slug={slug}

@@ -1,4 +1,4 @@
-
+import client from 'part:@sanity/base/client'
 import { BsPeopleCircle } from 'react-icons/bs'
 
 
@@ -30,8 +30,10 @@ export default {
       description: 'erreichbar unter meetFrida/artist/....',
       options: {
         source: 'anzeigeName',
-        maxLength: 96
+        maxLength: 96,
+
       },
+     
       validation: Rule => Rule.required()
     },
     {
@@ -162,3 +164,4 @@ export default {
   //   }
   // }
 }
+
