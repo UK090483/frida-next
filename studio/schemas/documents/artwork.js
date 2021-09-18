@@ -44,6 +44,12 @@ export default {
       validation: Rule => requiredWhenNFT(Rule)
     },
     {
+      name: 'ethPrice',
+      type: 'number',
+      title: 'Preis in ETH',
+      hidden: ({ document }) => !document.isNft
+    },
+    {
       name: 'nftInfo',
       type: 'text',
       title: 'NFT Info',
