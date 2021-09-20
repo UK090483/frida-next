@@ -1,16 +1,16 @@
 import { SanityCheckArtwork } from '@pages/api/check/SanityArtworks'
 import { ShopifyCheckArtwork } from '@pages/api/check/ShopifyArtworks'
 
+export type Error = {
+  [k: string]: any
+  shopify_product_id: number
+  shopify_variant_id?: number
+  sanityArtwork: SanityCheckArtwork
+}
 export const checkArtworks = (
   ShopifyArtworks: ShopifyCheckArtwork[],
   SanityArtworks: SanityCheckArtwork[]
 ) => {
-  type Error = {
-    [k: string]: any
-    shopify_product_id: number
-    shopify_variant_id?: number
-    sanityArtwork: SanityCheckArtwork
-  }
   const errors: Error[] = []
   const duplicates = []
   const fullConnected = []

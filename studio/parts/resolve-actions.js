@@ -56,16 +56,16 @@ export default function resolveDocumentActions(props) {
   const isSingleID = singletonsID.indexOf(props.id) > -1
   
 
-  // if(props.type === 'artwork'){
+  if(props.type === 'artwork'){
   
-  //   return [
-  //     PublishAction,
-  //     DiscardChangesAction,
-  //     UnpublishAction,
-  //     DuplicateAction,
-  //     ...(props.published ?[]: [DeleteAction]),
-  //   ]
-  // }
+    return [
+      PublishAction,
+      DiscardChangesAction,
+      UnpublishAction,
+      
+      ...(props.published ?[]: [DeleteAction]),
+    ]
+  }
 
   
   if (isSingleID) {
