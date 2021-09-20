@@ -1,5 +1,6 @@
 import Card from '@components/Card'
 import ProductName from '@components/ProductComponents/ProductName'
+import Price from '@components/ProductComponents/ProductPrice'
 import { imageMeta, ImageMetaResult } from '@lib/queries/snippets'
 import React from 'react'
 import { FridaLocation, GalleryTypes } from 'types'
@@ -8,6 +9,7 @@ import Banner from './banner'
 export const artworkCardQuery = `
     _updatedAt,
     isNft,
+    ethPrice,
     'imageAssetId':image.asset._ref,
     availability,
     'artistName':artist->anzeigeName,
@@ -27,6 +29,7 @@ export type ArtworkCardResult = {
   imageAssetId: string
   availability: string
   isNft: boolean | null
+  ethPrice: number | null
   artistName: string
   slug: string
   banner: string
@@ -45,6 +48,7 @@ interface ArtworkCardProps extends ArtworkCardResult {
 
 const ArtworkCard: React.FC<ArtworkCardProps> = (props) => {
   const {
+    ethPrice,
     isSwiping,
     artworkName,
     photo,
@@ -86,7 +90,14 @@ const ArtworkCard: React.FC<ArtworkCardProps> = (props) => {
           name={artworkName}
           availability={availability === 'availabil'}
         />
-        <div className="pl-2 ml-auto text-right text-sm-fluid">{price}€</div>
+
+        <div className="pl-2 ml-auto text-right ">
+          <Price
+            price={isNft && ethPrice ? ethPrice : price}
+            size="s"
+            currency={isNft && ethPrice ? ' ETH' : undefined}
+          />
+        </div>
       </div>
     </Card>
   )

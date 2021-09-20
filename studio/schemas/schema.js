@@ -20,6 +20,10 @@ import Navigation from './documents/navigation'
 import SettingsSeo from './documents/settings-seo'
 import redirect from './documents/redirect'
 
+
+
+
+
 import ShopifyCollection from './documents/shopify-collection'
 import ShopifyProduct from './documents/shopify-product'
 import ShopifyVariant from './documents/shopify-variant'

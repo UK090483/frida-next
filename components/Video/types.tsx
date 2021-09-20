@@ -12,8 +12,10 @@ export type MuxResult = {
     id: string
     master_access: string
     upload_id: string
+    status?: string
   }
   playbackId: string
   status: string
   uploadId: string
+  thumbTime?: number
 }

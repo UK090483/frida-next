@@ -37,6 +37,7 @@ const ArtworkHero: React.FC<ArtworkHeroProps> = ({ artwork, lang }) => {
     isNft,
     nftInfo,
     nftUrl,
+    ethPrice,
   } = artwork
 
   const addItem = useAddItem()
@@ -45,7 +46,7 @@ const ArtworkHero: React.FC<ArtworkHeroProps> = ({ artwork, lang }) => {
   const itemInCart = !!cardItems.find((item) => item.id === shopify_variant_id)
   const alt = `artwork ${artworkName} by ${artistName}`
 
-  const showVideo = isNft && !!video
+  const showVideo = isNft && video?.data?.status === 'ready'
 
   return (
     <ProductHeroWrap>
@@ -81,7 +82,12 @@ const ArtworkHero: React.FC<ArtworkHeroProps> = ({ artwork, lang }) => {
               {nftInfo}
             </div>
           )}
-          {price && <Price price={price} />}
+          {price && (
+            <Price
+              price={isNft && ethPrice ? ethPrice : price}
+              currency={isNft && ethPrice ? ' ETH' : undefined}
+            />
+          )}
 
           {/* <SocialShare className="pt-2 pb-6" /> */}
           {!isNft && (

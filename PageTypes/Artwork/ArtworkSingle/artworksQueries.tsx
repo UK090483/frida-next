@@ -28,6 +28,7 @@ _type,
 isNft,
 nftInfo,
 nftUrl,
+ethPrice,
 'slug':slug.current,
 'artistName':artist->anzeigeName,
 'artistDescription':artist->description,
@@ -72,6 +73,7 @@ export type ArtworkSingleViewResult = {
   isNft: boolean | null
   nftInfo: string | null
   nftUrl: string | null
+  ethPrice: number | null
   artistName: null | string
   artistDescription: null | string
   artistDescription_en: null | string

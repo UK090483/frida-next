@@ -20,6 +20,7 @@ type SanityArtwork = {
   shopify_variant_id: string
   price: number
   name: string
+  isNft: boolean | null
 }
 let allShopifyArtworks: shopifyArtwork[] | null = null
 
@@ -68,7 +69,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       projectId: SANITY_PROJECT_ID,
       // token: SANITY_API_TOKEN,
       apiVersion: '2019-01-29',
-      // useCdn: true,
+      useCdn: true,
     })
   }
 
@@ -101,7 +102,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   const getSanityArtworks = async () => {
     if (!sanity) return []
     return (await sanity.fetch(
-      `*[_type=='artwork']{ _id, name,shopify_product_id ,  shopify_variant_id,price ,shopify_handle,name }`
+      `*[_type=='artwork']{ _id, name,shopify_product_id ,  shopify_variant_id,price ,shopify_handle,name ,isNft }`
     )) as SanityArtwork[]
   }
 
@@ -226,7 +227,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     fullConnected,
     // waste,
     sanityCount: AllSanityArtworks.length,
-    // sanityUnconnected,
+    sanityUnconnected,
     // shopifyProducts,
     errors,
     // sanityUnconnected,
