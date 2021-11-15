@@ -29,8 +29,12 @@ const Filter: React.FunctionComponent<IFilterProps> = (props) => {
     delete q.slug
 
     const queryString = Object.entries(q).reduce((acc, [key, value], index) => {
+      if (typeof value !== 'string') return acc
       if (value === 'clear') return acc
-      return `${acc}${index === 0 ? '?' : '&'}${key}=${value}`
+
+      return `${acc}${index === 0 ? '?' : '&'}${key}=${encodeURIComponent(
+        value
+      )}`
     }, '')
 
     router.push(`/${slug}${queryString}`, undefined, {
