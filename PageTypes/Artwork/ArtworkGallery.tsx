@@ -40,9 +40,15 @@ const Artworks: React.FC<ArtworksProps> = (props) => {
       ) {
         const range = query.price.split('-')
 
-        res =
-          artwork.price >= parseInt(range[0]) &&
-          artwork.price <= parseInt(range[1])
+        const isInfinit = range[1] === 'more'
+
+        if (isInfinit) {
+          res = artwork.price >= parseInt(range[0])
+        } else {
+          res =
+            artwork.price >= parseInt(range[0]) &&
+            artwork.price <= parseInt(range[1])
+        }
       }
       return res
     })
@@ -72,10 +78,12 @@ const Artworks: React.FC<ArtworksProps> = (props) => {
             label: 'Price',
             name: 'price',
             items: [
-              { name: '50-100', value: '50-100' },
+              { name: '0-500', value: '0-500' },
               { name: '500-1000', value: '500-1000' },
-              { name: '2000-3000', value: '2000-3000' },
+              { name: '1000-3000', value: '1000-3000' },
               { name: '3000-5000', value: '3000-5000' },
+              { name: '5000-10000', value: '5000-10000' },
+              { name: '10000 - more', value: '10000-more' },
             ],
           },
         ]}
