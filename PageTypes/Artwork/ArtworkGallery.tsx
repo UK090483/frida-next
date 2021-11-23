@@ -75,15 +75,21 @@ const Artworks: React.FC<ArtworksProps> = (props) => {
             items: medium?.map((s) => ({ name: s.name, value: s.name })),
           },
           {
-            label: 'Price',
+            label: lang === 'en' ? 'Price' : 'Preis',
             name: 'price',
             items: [
-              { name: '0-500', value: '0-500' },
+              {
+                name: lang === 'en' ? 'under 500' : 'unter 500',
+                value: '0-500',
+              },
               { name: '500-1000', value: '500-1000' },
               { name: '1000-3000', value: '1000-3000' },
               { name: '3000-5000', value: '3000-5000' },
               { name: '5000-10000', value: '5000-10000' },
-              { name: '10000 - more', value: '10000-more' },
+              {
+                name: lang === 'en' ? 'over 10000' : 'über 10000',
+                value: '10000-more',
+              },
             ],
           },
         ]}
