@@ -75,22 +75,33 @@
   }
 
   .text-fill-menu {
-    -webkit-text-fill-color: transparent;
+    /* -webkit-text-fill-color: transparent;
     -webkit-text-stroke-color: white;
-    -webkit-text-stroke-width: 0.04em;
+    -webkit-text-stroke-width: 0.04em; */
+    transition: color 0.3s;
+    color:black;
+    text-shadow:
+   -1px -1px 0 white,  
+    1px -1px 0 white,
+    -1px 1px 0 white,
+     1px 1px 0 white;
     &:hover {
-      -webkit-text-fill-color: white;
-      -webkit-text-stroke-color: white;
-      -webkit-text-stroke-width: 0.04em;
+      color:white;
     }
   }
 
   .text-fill-bigButton {
+
+    transition:color 0.3s;
     &:hover {
-      -webkit-text-fill-color: transparent;
-      -webkit-text-stroke-color: black;
-      -webkit-text-stroke-width: 0.04em;
+      
+      text-shadow:
+      -1px -1px 0 black,  
+       1px -1px 0 black,
+       -1px 1px 0 black,
+        1px 1px 0 black;
     }
+      
   }
 
   .bg-blur {
@@ -169,4 +180,5 @@
 {
   @apply bg-frida-pink ;
 }
+
 
