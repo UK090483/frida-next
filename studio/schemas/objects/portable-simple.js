@@ -31,8 +31,8 @@ export default {
                 name: 'page',
                 type: 'reference',
                 to: [
-                  { type: 'homePage' },
-                  { type: 'shopPage' },
+                  // { type: 'homePage' },
+                  // { type: 'shopPage' },
                   { type: 'page' },
                   { type: 'collection' },
                   { type: 'product' }
