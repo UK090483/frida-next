@@ -28,7 +28,7 @@ const BigButton: React.FC<BigButtonProps> = ({ label, link, tabable }) => {
   return (
     <a
       tabIndex={tabable ? 0 : -1}
-      className="flex items-center justify-center w-full font-bold h-14 md:h-36 text-xl-fluid bg-frida-red text-frida-white hover:text-frida-black text-fill-bigButton hover:bg-frida-pink "
+      className="flex items-center justify-center w-full font-bold h-14 md:h-36 text-xl-fluid bg-frida-red text-frida-white hover:text-frida-pink text-fill-bigButton hover:bg-frida-pink "
       target="_blank"
       rel="noopener noreferrer"
       href={link}
