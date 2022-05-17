@@ -47,7 +47,7 @@ const ArtistSingle: React.FC<ArtistSingleProps> = (props) => {
     <>
       <ArtistHero photo={heroImage} initBgColor={_initBgColor} />
       <ArtistInfo {...props} />
-      <ArtistImages {...props} />
+      {/* <ArtistImages {...props} /> */}
       <ArtistWorks {...props} />
       {quotes.length > 0 && <Quotes items={quotes} />}
     </>
