@@ -12,7 +12,7 @@ type HomeProps = {
   lang: FridaLocation
   preview: boolean
 }
-const query = `*[_type == 'indexPage'][0]{
+const query = `*[_type == 'indexPage'  && _id == 'frontPage'][0]{
   ${pageQuery}
 }
 `
