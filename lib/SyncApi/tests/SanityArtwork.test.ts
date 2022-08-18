@@ -5,13 +5,13 @@ const testid = 'ti'
 jest.mock('axios')
 const mockedAxios = axios as jest.Mocked<typeof axios>
 
-const testDataSyncedBefore = {
-  _type: 'artwork',
-  shopify_handle: 'fdfg',
-  shopify_product_id: 'fg',
-  shopify_variant_id: 'fg',
-  _id: testid,
-}
+// const testDataSyncedBefore = {
+//   _type: 'artwork',
+//   shopify_handle: 'fdfg',
+//   shopify_product_id: 'fg',
+//   shopify_variant_id: 'fg',
+//   _id: testid,
+// }
 
 const returnData = (d: any) => {
   mockedAxios.get.mockReset()
@@ -49,26 +49,5 @@ describe('SanityArtwork', () => {
     const fetched = await Artwork.getData()
     expect(fetched).toMatchSnapshot()
     expect(Artwork.loaded).toEqual(true)
-  })
-  it('shouldSync without calling data first should throw', async () => {
-    returnData({ _type: 'artwork' })
-    let e: unknown = null
-    try {
-      Artwork.shouldSync()
-    } catch (error) {
-      e = error
-    }
-    expect(e).toBeTruthy()
-  })
-  it('shouldSync without data or non artwork', async () => {
-    returnData({ _type: 'NoArtwork' })
-    await Artwork.getData()
-    expect(Artwork.shouldSync()).toBe(false)
-  })
-
-  it('shouldSync with syncdata synced before', async () => {
-    returnData(testDataSyncedBefore)
-    await Artwork.getData()
-    expect(Artwork.shouldSync()).toBe(false)
   })
 })

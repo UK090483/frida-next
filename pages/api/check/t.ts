@@ -1,4 +1,4 @@
-import FetchShopify from '@lib/SyncApi/FetchShopify'
+import FetchShopify from '@lib/SyncApi/Shopify/FetchShopify'
 
 import sanityClient, { SanityClient } from '@sanity/client'
 import type { NextApiRequest, NextApiResponse } from 'next'

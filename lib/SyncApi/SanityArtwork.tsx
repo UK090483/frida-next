@@ -1,7 +1,7 @@
 import type { SanityClient } from '@sanity/client'
 import { imageBuilder } from '../sanity'
 import axios from 'axios'
-import { log } from '@lib/SyncApi/logging'
+import { log } from './logging'
 const { SANITY_PROJECT_DATASET, SANITY_PROJECT_ID, SANITY_API_TOKEN } =
   process.env
 
@@ -12,10 +12,12 @@ export type SanityProduct = {
   slug: string
   imageSrc: null | string
   shopify_product_id?: string
+  shopify_variant_id?: string
   shopify_handle?: string
   description?: string
   availability?: 'sold' | 'availabil'
 }
+
 export type SanityArtworkData = {
   _id: string
   name: string
@@ -30,29 +32,22 @@ export type SanityArtworkData = {
   isNft?: boolean
 }
 
-export const sanitySyncArtworkQuery = `
-_id,
-name,
-price,
-'slug':slug.current,
-'imageSrc':image.asset->url,
-shopify_product_id,
-shopify_variant_id,
-shopify_handle,
-description,
-availability
-`
 export default class SanityArtwork {
   sanityClient: SanityClient
   id: string
-  private data: SanityArtworkData | null = null
+  data: SanityArtworkData | null = null
   errMsg: string
   loaded = false
+  isDraft = false
 
   constructor(sanityDocId: string, sanityClient: SanityClient) {
     this.id = sanityDocId
     this.sanityClient = sanityClient
     this.errMsg = `SanityArtwork Error:item with id ${this.id}`
+  }
+
+  init = async () => {
+    await this.getData()
   }
 
   fetch = async () => {
@@ -61,79 +56,57 @@ export default class SanityArtwork {
         `https://${SANITY_PROJECT_ID}.api.sanity.io/v2021-06-07/data/doc/${SANITY_PROJECT_DATASET}/${this.id}`,
         { headers: { Authorization: `Bearer ${SANITY_API_TOKEN}` } }
       )
-
       const doc = res?.data?.documents && res?.data?.documents[0]
 
       this.loaded = true
       if (!doc) return null
-
-      if (doc._type !== 'artwork') return null
-
+      if (doc._type !== 'artwork') {
+        log('info', `type is:${doc._type} no artwork`)
+        return null
+      }
       if (doc.image?.asset) {
         doc.imageSrc = imageBuilder.image(doc.image.asset).width(600).url()
       }
-
       if (!doc.description) {
         doc.description = ''
       }
-
       return doc as SanityProduct
     } catch (error) {
       this.loaded = true
-
       log('error', `${this.errMsg} could not be fetched`)
       return null
     }
-
-    //   try {
-    //     const res = await await this.sanityClient.fetch<SanityProduct | null>(
-    //       `*[_type=='artwork' && _id== $id][0]{
-    //        ${sanitySyncArtworkQuery}
-    //         }`,
-    //       {
-    //         id: this.id,
-    //       }
-    //     )
-
-    //     if (!res) {
-    //       console.error(`${this.errMsg} could not be found `)
-    //     }
-    //     this.loaded = true
-    //     return res && res._id ? res : null
-    //   } catch (error) {
-    //     this.loaded = true
-
-    //     return null
-    //   }
   }
 
   getData = async () => {
     if (!this.data) {
       this.data = await this.fetch()
     }
+    if (!this.data) {
+      this.id = `drafts.${this.id}`
+      this.data = await this.fetch()
+      if (this.data) this.isDraft = true
+    }
     return this.data
   }
 
-  shouldSync = () => {
+  _isLoadedCheck = () => {
     if (!this.loaded) {
-      throw `${this.errMsg} should be loaded before shouldSync Check `
+      throw `${this.errMsg} should be loaded before calling methods of SanityArtwork  `
     }
-    if (!this.data) return false
-    if (!this.data.shopify_handle || !this.data.shopify_product_id) {
-      return true
-    }
-    return false
   }
 
   hasSyncData = () => {
-    if (!this.loaded) {
-      throw `${this.errMsg} should be loaded before shouldSync Check `
-    }
+    this._isLoadedCheck()
     return !!(
       this.data?.shopify_product_id &&
       this.data?.shopify_variant_id &&
       this.data?.shopify_handle
     )
+  }
+
+  getShopifyId = () => {
+    return this.data?.shopify_product_id
   }
 
   setSyncData = async (props: {
@@ -150,8 +123,8 @@ export default class SanityArtwork {
       log('error', 'no data for checksum')
       return
     }
-
     return JSON.stringify({
+      isDraft: this.isDraft,
       imageSrc: this.data.imageSrc,
       name: this.data.name,
       description: this.data.description,

@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import FetchShopify from '@lib/SyncApi/FetchShopify'
+import FetchShopify from '@lib/SyncApi/Shopify/FetchShopify'
 
 export type ShopifyCheckArtwork = {
   id: number
