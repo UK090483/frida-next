@@ -31,7 +31,7 @@ const Footer: React.FC<FooterProps> = (props) => {
             <p className="text-base-fluid">
               {router.locale === 'en'
                 ? "Register now for Frida's newsletter and don't miss a thing - exclusive discounts, new items, current projects and much more!"
-                : 'Jetzt für Fridas Newsletter anmelden und nichts verpassen - exklusive Rabatte, neue Postionen, aktuelle Projekte und vieles mehr!'}
+                : 'Jetzt für Fridas Newsletter anmelden und nichts verpassen - exklusive Rabatte, neue Positionen, aktuelle Projekte und vieles mehr!'}
             </p>
           </div>
           <div className="w-full my-12 lg:my-auto ">
