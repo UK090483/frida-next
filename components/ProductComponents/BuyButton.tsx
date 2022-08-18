@@ -53,9 +53,7 @@ const BuyButton: React.FC<BuyButtonProps> = (props) => {
   const cartText = locale === 'en' ? 'cart' : 'Warenkorb'
   const checkoutText = locale === 'en' ? 'checkout' : 'Kasse'
   const byNFTText = locale === 'en' ? 'BUY NFT' : 'NFT KAUFEN'
-
-  const isAddingText = locale === 'en' ? 'adding...' : 'wir hinzugefügt...'
-
+  const isAddingText = locale === 'en' ? 'adding...' : 'wird hinzugefügt...'
   const availability = true
 
   const handleAdd = () => {

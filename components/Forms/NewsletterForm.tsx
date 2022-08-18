@@ -215,7 +215,7 @@ const Newsletter = () => {
               </div>
               <p className="p-8 text-center">
                 Vielen Dank! Nur noch die E-Mail bestätigen und du bist dabei!
-                (bestätigungs Mail kann bis zu 12h dauern)
+                (Bestätigungs-E-Mail kann bis zu 12h dauern)
               </p>
             </div>
           </m.div>
