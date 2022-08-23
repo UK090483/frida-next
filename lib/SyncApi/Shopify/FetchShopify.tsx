@@ -5,11 +5,6 @@ import { SanityProduct } from '../SanityArtwork'
 import Shopify from 'shopify-api-node'
 // https://github.com/MONEI/Shopify-api-node
 
-const shopify = new Shopify({
-  shopName: process.env.SHOPIFY_STORE_ID || '',
-  accessToken: process.env.SHOPIFY_API_PASSWORD || 'your-oauth-token',
-})
-
 const shopifyConfig = {
   'Content-Type': 'application/json',
   'X-Shopify-Access-Token': process.env.SHOPIFY_API_PASSWORD,
@@ -17,6 +12,12 @@ const shopifyConfig = {
 
 export default class FetchShopify {
   productId: number | null = null
+  shopifyClient: Shopify
+  logger: typeof log
+  constructor(shopifyClient: Shopify, logger: typeof log) {
+    this.shopifyClient = shopifyClient
+    this.logger = logger
+  }
 
   init = (productId: number) => {
     this.productId = productId
@@ -41,49 +42,48 @@ export default class FetchShopify {
       return res
     } catch (error) {
       const e = error as AxiosError
-      log('error', e.response?.data?.errors)
+      this.logger('error', e.response?.data?.errors)
       return null
     }
   }
 
   unPublish = async (productId: number) => {
-    await shopify.product.update(productId, { status: 'draft' })
+    await this.shopifyClient.product.update(productId, { status: 'draft' })
   }
   publish = async (productId: number) => {
-    await shopify.product.update(productId, { status: 'active' })
+    await this.shopifyClient.product.update(productId, { status: 'active' })
   }
   fetchProduct = async (productId: number) => {
-    return await shopify.product.get(productId)
+    return await this.shopifyClient.product.get(productId)
   }
   eraseProduct = async (productId: number) => {
-    return await shopify.product.delete(productId)
+    return await this.shopifyClient.product.delete(productId)
   }
-  getChecksum = async () => {
-    this.checkInitState()
+  getChecksum = async (productId: number) => {
     try {
-      const result = await shopify.metafield.list({
+      const result = await this.shopifyClient.metafield.list({
         metafield: {
           owner_resource: 'product',
-          owner_id: this.productId,
+          owner_id: productId,
         },
       })
       const checkSum = result.find((item) => item.key === 'checksum_syncData')
       if (!checkSum) {
-        console.log('error', 'unable to find Checksum')
+        this.logger('error', 'unable to find Checksum')
         return null
       }
       return checkSum.value as string
     } catch (error) {
-      console.log('error', 'unable to find Checksum')
+      this.logger('error', 'unable to find Checksum')
       return null
     }
   }
 
   setChecksum = async (checksum: string) => {
     this.checkInitState()
-    log('info', `setting checksum `)
+    this.logger('info', `setting checksum `)
 
-    const createdMetafield = await shopify.metafield.create({
+    const createdMetafield = await this.shopifyClient.metafield.create({
       key: 'checksum_syncData',
       namespace: 'syncData',
       value: checksum,
@@ -92,29 +92,13 @@ export default class FetchShopify {
       owner_id: this.productId,
     })
     if (!(createdMetafield.value === checksum)) {
-      log('error', `Error setting checksum `)
+      this.logger('error', `Error setting checksum `)
     }
   }
 
-  // setSanityIdMeta = async (sanityId: string) => {
-  //   this.checkInitState()
-  //   log('info', `setting SanityIdMeta `)
-  //   const createdMetafield = await shopify.metafield.create({
-  //     key: 'sanityId_syncData',
-  //     namespace: 'syncData',
-  //     value: sanityId,
-  //     value_type: 'string',
-  //     owner_resource: 'product',
-  //     owner_id: this.productId,
-  //   })
-  //   if (!(createdMetafield.value === sanityId)) {
-  //     log('error', `Error setting SanityIdMeta ${sanityId}`)
-  //   }
-  // }
-
   createProduct = async (product: SanityProduct, checksum: string) => {
-    log('info', `creating product ${product.name} `)
-    const createdProduct = await shopify.product.create({
+    this.logger('info', `creating product ${product.name} `)
+    const createdProduct = await this.shopifyClient.product.create({
       title: product.name,
       status: 'active',
       body_html: `<p>${product.description || ' '}</p>`,
@@ -137,7 +121,7 @@ export default class FetchShopify {
     })
 
     this.productId = createdProduct.id
-    await shopify.productListing.create(this.productId, {
+    await this.shopifyClient.productListing.create(this.productId, {
       product_id: this.productId,
     })
 
@@ -160,25 +144,28 @@ export default class FetchShopify {
     if (!this.productId) {
       this.productId = productId
     }
-    log('info', `updating Product ${product.name}`)
+    this.logger('info', `updating Product ${product.name}`)
 
     if (!this.productId) return
 
-    const productResult = await shopify.product.update(this.productId, {
-      status: draft ? 'draft' : 'active',
-      title: product.name,
-      body_html: `<p>${product.description}</p>`,
-      vendor: 'MeetFrida',
-      product_type: 'artwork',
-      published_scope: 'global',
-    })
-
-    await shopify.productVariant.update(productResult.variants[0].id, {
-      price: product.price,
-    })
-
+    const productResult = await this.shopifyClient.product.update(
+      this.productId,
+      {
+        status: draft ? 'draft' : 'active',
+        title: product.name,
+        body_html: `<p>${product.description}</p>`,
+        vendor: 'MeetFrida',
+        product_type: 'artwork',
+        published_scope: 'global',
+      }
+    )
+    await this.shopifyClient.productVariant.update(
+      productResult.variants[0].id,
+      {
+        price: product.price,
+      }
+    )
     await this.setChecksum(checksum)
-
     return {
       shopify_product_id: productResult.id + '',
       shopify_variant_id: productResult.variants[0].id + '',

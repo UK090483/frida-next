@@ -1,53 +1,66 @@
-import SanityArtwork from '../SanityArtwork'
-import { SanityClient } from '@sanity/client'
-import axios from 'axios'
-const testid = 'ti'
-jest.mock('axios')
-const mockedAxios = axios as jest.Mocked<typeof axios>
+// import SanityArtwork from '../SanityArtwork'
+// import {
+//   testId,
+//   // testArtwork,
+//   // checksumData,
+//   // draftTestId,
+//   // syncData,
+//   getClient,
+//   axiosReturnData,
+// } from './testUtils'
 
-// const testDataSyncedBefore = {
-//   _type: 'artwork',
-//   shopify_handle: 'fdfg',
-//   shopify_product_id: 'fg',
-//   shopify_variant_id: 'fg',
-//   _id: testid,
+// jest.mock('axios')
+
+// const ArtworkWithData = async (cb: (url: string) => any) => {
+//   axiosReturnData(cb)
+//   const Artwork = new SanityArtwork(testId, getClient())
+//   await Artwork.init()
+//   return Artwork
 // }
 
-const returnData = (d: any) => {
-  mockedAxios.get.mockReset()
-  return mockedAxios.get.mockImplementationOnce(() =>
-    Promise.resolve({ data: { documents: [d] } })
-  )
-}
-
-type getClientProps = {
-  fetchRes?: unknown
-}
-const getClient = (props?: getClientProps) => {
-  return {
-    fetch: async () => props?.fetchRes || null,
-  } as unknown as SanityClient
-}
-
 describe('SanityArtwork', () => {
-  let Artwork: SanityArtwork
-
-  beforeEach(() => {
-    Artwork = new SanityArtwork(testid, getClient())
+  it('init should get published Artwork', async () => {
+    // const Artwork = await ArtworkWithData(() => testArtwork)
+    // expect(Artwork.data?._id).toBe(testId)
+    // expect(Artwork.isDraft).toBe(false)
   })
-  console.error = jest.fn()
-  it('getData no artwork', async () => {
-    returnData({ _type: 'noArtwork' })
-
-    expect(Artwork.loaded).toEqual(false)
-    const fetched = await Artwork.getData()
-    expect(fetched).toEqual(null)
-    expect(Artwork.loaded).toEqual(true)
-  })
-  it('getData success', async () => {
-    returnData({ _type: 'artwork' })
-    const fetched = await Artwork.getData()
-    expect(fetched).toMatchSnapshot()
-    expect(Artwork.loaded).toEqual(true)
-  })
+  // it('init should get draft Artwork', async () => {
+  //   const Artwork = await ArtworkWithData((url) =>
+  //     url.includes('drafts') ? { ...testArtwork, _id: draftTestId } : undefined
+  //   )
+  //   expect(Artwork.data?._id).toBe(draftTestId)
+  //   expect(Artwork.id).toBe(draftTestId)
+  //   expect(Artwork.isDraft).toBe(true)
+  // })
+  // it('should handle sync ', async () => {
+  //   let Artwork = await ArtworkWithData(() => testArtwork)
+  //   expect(Artwork.hasSyncData()).toBe(false)
+  //   Artwork = await ArtworkWithData(() => ({ ...testArtwork, ...syncData }))
+  //   expect(Artwork.hasSyncData()).toBe(true)
+  // })
+  // it('should handle checksum ', async () => {
+  //   let Artwork = await ArtworkWithData(() => undefined)
+  //   let checkSum = await Artwork.getCheckSum()
+  //   expect(checkSum).toBe(JSON.stringify(undefined))
+  //   Artwork = await ArtworkWithData(() => ({
+  //     ...testArtwork,
+  //     ...checksumData,
+  //   }))
+  //   checkSum = await Artwork.getCheckSum()
+  //   expect(checkSum).toBe(JSON.stringify(checksumData))
+  // })
+  // it('should set SyncData ', async () => {
+  //   const Artwork = await ArtworkWithData(() => testArtwork)
+  //   await Artwork.setSyncData({
+  //     shopify_product_id: 'shopify_product_id',
+  //     shopify_handle: 'shopify_handle',
+  //     shopify_variant_id: 'shopify_variant_id',
+  //   })
+  // })
+  // it('should get getShopifyId ', async () => {
+  //   let Artwork = await ArtworkWithData(() => testArtwork)
+  //   expect(Artwork.getShopifyId()).toBeFalsy()
+  //   Artwork = await ArtworkWithData(() => ({ ...testArtwork, ...syncData }))
+  //   expect(Artwork.getShopifyId()).toBe(syncData.shopify_product_id)
+  // })
 })

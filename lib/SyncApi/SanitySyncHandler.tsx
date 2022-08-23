@@ -2,18 +2,26 @@ import { SanityClient } from '@sanity/client'
 import { log } from './logging'
 import SanityArtwork from './SanityArtwork'
 import ShopifyArtwork from './Shopify/ShopifyArtwork'
+import Shopify from 'shopify-api-node'
 
 export default class SanitySyncHandler {
   sanityArtwork: SanityArtwork
   sanityDocId: string
   sanityClient: SanityClient
-  shopifyArtwork = new ShopifyArtwork()
+  shopifyClient: Shopify
+  shopifyArtwork: ShopifyArtwork
   action: 'update' | 'create' | 'unPublish' | null = null
 
-  constructor(sanityDocId: string, sanityClient: SanityClient) {
+  constructor(
+    sanityDocId: string,
+    sanityClient: SanityClient,
+    shopifyClient: Shopify
+  ) {
+    this.shopifyArtwork = new ShopifyArtwork({ shopifyClient })
     this.sanityDocId = sanityDocId
     this.sanityClient = sanityClient
     this.sanityArtwork = new SanityArtwork(sanityDocId, sanityClient)
+    this.shopifyClient = shopifyClient
   }
 
   getAction = async () => {
@@ -51,7 +59,7 @@ export default class SanitySyncHandler {
   createShopifyArtwork = async () => {
     log('info', '___Create Artwork')
     const checksum = await this.sanityArtwork.getCheckSum()
-    const data = await this.sanityArtwork.getData()
+    const data = await this.sanityArtwork._getData()
     if (!checksum || !data) {
       console.log('unable to create checksum or data')
       return
@@ -69,7 +77,7 @@ export default class SanitySyncHandler {
 
   updateShopifyArtwork = async () => {
     log('info', '___Update Artwork')
-    const sanityData = await this.sanityArtwork.getData()
+    const sanityData = await this.sanityArtwork._getData()
     const checksum = await this.sanityArtwork.getCheckSum()
 
     if (sanityData && sanityData.shopify_product_id && checksum) {

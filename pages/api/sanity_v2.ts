@@ -5,6 +5,8 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 const { SANITY_PROJECT_DATASET, SANITY_PROJECT_ID, SANITY_API_TOKEN } =
   process.env
 
+import Shopify from 'shopify-api-node'
+// https://github.com/MONEI/Shopify-api-node
 let sanity: undefined | SanityClient
 if (SANITY_PROJECT_DATASET && SANITY_PROJECT_ID && SANITY_API_TOKEN) {
   sanity = sanityClient({
@@ -15,6 +17,11 @@ if (SANITY_PROJECT_DATASET && SANITY_PROJECT_ID && SANITY_API_TOKEN) {
     useCdn: false,
   })
 }
+
+const shopify = new Shopify({
+  shopName: process.env.SHOPIFY_STORE_ID || '',
+  accessToken: process.env.SHOPIFY_API_PASSWORD || 'your-oauth-token',
+})
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   const id = req.body?._id
@@ -29,7 +36,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   }
 
   if (id && type === 'artwork') {
-    const updater = new SanitySyncHandler(id, sanity)
+    const updater = new SanitySyncHandler(id, sanity, shopify)
     await updater.run()
   }
 

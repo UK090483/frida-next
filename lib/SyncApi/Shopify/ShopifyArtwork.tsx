@@ -7,13 +7,22 @@ const shopify = new Shopify({
   accessToken: process.env.SHOPIFY_API_PASSWORD || 'your-oauth-token',
 })
 
+type ShopifyArtworkProps = {
+  productId?: number
+  shopifyClient: Shopify
+}
+
 export default class ShopifyArtwork {
   data: Shopify.IProduct | null = null
   productId: number | null = null
-  fetchShopify = new FetchShopify()
+  fetchShopify: FetchShopify
   loaded = false
   checksum: string | null = null
-  constructor(productId?: number) {
+  shopifyClient: Shopify
+
+  constructor({ productId, shopifyClient }: ShopifyArtworkProps) {
+    this.fetchShopify = new FetchShopify(shopifyClient)
+    this.shopifyClient = shopifyClient
     if (productId) {
       this.productId = productId
       this.fetchShopify.init(productId)
@@ -31,12 +40,16 @@ export default class ShopifyArtwork {
     }
     return this.data
   }
-  shouldUpdate = async () => {
-    return await !!this.getCheckSum()
-  }
+  // shouldUpdate = async () => {
+  //   return await !!this.getCheckSum()
+  // }
   getCheckSum = async () => {
+    if (!this.productId) {
+      throw new Error('missing productId for getting checksum')
+    }
+
     if (!this.checksum) {
-      this.checksum = await this.fetchShopify.getChecksum()
+      this.checksum = await this.fetchShopify.getChecksum(this.productId)
     }
     return this.checksum
   }

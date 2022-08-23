@@ -47,7 +47,7 @@ export default class SanityArtwork {
   }
 
   init = async () => {
-    await this.getData()
+    await this._getData()
   }
 
   fetch = async () => {
@@ -78,7 +78,7 @@ export default class SanityArtwork {
     }
   }
 
-  getData = async () => {
+  _getData = async () => {
     if (!this.data) {
       this.data = await this.fetch()
     }
