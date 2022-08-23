@@ -38,7 +38,7 @@ const generateSeo: (
   let shareDesc = defaultSeo?.shareDesc || ''
   let shareGraphic = defaultSeo?.shareGraphic
   const siteTitle = defaultSeo?.siteTitle || 'MeetFrida'
-  let url = 'https://meetfrida.art/'
+  let url = 'https://www.meetfrida.art/'
   const docSeo = document.seo
 
   let shareGraphicSrc = shareGraphic && getImageSrc(shareGraphic, imageBuilder)
