@@ -1,6 +1,6 @@
 import SanitySyncHandler from '@lib/SyncApi/SanitySyncHandler'
 import sanityClient, { SanityClient } from '@sanity/client'
-
+import { log } from '@lib/SyncApi/logging'
 import type { NextApiRequest, NextApiResponse } from 'next'
 const { SANITY_PROJECT_DATASET, SANITY_PROJECT_ID, SANITY_API_TOKEN } =
   process.env
@@ -36,7 +36,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   }
 
   if (id && type === 'artwork') {
-    const updater = new SanitySyncHandler(id, sanity, shopify)
+    const updater = new SanitySyncHandler(id, sanity, shopify, log)
     await updater.run()
   }
 

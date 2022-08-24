@@ -9,5 +9,5 @@ export default class SoundPlayer {
       },
     }
   }
-  product
+  product: any
 }

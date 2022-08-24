@@ -1,5 +1,12 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import FetchShopify from '@lib/SyncApi/Shopify/FetchShopify'
+import Shopify from 'shopify-api-node'
+import { log } from '@lib/SyncApi/logging'
+
+const shopify = new Shopify({
+  shopName: process.env.SHOPIFY_STORE_ID || '',
+  accessToken: process.env.SHOPIFY_API_PASSWORD || 'your-oauth-token',
+})
 
 export type ShopifyCheckArtwork = {
   id: number
@@ -18,7 +25,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const shop = new FetchShopify()
+  const shop = new FetchShopify(shopify, log)
 
   const allArtworks: (lastId: string) => Promise<ShopifyCheckArtwork[]> =
     async (lastId) => {

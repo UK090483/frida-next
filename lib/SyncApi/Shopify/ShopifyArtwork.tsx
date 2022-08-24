@@ -1,15 +1,12 @@
 import { SanityProduct } from '../SanityArtwork'
 import FetchShopify from './FetchShopify'
 import Shopify from 'shopify-api-node'
-
-const shopify = new Shopify({
-  shopName: process.env.SHOPIFY_STORE_ID || '',
-  accessToken: process.env.SHOPIFY_API_PASSWORD || 'your-oauth-token',
-})
+import { log } from '../logging'
 
 type ShopifyArtworkProps = {
   productId?: number
   shopifyClient: Shopify
+  logger: typeof log
 }
 
 export default class ShopifyArtwork {
@@ -20,8 +17,8 @@ export default class ShopifyArtwork {
   checksum: string | null = null
   shopifyClient: Shopify
 
-  constructor({ productId, shopifyClient }: ShopifyArtworkProps) {
-    this.fetchShopify = new FetchShopify(shopifyClient)
+  constructor({ productId, shopifyClient, logger }: ShopifyArtworkProps) {
+    this.fetchShopify = new FetchShopify(shopifyClient, logger)
     this.shopifyClient = shopifyClient
     if (productId) {
       this.productId = productId
@@ -40,9 +37,7 @@ export default class ShopifyArtwork {
     }
     return this.data
   }
-  // shouldUpdate = async () => {
-  //   return await !!this.getCheckSum()
-  // }
+
   getCheckSum = async () => {
     if (!this.productId) {
       throw new Error('missing productId for getting checksum')
@@ -72,11 +67,5 @@ export default class ShopifyArtwork {
       checksum,
       draft
     )
-  }
-  unPublish = async (productId: number) => {
-    await shopify.product.update(productId, { status: 'draft' })
-  }
-  publish = async (productId: number) => {
-    await shopify.product.update(productId, { status: 'active' })
   }
 }

@@ -1,5 +1,9 @@
 import { SanityClient } from '@sanity/client'
 import axios from 'axios'
+import Shopify from 'shopify-api-node'
+import { log } from '../logging'
+import { SanityProduct } from '../SanityArtwork'
+import FetchShopify from '../Shopify/FetchShopify'
 
 jest.mock('axios')
 
@@ -14,6 +18,11 @@ export const axiosReturnData = (cb: (url: string) => any) => {
 
 export const testId = '123abc'
 export const draftTestId = 'drafts.123abc'
+
+const shopifyProductTestID = 12345
+const shopifyVariantTestID = 12345
+
+const checksumValue = 'checksumValue'
 
 export const testArtwork = {
   _type: 'artwork',
@@ -30,17 +39,170 @@ export const checksumData = {
 }
 
 export const syncData = {
-  shopify_product_id: 'shopify_product_id',
-  shopify_variant_id: 'shopify_variant_id',
+  shopify_product_id: shopifyProductTestID + '',
+  shopify_variant_id: shopifyVariantTestID + '',
   shopify_handle: 'shopify_handle',
 }
 
 export type getClientProps = {
   fetchRes?: unknown
 }
-export const getClient = (props?: getClientProps) => {
+export const getSanityTestClient = (props?: getClientProps) => {
   return {
     fetch: async () => props?.fetchRes || null,
     patch: () => ({ set: () => ({ commit: () => ({}) }) }),
   } as unknown as SanityClient
+}
+
+export const shopifyCreateProductResult = {
+  body_html: '<p>createProduct.Description</p>',
+  images: [
+    {
+      src: 'createProduct.ImageSrc',
+    },
+  ],
+  product_type: 'artwork',
+  published_scope: 'global',
+  status: 'active',
+  title: 'createProduct.Name',
+  variants: [
+    {
+      inventory_management: 'shopify',
+      inventory_quantity: 1,
+      price: 200,
+      requires_shipping: false,
+    },
+  ],
+  vendor: 'MeetFrida',
+}
+
+const shopifyProduct = {
+  id: shopifyProductTestID,
+  body_html: '<p>createProduct.Description</p>',
+  images: [
+    {
+      src: 'createProduct.ImageSrc',
+    },
+  ],
+  product_type: 'artwork',
+  published_scope: 'global',
+  status: 'active',
+  title: 'createProduct.Name',
+  handle: 'handle',
+
+  variants: [
+    {
+      id: shopifyVariantTestID,
+      inventory_management: 'shopify',
+      inventory_quantity: 1,
+      price: 200,
+      requires_shipping: false,
+    },
+  ],
+}
+
+const sanityArtworkProperties = {
+  name: 'createProduct.Name',
+  description: 'createProduct.Description',
+  imageSrc: 'createProduct.ImageSrc',
+  price: 200,
+}
+
+export const testData = {
+  sanity: {
+    testId,
+    draftTestId,
+    testArtwork,
+    testArtworkWithSyncData: { ...testArtwork, ...syncData },
+    completeArtwork: {
+      ...testArtwork,
+      ...syncData,
+      ...sanityArtworkProperties,
+    },
+  },
+  shopify: {
+    productId: shopifyProductTestID,
+    product: {
+      fromShopify: shopifyProduct,
+    },
+    shopifyCreateProductResult,
+    createProduct: {
+      name: 'createProduct.Name',
+      description: 'createProduct.Description',
+      imageSrc: 'createProduct.ImageSrc',
+      price: 200,
+    } as SanityProduct,
+    checksum: [{ key: 'checksum_syncData', value: 'checksumValue' }],
+    metadata: {
+      key: 'checksum_syncData',
+      namespace: 'syncData',
+      value_type: 'string',
+      owner_resource: 'product',
+      value: checksumValue,
+      owner_id: shopifyProductTestID,
+    },
+    syncData: {
+      shopify_product_id: shopifyProductTestID + '',
+      shopify_variant_id: shopifyVariantTestID + '',
+      shopify_handle: shopifyProduct.handle,
+    },
+  },
+}
+const setFunction = jest.fn().mockImplementation(() => {
+  return { commit: jest.fn().mockImplementation(() => Promise.resolve()) }
+})
+export const mockSanityClient = {
+  fetch: jest.fn().mockImplementation(() => Promise.resolve('')),
+  patch: jest.fn().mockImplementation(() => ({
+    set: setFunction,
+  })),
+} as unknown as SanityClient
+
+export const mockShopifyClient = {
+  product: {
+    get: jest
+      .fn()
+      .mockImplementation(() =>
+        Promise.resolve(testData.shopify.product.fromShopify)
+      ),
+    create: jest
+      .fn()
+      .mockImplementation(() =>
+        Promise.resolve(testData.shopify.product.fromShopify)
+      ),
+    update: jest
+      .fn()
+      .mockImplementation(() =>
+        Promise.resolve(testData.shopify.product.fromShopify)
+      ),
+  },
+  productVariant: {
+    update: jest
+      .fn()
+      .mockImplementation(() =>
+        Promise.resolve(testData.shopify.product.fromShopify)
+      ),
+  },
+  productListing: {
+    create: jest.fn().mockImplementation(() => Promise.resolve()),
+  },
+  metafield: {
+    list: jest
+      .fn()
+      .mockImplementation(() => Promise.resolve(testData.shopify.checksum)),
+    create: jest
+      .fn()
+      .mockImplementation(() => Promise.resolve(testData.shopify.checksum)),
+  },
+} as unknown as Shopify
+
+export const loggerMock = jest.fn() as typeof log
+
+export const getFetchShopifyTestInstance = (
+  overwrite?: (shopify: Shopify) => any
+) => {
+  const or = overwrite ? overwrite(mockShopifyClient) : {}
+
+  const withOverwrites = { ...mockShopifyClient, ...or } as unknown as Shopify
+  return new FetchShopify(withOverwrites, loggerMock)
 }
