@@ -1,65 +1,46 @@
-import axios, { AxiosRequestConfig, AxiosError } from 'axios'
-import { log } from '../logging'
-import { SanityProduct } from '../SanityArtwork'
-
+import { SanityProduct } from './SanityArtwork'
 import Shopify from 'shopify-api-node'
-// https://github.com/MONEI/Shopify-api-node
 
-const shopifyConfig = {
-  'Content-Type': 'application/json',
-  'X-Shopify-Access-Token': process.env.SHOPIFY_API_PASSWORD,
+import type { Logger } from './logger'
+type ShopifyArtworkProps = {
+  productId?: number
+  shopifyClient: Shopify
+  logger: Logger
 }
 
-export default class FetchShopify {
+export default class ShopifyArtwork {
+  data: Shopify.IProduct | null = null
   productId: number | null = null
+  loaded = false
+  checksum: string | null = null
   shopifyClient: Shopify
-  logger: typeof log
-  constructor(shopifyClient: Shopify, logger: typeof log) {
-    this.shopifyClient = shopifyClient
+  logger: Logger
+
+  constructor({ productId, shopifyClient, logger }: ShopifyArtworkProps) {
     this.logger = logger
-  }
-
-  init = (productId: number) => {
-    this.productId = productId
-  }
-
-  checkInitState = () => {
-    if (!this.productId) throw 'call init first FetchShopify'
-  }
-
-  fetch = async (
-    path: string,
-    data: any,
-    method: AxiosRequestConfig['method']
-  ) => {
-    try {
-      const res = await axios({
-        url: `https://${process.env.SHOPIFY_STORE_ID}.myshopify.com/admin/api/2021-07/${path}`,
-        method: method,
-        headers: shopifyConfig,
-        ...(data ? { data } : {}),
-      })
-      return res
-    } catch (error) {
-      const e = error as AxiosError
-      this.logger('error', e.response?.data?.errors)
-      return null
+    this.shopifyClient = shopifyClient
+    if (productId) {
+      this.productId = productId
     }
   }
 
-  unPublish = async (productId: number) => {
-    await this.shopifyClient.product.update(productId, { status: 'draft' })
+  init = (productId: number | string) => {
+    this.productId = parseInt(productId + '')
   }
-  publish = async (productId: number) => {
-    await this.shopifyClient.product.update(productId, { status: 'active' })
+
+  getData = async () => {
+    if (!this.data && this.productId) {
+      this.data = await this.fetchProduct(this.productId)
+      this.loaded = true
+    }
+    return this.data
   }
+
   fetchProduct = async (productId: number) => {
     return await this.shopifyClient.product.get(productId)
   }
-  eraseProduct = async (productId: number) => {
-    return await this.shopifyClient.product.delete(productId)
-  }
-  getChecksum = async (productId: number) => {
+
+  fetchChecksum = async (productId: number) => {
     try {
       const result = await this.shopifyClient.metafield.list({
         metafield: {
@@ -79,8 +60,18 @@ export default class FetchShopify {
     }
   }
 
+  getCheckSum = async () => {
+    if (!this.productId) {
+      throw new Error('missing productId for getting checksum')
+    }
+
+    if (!this.checksum) {
+      this.checksum = await this.fetchChecksum(this.productId)
+    }
+    return this.checksum
+  }
+
   setChecksum = async (checksum: string) => {
-    this.checkInitState()
     this.logger('info', `setting checksum `)
 
     const createdMetafield = await this.shopifyClient.metafield.create({
@@ -96,7 +87,7 @@ export default class FetchShopify {
     }
   }
 
-  createProduct = async (product: SanityProduct, checksum: string) => {
+  createArtwork = async (product: SanityProduct, checksum: string) => {
     this.logger('info', `creating product ${product.name} `)
     const createdProduct = await this.shopifyClient.product.create({
       title: product.name,
@@ -134,24 +125,24 @@ export default class FetchShopify {
       shopify_handle: handle + '',
     }
   }
-
-  updateProduct = async (
+  updateArtwork = async (
     productId: number,
     product: SanityProduct,
     checksum: string,
     draft: boolean
   ) => {
-    if (!this.productId) {
-      this.productId = productId
-    }
     this.logger('info', `updating Product ${product.name}`)
 
-    if (!this.productId) return
+    if (!this.productId) {
+      throw new Error('missing productId for updating checksum')
+    }
+
+    const shouldDraft = draft || product.availability === 'sold'
 
     const productResult = await this.shopifyClient.product.update(
       this.productId,
       {
-        status: draft ? 'draft' : 'active',
+        status: shouldDraft ? 'draft' : 'active',
         title: product.name,
         body_html: `<p>${product.description}</p>`,
         vendor: 'MeetFrida',

@@ -1,7 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import FetchShopify from '@lib/SyncApi/Shopify/FetchShopify'
 import Shopify from 'shopify-api-node'
-import { log } from '@lib/SyncApi/logging'
 
 const shopify = new Shopify({
   shopName: process.env.SHOPIFY_STORE_ID || '',
@@ -25,27 +23,22 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const shop = new FetchShopify(shopify, log)
+  const allArtworks = async () => {
+    let res: Shopify.IProduct[] = []
+    let params = { limit: 100 }
 
-  const allArtworks: (lastId: string) => Promise<ShopifyCheckArtwork[]> =
-    async (lastId) => {
-      const fetched = await shop.fetch(
-        `products.json?limit=200${lastId ? `&since_id=${lastId}` : ''}`,
-        null,
-        'GET'
-      )
-      const results = fetched?.data?.products as ShopifyCheckArtwork[]
+    do {
+      const products = await shopify.product.list(params)
 
-      if (results.length > 0) {
-        return results.concat(
-          await allArtworks(results[results.length - 1].id + '')
-        )
-      } else {
-        return results
-      }
-    }
+      res = [...res, ...products]
 
-  const allShopifyArtworks = await allArtworks('0')
+      params = products.nextPageParameters
+    } while (params !== undefined)
+
+    return res
+  }
+
+  const allShopifyArtworks = await allArtworks()
 
   const parsed = allShopifyArtworks.map((i) => ({
     id: i.id,

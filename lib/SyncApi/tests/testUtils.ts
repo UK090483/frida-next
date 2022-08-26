@@ -1,9 +1,8 @@
 import { SanityClient } from '@sanity/client'
 import axios from 'axios'
 import Shopify from 'shopify-api-node'
-import { log } from '../logging'
+import type { Logger } from '../logger'
 import { SanityProduct } from '../SanityArtwork'
-import FetchShopify from '../Shopify/FetchShopify'
 
 jest.mock('axios')
 
@@ -20,9 +19,13 @@ export const testId = '123abc'
 export const draftTestId = 'drafts.123abc'
 
 const shopifyProductTestID = 12345
-const shopifyVariantTestID = 12345
+const shopifyVariantTestID = 23456
 
 const checksumValue = 'checksumValue'
+
+export const sanityImage = {
+  asset: { _ref: 'sanity-test-image', _type: 'reference' },
+}
 
 export const testArtwork = {
   _type: 'artwork',
@@ -123,14 +126,26 @@ export const testData = {
   shopify: {
     productId: shopifyProductTestID,
     product: {
+      testId: shopifyProductTestID,
       fromShopify: shopifyProduct,
+      updatePayload: {
+        body_html: `<p>${sanityArtworkProperties.description}</p>`,
+        product_type: 'artwork',
+        published_scope: 'global',
+        status: 'active',
+        title: sanityArtworkProperties.name,
+        vendor: 'MeetFrida',
+      },
+    },
+    variant: {
+      testId: shopifyVariantTestID,
+      updatePayload: {
+        price: 200,
+      },
     },
     shopifyCreateProductResult,
     createProduct: {
-      name: 'createProduct.Name',
-      description: 'createProduct.Description',
-      imageSrc: 'createProduct.ImageSrc',
-      price: 200,
+      ...sanityArtworkProperties,
     } as SanityProduct,
     checksum: [{ key: 'checksum_syncData', value: 'checksumValue' }],
     metadata: {
@@ -196,13 +211,4 @@ export const mockShopifyClient = {
   },
 } as unknown as Shopify
 
-export const loggerMock = jest.fn() as typeof log
-
-export const getFetchShopifyTestInstance = (
-  overwrite?: (shopify: Shopify) => any
-) => {
-  const or = overwrite ? overwrite(mockShopifyClient) : {}
-
-  const withOverwrites = { ...mockShopifyClient, ...or } as unknown as Shopify
-  return new FetchShopify(withOverwrites, loggerMock)
-}
+export const loggerMock = jest.fn() as Logger

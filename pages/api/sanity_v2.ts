@@ -1,6 +1,6 @@
 import SanitySyncHandler from '@lib/SyncApi/SanitySyncHandler'
 import sanityClient, { SanityClient } from '@sanity/client'
-import { log } from '@lib/SyncApi/logging'
+import logger from '@lib/SyncApi/logger'
 import type { NextApiRequest, NextApiResponse } from 'next'
 const { SANITY_PROJECT_DATASET, SANITY_PROJECT_ID, SANITY_API_TOKEN } =
   process.env
@@ -26,7 +26,7 @@ const shopify = new Shopify({
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   const id = req.body?._id
   const type = req.body?._type
-
+  console.log('syncApi')
   console.log(req?.body)
   if (!sanity) {
     console.error('unable to establish sanity Client')
@@ -36,7 +36,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   }
 
   if (id && type === 'artwork') {
-    const updater = new SanitySyncHandler(id, sanity, shopify, log)
+    const updater = new SanitySyncHandler(id, sanity, shopify, logger)
     await updater.run()
   }
 

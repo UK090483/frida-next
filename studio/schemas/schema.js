@@ -28,14 +28,19 @@ import ShopifyCollection from './documents/shopify-collection'
 import ShopifyProduct from './documents/shopify-product'
 import ShopifyVariant from './documents/shopify-variant'
 
+import Product from './documents/product'
+import ProductVariant from './documents/productVariant'
 
-
+import ProxyString from './objects/proxyString'
 
 const documents = [
   Footer,
   Post,
   PostCategory,
   ShopifyCollection,
+  // Product,
+  // ProductVariant,
+  ProxyString,
   ShopifyProduct,
   ShopifyVariant,
   SettingsSeo,

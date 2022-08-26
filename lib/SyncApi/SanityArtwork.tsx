@@ -1,7 +1,8 @@
 import type { SanityClient } from '@sanity/client'
 import { imageBuilder } from '../sanity'
 import axios from 'axios'
-import { log } from './logging'
+
+import type { Logger } from './logger'
 const { SANITY_PROJECT_DATASET, SANITY_PROJECT_ID, SANITY_API_TOKEN } =
   process.env
 
@@ -39,11 +40,13 @@ export default class SanityArtwork {
   errMsg: string
   loaded = false
   isDraft = false
+  logger: Logger
 
-  constructor(sanityDocId: string, sanityClient: SanityClient) {
+  constructor(sanityDocId: string, sanityClient: SanityClient, logger: Logger) {
     this.id = sanityDocId
     this.sanityClient = sanityClient
     this.errMsg = `SanityArtwork Error:item with id ${this.id}`
+    this.logger = logger
   }
 
   init = async () => {
@@ -60,10 +63,11 @@ export default class SanityArtwork {
 
       this.loaded = true
       if (!doc) return null
-      if (doc._type !== 'artwork') {
-        log('info', `type is:${doc._type} no artwork`)
+      if (this.shouldIgnore(doc)) {
+        this.logger('info', `ignore`)
         return null
       }
+
       if (doc.image?.asset) {
         doc.imageSrc = imageBuilder.image(doc.image.asset).width(600).url()
       }
@@ -73,9 +77,22 @@ export default class SanityArtwork {
       return doc as SanityProduct
     } catch (error) {
       this.loaded = true
-      log('error', `${this.errMsg} could not be fetched`)
+      this.logger('error', `${this.errMsg} could not be fetched`)
       return null
     }
+  }
+
+  shouldIgnore = (doc: any) => {
+    if (doc._type !== 'artwork') {
+      this.logger('info', `type is:${doc._type}`)
+      return true
+    }
+    if (doc.isNft) {
+      this.logger('info', `is Nft Artwork`)
+      return true
+    }
+
+    return false
   }
 
   _getData = async () => {
@@ -114,13 +131,13 @@ export default class SanityArtwork {
     shopify_handle: string
     shopify_variant_id: string
   }) => {
-    log('info', `setting syncData in Sanity`)
+    this.logger('info', `setting syncData in Sanity`)
     await this.sanityClient.patch(this.id).set(props).commit()
   }
 
   getCheckSum = async () => {
     if (!this.data) {
-      log('error', 'no data for checksum')
+      this.logger('error', 'no data for checksum')
       return
     }
     return JSON.stringify({

@@ -31,6 +31,8 @@ export default async function send(req, res) {
 
   const variants = shopifyProduct.data.product.variants
 
+
+
   const product = {
     inStock: variants.some(
       (v) => v.inventory_quantity > 0 || v.inventory_policy === 'continue'

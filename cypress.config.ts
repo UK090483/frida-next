@@ -12,18 +12,20 @@ export default defineConfig({
     // You may want to clean this up later by importing these.
     async setupNodeEvents(on, config) {
       const pages = await sanityClient.fetch(
-        `*[_type == 'page' || _type == 'artwork' ]{
+        `*[_type == 'page' ]{
           ...,
-         'slug':select(
-             _type=='artwork' => '/artwork/' + slug.current,
-             '/' + slug.current   
-           ),  
+         'slug':'/' + slug.current
          }`
       )
-
+      const artworks = await sanityClient.fetch(
+        `*[ _type == 'artwork' ]{
+         'slug':'/artwork/' + slug.current
+         }`
+      )
       console.log(pages)
 
       config.env.pages = pages
+      config.env.artworks = artworks
       // eslint-disable-next-line @typescript-eslint/no-var-requires
       // return require('./cypress/plugins/index.js')(on, config)
 

@@ -1,7 +1,7 @@
 import { SanityClient } from '@sanity/client'
-import { log } from './logging'
+import type { Logger } from './logger'
 import SanityArtwork from './SanityArtwork'
-import ShopifyArtwork from './Shopify/ShopifyArtwork'
+import ShopifyArtwork from './ShopifyArtwork'
 import Shopify from 'shopify-api-node'
 
 export default class SanitySyncHandler {
@@ -10,14 +10,14 @@ export default class SanitySyncHandler {
   sanityClient: SanityClient
   shopifyClient: Shopify
   shopifyArtwork: ShopifyArtwork
-  log: typeof log
+  logger: Logger
   action: 'update' | 'create' | 'unPublish' | null = null
 
   constructor(
     sanityDocId: string,
     sanityClient: SanityClient,
     shopifyClient: Shopify,
-    logger: typeof log
+    logger: Logger
   ) {
     this.shopifyArtwork = new ShopifyArtwork({
       shopifyClient,
@@ -25,9 +25,9 @@ export default class SanitySyncHandler {
     })
     this.sanityDocId = sanityDocId
     this.sanityClient = sanityClient
-    this.sanityArtwork = new SanityArtwork(sanityDocId, sanityClient)
+    this.sanityArtwork = new SanityArtwork(sanityDocId, sanityClient, logger)
     this.shopifyClient = shopifyClient
-    this.log = logger
+    this.logger = logger
   }
 
   getAction = async () => {
@@ -40,12 +40,12 @@ export default class SanitySyncHandler {
   shouldCreate = async () => {
     const shopify_product_id = this.sanityArtwork.getShopifyId()
     if (!this.sanityArtwork.hasSyncData() || !shopify_product_id) {
-      this.log('info', 'was not synced before')
+      this.logger('info', 'was not synced before')
       return true
     }
     this.shopifyArtwork.init(shopify_product_id)
     if (!(await this.shopifyArtwork.getCheckSum())) {
-      this.log('info', 'no corresponding found on shopify')
+      this.logger('info', 'no corresponding found on shopify')
       return true
     }
   }
@@ -56,20 +56,20 @@ export default class SanitySyncHandler {
 
     const hasChanged = sanityChecksum !== shopifyChecksum
     if (!hasChanged) {
-      this.log('info', 'checksum is equal, sync done!')
+      this.logger('info', 'checksum is equal, sync done!')
       return false
     }
-    this.log('info', 'checksum is not equal')
+    this.logger('info', 'checksum is not equal')
     return true
   }
 
   createShopifyArtwork = async () => {
-    this.log('info', '___Create Artwork')
+    this.logger('info', '___Create Artwork')
     const checksum = await this.sanityArtwork.getCheckSum()
     const data = await this.sanityArtwork._getData()
 
     if (!checksum || !data) {
-      this.log('error', 'unable to create checksum or data')
+      this.logger('error', 'unable to create checksum or data')
       return
     }
     const createdProduct = await this.shopifyArtwork.createArtwork(
@@ -77,14 +77,14 @@ export default class SanitySyncHandler {
       checksum
     )
     if (!createdProduct) {
-      this.log('error', 'no Product created')
+      this.logger('error', 'no Product created')
       return
     }
     await this.sanityArtwork.setSyncData(createdProduct)
   }
 
   updateShopifyArtwork = async () => {
-    log('info', '___Update Artwork')
+    this.logger('info', '___Update Artwork')
     const sanityData = await this.sanityArtwork._getData()
     const checksum = await this.sanityArtwork.getCheckSum()
 
@@ -99,14 +99,14 @@ export default class SanitySyncHandler {
         return null
       }
       await this.sanityArtwork.setSyncData(syncData)
-      log('info', '___Update Artwork done !')
+      this.logger('info', '___Update Artwork done !')
       return syncData
     }
     return
   }
 
   run = async () => {
-    log('info', '________SanitySync startup')
+    this.logger('info', '________SanitySync startup')
     const action = await this.getAction()
     if (!action) return
     if (action === 'create') return await this.createShopifyArtwork()

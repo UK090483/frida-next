@@ -1,11 +1,11 @@
-import SanitySyncHandler from '../SanitySyncHandler'
+import SanitySyncHandler from './SanitySyncHandler'
 import {
   testData,
   mockShopifyClient,
   loggerMock,
   axiosReturnData,
   mockSanityClient,
-} from '../tests/testUtils'
+} from './tests/testUtils'
 
 jest.mock('axios')
 
@@ -129,7 +129,7 @@ describe('Sanity Sync Handler', () => {
       'creating product createProduct.Name '
     )
 
-    // sett product listing
+    // setting product listing
     expect(mockShopifyClient.productListing.create).toHaveBeenCalledTimes(1)
     expect(mockShopifyClient.productListing.create).toHaveBeenCalledWith(
       testData.shopify.productId,
@@ -140,6 +140,22 @@ describe('Sanity Sync Handler', () => {
     expect(mockShopifyClient.metafield.create).toHaveBeenCalledWith(
       testData.shopify.metadata
     )
+    // updating Sanity Artwork
+    expect(mockSanityClient.patch).toHaveBeenCalledTimes(1)
+    expect(mockSanityClient.patch).toHaveBeenCalledWith(testData.sanity.testId)
+    expect(mockSanityClient.patch('').set).toHaveBeenCalledTimes(1)
+    expect(mockSanityClient.patch('').set).toHaveBeenCalledWith(
+      testData.shopify.syncData
+    )
+  })
+  it('should update', async () => {
+    const Sh = getPreparedSanitySyncHandler()
+    Sh.shopifyArtwork.productId = testData.shopify.productId
+    await Sh.updateShopifyArtwork()
+
+    // updating
+    expect(mockShopifyClient.product.update).toHaveBeenCalledTimes(1)
+    expect(mockShopifyClient.productVariant.update).toBeCalledTimes(1)
     // updating Sanity Artwork
     expect(mockSanityClient.patch).toHaveBeenCalledTimes(1)
     expect(mockSanityClient.patch).toHaveBeenCalledWith(testData.sanity.testId)
