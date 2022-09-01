@@ -135,6 +135,11 @@ export const testData = {
         status: 'active',
         title: sanityArtworkProperties.name,
         vendor: 'MeetFrida',
+        images: [
+          {
+            src: 'createProduct.ImageSrc',
+          },
+        ],
       },
     },
     variant: {

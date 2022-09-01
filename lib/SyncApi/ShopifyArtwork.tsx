@@ -117,7 +117,7 @@ export default class ShopifyArtwork {
     })
 
     await this.setChecksum(checksum)
-    // await this.setSanityIdMeta(product._id)
+
     const { handle, variants, id } = createdProduct
     return {
       shopify_product_id: id + '',
@@ -148,6 +148,11 @@ export default class ShopifyArtwork {
         vendor: 'MeetFrida',
         product_type: 'artwork',
         published_scope: 'global',
+        images: [
+          {
+            src: product.imageSrc,
+          },
+        ],
       }
     )
     await this.shopifyClient.productVariant.update(

@@ -43,7 +43,8 @@ const ProductHero: React.FC<ProductHeroProps> = (props) => {
     setChange,
   } = useProduct({ variants })
 
-  const photo = listingPhotos[0] ? listingPhotos[0].listingPhoto : null
+  const photo =
+    listingPhotos && listingPhotos[0] ? listingPhotos[0].listingPhoto : null
   const addItem = useAddItem()
 
   return (

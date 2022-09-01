@@ -2,8 +2,8 @@ import { defineConfig } from 'cypress'
 import { createClient } from 'next-sanity'
 
 const sanityClient = createClient({
-  projectId: 'ypuaahj7',
-  dataset: 'production',
+  projectId: 'zll53fvk',
+  dataset: 'development',
 })
 
 export default defineConfig({
@@ -19,10 +19,10 @@ export default defineConfig({
       )
       const artworks = await sanityClient.fetch(
         `*[ _type == 'artwork' ]{
+          ...,
          'slug':'/artwork/' + slug.current
          }`
       )
-      console.log(pages)
 
       config.env.pages = pages
       config.env.artworks = artworks
@@ -32,5 +32,12 @@ export default defineConfig({
       return config
     },
     baseUrl: 'http://localhost:3000',
+  },
+
+  component: {
+    devServer: {
+      framework: 'next',
+      bundler: 'webpack',
+    },
   },
 })

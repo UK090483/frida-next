@@ -1,41 +1,43 @@
+const getRandomArtworks = (artworks: any[], count: number) => {
+  let res: number[] = []
+  while (res.length < count) {
+    const ranNumber = Math.floor(Math.random() * artworks.length)
+
+    if (!res.includes(ranNumber)) {
+      res = [...res, ranNumber]
+    }
+  }
+  return res.map((i) => artworks[i])
+}
+
 describe('example to-do app', () => {
-  beforeEach(() => {
-    // Cypress starts out with a blank slate for each test
-    // so we must tell it to visit our website with the `cy.visit()` command.
-    // Since we want to visit the same URL at the start of all our tests,
-    // we include it in our beforeEach function so that it runs before each test
-    cy.visit('/')
+  const artworks: any[] = Cypress.env('artworks')
+
+  const randomArtworks = getRandomArtworks(artworks, 10)
+
+  it('should have Properties (10 random Artworks)', () => {
+    randomArtworks.forEach((a) => {
+      cy.visit(a.slug)
+      cy.contains(a.name)
+      if (!a.isNft) {
+        cy.contains(a.price)
+      }
+      //cy.contains(a.description)
+    })
   })
 
-  it('follow links', () => {
-    cy.log('pages', Cypress.env('pages'))
+  it('all artworks should be online', () => {
+    artworks.forEach((i) => {
+      cy.request({
+        url: Cypress.config('baseUrl') + '/en' + i.slug,
+        failOnStatusCode: true,
+      })
 
-    const pages: any[] = Cypress.env('pages')
-
-    pages.forEach((i) => {
       cy.request({
         url: Cypress.config('baseUrl') + i.slug,
-        failOnStatusCode: false,
+        failOnStatusCode: true,
       })
     })
-
-    // cy.get('a').each((page) => {
-    //   const link = page.prop('href')
-    //   const isInternal = link.includes(Cypress.config('baseUrl'))
-
-    //   cy.request({
-    //     url: link,
-    //     failOnStatusCode: false, // allow good and bad response to pass into then
-    //   }).then((response) => {
-    //     if (isInternal) {
-
-    //     }
-    //     // Cypress.log({
-    //     //   name: link,
-    //     //   message: response.status,
-    //     // })
-    //   })
-    // })
   })
 })
 export {}
