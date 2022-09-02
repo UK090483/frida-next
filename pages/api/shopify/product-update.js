@@ -76,7 +76,9 @@ export default async function send(req, res) {
 
   if (product_type === 'artwork') {
     const sellIfSold = req.body?.variants[0]?.inventory_policy === 'continue'
-    const isSold = req.body?.variants[0]?.inventory_quantity === 0 && !sellIfSold
+    const isDraft = req.body?.status === 'draft'
+   
+    const isSold = isDraft || (req.body?.variants[0]?.inventory_quantity === 0 && !sellIfSold )
     await handleSold(id,isSold,sanity)
     console.log('artworks get Sync the other way around')
     console.log('sync complete!')

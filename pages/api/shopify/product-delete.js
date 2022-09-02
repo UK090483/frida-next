@@ -80,10 +80,15 @@ export default async function send(req, res) {
   // patch (update) product document with core shopify data
   stx = stx.patch(`product-${id}`, (patch) => patch.set({ wasDeleted: true }))
 
-  const result = await stx.commit()
-
-  console.log('sync complete!')
-
-  res.statusCode = 200
-  res.json(JSON.stringify(result))
+  try {
+    const result = await stx.commit()
+    res.statusCode = 200
+    console.log('sync complete!')
+    res.json(JSON.stringify(result))
+  } catch (error) {
+    console.log('error');
+    console.log(error);
+    res.statusCode = 200
+    res.json(JSON.stringify({}))
+  }
 }
