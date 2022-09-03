@@ -1,61 +1,171 @@
-import FetchShopify from './FetchShopify'
 import { SanityProduct } from './SanityArtwork'
+import Shopify from 'shopify-api-node'
 
-export type ShopifyArtworkData = {
-  title: string
-  price?: number
-  handle?: string
-  body?: string
-  image?: string
-  id: string
-  variant_id: string
+import type { Logger } from './logger'
+type ShopifyArtworkProps = {
+  productId?: number
+  shopifyClient: Shopify
+  logger: Logger
 }
+
 export default class ShopifyArtwork {
-  data: ShopifyArtworkData | null = null
-  productId: string | null = null
-  fetchShopify = new FetchShopify()
+  data: Shopify.IProduct | null = null
+  productId: number | null = null
   loaded = false
   checksum: string | null = null
-  constructor(productId?: string) {
+  shopifyClient: Shopify
+  logger: Logger
+
+  constructor({ productId, shopifyClient, logger }: ShopifyArtworkProps) {
+    this.logger = logger
+    this.shopifyClient = shopifyClient
     if (productId) {
       this.productId = productId
-      this.fetchShopify.init(productId)
     }
   }
-  init = (productId: string) => {
-    this.productId = productId
-    this.fetchShopify.init(productId)
+
+  init = (productId: number | string) => {
+    this.productId = parseInt(productId + '')
   }
 
   getData = async () => {
-    if (!this.data) {
-      this.data = await this.fetchShopify.fetchProduct()
+    if (!this.data && this.productId) {
+      this.data = await this.fetchProduct(this.productId)
       this.loaded = true
     }
     return this.data
   }
-  shouldUpdate = async () => {
-    return await !!this.getCheckSum()
-  }
-  getCheckSum = async () => {
-    if (!this.checksum) return this.fetchShopify.getChecksum()
-    return this.checksum
-  }
-  setChecksum = async (checksum: string) => {
-    this.fetchShopify.setChecksum(checksum)
-  }
-  createArtwork = async (product: SanityProduct, checksum: string) => {
-    return await this.fetchShopify.createProduct(product, checksum)
+
+  fetchProduct = async (productId: number) => {
+    return await this.shopifyClient.product.get(productId)
   }
 
-  updateArtwork = async (
-    productId: string,
-    product: SanityProduct,
-    checksum: string
-  ) => {
-    return await this.fetchShopify.updateProduct(productId, product, checksum)
+  fetchChecksum = async (productId: number) => {
+    try {
+      const result = await this.shopifyClient.metafield.list({
+        metafield: {
+          owner_resource: 'product',
+          owner_id: productId,
+        },
+      })
+      const checkSum = result.find((item) => item.key === 'checksum_syncData')
+      if (!checkSum) {
+        this.logger('error', 'unable to find Checksum')
+        return null
+      }
+      return checkSum.value as string
+    } catch (error) {
+      this.logger('error', 'unable to find Checksum')
+      return null
+    }
   }
-  draftArtwork = async (productId: string) => {
-    return await this.fetchShopify.setProductDraft(productId)
+
+  getCheckSum = async () => {
+    if (!this.productId) {
+      throw new Error('missing productId for getting checksum')
+    }
+
+    if (!this.checksum) {
+      this.checksum = await this.fetchChecksum(this.productId)
+    }
+    return this.checksum
+  }
+
+  setChecksum = async (checksum: string) => {
+    this.logger('info', `setting checksum `)
+
+    const createdMetafield = await this.shopifyClient.metafield.create({
+      key: 'checksum_syncData',
+      namespace: 'syncData',
+      value: checksum,
+      value_type: 'string',
+      owner_resource: 'product',
+      owner_id: this.productId,
+    })
+    if (!(createdMetafield.value === checksum)) {
+      this.logger('error', `Error setting checksum `)
+    }
+  }
+
+  createArtwork = async (product: SanityProduct, checksum: string) => {
+    this.logger('info', `creating product ${product.name} `)
+    const createdProduct = await this.shopifyClient.product.create({
+      title: product.name,
+      status: 'active',
+      body_html: `<p>${product.description || ' '}</p>`,
+      vendor: 'MeetFrida',
+      product_type: 'artwork',
+      published_scope: 'global',
+      images: [
+        {
+          src: product.imageSrc,
+        },
+      ],
+      variants: [
+        {
+          inventory_quantity: product.availability === 'sold' ? 0 : 1,
+          inventory_management: 'shopify',
+          price: product.price,
+          requires_shipping: false,
+        },
+      ],
+    })
+
+    this.productId = createdProduct.id
+    await this.shopifyClient.productListing.create(this.productId, {
+      product_id: this.productId,
+    })
+
+    await this.setChecksum(checksum)
+
+    const { handle, variants, id } = createdProduct
+    return {
+      shopify_product_id: id + '',
+      shopify_variant_id: variants[0].id + '',
+      shopify_handle: handle + '',
+    }
+  }
+  updateArtwork = async (
+    productId: number,
+    product: SanityProduct,
+    checksum: string,
+    draft: boolean
+  ) => {
+    this.logger('info', `updating Product ${product.name}`)
+
+    if (!this.productId) {
+      throw new Error('missing productId for updating checksum')
+    }
+
+    const shouldDraft = draft || product.availability === 'sold'
+
+    const productResult = await this.shopifyClient.product.update(
+      this.productId,
+      {
+        status: shouldDraft ? 'draft' : 'active',
+        title: product.name,
+        body_html: `<p>${product.description}</p>`,
+        vendor: 'MeetFrida',
+        product_type: 'artwork',
+        published_scope: 'global',
+        images: [
+          {
+            src: product.imageSrc,
+          },
+        ],
+      }
+    )
+    await this.shopifyClient.productVariant.update(
+      productResult.variants[0].id,
+      {
+        price: product.price,
+      }
+    )
+    await this.setChecksum(checksum)
+    return {
+      shopify_product_id: productResult.id + '',
+      shopify_variant_id: productResult.variants[0].id + '',
+      shopify_handle: productResult.handle,
+    }
   }
 }

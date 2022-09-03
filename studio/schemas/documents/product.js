@@ -51,8 +51,8 @@ export default {
         list: [
           { title: "Availabil", value: "availabil" },
           { title: "Sold", value: "sold" },
-        ], // <-- predefined values
-        layout: "radio", // <-- defaults to 'dropdown'
+        ],
+        layout: "radio", 
       },
     },
     {
@@ -96,17 +96,3 @@ export default {
   },
 };
 
-function isUniqueAcrossPages(slug, options) {
-  const { document } = options;
-
-  const id = document._id.replace(/^drafts\./, "");
-  const params = {
-    draft: `drafts.${id}`,
-    published: id,
-    slug,
-  };
-
-  const query = `!defined(*[!(_type == 'page' && _id in [$draft, $published]) && slug.current == $slug][0]._id)`;
-
-  return client.fetch(query, params);
-}

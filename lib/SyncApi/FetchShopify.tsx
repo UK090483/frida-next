@@ -1,260 +1,176 @@
-import axios, { AxiosRequestConfig, AxiosError } from 'axios'
-import { log } from './logging'
-import { SanityProduct } from './SanityArtwork'
+// import axios, { AxiosRequestConfig, AxiosError } from 'axios'
+// import type { Logger } from './logger'
+// import { SanityProduct } from './SanityArtwork'
 
-const shopifyConfig = {
-  'Content-Type': 'application/json',
-  'X-Shopify-Access-Token': process.env.SHOPIFY_API_PASSWORD,
-}
+// import Shopify from 'shopify-api-node'
+// // https://github.com/MONEI/Shopify-api-node
 
-export default class FetchShopify {
-  productId: string | null = null
+// const shopifyConfig = {
+//   'Content-Type': 'application/json',
+//   'X-Shopify-Access-Token': process.env.SHOPIFY_API_PASSWORD,
+// }
 
-  init = (productId: string) => {
-    this.productId = productId
-  }
+// export default class FetchShopify {
+//   productId: number | null = null
+//   shopifyClient: Shopify
+//   logger: Logger
+//   constructor(shopifyClient: Shopify, logger: Logger) {
+//     this.shopifyClient = shopifyClient
+//     this.logger = logger
+//   }
 
-  checkInitState = () => {
-    if (!this.productId) throw 'call init first FetchShopify'
-  }
-  fetch = async (
-    path: string,
-    data: any,
-    method: AxiosRequestConfig['method']
-  ) => {
-    try {
-      const res = await axios({
-        url: `https://${process.env.SHOPIFY_STORE_ID}.myshopify.com/admin/api/2021-07/${path}`,
-        method: method,
-        headers: shopifyConfig,
-        ...(data ? { data } : {}),
-      })
+//   init = (productId: number) => {
+//     this.productId = productId
+//   }
 
-      return res
-    } catch (error) {
-      const e = error as AxiosError
-      log('error', e.response?.data?.errors)
-      return null
-    }
-  }
+//   checkInitState = () => {
+//     if (!this.productId) throw 'call init first FetchShopify'
+//   }
 
-  fetchProduct = async () => {
-    this.checkInitState()
-    const res = await this.fetch(`products/${this.productId}.json`, {}, 'GET')
-    if (!res?.data?.product) {
-      return null
-    }
-    const { title, body_html, handle, variants, image, id } = res.data.product
-    return {
-      title: title,
-      body: body_html,
-      handle: handle,
-      price: variants[0].price,
-      image: image.src,
-      id: id + '',
-      variant_id: variants[0].id + '',
-    }
-  }
+//   fetch = async (
+//     path: string,
+//     data: any,
+//     method: AxiosRequestConfig['method']
+//   ) => {
+//     try {
+//       const res = await axios({
+//         url: `https://${process.env.SHOPIFY_STORE_ID}.myshopify.com/admin/api/2021-07/${path}`,
+//         method: method,
+//         headers: shopifyConfig,
+//         ...(data ? { data } : {}),
+//       })
+//       return res
+//     } catch (error) {
+//       const e = error as AxiosError
+//       this.logger('error', e.response?.data?.errors)
+//       return null
+//     }
+//   }
 
-  getChecksum = async () => {
-    this.checkInitState()
-    const res = await this.fetch(
-      `products/${this.productId}/metafields.json`,
-      undefined,
-      'GET'
-    )
+//   unPublish = async (productId: number) => {
+//     await this.shopifyClient.product.update(productId, { status: 'draft' })
+//   }
+//   publish = async (productId: number) => {
+//     await this.shopifyClient.product.update(productId, { status: 'active' })
+//   }
+//   fetchProduct = async (productId: number) => {
+//     return await this.shopifyClient.product.get(productId)
+//   }
+//   eraseProduct = async (productId: number) => {
+//     return await this.shopifyClient.product.delete(productId)
+//   }
+//   getChecksum = async (productId: number) => {
+//     try {
+//       const result = await this.shopifyClient.metafield.list({
+//         metafield: {
+//           owner_resource: 'product',
+//           owner_id: productId,
+//         },
+//       })
+//       const checkSum = result.find((item) => item.key === 'checksum_syncData')
+//       if (!checkSum) {
+//         this.logger('error', 'unable to find Checksum')
+//         return null
+//       }
+//       return checkSum.value as string
+//     } catch (error) {
+//       this.logger('error', 'unable to find Checksum')
+//       return null
+//     }
+//   }
 
-    if (!res?.data?.metafields) {
-      return null
-    }
+//   setChecksum = async (checksum: string) => {
+//     this.checkInitState()
+//     this.logger('info', `setting checksum `)
 
-    const cS = res.data.metafields.find(
-      (item: any) => item.key === 'checksum_syncData'
-    )
+//     const createdMetafield = await this.shopifyClient.metafield.create({
+//       key: 'checksum_syncData',
+//       namespace: 'syncData',
+//       value: checksum,
+//       value_type: 'string',
+//       owner_resource: 'product',
+//       owner_id: this.productId,
+//     })
+//     if (!(createdMetafield.value === checksum)) {
+//       this.logger('error', `Error setting checksum `)
+//     }
+//   }
 
-    if (!cS) {
-      console.log('error', 'unable to find Checksum')
-      return null
-    }
-    return cS.value as string
-  }
-  setChecksum = async (checksum: string) => {
-    this.checkInitState()
-    log('info', `setting checksum `)
-    const res = await this.fetch(
-      `products/${this.productId}/metafields.json`,
-      {
-        metafield: {
-          key: 'checksum_syncData',
-          namespace: 'syncData',
-          value: checksum,
-          value_type: 'string',
-        },
-      },
-      'POST'
-    )
+//   createProduct = async (product: SanityProduct, checksum: string) => {
+//     this.logger('info', `creating product ${product.name} `)
+//     const createdProduct = await this.shopifyClient.product.create({
+//       title: product.name,
+//       status: 'active',
+//       body_html: `<p>${product.description || ' '}</p>`,
+//       vendor: 'MeetFrida',
+//       product_type: 'artwork',
+//       published_scope: 'global',
+//       images: [
+//         {
+//           src: product.imageSrc,
+//         },
+//       ],
+//       variants: [
+//         {
+//           inventory_quantity: product.availability === 'sold' ? 0 : 1,
+//           inventory_management: 'shopify',
+//           price: product.price,
+//           requires_shipping: false,
+//         },
+//       ],
+//     })
 
-    if (!(res?.data?.metafield?.value === checksum)) {
-      log('error', `Error setting checksum ${res?.data}`)
-    }
-  }
-  setSanityIdMeta = async (sanityId: string) => {
-    this.checkInitState()
-    log('info', `setting SanityIdMeta  `)
-    const res = await this.fetch(
-      `products/${this.productId}/metafields.json`,
-      {
-        metafield: {
-          key: 'sanityId_syncData',
-          namespace: 'syncData',
-          value: sanityId,
-          value_type: 'string',
-        },
-      },
-      'POST'
-    )
+//     this.productId = createdProduct.id
+//     await this.shopifyClient.productListing.create(this.productId, {
+//       product_id: this.productId,
+//     })
 
-    if (!(res?.data?.metafield?.value === sanityId)) {
-      log('error', `Error setting SanityIdMeta ${res?.data}`)
-    }
-  }
+//     await this.setChecksum(checksum)
+//     // await this.setSanityIdMeta(product._id)
+//     const { handle, variants, id } = createdProduct
+//     return {
+//       shopify_product_id: id + '',
+//       shopify_variant_id: variants[0].id + '',
+//       shopify_handle: handle + '',
+//     }
+//   }
 
-  createProduct = async (product: SanityProduct, checksum: string) => {
-    log('info', `creating product ${product.name} `)
+//   updateProduct = async (
+//     productId: number,
+//     product: SanityProduct,
+//     checksum: string,
+//     draft: boolean
+//   ) => {
+//     if (!this.productId) {
+//       this.productId = productId
+//     }
+//     this.logger('info', `updating Product ${product.name}`)
 
-    try {
-      const res = await this.fetch(
-        'products.json',
-        {
-          product: {
-            title: product.name,
-            status: 'active',
-            body_html: `<p>${product.description || ' '}</p>`,
-            vendor: 'MeetFrida',
-            product_type: 'artwork',
-            published_scope: 'global',
-            images: [
-              {
-                src: product.imageSrc,
-              },
-            ],
-            variants: [
-              {
-                inventory_quantity: product.availability === 'sold' ? 0 : 1,
-                inventory_management: 'shopify',
-                price: product.price,
-                requires_shipping: false,
-              },
-            ],
-          },
-        },
-        'POST'
-      )
+//     if (!this.productId) return
 
-      if (!res) return null
-
-      if (res.data.product.id) {
-        this.productId = res.data.product.id
-        await axios({
-          url: `https://${process.env.SHOPIFY_STORE_ID}.myshopify.com/admin/api/2021-04//product_listings/${res.data.product.id}.json`,
-          method: 'PUT',
-          headers: shopifyConfig,
-          data: {
-            product_listing: {
-              product_id: res.data.product.id,
-            },
-          },
-        })
-      }
-
-      await this.setChecksum(checksum)
-      await this.setSanityIdMeta(product._id)
-
-      const { handle, variants, id } = res.data.product
-
-      return {
-        shopify_product_id: id + '',
-        shopify_variant_id: variants[0].id + '',
-        shopify_handle: handle,
-      }
-    } catch (error) {
-      log(
-        'error',
-        `Problems while creating Product ${product.name}, Error:${error}`
-      )
-      return null
-    }
-  }
-  setProductDraft = async (productId: string) => {
-    await this.fetch(
-      `products/${productId}.json`,
-      {
-        product: {
-          id: 632910392,
-          status: 'draft',
-        },
-      },
-      'PUT'
-    )
-    await this.setChecksum('draft')
-  }
-
-  updateProduct = async (
-    productId: string,
-    product: SanityProduct,
-    checksum: string
-  ) => {
-    if (!this.productId) {
-      this.productId = productId
-    }
-    log('info', `updating Product ${product.name}`)
-    try {
-      const res = await this.fetch(
-        `products/${productId}.json`,
-        {
-          product: {
-            status: 'active',
-            title: product.name,
-            body_html: `<p>${product.description}</p>`,
-            vendor: 'MeetFrida',
-            product_type: 'artwork',
-            published_scope: 'global',
-            images: [
-              {
-                src: product.imageSrc,
-              },
-            ],
-            variants: [
-              {
-                inventory_quantity:
-                  product.availability === 'availabil' ? 1 : 0,
-                inventory_management: 'shopify',
-                price: product.price,
-                requires_shipping: false,
-              },
-            ],
-          },
-        },
-        'PUT'
-      )
-
-      if (!res) return null
-      await this.setChecksum(checksum)
-      await this.setSanityIdMeta(product._id)
-
-      const { handle, variants, id } = res.data.product
-
-      return {
-        shopify_product_id: id + '',
-        shopify_variant_id: variants[0].id + '',
-        shopify_handle: handle,
-      }
-    } catch (error) {
-      log(
-        'error',
-        `Problems while updating Product ${product.name}, Error:${error}`
-      )
-      return null
-    }
-  }
-}
+//     const productResult = await this.shopifyClient.product.update(
+//       this.productId,
+//       {
+//         status: draft ? 'draft' : 'active',
+//         title: product.name,
+//         body_html: `<p>${product.description}</p>`,
+//         vendor: 'MeetFrida',
+//         product_type: 'artwork',
+//         published_scope: 'global',
+//       }
+//     )
+//     await this.shopifyClient.productVariant.update(
+//       productResult.variants[0].id,
+//       {
+//         price: product.price,
+//       }
+//     )
+//     await this.setChecksum(checksum)
+//     return {
+//       shopify_product_id: productResult.id + '',
+//       shopify_variant_id: productResult.variants[0].id + '',
+//       shopify_handle: productResult.handle,
+//     }
+//   }
+// }
+export {}

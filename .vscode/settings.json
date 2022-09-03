@@ -3,7 +3,10 @@
     "frida",
     "marq",
     "meganav",
-    "noninteractive"
+    "metafield",
+    "metafields",
+    "noninteractive",
+    "stil"
   ],
   "editor.formatOnSave": false,
   "editor.codeActionsOnSave": {
@@ -50,6 +53,6 @@
     "coverage": false,
     "cypress": false
   },
-  "explorerExclude.backup": null,
+  "explorerExclude.backup": {},
   "workspace.isHidden": true,
 }

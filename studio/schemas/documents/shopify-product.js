@@ -77,14 +77,14 @@ export default {
       readOnly: true,
       fieldset: 'shopify'
     },
-    {
-      title: 'Options',
-      name: 'options',
-      type: 'array',
-      of: [{ type: 'productOption' }],
-      readOnly: true,
-      fieldset: 'shopify'
-    },
+    // {
+    //   title: 'Options',
+    //   name: 'options',
+    //   type: 'array',
+    //   of: [{ type: 'productOption' }],
+    //   readOnly: true,
+    //   fieldset: 'shopify'
+    // },
     {
       title: 'Draft Mode',
       name: 'isDraft',
@@ -140,19 +140,19 @@ export default {
       },
       fieldset: 'cards'
     },
-    {
-      title: 'Surface Option',
-      name: 'surfaceOption',
-      type: 'string',
-      description:
-        'Surface one of the product options for this product on Collection pages',
-      options: {
-        list: [{ title: 'None', value: '' }],
-        fromField: 'options',
-        fromFieldData: { title: 'name', value: 'position' }
-      },
-      fieldset: 'cards'
-    },
+    // {
+    //   title: 'Surface Option',
+    //   name: 'surfaceOption',
+    //   type: 'string',
+    //   description:
+    //     'Surface one of the product options for this product on Collection pages',
+    //   options: {
+    //     list: [{ title: 'None', value: '' }],
+    //     fromField: 'options',
+    //     fromFieldData: { title: 'name', value: 'position' }
+    //   },
+    //   fieldset: 'cards'
+    // },
     {
       title: 'Listing Thumbnails',
       name: 'listingPhotos',

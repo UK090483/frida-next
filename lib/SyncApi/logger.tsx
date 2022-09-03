@@ -1,11 +1,11 @@
-import logger from 'node-color-log'
+import nodelogger from 'node-color-log'
 
 // "black" | "red" | "green" | "yellow" | "blue" | "magenta" | "cyan" | "white";
-export const log = (type: 'info' | 'warn' | 'error', message: string) => {
+const logger = (type: 'info' | 'warn' | 'error', message: string) => {
   const setting = {
     bold: true,
   }
-  logger.colorLog(
+  nodelogger.colorLog(
     {
       font: type === 'info' ? 'green' : type === 'warn' ? 'cyan' : 'red',
       bg: 'black',
@@ -14,3 +14,7 @@ export const log = (type: 'info' | 'warn' | 'error', message: string) => {
     setting
   )
 }
+
+export default logger
+
+export type Logger = typeof logger
