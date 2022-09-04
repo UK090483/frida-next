@@ -11,7 +11,7 @@ import {
 import { GetStaticPaths, GetStaticProps } from 'next'
 import React from 'react'
 import { FridaColors, FridaLocation } from 'types'
-import { SiteResult } from '@lib/queries/cache'
+import { siteQuery, SiteResult } from '@lib/queries/cache'
 import { body, PageBodyResult } from 'pageBuilder/pageBuilderQueries'
 import { imageMeta, ImageMetaResult } from '@lib/queries/snippets'
 import { QuoteQuery, QuoteResult } from 'pageBuilder/Blocks/QuotesBlock'
@@ -33,7 +33,7 @@ instagramLink,
 'relatedArtworks':*[_type == 'artwork' && references(^._id)]{
     ${artworkCardQuery}
 },
-'site':'getSite'
+${siteQuery}
 `
 
 export type ArtistPageResult = {

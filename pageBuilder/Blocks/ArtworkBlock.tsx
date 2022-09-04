@@ -13,7 +13,7 @@ _type == "artworks" => {
   type,
   label,
   label_en,
-  'items':  *[_type == 'artwork'][0..5]{${artworkCardQuery}},
+  'items':  *[_type == 'artwork'][]{${artworkCardQuery}},
   'stil':*[_type=='stil']{name},
   'medium':*[_type=='medium']{name}
 }

@@ -57,6 +57,6 @@ export const handleStaticProps: (
       data: pageData || null,
       lang: locale || null,
     },
-    // revalidate: 1,
+    revalidate: 1,
   }
 }

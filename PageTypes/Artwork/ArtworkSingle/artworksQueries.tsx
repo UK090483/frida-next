@@ -1,4 +1,4 @@
-import { SiteResult } from '@lib/queries/cache'
+import { siteQuery, SiteResult } from '@lib/queries/cache'
 import {
   artworkCardQuery,
   ArtworkCardResult,
@@ -64,7 +64,7 @@ price,
     ${artworkCardQuery}
 },
 seo,
-'site':'getSite'
+${siteQuery}
 `
 
 export type ArtworkSingleViewResult = {

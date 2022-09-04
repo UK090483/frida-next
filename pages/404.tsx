@@ -1,9 +1,9 @@
 import { handleStaticProps } from '@lib/queries/handleStaticProps'
 import { GetStaticProps } from 'next'
 import React from 'react'
-import { body } from 'pageBuilder/pageBuilderQueries'
+
 import Layout from '@components/generic/Layout'
-import { PageResult } from 'PageTypes/Page/pageQueries'
+import { pageQuery, PageResult } from 'PageTypes/Page/pageQueries'
 import Header from '@components/generic/Header'
 import ArtworkCard, {
   artworkCardQuery,
@@ -16,13 +16,7 @@ import ArtistCard, {
 import Section from '@components/Section'
 import Carousel from '@components/CardCarousel'
 import { useRouter } from 'next/router'
-export const pageQuery = `
-...,
-'slug':slug.current,
-footer->{${body}},
-${body}
-'site':'getSite'
-`
+
 interface ErrorPageResult extends PageResult {
   artworks: ArtworkCardResult[]
   artists: ArtistCardResult[]

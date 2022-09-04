@@ -1,4 +1,4 @@
-import { SiteResult } from '@lib/queries/cache'
+import { siteQuery, SiteResult } from '@lib/queries/cache'
 import { body, PageBodyResult } from 'pageBuilder/pageBuilderQueries'
 import { FridaColors } from 'types'
 
@@ -8,7 +8,7 @@ type_,
 'slug':slug.current,
 footer->{${body}},
 ${body}
-'site':'getSite'
+${siteQuery}
 `
 export type PageResult = {
   type_: 'page' | 'indexPage'

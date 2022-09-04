@@ -5,11 +5,13 @@ import {
   artworkCardQuery,
   ArtworkCardResult,
 } from 'PageTypes/Artwork/ArtworkCard'
-import { accessCache } from 'next-build-cache'
+// import { accessCache } from 'next-build-cache'
 import { body, PageBodyResult } from '../../pageBuilder/pageBuilderQueries'
 import { defaultFooterId } from 'shared'
 
-export const cache = accessCache('public/build.cache.json')
+// export const cache = accessCache('public/build.cache.json')
+
+export const cache = { get: (_a: any) => null, put: (_a: any, _b: any) => null }
 
 const cashQuery = `
 {
@@ -47,6 +49,36 @@ const cashQuery = `
     }
   }
 }
+`
+
+export const siteQuery = `
+'site':{
+  'footer':*[_type=='footer' && _id == '${defaultFooterId}' ][0]{${body}},
+  "seo": *[_type == "seoSettings"][0]{
+    siteTitle,
+    metaTitle,
+    metaDesc,
+    shareTitle,
+    shareDesc,
+    shareGraphic
+  },
+  'navigation':*[_type == "navigation"][0]{
+    'items': item[]{
+      label,
+      label_en,
+      link,
+      'internalLink':internalLink->slug.current
+      }
+    },
+    'footerItems': footerNav[]{
+      label,
+      label_en,
+      link,
+      'internalLink':internalLink->{'type':_type, 'slug':slug.current},
+    },
+    'agbSite':agbSite->slug.current,
+    'imprintSite':imprintSite->slug.current,
+  }
 `
 
 export type SiteResult = {

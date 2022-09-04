@@ -1,6 +1,4 @@
-import { shouldCash } from '@lib/constants'
 import { getSanityClient } from '@lib/sanity.server'
-import { cache } from './cache'
 
 export const getAllDocSlugs: (
   doc: string,
@@ -12,20 +10,7 @@ export const getAllDocSlugs: (
 }
 
 export const getAllDocPathsCached = async (doc: string, args?: string) => {
-  let allPages
-  if (shouldCash) {
-    const key = `docPaths${doc}`
-    allPages = await cache.get(key)
-    if (!allPages) {
-      console.log(`docPath ${doc} gets cached`)
-      allPages = await getAllDocSlugs(doc)
-      await cache.put(key, allPages)
-    } else {
-      console.log(`docPath ${doc} from cache`)
-    }
-  } else {
-    allPages = await getAllDocSlugs(doc, args)
-  }
+  const allPages = await getAllDocSlugs(doc, args)
 
   if (!allPages) return { paths: [], fallback: true }
   if (!Array.isArray(allPages)) return { paths: [], fallback: true }

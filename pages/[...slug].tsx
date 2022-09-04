@@ -4,9 +4,10 @@ import { usePage } from '@lib/queries/usePage'
 import PageBuilder from 'PageTypes/Page/Page'
 import { PageResult } from 'PageTypes/Page/pageQueries'
 import type { GetStaticPaths, GetStaticProps } from 'next'
-import Error, { pageQuery } from 'pages/404'
+import Error from 'pages/404'
 import React from 'react'
 import type { FridaLocation } from 'types'
+import { pageQuery } from 'PageTypes/Page/pageQueries'
 
 export type PageProps = {
   data: PageResult | null

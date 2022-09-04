@@ -1,11 +1,12 @@
 import { handleStaticProps } from '@lib/queries/handleStaticProps'
 import { usePage } from '@lib/queries/usePage'
-import Error, { pageQuery } from '@pages/404'
+import Error from '@pages/404'
 import Page from 'PageTypes/Page/Page'
 import { PageResult } from 'PageTypes/Page/pageQueries'
 import { GetStaticProps } from 'next'
 import React from 'react'
 import { FridaLocation } from 'types'
+import { pageQuery } from '@lib/queries/page'
 
 type HomeProps = {
   data: PageResult | null
