@@ -52,7 +52,7 @@ const ImagePlug: React.FC<ImagePlugResult> = (props) => {
         { 'h-vh': customHeight === 'xxl' }
       )}
     >
-      <Photo photo={rest} layout={_layout} maxWidth={600} />
+      <Photo photo={rest} layout={_layout} maxWidth={2200} />
     </div>
   )
 }
