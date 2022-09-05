@@ -48,6 +48,8 @@ const ArtworkHero: React.FC<ArtworkHeroProps> = ({ artwork, lang }) => {
 
   const showVideo = isNft && video?.data?.status === 'ready'
 
+  const available = availability !== 'sold'
+
   return (
     <ProductHeroWrap>
       <ProductImageWrap>
@@ -63,7 +65,7 @@ const ArtworkHero: React.FC<ArtworkHeroProps> = ({ artwork, lang }) => {
             <ProductName
               size="l"
               name={artworkName}
-              availability={availability !== 'sold'}
+              availability={available}
               asH1
               hiddenBefore={`Artwork: `}
               hiddenAfter={`by ${artistName}`}
@@ -92,6 +94,7 @@ const ArtworkHero: React.FC<ArtworkHeroProps> = ({ artwork, lang }) => {
           {/* <SocialShare className="pt-2 pb-6" /> */}
           {!isNft && (
             <BuyButton
+              available={available}
               className="my-10"
               isInCart={itemInCart}
               handleAddToCard={() => {
@@ -105,6 +108,7 @@ const ArtworkHero: React.FC<ArtworkHeroProps> = ({ artwork, lang }) => {
           )}
           {isNft && (
             <BuyButton
+              available={available}
               className="my-10"
               isInCart={itemInCart}
               nftLink={nftUrl || ' '}
