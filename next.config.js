@@ -39,7 +39,8 @@ module.exports =()=>({
     const { dev, isServer, buildId, webpack, } = options
 
     config.experiments= {
-      topLevelAwait: true
+      topLevelAwait: true,
+      layers:true
     }
 
     // Do not run type checking twice:
