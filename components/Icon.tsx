@@ -389,6 +389,7 @@ type IconProps = {
   onClick?: () => void
   [k: string]: any
   withMouseHover?: boolean
+  'data-testid'?: string
 }
 
 const Icon: React.FC<IconProps> = ({
@@ -416,7 +417,7 @@ const Icon: React.FC<IconProps> = ({
 
         className
       )}
-      // {...rest}
+      {...rest}
       onClick={onClick}
       {...(withMouseHover ? mouseLinkProps : {})}
     >

@@ -13,7 +13,7 @@
 .is-tabbing a,
 .is-tabbing button,
 .is-tabbing .select{
-  @apply focus:outline-green;
+  @apply outline-frida-green;
 }
 .is-tabbing .select--option {
   @apply outline-white;

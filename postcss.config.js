@@ -1,6 +1,7 @@
 module.exports = {
   plugins: {
     'postcss-import': {},
+    'postcss-nested': {},
     tailwindcss: {},
     'postcss-flexbugs-fixes': {},
     'postcss-preset-env': {
@@ -13,7 +14,7 @@ module.exports = {
       },
     },
     'postcss-mixins': {},
-    'postcss-nested': {},
+   
     'postcss-custom-media': {},
   },
 }

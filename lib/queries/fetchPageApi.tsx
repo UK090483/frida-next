@@ -26,8 +26,6 @@ export const fetchPageWithCache = async (
     slug: slug,
   })
 
-  console.log(pageData.site)
-
   // const SiteCache = await buildCache.getData(preview)
 
   // if (!pageData || !SiteCache) return

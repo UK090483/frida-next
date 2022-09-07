@@ -1,6 +1,6 @@
 import Layout from '@components/generic/Layout'
 
-import { SiteResult } from '@lib/queries/cache'
+import { siteQuery, SiteResult } from '@lib/queries/cache'
 import { body, PageBodyResult } from 'pageBuilder/pageBuilderQueries'
 import { ImageMetaResult, imageMeta } from '@lib/queries/snippets'
 import BodyParser from 'pageBuilder/BodyParser'
@@ -22,7 +22,7 @@ excerpt_en,
 'headerImage': headerImage {${imageMeta}},
 'previewImage':previewImage {${imageMeta}},
 ${body}
-'site':'getSite'
+${siteQuery}
 `
 
 export type PostPageResult = {

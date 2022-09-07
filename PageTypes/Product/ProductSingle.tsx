@@ -2,7 +2,7 @@ import ProductHero from './ProductHero'
 import React from 'react'
 import { FridaLocation } from 'types'
 import { imageMeta, ImageMetaResult } from '@lib/queries/snippets'
-import { SiteResult } from '@lib/queries/cache'
+import { siteQuery, SiteResult } from '@lib/queries/cache'
 
 export const productSingleViewQuery = `
 ...,
@@ -41,7 +41,7 @@ optionSettings[]{
   seo
 },
 seo,
-'site':'getSite'
+${siteQuery}
 `
 export interface ProductGalleryPhotos {
   forOption: string

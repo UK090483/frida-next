@@ -1,31 +1,31 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {
-  mode: 'jit',
-  purge: {
-    content: [
-      './components/**/*.tsx',
-      './PageTypes/**/*.tsx',
-      './pages/**/*.tsx',
-      './pageBuilder/**/*.tsx',
-    ],
-    options: {
-      safelist: [
-        'decoration-frida-black',
-        'decoration-frida-pink',
-        'decoration-frida-white',
-        'text-frida-black',
-        'text-frida-red',
-        'text-frida-pink',
-        'bg-frida-pink',
-        'bg-frida-red',
-        'bg-frida-green',
-        'bg-frida-white',
-        'bg-frida-black',
-      ],
-    },
-  },
-  darkMode: false, // or 'media' or 'class'
+  content: [
+    './components/**/*.tsx',
+    './PageTypes/**/*.tsx',
+    './pages/**/*.tsx',
+    './pageBuilder/**/*.tsx',
+  ],
+  // purge: {
+    
+  //   options: {
+  //     safelist: [
+  //       'decoration-frida-black',
+  //       'decoration-frida-pink',
+  //       'decoration-frida-white',
+  //       'text-frida-black',
+  //       'text-frida-red',
+  //       'text-frida-pink',
+  //       'bg-frida-pink',
+  //       'bg-frida-red',
+  //       'bg-frida-green',
+  //       'bg-frida-white',
+  //       'bg-frida-black',
+  //     ],
+  //   },
+  // },
+  // darkMode: false, 
   theme: {
     colors: {
       transparent: 'transparent',
@@ -181,8 +181,8 @@ module.exports = {
     require('@tailwindcss/forms')({
       strategy: 'class',
     }),
-    require('tailwind-text-decoration-color'),
-    require('@tailwindcss/aspect-ratio'),
+      require('tailwind-text-decoration-color'),
+     require('@tailwindcss/aspect-ratio'),
     require('tailwindcss-fluid')({
       textSizes: {
         xxs: {

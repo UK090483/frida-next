@@ -1,11 +1,11 @@
 
-const sanityClient = require('@sanity/client')
-const client = sanityClient({
-  dataset: process.env.SANITY_PROJECT_DATASET,
-  projectId: process.env.SANITY_PROJECT_ID,
-  useCdn: process.env.NODE_ENV === 'production',
-  apiVersion: '2021-03-25',
-})
+// const sanityClient = require('@sanity/client')
+// const client = sanityClient({
+//   dataset: process.env.SANITY_PROJECT_DATASET,
+//   projectId: process.env.SANITY_PROJECT_ID,
+//   useCdn: process.env.NODE_ENV === 'production',
+//   apiVersion: '2021-03-25',
+// })
 
 // see breakdown of code bloat
 // const withBundleAnalyzer = require('@next/bundle-analyzer')({
@@ -15,23 +15,23 @@ const client = sanityClient({
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 // const withPreact = require('next-plugin-preact');
 // get redirects from Sanity for Vercel
-async function fetchSanityRedirects() {
+// async function fetchSanityRedirects() {
 
 
-  const data = await client.fetch(
-    `*[_type == "redirect"]{ from, to, isPermanent }`
-  )
+//   const data = await client.fetch(
+//     `*[_type == "redirect"]{ from, to, isPermanent }`
+//   )
 
-  const redirects = data.map((redirect) => {
-    return {
-      source: `/${redirect.from}`,
-      destination: `/${redirect.to}`,
-      permanent: redirect.isPermanent,
-    }
-  })
+//   const redirects = data.map((redirect) => {
+//     return {
+//       source: `/${redirect.from}`,
+//       destination: `/${redirect.to}`,
+//       permanent: redirect.isPermanent,
+//     }
+//   })
 
-  return redirects
-}
+//   return redirects
+// }
 
 module.exports =()=>({
   
@@ -100,8 +100,8 @@ module.exports =()=>({
     // your project has ESLint errors.
     ignoreDuringBuilds: true,
   },
-  async redirects() {
-    const sanityRedirects = await fetchSanityRedirects()
-    return sanityRedirects
-  },
+  // async redirects() {
+  //   const sanityRedirects = await fetchSanityRedirects()
+  //   return sanityRedirects
+  // },
 })
