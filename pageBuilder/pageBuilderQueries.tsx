@@ -62,7 +62,6 @@ content[]{
   ${richTextQuery},
   ${MarqueeBlockQuery},
   ${QuotesBlockQuery},
- 
 },
 `
 

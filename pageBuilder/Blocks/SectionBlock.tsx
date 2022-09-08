@@ -72,7 +72,7 @@ const SectionBlock: React.FC<SectionBlockProps> = (props) => {
       backgroundColor={bgColor || 'white'}
       bgImage={photo}
     >
-      {content && <BodyParser lang={lang} content={_content} />}
+      {content && <BodyParser content={_content} />}
     </Section>
   )
 }

@@ -54,16 +54,18 @@ import { PageBodyResult } from './pageBuilderQueries'
 import InnerSectionPlug from './Plugs/innerSection'
 import SpacerPlug from './Plugs/Spacer'
 import DownLoadPlug from './Plugs/DownLoadPlug'
+import { useRouter } from 'next/router'
 
 type ContentParserProps = {
   content: PageBodyResult
-  lang: FridaLocation
   extraComponents?: { [k: string]: React.ReactElement }
 }
 
 const BodyParser: React.FC<ContentParserProps> = (props) => {
-  const { content, lang, extraComponents } = props
+  const { content, extraComponents } = props
+  const { locale } = useRouter()
 
+  const lang: FridaLocation = locale === 'en' ? 'en' : 'de'
   return (
     <>
       {content &&

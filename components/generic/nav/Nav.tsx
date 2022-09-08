@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import LangSwitch from '@components/generic/LangSwitcher'
 import { useSiteContext } from '@lib/context/context'
-import { FridaLocation } from 'types'
 import { setMouse } from '../Mouse/mouseRemote'
 import BigButtons from './BigButtons'
 import Burger from './Burger'
@@ -20,10 +19,9 @@ export type NavItems = {
 }
 type NavProps = {
   items: NavItems[]
-  lang: FridaLocation
 }
 
-const Nav: React.FC<NavProps> = ({ items, lang }) => {
+const Nav: React.FC<NavProps> = ({ items }) => {
   const {
     meganav: { isOpen },
   } = useSiteContext()
@@ -74,7 +72,7 @@ const Nav: React.FC<NavProps> = ({ items, lang }) => {
             }`}
           ></div>
 
-          <Links open={isOpen} items={items} lang={lang} />
+          <Links open={isOpen} items={items} />
 
           {isOpen && <LangSwitch />}
           {isOpen && (

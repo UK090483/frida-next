@@ -1,4 +1,4 @@
-import Layout from '@components/generic/Layout'
+import Layout from 'pageBuilder/Layout/Layout'
 import { usePage } from '@lib/queries/usePage'
 import {
   artworkSingleViewQuery,
@@ -27,13 +27,7 @@ const ArtworkTemplate: React.FC<TemplateProps<ArtworkSingleViewResult>> = (
   if (isError) return <Error />
 
   return (
-    <Layout
-      preview={preview}
-      lang={lang}
-      title={pageData.artistName || 'Frida'}
-      navItems={pageData.site.navigation?.items}
-      data={pageData}
-    >
+    <Layout title={pageData.artistName || 'Frida'}>
       <ArtworkSingle lang={lang} {...pageData} />
     </Layout>
   )

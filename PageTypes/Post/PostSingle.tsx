@@ -1,6 +1,6 @@
-import Layout from '@components/generic/Layout'
+import Layout from 'pageBuilder/Layout/Layout'
 
-import { siteQuery, SiteResult } from '@lib/queries/cache'
+import { SiteResult } from '@lib/queries/cache'
 import { body, PageBodyResult } from 'pageBuilder/pageBuilderQueries'
 import { ImageMetaResult, imageMeta } from '@lib/queries/snippets'
 import BodyParser from 'pageBuilder/BodyParser'
@@ -9,6 +9,7 @@ import { FridaLocation } from 'types'
 import Photo from '@components/Photo'
 
 import CarouselHeroItem from '@components/CarouselHero/CarouselItem'
+import { layoutQuery } from 'pageBuilder/Layout/layoutQuery'
 
 export const postSingleView = `
 ...,
@@ -22,7 +23,7 @@ excerpt_en,
 'headerImage': headerImage {${imageMeta}},
 'previewImage':previewImage {${imageMeta}},
 ${body}
-${siteQuery}
+${layoutQuery()}
 `
 
 export type PostPageResult = {
@@ -52,9 +53,7 @@ const PostSingle: React.FC<PostSingleProps> = (props) => {
     lang,
     title,
     title_en,
-    site,
     default_header,
-    preview = false,
     categories,
   } = props
 
@@ -69,14 +68,7 @@ const PostSingle: React.FC<PostSingleProps> = (props) => {
 
   return (
     <>
-      <Layout
-        preview={preview}
-        lang={lang}
-        initialColor="pink"
-        title={_headerTitle}
-        navItems={site?.navigation?.items}
-        data={props}
-      >
+      <Layout initialColor="pink" title={_headerTitle}>
         {default_header !== false && (
           <CarouselHeroItem
             color={'pink'}
@@ -84,7 +76,7 @@ const PostSingle: React.FC<PostSingleProps> = (props) => {
             content={<h1 className="pb-10 header-small">{_title}</h1>}
           />
         )}
-        {content && <BodyParser lang={lang} content={content} />}
+        {content && <BodyParser content={content} />}
       </Layout>
     </>
   )

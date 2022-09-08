@@ -68,7 +68,6 @@ const CarouselHeroBlock: React.FC<CarouselHeroBlockProps> = (props) => {
     color: item.bgColor,
     content: (
       <BodyParser
-        lang="de"
         content={
           lang === 'en' && item.content_en ? item.content_en : item.content
         }

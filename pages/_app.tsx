@@ -1,4 +1,3 @@
-// import ShowBreakingPoints from '@lib/helper/showBreakingPoints'
 import Cart from '@components/shopComponents/Cart'
 import { SiteContextProvider } from '@lib/context/context'
 import { isBrowser } from '@lib/helpers'
@@ -9,23 +8,11 @@ import React, { useEffect, useState, useCallback } from 'react'
 import 'resize-observer-polyfill'
 import '../styles/app.css'
 import '../styles/tailwind.css'
-// import LogRocket from 'logrocket'
-// LogRocket.init('6dxpjn/test')
-import type {
-  AppProps,
-  //  NextWebVitalsMetric
-} from 'next/app'
 
-// import Honeybadger from '@honeybadger-io/js'
-// import ErrorBoundary from '@honeybadger-io/react'
+import type { AppProps } from 'next/app'
 
-// Honeybadger.configure({
-//   apiKey: 'hbp_p1Jh4oN3FCcNBfxecEQxr7m3CSlWjL2saOIR',
-//   environment: 'production',
-//   reportData: true,
-// })
-// Honeybadger.notify('Hello from React')
 import ChromeFix from 'lib/chromeFix'
+import { LayoutContextProvider } from 'pageBuilder/Layout/LayoutContext'
 
 const MyApp = ({ Component, pageProps, router }: AppProps) => {
   const lang = pageProps.lang === 'en' ? 'en' : 'de'
@@ -89,31 +76,29 @@ const MyApp = ({ Component, pageProps, router }: AppProps) => {
   }, [handleFirstTab])
 
   return (
-    // <ErrorBoundary honeybadger={Honeybadger}>
-    <SiteContextProvider data={{ ...pageProps?.data?.site }}>
-      <LazyMotion features={domAnimation}>
-        {isLoading && (
-          <Head>
-            <title>Loading...</title>
-          </Head>
-        )}
+    <LayoutContextProvider data={pageProps.data.layout}>
+      <SiteContextProvider data={{ ...pageProps?.data?.site }}>
+        <LazyMotion features={domAnimation}>
+          {isLoading && (
+            <Head>
+              <title>Loading...</title>
+            </Head>
+          )}
 
-        <AnimatePresence
-          initial={false}
-          onExitComplete={() => {
-            window.scrollTo(0, 0)
-            document.body.classList.remove('overflow-hidden')
-          }}
-        >
-          <Component key={router.asPath.split('?')[0]} {...pageProps} />
-        </AnimatePresence>
+          <AnimatePresence
+            initial={false}
+            onExitComplete={() => {
+              window.scrollTo(0, 0)
+              document.body.classList.remove('overflow-hidden')
+            }}
+          >
+            <Component key={router.asPath.split('?')[0]} {...pageProps} />
+          </AnimatePresence>
 
-        <Cart data={{ ...pageProps?.data?.site }} lang={lang} />
-
-        {/* <ShowBreakingPoints /> */}
-      </LazyMotion>
-    </SiteContextProvider>
-    // </ErrorBoundary>
+          <Cart data={{ ...pageProps?.data?.site }} lang={lang} />
+        </LazyMotion>
+      </SiteContextProvider>
+    </LayoutContextProvider>
   )
 }
 // export function reportWebVitals(metric: NextWebVitalsMetric) {

@@ -1,5 +1,5 @@
 import React from 'react'
-import Layout from '@components/generic/Layout'
+import Layout from 'pageBuilder/Layout/Layout'
 import BodyParser from 'pageBuilder/BodyParser'
 import Header from '@components/generic/Header'
 import { FridaLocation } from 'types'
@@ -15,15 +15,12 @@ interface PageProps {
   preview?: boolean | undefined
 }
 const Page: React.FC<PageProps> = (props) => {
-  const { preview = false, data } = props
-  const { content, pageHeader, title_en, site } = data
+  const { data } = props
+  const { content, pageHeader, title_en } = data
   const title = props.lang === 'en' && title_en ? title_en : props.data.title
 
   return (
     <Layout
-      preview={preview}
-      lang={props.lang}
-      data={props.data}
       title={title || 'Not Set'}
       header={
         <Header
@@ -31,12 +28,10 @@ const Page: React.FC<PageProps> = (props) => {
           initialColor={pageHeader?.initialPageTitleColor || 'white'}
           title={title || 'Not Set'}
           nav={!pageHeader?.hideMenu}
-          navItems={site?.navigation?.items}
-          lang={props.lang}
         ></Header>
       }
     >
-      <BodyParser lang={props.lang} content={content} />
+      <BodyParser content={content} />
 
       <CookieBar />
 

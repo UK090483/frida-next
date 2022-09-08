@@ -1,4 +1,3 @@
-import Layout from '@components/generic/Layout'
 import { usePage } from '@lib/queries/usePage'
 import { getAllDocPathsCached } from '@lib/queries/fetchDocPathApi'
 import { handleStaticProps } from '@lib/queries/handleStaticProps'
@@ -11,10 +10,12 @@ import {
 import { GetStaticPaths, GetStaticProps } from 'next'
 import React from 'react'
 import { FridaColors, FridaLocation } from 'types'
-import { siteQuery, SiteResult } from '@lib/queries/cache'
+import { SiteResult } from '@lib/queries/cache'
 import { body, PageBodyResult } from 'pageBuilder/pageBuilderQueries'
 import { imageMeta, ImageMetaResult } from '@lib/queries/snippets'
 import { QuoteQuery, QuoteResult } from 'pageBuilder/Blocks/QuotesBlock'
+import Layout from 'pageBuilder/Layout/Layout'
+import { layoutQuery } from 'pageBuilder/Layout/layoutQuery'
 
 export const artistSingleView = `
 ...,
@@ -33,7 +34,7 @@ instagramLink,
 'relatedArtworks':*[_type == 'artwork' && references(^._id)]{
     ${artworkCardQuery}
 },
-${siteQuery}
+${layoutQuery()}
 `
 
 export type ArtistPageResult = {
@@ -76,17 +77,9 @@ const ArtworkTemplate: React.FC<ArtworkTemplateProps> = (props) => {
   // TODO: handle init colo
   // const _initialColor = pageData?.initBgColor ? data.initBgColor : 'white'
   return (
-    <>
-      <Layout
-        initialColor={'black'}
-        preview={preview}
-        lang={lang}
-        title={pageData.name || ''}
-        data={pageData}
-      >
-        <ArtistSingle lang={lang} {...pageData} />
-      </Layout>
-    </>
+    <Layout initialColor={'black'} title={pageData.name || ''}>
+      <ArtistSingle lang={lang} {...pageData} />
+    </Layout>
   )
 }
 

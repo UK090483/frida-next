@@ -8,16 +8,14 @@ import classNames from 'classnames'
 import ArtworkCard from 'PageTypes/Artwork/ArtworkCard'
 import BodyParser from 'pageBuilder/BodyParser'
 import React from 'react'
-import { FridaColors, FridaLocation } from 'types'
+import { FridaColors } from 'types'
 import Quotes from '@components/Quote/Quotes'
+import { useRouter } from 'next/router'
 
-interface ArtistSingleProps extends ArtistPageResult {
-  lang: FridaLocation
-}
+type ArtistSingleProps = ArtistPageResult
 
 const ArtistSingle: React.FC<ArtistSingleProps> = (props) => {
-  const { relatedArtworks, lang, content, mainImage, initBgColor, quotes } =
-    props
+  const { relatedArtworks, content, mainImage, initBgColor, quotes } = props
 
   const _initBgColor = initBgColor ? initBgColor : 'white'
 
@@ -29,7 +27,6 @@ const ArtistSingle: React.FC<ArtistSingleProps> = (props) => {
   if (content && content.length > 0) {
     return (
       <BodyParser
-        lang={lang}
         content={content}
         extraComponents={{
           artistHero: (
@@ -73,11 +70,10 @@ const ArtistHero: React.FC<ArtistHeroProps> = ({ photo, initBgColor }) => {
 }
 
 const ArtistInfo: React.FC<ArtistSingleProps> = (props) => {
-  const { lang, description, description_en, webLink, instagramLink, name } =
-    props
-
+  const { description, description_en, webLink, instagramLink, name } = props
+  const { locale } = useRouter()
   const _description =
-    lang === 'en' && description_en ? description_en : description
+    locale === 'en' && description_en ? description_en : description
 
   return (
     <>
@@ -162,20 +158,16 @@ const ArtistImages: React.FC<ArtistSingleProps> = (props) => {
 }
 
 const ArtistWorks: React.FC<ArtistSingleProps> = (props) => {
-  const { relatedArtworks, lang, name } = props
+  const { relatedArtworks, name } = props
 
+  const { locale } = useRouter()
   return (
     <>
       {relatedArtworks && relatedArtworks.length > 0 && (
         <Carousel
-          header={lang === 'en' ? `Works by ${name}` : `Arbeiten von ${name}`}
+          header={locale === 'en' ? `Works by ${name}` : `Arbeiten von ${name}`}
           items={relatedArtworks.map((item) => (
-            <ArtworkCard
-              key={item.slug}
-              type="carousel"
-              {...item}
-              lang={lang}
-            />
+            <ArtworkCard key={item.slug} type="carousel" {...item} />
           ))}
         />
       )}

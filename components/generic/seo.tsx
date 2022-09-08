@@ -3,9 +3,7 @@ import { imageBuilder } from '@lib/sanity'
 import generateSeo from '@lib/useSeo'
 import Head from 'next/head'
 import React from 'react'
-import schema from 'studio/schemas/schema'
 import generateSchema from './schema'
-import Schema from './schema'
 
 type SEOProps = {
   site: SiteResult

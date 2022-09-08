@@ -1,4 +1,4 @@
-import Layout from '@components/generic/Layout'
+import Layout from 'pageBuilder/Layout/Layout'
 import { usePage } from '@lib/queries/usePage'
 import { getAllDocPathsCached } from '@lib/queries/fetchDocPathApi'
 import { handleStaticProps } from '@lib/queries/handleStaticProps'
@@ -34,13 +34,7 @@ const ProductTemplate: React.FC<ProductTemplateProps> = (props) => {
 
   return (
     <div>
-      <Layout
-        preview={preview || false}
-        lang={lang}
-        title={'Shop'}
-        navItems={pageData.site.navigation.items}
-        data={pageData}
-      >
+      <Layout title={'Shop'}>
         <ProductSingle lang={lang} {...pageData} />
       </Layout>
     </div>

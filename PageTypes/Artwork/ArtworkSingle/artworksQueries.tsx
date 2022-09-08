@@ -1,4 +1,3 @@
-import { siteQuery, SiteResult } from '@lib/queries/cache'
 import {
   artworkCardQuery,
   ArtworkCardResult,
@@ -10,6 +9,7 @@ import {
   ImageMetaResult,
   SeoResult,
 } from '../../../lib/queries/snippets'
+import { layoutQuery } from 'pageBuilder/Layout/layoutQuery'
 
 const productHintQuery = `
 text,
@@ -64,7 +64,7 @@ price,
     ${artworkCardQuery}
 },
 seo,
-${siteQuery}
+${layoutQuery()}
 `
 
 export type ArtworkSingleViewResult = {
@@ -98,7 +98,6 @@ export type ArtworkSingleViewResult = {
   randomArtworks: ArtworkCardResult[]
   shopify_product_id: null | string
   shopify_variant_id: null | string
-  site: SiteResult
   hints?: ProductHintResult[] | null
   seo: null | Partial<SeoResult>
 }

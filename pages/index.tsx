@@ -6,7 +6,7 @@ import { PageResult } from 'PageTypes/Page/pageQueries'
 import { GetStaticProps } from 'next'
 import React from 'react'
 import { FridaLocation } from 'types'
-import { pageQuery } from '@lib/queries/page'
+import { pageQuery } from '../PageTypes/Page/pageQueries'
 
 type HomeProps = {
   data: PageResult | null
@@ -14,11 +14,12 @@ type HomeProps = {
   preview: boolean
 }
 const query = `*[_type == 'indexPage'  && _id == 'frontPage'][0]{
-  ${pageQuery}
+  ${pageQuery},
 }
 `
 
 const Home: React.FC<HomeProps> = ({ data, lang, preview }) => {
+  return null
   const { pageData, isError } = usePage({ slug: '/', query, data, preview })
 
   if (isError) return <Error />
