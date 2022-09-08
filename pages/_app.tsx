@@ -76,7 +76,7 @@ const MyApp = ({ Component, pageProps, router }: AppProps) => {
   }, [handleFirstTab])
 
   return (
-    <LayoutContextProvider data={pageProps.data.layout}>
+    <LayoutContextProvider data={pageProps?.data?.layout}>
       <SiteContextProvider data={{ ...pageProps?.data?.site }}>
         <LazyMotion features={domAnimation}>
           {isLoading && (
