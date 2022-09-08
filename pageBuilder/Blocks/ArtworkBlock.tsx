@@ -15,10 +15,10 @@ _type == "artworks" => {
   label,
   label_en,
   'items':  select(
-              'lastEdited' in order => *[_type == 'artwork'] | order(_updatedAt desc)[0...20]{${artworkCardQuery}},
-              count == 'all' => *[_type == 'artwork'][]{${artworkCardQuery}},
-              *[_type == 'artwork'][0...20]{${artworkCardQuery}}
-            ),
+              'lastEdited' in order => *[_type == 'artwork'] | order(_updatedAt desc)[0...20],
+              count == 'all' => *[_type == 'artwork'][],
+              *[_type == 'artwork'][0...20]
+            )[]{${artworkCardQuery}},
   'stil':*[_type=='stil']{name},
   'medium':*[_type=='medium']{name}
 }

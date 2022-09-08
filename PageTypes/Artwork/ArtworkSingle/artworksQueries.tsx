@@ -23,7 +23,6 @@ export type ProductHintResult = {
 }
 
 export const artworkSingleViewQuery = `
-...,
 _type,
 isNft,
 nftInfo,

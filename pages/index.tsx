@@ -17,11 +17,8 @@ const query = `*[_type == 'indexPage'  && _id == 'frontPage'][0]{
   ${pageQuery},
 }
 `
-
 const Home: React.FC<HomeProps> = ({ data, lang, preview }) => {
-  return null
   const { pageData, isError } = usePage({ slug: '/', query, data, preview })
-
   if (isError) return <Error />
   return <Page lang={lang} data={pageData} preview={preview} />
 }
