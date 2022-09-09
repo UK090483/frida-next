@@ -36,8 +36,6 @@ type LayoutProps = {
   header?: string | React.ReactElement
   initialColor?: FridaColors | 'white/pink'
   children: React.ReactNode
-  page?: any
-  schema?: any
 }
 
 const Layout: React.FC<LayoutProps> = (props) => {

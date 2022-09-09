@@ -13,6 +13,7 @@ import Error from '@pages/404'
 import ArtworkSingle from 'PageTypes/Artwork/ArtworkSingle/ArtworkSingle'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import React from 'react'
+import getServerResource from 'pageBuilder/Api/getResource.server'
 
 const query = `*[_type == "artwork" && slug.current == $slug ][0]{
   ${artworkSingleViewQuery}
@@ -34,7 +35,21 @@ const ArtworkTemplate: React.FC<TemplateProps<ArtworkSingleViewResult>> = (
 }
 
 export const getStaticProps: GetStaticProps = async (props) => {
-  return await handleStaticProps({ ...props, query })
+  const res = await handleStaticProps({ ...props, query })
+  //@ts-ignore
+  if (res?.props?.data?.randomArtworks) {
+    console.log('has random ')
+    const randomArtworks = await getServerResource({
+      type: 'artworks',
+      count: 8,
+    })
+
+    if (randomArtworks && randomArtworks.length > 0) {
+      //@ts-ignore
+      res.props.data.randomArtworks = randomArtworks
+    }
+  }
+  return res
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {

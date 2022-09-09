@@ -7,6 +7,7 @@ import Button from '@components/buttons/button'
 import { FridaLocation } from 'types'
 import ArtworkHero from './ArtworkHero'
 import Quotes from '@components/Quote/Quotes'
+import { useArtworks } from 'pageBuilder/Api/useResource'
 
 interface ArtworkSingleProps extends ArtworkSingleViewResult {
   lang: FridaLocation
@@ -28,6 +29,11 @@ const ArtworkSingle: React.FC<ArtworkSingleProps> = (props) => {
     instagramLink,
     quotes,
   } = props
+
+  const [fetchedArtworks] = useArtworks()
+
+  const moreArtworks =
+    fetchedArtworks.length > 0 ? fetchedArtworks : randomArtworks
 
   const _description =
     lang === 'en' && description_en ? description_en : description
@@ -120,11 +126,11 @@ const ArtworkSingle: React.FC<ArtworkSingleProps> = (props) => {
         />
       )}
 
-      {randomArtworks.length > 0 && (
+      {moreArtworks.length > 0 && (
         <Carousel
           bgColor="pink"
           header={lang === 'en' ? `More Artworks` : `Weitere Werke`}
-          items={randomArtworks.map((item) => (
+          items={moreArtworks.map((item) => (
             <ArtworkCard key={item.slug} type="carousel" {...item} />
           ))}
         />

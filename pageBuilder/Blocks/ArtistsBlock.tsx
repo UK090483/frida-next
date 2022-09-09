@@ -8,6 +8,7 @@ import ArtistCard, {
   ArtistCardResult,
 } from 'PageTypes/Artist/ArtistCard'
 import { PageBuilderBlockBase } from '../pageBuilderQueries'
+import { useArtists } from 'pageBuilder/Api/useResource'
 
 export const artistsBlockQuery = `
 _type == "artists" => {
@@ -15,7 +16,7 @@ _type == "artists" => {
   label,
   bgColor,
   label_en,
-  'items': *[_type == 'artist' && slug != null][0...4]{
+  'items': *[_type == 'artist' && slug != null][0...8]{
     ${artistCardQuery}
   }
 }
@@ -37,6 +38,10 @@ interface ArtistsBlockProps extends ArtistsGalleryResult {
 const ArtworksBlock: React.FC<ArtistsBlockProps> = (props) => {
   const { items = [], lang, type, label, label_en, bgColor = 'white' } = props
 
+  const [fetchArtists] = useArtists()
+
+  const _items = fetchArtists.length > 0 ? fetchArtists : items
+
   const _label = lang === 'en' && label_en ? label_en : label
 
   if (type === 'masonry') {
@@ -47,7 +52,7 @@ const ArtworksBlock: React.FC<ArtistsBlockProps> = (props) => {
     <Carousel
       bgColor={bgColor}
       header={_label}
-      items={items.map((item) => (
+      items={_items.map((item) => (
         <ArtistCard key={item.slug} type={type} {...item} />
       ))}
     />

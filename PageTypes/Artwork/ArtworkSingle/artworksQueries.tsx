@@ -59,7 +59,7 @@ price,
 'relatedArtworks':*[_type == 'artwork' && references(^.artist._ref)]{
     ${artworkCardQuery}
 },
-'randomArtworks':*[_type == 'artwork'][0...10]{
+'randomArtworks':*[_type == 'artwork'][0...8]{
     ${artworkCardQuery}
 },
 seo,
