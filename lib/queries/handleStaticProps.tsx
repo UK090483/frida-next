@@ -50,6 +50,12 @@ export const handleStaticProps: (
     previewData as FridaPreviewData
   )
 
+  if (!pageData) {
+    return {
+      notFound: true,
+    }
+  }
+
   return {
     props: {
       preview,

@@ -9,10 +9,8 @@ const defaultUrl = isDev
 
 async function getServerResource<T>(props: getResourcesProps) {
   try {
-    console.log('refetch resource')
     return await fetchResource<T>({ ...props, url: defaultUrl })
   } catch (error) {
-    console.log('failed fetch')
     return []
   }
 }

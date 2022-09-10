@@ -1,28 +1,31 @@
-import { handleStaticProps } from '@lib/queries/handleStaticProps'
 import { GetStaticProps } from 'next'
-import React from 'react'
 
 import Layout from 'pageBuilder/Layout/Layout'
-import { pageQuery, PageResult } from 'PageTypes/Page/pageQueries'
+
+import Carousel from '@components/CardCarousel'
 import Header from '@components/generic/Header'
-import ArtworkCard, {
-  artworkCardQuery,
-  ArtworkCardResult,
-} from 'PageTypes/Artwork/ArtworkCard'
+import Section from '@components/Section'
+import { getSanityClient } from '@lib/sanity.server'
+import { layoutQuery } from 'pageBuilder/Layout/layoutQuery'
 import ArtistCard, {
   artistCardQuery,
   ArtistCardResult,
 } from 'PageTypes/Artist/ArtistCard'
-import Section from '@components/Section'
-import Carousel from '@components/CardCarousel'
+import ArtworkCard, {
+  artworkCardQuery,
+  ArtworkCardResult,
+} from 'PageTypes/Artwork/ArtworkCard'
 
-interface ErrorPageResult extends PageResult {
+interface ErrorPageResult {
   artworks: ArtworkCardResult[]
   artists: ArtistCardResult[]
 }
+
+const sanity = getSanityClient()
 const ErrorPage = (props: any) => {
-  if (!props) return <div>404</div>
+  if (!props.data) return <div>404</div>
   const data = props.data as ErrorPageResult
+
   const { artists, artworks } = data
 
   return (
@@ -54,13 +57,19 @@ const ErrorPage = (props: any) => {
   )
 }
 
-const query = `*[_type == "page" && slug.current == 'about'][0]{
-  ${pageQuery},
+const query = `{
   'artworks':*[_type == 'artwork'][0...20]{${artworkCardQuery}},
   'artists':*[_type == 'artist'][0...20]{${artistCardQuery}},
+  ${layoutQuery()}
 }`
 
 export const getStaticProps: GetStaticProps = async () => {
-  return await handleStaticProps({ ...{ params: { slug: 'about' } }, query })
+  const data = await sanity.fetch(query)
+
+  return {
+    props: {
+      data,
+    },
+  }
 }
 export default ErrorPage
