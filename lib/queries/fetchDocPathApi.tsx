@@ -37,6 +37,6 @@ export const getAllDocPathsCached = async (doc: string, args?: string) => {
           },
         ]
       }, [] as any[]) || [],
-    fallback: 'true',
+    fallback: true,
   }
 }
