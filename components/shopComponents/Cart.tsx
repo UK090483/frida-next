@@ -74,6 +74,7 @@ const Cart: React.FC<CartProps> = ({ lang }) => {
         focusTrapOptions={{ allowOutsideClick: true }}
       >
         <m.div
+          data-testid={'cart'}
           initial="hide"
           animate={isCartOpen ? 'show' : 'hide'}
           variants={{

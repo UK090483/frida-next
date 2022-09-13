@@ -1,8 +1,8 @@
-import { ArtistCardResult } from 'PageTypes/Artist/ArtistCard'
-import { ArtworkCardResult } from 'PageTypes/Artwork/ArtworkCard'
 import { Resources, count } from './types'
 import { useEffect, useState } from 'react'
 import fetchResource from './fetchResource'
+import { ArtistCardResult } from 'PageTypes/Artist/ArtistCard.query'
+import { ArtworkCardResult } from 'PageTypes/Artwork/ArtworkCard.query'
 
 interface IUseResourceProps {
   count?: count

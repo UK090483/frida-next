@@ -1,13 +1,17 @@
 import { getSanityClient } from '@lib/sanity.server'
 import axios from 'axios'
-import { artistCardQuery, ArtistCardResult } from 'PageTypes/Artist/ArtistCard'
-import {
-  artworkCardQuery,
-  ArtworkCardResult,
-} from 'PageTypes/Artwork/ArtworkCard'
+
 // import { accessCache } from 'next-build-cache'
 import { body, PageBodyResult } from '../../pageBuilder/pageBuilderQueries'
 import { defaultFooterId } from 'shared'
+import {
+  artistCardQuery,
+  ArtistCardResult,
+} from 'PageTypes/Artist/ArtistCard.query'
+import {
+  artworkCardQuery,
+  ArtworkCardResult,
+} from 'PageTypes/Artwork/ArtworkCard.query'
 
 // export const cache = accessCache('public/build.cache.json')
 
@@ -22,7 +26,7 @@ const cashQuery = `
     ${artistCardQuery}
   },
   'site':{
-    'footer':*[_type=='footer' && _id== '${defaultFooterId}' ][0]{${body}},
+    'footer':*[_type=='footer' && _id== '${defaultFooterId}' ][0]{${body('')}},
     "seo": *[_type == "seoSettings"][0]{
       siteTitle,
       metaTitle,
@@ -53,7 +57,7 @@ const cashQuery = `
 
 export const siteQuery = `
 'site':{
-  'footer':*[_type=='footer' && _id == '${defaultFooterId}' ][0]{${body}},
+  'footer':*[_type=='footer' && _id == '${defaultFooterId}' ][0]{${body('')}},
   "seo": *[_type == "seoSettings"][0]{
     siteTitle,
     metaTitle,

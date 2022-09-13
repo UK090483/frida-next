@@ -2,22 +2,20 @@ import React from 'react'
 import Layout from 'pageBuilder/Layout/Layout'
 import BodyParser from 'pageBuilder/BodyParser'
 import Header from '@components/generic/Header'
-import { FridaLocation } from 'types'
 import OverlayCTA from '@components/Adds/Overlay'
-import CookieBar from '@components/Cookie'
 
 import NewsletterCTA from 'components/Adds/NewsletterCTA'
-import type { PageResult } from './pageQueries'
+import type { PageResult } from './Page.query'
+import { useRouter } from 'next/router'
 
 interface PageProps {
   data: PageResult
-  lang: FridaLocation
-  preview?: boolean | undefined
 }
 const Page: React.FC<PageProps> = (props) => {
+  const { locale } = useRouter()
   const { data } = props
   const { content, pageHeader, title_en } = data
-  const title = props.lang === 'en' && title_en ? title_en : props.data.title
+  const title = locale === 'en' && title_en ? title_en : props.data.title
 
   return (
     <Layout
@@ -32,8 +30,6 @@ const Page: React.FC<PageProps> = (props) => {
       }
     >
       <BodyParser content={content} />
-
-      <CookieBar />
 
       <OverlayCTA
         color="pink"

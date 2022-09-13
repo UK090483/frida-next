@@ -7,6 +7,7 @@ type ProductHeroWrapProps = {
 const ProductHeroWrap: React.FC<ProductHeroWrapProps> = ({ children }) => {
   return (
     <div
+      data-testid={'productHeroWrap'}
       className={`relative pt-24 pb-14 lg:flex lg:h-screen bg-frida-white `}
       data-color={'white'}
     >

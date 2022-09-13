@@ -13,6 +13,7 @@ import type { AppProps } from 'next/app'
 
 import ChromeFix from 'lib/chromeFix'
 import { LayoutContextProvider } from 'pageBuilder/Layout/LayoutContext'
+import { SeoContextProvider } from 'pageBuilder/Seo/seoContext'
 
 const MyApp = ({ Component, pageProps, router }: AppProps) => {
   const lang = pageProps.lang === 'en' ? 'en' : 'de'
@@ -76,29 +77,48 @@ const MyApp = ({ Component, pageProps, router }: AppProps) => {
   }, [handleFirstTab])
 
   return (
-    <LayoutContextProvider data={pageProps?.data?.layout}>
-      <SiteContextProvider data={{ ...pageProps?.data?.site }}>
-        <LazyMotion features={domAnimation}>
-          {isLoading && (
-            <Head>
-              <title>Loading...</title>
-            </Head>
-          )}
+    <>
+      <Head>
+        <meta charSet="utf-8" />
+        <meta httpEquiv="x-ua-compatible" content="ie=edge" />
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta name="format-detection" content="telephone=no" />
 
-          <AnimatePresence
-            initial={false}
-            onExitComplete={() => {
-              window.scrollTo(0, 0)
-              document.body.classList.remove('overflow-hidden')
-            }}
-          >
-            <Component key={router.asPath.split('?')[0]} {...pageProps} />
-          </AnimatePresence>
+        <link rel="icon" href="/icons/favicon.ico" />
+        <link rel="mask-icon" href="/icons/favicon.ico" color="#f5c5d9" />
+        <meta name="theme-color" content="#f5c5d9" />
+        <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
 
-          <Cart data={{ ...pageProps?.data?.site }} lang={lang} />
-        </LazyMotion>
-      </SiteContextProvider>
-    </LayoutContextProvider>
+        <link rel="preconnect" href="https://hull-demo.myshopify.com" />
+        <link rel="preconnect" href="https://cdn.sanity.io" />
+      </Head>
+
+      <SeoContextProvider data={pageProps?.data?.seo}>
+        <LayoutContextProvider data={pageProps?.data?.layout}>
+          <SiteContextProvider data={{ ...pageProps?.data?.site }}>
+            <LazyMotion features={domAnimation}>
+              {isLoading && (
+                <Head>
+                  <title>Loading...</title>
+                </Head>
+              )}
+
+              <AnimatePresence
+                initial={false}
+                onExitComplete={() => {
+                  window.scrollTo(0, 0)
+                  document.body.classList.remove('overflow-hidden')
+                }}
+              >
+                <Component key={router.asPath.split('?')[0]} {...pageProps} />
+              </AnimatePresence>
+
+              <Cart data={{ ...pageProps?.data?.site }} lang={lang} />
+            </LazyMotion>
+          </SiteContextProvider>
+        </LayoutContextProvider>
+      </SeoContextProvider>
+    </>
   )
 }
 // export function reportWebVitals(metric: NextWebVitalsMetric) {

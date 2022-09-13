@@ -1,26 +1,8 @@
 import Card from '@components/Card'
-import { ImageMetaResult, imageMeta } from '@lib/queries/snippets'
 import { useRouter } from 'next/router'
 import React from 'react'
 import { GalleryTypes } from 'types'
-
-export const artistCardQuery = `
-    'mainImage':mainImage {${imageMeta}},
-    'prevImage':prevImage {${imageMeta}},
-    'slug':slug.current,
-    'name':anzeigeName,
-     'photo':*[_type == 'artwork'  && references(^._id) ][0].image {${imageMeta}},
-     'stil':*[_type == 'artwork' && references(^._id)].stil->name
-`
-
-export type ArtistCardResult = {
-  prevImage: ImageMetaResult | null
-  mainImage: ImageMetaResult | null
-  name: string
-  slug: string
-  photo: ImageMetaResult | null
-  stil: string[]
-}
+import { ArtistCardResult } from './ArtistCard.query'
 
 interface ArtistCardProps extends ArtistCardResult {
   isSwiping?: boolean

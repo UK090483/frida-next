@@ -1,15 +1,14 @@
 import Gallery from '@components/Gallery/Gallery'
 import React from 'react'
 
-import { FridaLocation } from 'types'
 import Section from '@components/Section'
-import ArtistCard, { ArtistCardResult } from './ArtistCard'
+import ArtistCard from './ArtistCard'
 import Filter from '@components/Filter/Filter'
 import { useRouter } from 'next/router'
+import { ArtistCardResult } from './ArtistCard.query'
 
 type ArtworksProps = {
   items?: ArtistCardResult[]
-  lang: FridaLocation
 }
 
 const ArtistGallery: React.FC<ArtworksProps> = ({ items = [] }) => {

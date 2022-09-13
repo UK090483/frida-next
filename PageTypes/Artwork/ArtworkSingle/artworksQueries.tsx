@@ -1,15 +1,15 @@
 import {
-  artworkCardQuery,
-  ArtworkCardResult,
-} from 'PageTypes/Artwork/ArtworkCard'
-import { QuoteResult, QuoteQuery } from 'pageBuilder/Blocks/QuotesBlock'
-
+  QuoteQuery,
+  QuoteResult,
+} from 'pageBuilder/Blocks/QuotesBlock/QuotesBlock.query'
+import { layoutQuery } from 'pageBuilder/Layout/layoutQuery'
+import { buildSeoQuery } from 'pageBuilder/Seo/seoQuery'
 import {
   imageMeta,
   ImageMetaResult,
   SeoResult,
 } from '../../../lib/queries/snippets'
-import { layoutQuery } from 'pageBuilder/Layout/layoutQuery'
+import { artworkCardQuery, ArtworkCardResult } from '../ArtworkCard.query'
 
 const productHintQuery = `
 text,
@@ -22,27 +22,39 @@ export type ProductHintResult = {
   link?: { slug: string; type: string }
 }
 
-export const artworkSingleViewQuery = `
+const seoQuery = buildSeoQuery({
+  metaTitle: { derived: `'Kaufen Sie '+ name + ' jetzt auf MeetFrida.art',` },
+  metaDesc: { derived: '"MeetFrida | Artwork:" + name ,' },
+  shareDesc: { derived: `name+' by ' + artist->anzeigeName,` },
+  shareTitle: { derived: `name+' by ' + artist->anzeigeName,` },
+  shareGraphic: { derived: 'image ,' },
+  url: { derived: `'artwork/' +slug.current ` },
+})
+
+export const artworkSingleViewQuery = (locale = '') => `
 _type,
 isNft,
 nftInfo,
 nftUrl,
 ethPrice,
 'slug':slug.current,
-'artistName':artist->anzeigeName,
-'artistDescription':artist->description,
-'artistSlug':artist->slug.current,
-'artistDescription_en':artist->description_en,
-'artistWebLink':artist->webLink,
-'instagramLink':artist->instagramLink,
+
+ ...(artist->{
+   'artistDescription': coalesce(description_${locale},description),
+   'artistSlug':slug.current,
+   'artistName':anzeigeName,
+   'artistWebLink':webLink,
+   'instagramLink':instagramLink,
+  }),
+
 'artworkName':name,
 availability,
 'hints':hints[]{${productHintQuery}},
 width,
 height,
 depth,
-description,
-description_en,
+'description': coalesce(description_${locale},description),
+
 price,
 'medium':medium->name,
 'stil':stil->name,
@@ -63,7 +75,8 @@ price,
     ${artworkCardQuery}
 },
 seo,
-${layoutQuery()}
+${layoutQuery(locale)},
+${seoQuery}
 `
 
 export type ArtworkSingleViewResult = {
@@ -75,7 +88,6 @@ export type ArtworkSingleViewResult = {
   ethPrice: number | null
   artistName: null | string
   artistDescription: null | string
-  artistDescription_en: null | string
   artistSlug: null | string
   artistWebLink: null | string
   instagramLink: null | string
@@ -85,7 +97,6 @@ export type ArtworkSingleViewResult = {
   height: null | number
   depth: null | number
   description: null | string
-  description_en: null | string
   price: null | number
   medium: null | string
   stil: null | string
@@ -100,3 +111,11 @@ export type ArtworkSingleViewResult = {
   hints?: ProductHintResult[] | null
   seo: null | Partial<SeoResult>
 }
+
+const query = (
+  locale = ''
+) => `*[_type == "artwork" && slug.current == $slug ][0]{
+  ${artworkSingleViewQuery(locale)}
+}`
+
+export default query

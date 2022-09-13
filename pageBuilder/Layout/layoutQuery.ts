@@ -1,17 +1,13 @@
 import { body, PageBodyResult } from 'pageBuilder/pageBuilderQueries'
 import { defaultFooterId } from 'shared'
 
-export const layoutQuery = () => `
+export const layoutQuery = (locale = '') => `
 'layout':{
-  'footer':*[_type=='footer' && _id == '${defaultFooterId}' ][0]{${body}},
-  "seo": *[_type == "seoSettings"][0]{
-    siteTitle,
-    metaTitle,
-    metaDesc,
-    shareTitle,
-    shareDesc,
-    shareGraphic
-  },
+  _type,
+  
+  'footer':*[_type=='footer' && _id == '${defaultFooterId}' ][0]{${body(
+  locale
+)}},
   'navigation':*[_type == "navigation"][0]{
     'items': item[]{
       label,
@@ -31,14 +27,6 @@ export const layoutQuery = () => `
 export type LayoutResult = {
   footer: {
     content: PageBodyResult
-  }
-  seo: {
-    siteTitle: string | null
-    metaTitle: string | null
-    metaDesc: string | null
-    shareTitle: string | null
-    shareDesc: string | null
-    shareGraphic: any | null
   }
   navigation: null | {
     items: {

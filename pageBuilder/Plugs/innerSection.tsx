@@ -6,9 +6,10 @@ import { buttonPlugQuery } from './ButtonPlug'
 import { embedPlugQuery } from './EmbedPlug'
 import { imageGalleryPlugQuery } from './ImageGaleriePlug'
 import { imagePlugQuery } from './ImagePlug'
-import { RichTextQueryResult } from 'pageBuilder/Blocks/RichText'
+
 import BodyParser from 'pageBuilder/BodyParser'
 import { downloadPlugQuery } from './DownLoadPlug'
+import { RichTextQueryResult } from 'pageBuilder/Blocks/RichText/RichText.query'
 
 const richTextQuery = `
 content[]{

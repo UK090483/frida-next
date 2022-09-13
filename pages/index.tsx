@@ -1,30 +1,41 @@
-import { handleStaticProps } from '@lib/queries/handleStaticProps'
+import {
+  handleStaticProps,
+  handleStaticPropsResult,
+} from '@lib/queries/handleStaticProps'
 import { usePage } from '@lib/queries/usePage'
 import Error from '@pages/404'
 import Page from 'PageTypes/Page/Page'
-import { PageResult } from 'PageTypes/Page/pageQueries'
+import { PageResult } from 'PageTypes/Page/Page.query'
 import { GetStaticProps } from 'next'
 import React from 'react'
-import { FridaLocation } from 'types'
-import { pageQuery } from '../PageTypes/Page/pageQueries'
 
-type HomeProps = {
-  data: PageResult | null
-  lang: FridaLocation
-  preview: boolean
-}
-const query = `*[_type == 'indexPage'  && _id == 'frontPage'][0]{
-  ${pageQuery},
+import { pageQuery } from '../PageTypes/Page/Page.query'
+
+const query = (
+  locale = ''
+) => `*[_type == 'indexPage'  && _id == 'frontPage'][0]{
+  ${pageQuery(locale)},
 }
 `
-const Home: React.FC<HomeProps> = ({ data, lang, preview }) => {
-  const { pageData, isError } = usePage({ slug: '/', query, data, preview })
+const Home: React.FC<handleStaticPropsResult<PageResult>> = (props) => {
+  const { data, previewQuery } = props
+
+  const { pageData, isError } = usePage({
+    slug: '/',
+    query: previewQuery,
+    data,
+  })
+
   if (isError) return <Error />
-  return <Page lang={lang} data={pageData} preview={preview} />
+  return <Page data={pageData} />
 }
 
 export const getStaticProps: GetStaticProps = async (props) => {
-  return await handleStaticProps({ ...props, params: { slug: '/' }, query })
+  return await handleStaticProps({
+    ...props,
+    params: { slug: '/' },
+    query,
+  })
 }
 
 export default Home

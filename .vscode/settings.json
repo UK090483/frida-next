@@ -3,13 +3,15 @@
     "anzeige",
     "frida",
     "marq",
+    "meetfrida",
     "meganav",
     "metafield",
     "metafields",
     "noninteractive",
     "stil",
     "tailwindcss",
-    "testid"
+    "testid",
+    "Warenkorb"
   ],
   "editor.formatOnSave": false,
   "editor.codeActionsOnSave": {

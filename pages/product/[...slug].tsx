@@ -1,7 +1,10 @@
 import Layout from 'pageBuilder/Layout/Layout'
 import { usePage } from '@lib/queries/usePage'
 import { getAllDocPathsCached } from '@lib/queries/fetchDocPathApi'
-import { handleStaticProps } from '@lib/queries/handleStaticProps'
+import {
+  handleStaticProps,
+  handleStaticPropsResult,
+} from '@lib/queries/handleStaticProps'
 import Error from 'pages/404'
 import ProductSingle, {
   productSingleViewQuery,
@@ -9,33 +12,28 @@ import ProductSingle, {
 } from 'PageTypes/Product/ProductSingle'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import React from 'react'
-import { FridaLocation } from 'types'
+
 import { FridaPreviewData } from '@pages/api/preview'
 
-type ProductTemplateProps = {
-  data: ProductSingleViewResult | null
-  lang: FridaLocation
-  slug: string
-  preview: boolean | undefined
-}
-
-const query = `
+const query = (locale = '') => `
 *[_type == "product" && slug.current == $slug][0]{
-  ${productSingleViewQuery},
+  ${productSingleViewQuery(locale)},
   
 }
 `
 
-const ProductTemplate: React.FC<ProductTemplateProps> = (props) => {
-  const { data, lang, slug, preview } = props
-  const { pageData, isError } = usePage({ slug, query, data, preview })
+const ProductTemplate: React.FC<
+  handleStaticPropsResult<ProductSingleViewResult>
+> = (props) => {
+  const { data, slug, previewQuery } = props
+  const { pageData, isError } = usePage({ slug, query: previewQuery, data })
 
   if (isError) return <Error />
 
   return (
     <div>
       <Layout title={'Shop'}>
-        <ProductSingle lang={lang} {...pageData} />
+        <ProductSingle {...pageData} />
       </Layout>
     </div>
   )

@@ -1,39 +1,29 @@
+import { GetStaticPropsContext, GetStaticPropsResult } from 'next'
 import type { FridaPreviewData } from 'pages/api/preview'
-import type { ParsedUrlQuery } from 'querystring'
-import type { FridaLocation } from 'types'
 import { fetchPageWithCache } from './fetchPageApi'
 
-type handleStaticPropsProps = {
-  params?: ParsedUrlQuery | undefined
-  locale?: string | undefined
-  query: string
-  preview?: boolean | undefined
-  previewData?: any
+// type handleStaticPropsProps = {
+//   params?: ParsedUrlQuery | undefined
+//   locale?: string | undefined
+//   query: string
+//   preview?: boolean | undefined
+//   previewData?: any
+// }
+
+interface handleStaticPropsProps extends GetStaticPropsContext {
+  query: (locale: string) => string
 }
 
-type FailedResult = {
-  notFound: true
-}
-type SuccessResult = {
-  props: {
-    slug?: string | null
-    lang?: string | null
-    data: unknown
-    preview: boolean
-  }
-}
-
-export type TemplateProps<R> = {
-  data: R | null
-  lang: FridaLocation
-  preview: boolean
+export type handleStaticPropsResult<T> = {
+  data: T
   slug: string
+  previewQuery: string
 }
 
-export const handleStaticProps: (
+async function handleStaticProps<T>(
   props: handleStaticPropsProps
-) => Promise<FailedResult | SuccessResult> = async (props) => {
-  const { params, locale, query, preview = false, previewData } = props
+): Promise<GetStaticPropsResult<handleStaticPropsResult<T>>> {
+  const { params, query, preview = false, previewData, locale } = props
 
   if (!params || !params.slug) {
     return {
@@ -44,10 +34,11 @@ export const handleStaticProps: (
     typeof params.slug === 'string' ? params.slug : params.slug.join('')
 
   const pageData = await fetchPageWithCache(
-    query,
+    query(locale || ''),
     slug,
     preview,
-    previewData as FridaPreviewData
+    previewData as FridaPreviewData,
+    locale
   )
 
   if (!pageData) {
@@ -58,11 +49,12 @@ export const handleStaticProps: (
 
   return {
     props: {
-      preview,
-      slug: slug || null,
-      data: pageData || null,
-      lang: locale || null,
+      slug: slug,
+      data: pageData,
+      previewQuery: preview ? query(locale || '') : '',
     },
     revalidate: 1,
   }
 }
+
+export { handleStaticProps }

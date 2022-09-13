@@ -11,14 +11,11 @@ import Price from '@components/ProductComponents/ProductPrice'
 import { useAddItem } from '@lib/context/useShopItem'
 import ProductForm from '@components/ProductComponents/product-form'
 import React from 'react'
-import { FridaLocation } from 'types'
 import { ProductSingleViewResult } from './ProductSingle'
 import useProduct from '@lib/context/useProduct'
 // import SocialShare from '@components/SocialShare/SocialShare'
 
-interface ProductHeroProps extends ProductSingleViewResult {
-  lang: FridaLocation
-}
+type ProductHeroProps = ProductSingleViewResult
 
 const ProductHero: React.FC<ProductHeroProps> = (props) => {
   const {
@@ -27,7 +24,7 @@ const ProductHero: React.FC<ProductHeroProps> = (props) => {
     inStock,
     galleryPhotos,
     listingPhotos,
-    lang,
+
     variants,
   } = props
 
@@ -100,7 +97,7 @@ const ProductHero: React.FC<ProductHeroProps> = (props) => {
           <div className="pb-10"></div>
           {/* <div className="pb-12">{<SocialShare />}</div> */}
 
-          <PaymentInfo lang={lang} />
+          <PaymentInfo />
         </div>
       </ProductInfoWrap>
     </ProductHeroWrap>

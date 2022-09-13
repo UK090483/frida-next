@@ -1,45 +1,48 @@
-import {
-  artistsBlockQuery,
-  ArtistsGalleryResult,
-} from 'pageBuilder/Blocks/ArtistsBlock'
-import {
-  artworksBlockQuery,
-  ArtworksGalleryResult,
-} from 'pageBuilder/Blocks/ArtworkBlock'
-import {
-  carouselHeroBlockQuery,
-  CarouselHeroResult,
-} from 'pageBuilder/Blocks/CarouselHeroBlock'
-import {
-  categoriesBlockQuery,
-  CategoryBlockResult,
-} from 'pageBuilder/Blocks/CategoryBlock'
-import {
-  MarqueeBlockQuery,
-  MarqueeBlockQueryResult,
-} from 'pageBuilder/Blocks/Marquee'
-import {
-  postsBlockQuery,
-  PostsGalleryResult,
-} from 'pageBuilder/Blocks/PostsBlock'
-import {
-  productsBlockQuery,
-  ProductsGalleryResult,
-} from 'pageBuilder/Blocks/ProductsBlock'
-import {
-  QuotesBlockQuery,
-  QuotesBlockResult,
-} from 'pageBuilder/Blocks/QuotesBlock'
-import { richTextQuery, RichTextQueryResult } from 'pageBuilder/Blocks/RichText'
-import {
-  sectionBlockQuery,
-  SectionResult,
-} from 'pageBuilder/Blocks/SectionBlock'
 import { ButtonPlugResult } from 'pageBuilder/Plugs/ButtonPlug'
 import { EmbedPlugResult } from 'pageBuilder/Plugs/EmbedPlug'
 import { ImageGalleryPlugResult } from 'pageBuilder/Plugs/ImageGaleriePlug'
 import { ImagePlugResult } from 'pageBuilder/Plugs/ImagePlug'
 import { SeoHeaderPlugResult } from 'pageBuilder/Plugs/SeoHeader'
+import {
+  artistsBlockQuery,
+  ArtistsGalleryResult,
+} from './Blocks/ArtistBlock/ArtistsBlock.query'
+import {
+  artworksBlockQuery,
+  ArtworksGalleryResult,
+} from './Blocks/ArtworkBlock/ArtworkBlock.query'
+import {
+  carouselHeroBlockQuery,
+  CarouselHeroResult,
+} from './Blocks/CarouselHeroBlock/CarouselHeroBlock.query'
+import {
+  categoriesBlockQuery,
+  CategoryBlockResult,
+} from './Blocks/CategoryBlock/CategoryBlock.query'
+import {
+  MarqueeBlockQuery,
+  MarqueeBlockQueryResult,
+} from './Blocks/Marquee/Marquee.query'
+import {
+  postsBlockQuery,
+  PostsGalleryResult,
+} from './Blocks/PostsBlock/PostsBlock.query'
+import {
+  productsBlockQuery,
+  ProductsGalleryResult,
+} from './Blocks/ProductsBlock/ProductsBlock.query'
+import {
+  QuotesBlockQuery,
+  QuotesBlockResult,
+} from './Blocks/QuotesBlock/QuotesBlock.query'
+import {
+  richTextQuery,
+  RichTextQueryResult,
+} from './Blocks/RichText/RichText.query'
+import {
+  sectionBlockQuery,
+  SectionResult,
+} from './Blocks/SectionBlock/SectionBlock.query'
 import { DownloadPlugResult } from './Plugs/DownLoadPlug'
 import { InnerSectionPlugResult } from './Plugs/innerSection'
 import { SpacerPlugResult } from './Plugs/Spacer'
@@ -49,19 +52,19 @@ export type PageBuilderBlockBase = {
   _key: string
 }
 
-export const body = `
+export const body = (locale = '') => `
 content[]{
   ...,
-  ${carouselHeroBlockQuery},
-  ${categoriesBlockQuery},
-  ${artworksBlockQuery},
-  ${artistsBlockQuery},
+  ${carouselHeroBlockQuery(locale)},
+  ${categoriesBlockQuery(locale)},
+  ${artworksBlockQuery(locale)},
+  ${artistsBlockQuery(locale)},
   ${productsBlockQuery},
-  ${postsBlockQuery},
-  ${sectionBlockQuery},
-  ${richTextQuery},
+  ${postsBlockQuery(locale)},
+  ${sectionBlockQuery(locale)},
+  ${richTextQuery(locale)},
   ${MarqueeBlockQuery},
-  ${QuotesBlockQuery},
+  ${QuotesBlockQuery(locale)},
 },
 `
 

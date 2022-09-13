@@ -1,45 +1,11 @@
 import Card from '@components/Card'
 import ProductName from '@components/ProductComponents/ProductName'
 import Price from '@components/ProductComponents/ProductPrice'
-import { imageMeta, ImageMetaResult } from '@lib/queries/snippets'
 import { useRouter } from 'next/router'
 import React from 'react'
 import { GalleryTypes } from 'types'
+import { ArtworkCardResult } from './ArtworkCard.query'
 import Banner from './banner'
-
-export const artworkCardQuery = `
-    _updatedAt,
-    isNft,
-    ethPrice,
-    'imageAssetId':image.asset._ref,
-    availability,
-    'artistName':artist->anzeigeName,
-    'slug': slug.current,
-    banner,
-    'price': price,
-    'artworkName':name,
-    'photo': image {
-      ${imageMeta}
-    },
-    'stil':stil->name,
-    'medium':medium->name
-       
-`
-export type ArtworkCardResult = {
-  _updatedAt: string
-  imageAssetId: string
-  availability: string
-  isNft: boolean | null
-  ethPrice: number | null
-  artistName: string
-  slug: string
-  banner: string
-  price: number
-  artworkName: string
-  photo: ImageMetaResult
-  stil: string
-  medium: string
-}
 
 interface ArtworkCardProps extends ArtworkCardResult {
   type: GalleryTypes

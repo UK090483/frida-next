@@ -1,8 +1,7 @@
-import React from 'react'
-import Marquee from 'components/marquee'
 import { imageMeta } from '@lib/queries/snippets'
-import { FridaColors, FridaLocation } from 'types'
-import { PageBuilderBlockBase } from '../pageBuilderQueries'
+import { PageBuilderBlockBase } from 'pageBuilder/pageBuilderQueries'
+import { FridaColors } from 'types'
+
 export const MarqueeBlockQuery = `
 _type == 'marquee' => {
     _type,
@@ -52,12 +51,3 @@ export interface MarqueeBlockQueryResult extends PageBuilderBlockBase {
   color?: FridaColors
   colorHover?: FridaColors
 }
-
-interface MarqueeBlockProps extends MarqueeBlockQueryResult {
-  lang: FridaLocation
-}
-
-const MarqueeBlock: React.FC<MarqueeBlockProps> = (props) => {
-  return <Marquee data={{ ...props }} lang={props.lang} />
-}
-export default MarqueeBlock

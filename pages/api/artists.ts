@@ -1,6 +1,9 @@
 import getHandler from 'pageBuilder/Api/resourceHandler'
 import { getSanityClient } from '@lib/sanity.server'
-import { artistCardQuery, ArtistCardResult } from 'PageTypes/Artist/ArtistCard'
+import {
+  ArtistCardResult,
+  artistCardQuery,
+} from 'PageTypes/Artist/ArtistCard.query'
 
 const handler = getHandler<ArtistCardResult>({
   type: 'artist',

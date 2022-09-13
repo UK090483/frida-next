@@ -1,46 +1,15 @@
 import React from 'react'
-// import dynamic from 'next/dynamic'
 
-// const ArtistBlock = dynamic(() => import('./Blocks/ArtistsBlock'), {
-//   ssr: false,
-// })
-// const ArtworksBlock = dynamic(() => import('./Blocks/ArtworkBlock'), {
-//   ssr: false,
-// })
-// const PostBlock = dynamic(() => import('./Blocks/PostsBlock'), {
-//   ssr: false,
-// })
-// const ProductsBlock = dynamic(() => import('./Blocks/ProductsBlock'), {
-//   ssr: false,
-// })
-// const CarouselHeroBlock = dynamic(() => import('./Blocks/CarouselHeroBlock'), {
-//   ssr: false,
-// })
-// const CategoryBlock = dynamic(() => import('./Blocks/CategoryBlock'), {
-//   ssr: false,
-// })
-// const Section = dynamic(() => import('./Blocks/SectionBlock'), {
-//   ssr: false,
-// })
-// const RT = dynamic(() => import('./Blocks/RichText'), {
-//   ssr: false,
-// })
-// const Marquee = dynamic(() => import('./Blocks/Marquee'), {
-//   ssr: false,
-// })
-// const Quotes = dynamic(() => import('./Blocks/QuotesBlock'), {
-//   ssr: false,
-// })
-import ArtistBlock from './Blocks/ArtistsBlock'
-import ArtworksBlock from './Blocks/ArtworkBlock'
-import PostBlock from './Blocks/PostsBlock'
-import ProductsBlock from './Blocks/ProductsBlock'
-import CarouselHeroBlock from './Blocks/CarouselHeroBlock'
-import CategoryBlock from './Blocks/CategoryBlock'
-import Section from './Blocks/SectionBlock'
-import RT from './Blocks/RichText'
-import Marquee from './Blocks/Marquee'
-import Quotes from './Blocks/QuotesBlock'
+import ArtistBlock from './Blocks/ArtistBlock/ArtistsBlock'
+import ArtworksBlock from './Blocks/ArtworkBlock/ArtworkBlock'
+import PostBlock from './Blocks/PostsBlock/PostsBlock'
+import ProductsBlock from './Blocks/ProductsBlock/ProductsBlock'
+import CarouselHeroBlock from './Blocks/CarouselHeroBlock/CarouselHeroBlock'
+import CategoryBlock from './Blocks/CategoryBlock/CategoryBlock'
+import Section from './Blocks/SectionBlock/SectionBlock'
+import RT from './Blocks/RichText/RichText'
+import Marquee from './Blocks/Marquee/Marquee'
+import Quotes from './Blocks/QuotesBlock/QuotesBlock'
 
 import ButtonPlug from './Plugs/ButtonPlug'
 import EmbedPlug from './Plugs/EmbedPlug'
@@ -51,7 +20,7 @@ import ImageGalleryPlug from './Plugs/ImageGaleriePlug'
 import ComponentNotFound from './component_not_found'
 import { FridaLocation } from 'types'
 import { PageBodyResult } from './pageBuilderQueries'
-import InnerSectionPlug from './Plugs/innerSection'
+// import InnerSectionPlug from './Plugs/innerSection'
 import SpacerPlug from './Plugs/Spacer'
 import DownLoadPlug from './Plugs/DownLoadPlug'
 import { useRouter } from 'next/router'
@@ -64,7 +33,6 @@ type ContentParserProps = {
 const BodyParser: React.FC<ContentParserProps> = (props) => {
   const { content, extraComponents } = props
   const { locale } = useRouter()
-
   const lang: FridaLocation = locale === 'en' ? 'en' : 'de'
   return (
     <>
@@ -76,23 +44,23 @@ const BodyParser: React.FC<ContentParserProps> = (props) => {
 
           switch (blok._type) {
             case 'marquee':
-              return <Marquee lang={lang} {...blok} key={blok._key} />
+              return <Marquee {...blok} key={blok._key} />
             case 'section':
-              return <Section lang={lang} {...blok} key={blok._key} />
+              return <Section {...blok} key={blok._key} />
             case 'richText':
               return <RT {...blok} key={blok._key} />
             case 'block':
               return <RT {...blok} key={blok._key} />
             case 'artists':
-              return <ArtistBlock lang={lang} {...blok} key={blok._key} />
+              return <ArtistBlock {...blok} key={blok._key} />
             case 'artworks':
-              return <ArtworksBlock lang={lang} {...blok} key={blok._key} />
+              return <ArtworksBlock {...blok} key={blok._key} />
             case 'posts':
-              return <PostBlock lang={lang} {...blok} key={blok._key} />
+              return <PostBlock {...blok} key={blok._key} />
             case 'products':
               return <ProductsBlock lang={lang} {...blok} key={blok._key} />
             case 'carouselHero':
-              return <CarouselHeroBlock lang={lang} {...blok} key={blok._key} />
+              return <CarouselHeroBlock {...blok} key={blok._key} />
             case 'categories':
               return <CategoryBlock lang={lang} {...blok} key={blok._key} />
             case 'embed':
@@ -107,18 +75,15 @@ const BodyParser: React.FC<ContentParserProps> = (props) => {
               return <Quotes {...blok} key={blok._key} />
             case 'imageGalleryPlug':
               return <ImageGalleryPlug {...blok} key={blok._key} />
-            case 'innerSection':
-              return <InnerSectionPlug {...blok} key={blok._key} />
+            // case 'innerSection':
+            //   return <InnerSectionPlug {...blok} key={blok._key} />
             case 'spacer':
               return <SpacerPlug {...blok} key={blok._key} />
             case 'download':
               return <DownLoadPlug {...blok} key={blok._key} />
 
             default:
-              return (
-                //@ts-ignore
-                <ComponentNotFound type={blok} key={blok._key} />
-              )
+              return <ComponentNotFound blok={blok} key={blok._key} />
           }
         })}
     </>

@@ -63,7 +63,11 @@ const BuyButton: React.FC<BuyButtonProps> = (props) => {
   const checkOut = useCheckout()
 
   return (
-    <div ref={intersectionRef} className={`h-12 ${className}`}>
+    <div
+      data-testid={'buyButton'}
+      ref={intersectionRef}
+      className={`h-12 ${className}`}
+    >
       <div
         className={`flex w-[300px]  md:w-[480px] lg:w-vw/4 z-10  ${
           isOut && !isNavOpen
@@ -73,6 +77,7 @@ const BuyButton: React.FC<BuyButtonProps> = (props) => {
       >
         {nftLink && (
           <a
+            data-testid={'buyButton__nft'}
             className="rounded-full w-full text-center leading-none text-frida-white  py-3.5 px-12 text-sm-fluid font-bold overflow-hidden whitespace-nowrap bg-frida-green"
             href={nftLink}
             target="_blank"
@@ -86,6 +91,7 @@ const BuyButton: React.FC<BuyButtonProps> = (props) => {
         {!nftLink && (
           <>
             <BButton
+              testId={availability ? 'buyButton_putInCart' : 'buyButton_sold'}
               show={!isInCart}
               onClick={handleAdd}
               className={`${availability ? 'bg-frida-green' : 'bg-frida-red'}`}
@@ -94,6 +100,7 @@ const BuyButton: React.FC<BuyButtonProps> = (props) => {
             </BButton>
 
             <BButton
+              testId="buyButton_cart"
               onClick={openCart}
               show={isInCart}
               className="bg-frida-black"
@@ -101,6 +108,7 @@ const BuyButton: React.FC<BuyButtonProps> = (props) => {
               {cartText}
             </BButton>
             <BButton
+              testId="buyButton_checkout"
               onClick={() => {
                 checkOut && (window.location.href = checkOut)
               }}
@@ -122,6 +130,7 @@ type BButtonProps = {
   onClick: () => void
   show: boolean
   className?: string
+  testId?: string
 }
 
 const variants: Variants = {
@@ -133,9 +142,11 @@ const BButton: React.FC<BButtonProps> = ({
   onClick,
   show,
   className = '',
+  testId,
 }) => {
   return (
     <motion.button
+      data-testid={testId}
       initial={'visible'}
       variants={variants}
       animate={show ? 'visible' : 'hidden'}

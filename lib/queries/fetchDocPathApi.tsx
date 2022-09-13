@@ -1,4 +1,5 @@
 import { getSanityClient } from '@lib/sanity.server'
+import { GetStaticPathsResult } from 'next'
 
 export const getAllDocSlugs: (
   doc: string,
@@ -37,6 +38,6 @@ export const getAllDocPathsCached = async (doc: string, args?: string) => {
           },
         ]
       }, [] as any[]) || [],
-    fallback: true,
-  }
+    fallback: 'blocking',
+  } as GetStaticPathsResult
 }

@@ -1,14 +1,17 @@
 import { SiteResult } from '@lib/queries/cache'
 import { LayoutResult, layoutQuery } from 'pageBuilder/Layout/layoutQuery'
 import { body, PageBodyResult } from 'pageBuilder/pageBuilderQueries'
+import { buildSeoQuery } from 'pageBuilder/Seo/seoQuery'
 import { FridaColors } from 'types'
 
-export const pageQuery = `
-...,
+export const pageQuery = (locale = '') => `
 type_,
 'slug':slug.current,
-${body}
-${layoutQuery()}
+title,
+title_en,
+${body(locale)}
+${layoutQuery(locale)},
+${buildSeoQuery()}
 `
 export type PageResult = {
   type_: 'page' | 'indexPage'

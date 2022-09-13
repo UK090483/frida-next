@@ -3,7 +3,7 @@ import Carousel from '@components/CardCarousel'
 import Photo from '@components/Photo'
 import Section from '@components/Section'
 import { ImageMetaResult } from '@lib/queries/snippets'
-import { ArtistPageResult } from '@pages/artist/[...slug]'
+
 import classNames from 'classnames'
 import ArtworkCard from 'PageTypes/Artwork/ArtworkCard'
 import BodyParser from 'pageBuilder/BodyParser'
@@ -11,6 +11,7 @@ import React from 'react'
 import { FridaColors } from 'types'
 import Quotes from '@components/Quote/Quotes'
 import { useRouter } from 'next/router'
+import { ArtistPageResult } from './ArtistSingle.query'
 
 type ArtistSingleProps = ArtistPageResult
 
@@ -70,10 +71,7 @@ const ArtistHero: React.FC<ArtistHeroProps> = ({ photo, initBgColor }) => {
 }
 
 const ArtistInfo: React.FC<ArtistSingleProps> = (props) => {
-  const { description, description_en, webLink, instagramLink, name } = props
-  const { locale } = useRouter()
-  const _description =
-    locale === 'en' && description_en ? description_en : description
+  const { description, webLink, instagramLink, name } = props
 
   return (
     <>
@@ -86,8 +84,8 @@ const ArtistInfo: React.FC<ArtistSingleProps> = (props) => {
           <span className="text-frida-black">Meet</span>
           {name}
         </h1>
-        {_description && (
-          <p className="whitespace-pre-line text-base-fluid">{_description}</p>
+        {description && (
+          <p className="whitespace-pre-line text-base-fluid">{description}</p>
         )}
         <div className="flex flex-col flex-wrap items-center justify-center pt-16 md:flex-row md:justify-start">
           {webLink && (

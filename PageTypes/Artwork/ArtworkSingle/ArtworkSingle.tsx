@@ -4,13 +4,12 @@ import Carousel from '@components/CardCarousel'
 import ArtworkCard from 'PageTypes/Artwork/ArtworkCard'
 import React from 'react'
 import Button from '@components/buttons/button'
-import { FridaLocation } from 'types'
 import ArtworkHero from './ArtworkHero'
 import Quotes from '@components/Quote/Quotes'
 import { useArtworks } from 'pageBuilder/Api/useResource'
+import { useRouter } from 'next/router'
 
 interface ArtworkSingleProps extends ArtworkSingleViewResult {
-  lang: FridaLocation
   isModal?: boolean
 }
 
@@ -18,58 +17,50 @@ const ArtworkSingle: React.FC<ArtworkSingleProps> = (props) => {
   const {
     relatedArtworks,
     randomArtworks,
-    lang,
     artistDescription,
     artistSlug,
     description,
-    description_en,
-    artistDescription_en,
     artistName,
     artistWebLink,
     instagramLink,
     quotes,
   } = props
 
+  const { locale } = useRouter()
   const [fetchedArtworks] = useArtworks()
 
   const moreArtworks =
     fetchedArtworks.length > 0 ? fetchedArtworks : randomArtworks
 
-  const _description =
-    lang === 'en' && description_en ? description_en : description
-
-  const _artistDescription =
-    lang === 'en' && artistDescription_en
-      ? artistDescription_en
-      : artistDescription
   return (
     <>
-      <ArtworkHero lang={lang} artwork={props} />
-
-      {_description && (
+      <ArtworkHero artwork={props} />
+      {description && (
         <Section
+          data-testid={'artwork__description'}
           className="horizontal-padding"
           backgroundColor="grey"
           type="text"
         >
           <h2 className="font-bold text-lg-fluid">
-            {lang === 'en' ? `About the Artwork` : `Über das Kunstwerk`}
+            {locale === 'en' ? `About the Artwork` : `Über das Kunstwerk`}
           </h2>
-          <p className="whitespace-pre-line text-base-fluid">{_description}</p>
+          <p className="whitespace-pre-line text-base-fluid">{description}</p>
         </Section>
       )}
 
       <Section
+        data-testid={'artwork__artistDescription'}
         className="horizontal-padding"
         backgroundColor="pink"
         type="text"
       >
         <h2 className="font-bold text-lg-fluid">
-          {lang === 'en' ? `About the Artist` : `Über den Künstler`}
+          {locale === 'en' ? `About the Artist` : `Über den Künstler`}
         </h2>
-        {_artistDescription && (
+        {artistDescription && (
           <p className="whitespace-pre-line text-base-fluid">
-            {_artistDescription}
+            {artistDescription}
           </p>
         )}
         <div className="flex flex-col flex-wrap items-center pt-16 md:flex-row">
@@ -116,7 +107,7 @@ const ArtworkSingle: React.FC<ArtworkSingleProps> = (props) => {
       {relatedArtworks.length > 0 && (
         <Carousel
           header={
-            lang === 'en'
+            locale === 'en'
               ? `More Artworks by ${artistName}`
               : `Weitere Werke von ${artistName}`
           }
@@ -129,7 +120,7 @@ const ArtworkSingle: React.FC<ArtworkSingleProps> = (props) => {
       {moreArtworks.length > 0 && (
         <Carousel
           bgColor="pink"
-          header={lang === 'en' ? `More Artworks` : `Weitere Werke`}
+          header={locale === 'en' ? `More Artworks` : `Weitere Werke`}
           items={moreArtworks.map((item) => (
             <ArtworkCard key={item.slug} type="carousel" {...item} />
           ))}

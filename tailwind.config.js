@@ -114,12 +114,6 @@ module.exports = {
         'frida-black': '#000000',
         'frida-grey': '#e5e7eb',
 
-        // 'frida-pink': '#852e52',
-        // 'frida-red': '#a31217',
-        // 'frida-green': '#6dd163',
-        // 'frida-black': '#ffffff',
-        // 'frida-white': '#000000',
-        // 'frida-grey': '#3c3c3e',
       },
       height: {
         heroMin: '700px',
@@ -205,7 +199,7 @@ module.exports = {
         },
         base: {
           min: '16px',
-          max: '30px',
+          max: '20px',//old 30
           minvw: '320px',
           maxvw: '1400px',
         },

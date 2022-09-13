@@ -31,6 +31,7 @@ const ProductName: React.FC<ProductNameProps> = ({
 
   return (
     <div
+      data-testid={'productName'}
       className={classnames(
         { 'whitespace-nowrap  overflow-hidden truncate': truncate },
         { 'text-base-fluid font-bold  py-2': size === 'l' },

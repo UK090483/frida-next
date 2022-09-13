@@ -1,28 +1,20 @@
 import React from 'react'
 import Link from 'next/link'
 import { mouseLinkProps } from '@components/generic/Mouse/mouseRemote'
-import { FridaLocation } from 'types'
 
 import Photo from '@components/Photo'
 import type { PostCardResult } from './PostQueries'
 
-interface PostCardProps extends PostCardResult {
-  lang: FridaLocation
-}
-
-const PostCard: React.FC<PostCardProps> = (props) => {
+const PostCard: React.FC<PostCardResult> = (props) => {
   const {
     headerImage,
     previewImage,
     slug,
     title,
-    title_en,
-    lang,
     categories,
     categories_en,
     createdAt,
     excerpt,
-    excerpt_en,
     releaseDate,
   } = props
 
@@ -30,8 +22,7 @@ const PostCard: React.FC<PostCardProps> = (props) => {
 
   if (!_prevImage) return null
 
-  const _title = lang === 'en' && title_en ? title_en : title
-  const _excerpt = lang === 'en' && excerpt_en ? excerpt_en : excerpt
+  const lang = 'en'
 
   const _categories =
     lang === 'en' && categories_en ? categories_en : categories
@@ -48,8 +39,8 @@ const PostCard: React.FC<PostCardProps> = (props) => {
             createdAt={releaseDate || createdAt}
           />
           <div>
-            <h2 className="header-small pb-0">{_title}</h2>
-            <h3 className="text-sm-fluid opacity-50">{_excerpt}</h3>
+            <h2 className="header-small pb-0">{title}</h2>
+            <h3 className="text-sm-fluid opacity-50">{excerpt}</h3>
           </div>
         </div>
 

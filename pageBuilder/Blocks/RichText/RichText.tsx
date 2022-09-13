@@ -1,52 +1,10 @@
 // @ts-ignore
 import BlockContent from '@sanity/block-content-to-react'
-import LinkMark, { linkMarkQuery } from 'pageBuilder/marks/link'
-import { downloadPlugQuery } from 'pageBuilder/Plugs/DownLoadPlug'
-import { imageGalleryPlugQuery } from 'pageBuilder/Plugs/ImageGaleriePlug'
-import { imagePlugQuery } from 'pageBuilder/Plugs/ImagePlug'
-import { innerSectionPlugQuery } from 'pageBuilder/Plugs/innerSection'
+import LinkMark from 'pageBuilder/marks/link'
 import React from 'react'
-import Frida from '../../components/Frida'
-import { PageBuilderBlockBase } from '../pageBuilderQueries'
-import ButtonPlug, { buttonPlugQuery } from '../Plugs/ButtonPlug'
-import EmbedPlug, { embedPlugQuery } from '../Plugs/EmbedPlug'
-
-const marksQuery = `
-markDefs[]{
-  ...,
-  ${linkMarkQuery},
-}
-`
-
-export const richTextQuery = `
-content[]{
-  ...,
-  ${marksQuery},
-  ${buttonPlugQuery},
-  ${embedPlugQuery},
-  ${imagePlugQuery},
-  ${imageGalleryPlugQuery},
-  ${innerSectionPlugQuery},
-  ${downloadPlugQuery},
-}
-`
-export const richTextQueryEn = `
-content_en[]{
-  ...,
-  ${marksQuery},
-  ${buttonPlugQuery},
-  ${embedPlugQuery},
-  ${imagePlugQuery},
-  ${imageGalleryPlugQuery},
-  ${innerSectionPlugQuery},
-  ${downloadPlugQuery},
-}
-`
-
-export interface RichTextQueryResult extends PageBuilderBlockBase {
-  _type: 'richText' | 'block'
-  content: any[]
-}
+import Frida from '../../../components/Frida'
+import ButtonPlug from '../../Plugs/ButtonPlug'
+import EmbedPlug from '../../Plugs/EmbedPlug'
 
 const pink = (props: any) => {
   return <span className="text-frida-pink">{props.children}</span>

@@ -50,7 +50,7 @@ const CartItem: React.FC<CartItemProps> = ({ item, lang }) => {
   const isArtwork = _type === 'artwork'
 
   return (
-    <div className="cart-item">
+    <div className="cart-item" data-testid={'cart__item'}>
       {photo && (
         <div className="relative cart-item--photo">
           <Photo
@@ -74,7 +74,11 @@ const CartItem: React.FC<CartItemProps> = ({ item, lang }) => {
                 }?variant=${item.id}`}
                 scroll={false}
               >
-                <a onClick={() => toggleCart()} className="cart-item--link">
+                <a
+                  data-testid={'cart__item__title'}
+                  onClick={() => toggleCart()}
+                  className="cart-item--link"
+                >
                   {item.product.title}
                 </a>
               </Link>

@@ -5,7 +5,8 @@ export const fetchPageWithCache = async (
   query: string,
   slug: string,
   preview: boolean,
-  previewData?: FridaPreviewData
+  previewData?: FridaPreviewData,
+  locale?: string
 ) => {
   if (preview) {
     console.log('preview Active')
@@ -19,9 +20,7 @@ export const fetchPageWithCache = async (
   const pageData = await getSanityClient({
     active: !!preview,
     token: previewData?.token,
-  }).fetch(query, {
-    slug: slug,
-  })
+  }).fetch(query, { locale, slug: slug })
   console.timeEnd('fetchPage_ ' + slug)
 
   return pageData

@@ -10,16 +10,14 @@ import ProductName from '@components/ProductComponents/ProductName'
 import Price from '@components/ProductComponents/ProductPrice'
 import { useAddItem, useCartItems } from '@lib/context/useShopItem'
 import React from 'react'
-import { FridaLocation } from 'types'
 import { ArtworkSingleViewResult } from './artworksQueries'
 import Video from '@components/Video/Video'
 
 type ArtworkHeroProps = {
-  lang: FridaLocation
   artwork: ArtworkSingleViewResult
 }
 
-const ArtworkHero: React.FC<ArtworkHeroProps> = ({ artwork, lang }) => {
+const ArtworkHero: React.FC<ArtworkHeroProps> = ({ artwork }) => {
   const {
     artworkName,
     height,
@@ -112,8 +110,8 @@ const ArtworkHero: React.FC<ArtworkHeroProps> = ({ artwork, lang }) => {
             />
           )}
 
-          {hints && <ProductHints items={hints} lang={lang} />}
-          <PaymentInfo lang={lang} />
+          {hints && <ProductHints items={hints} />}
+          <PaymentInfo />
         </div>
       </ProductInfoWrap>
     </ProductHeroWrap>

@@ -1,11 +1,13 @@
+import Cookie from '@components/Cookie'
 import { m, Variants } from 'framer-motion'
 import BodyParser from 'pageBuilder/BodyParser'
+import { Seo } from 'pageBuilder/Seo/Seo'
 import React from 'react'
 import { FridaColors } from 'types'
 import Footer from '../../components/generic/Footer'
 import Header from '../../components/generic/Header'
 import Mouse from '../../components/generic/Mouse/mouse'
-import SEO from '../../components/generic/seo'
+
 import { useLayoutContext } from './LayoutContext'
 import PreviewIndexer from './PreviewIndexer'
 
@@ -46,7 +48,9 @@ const Layout: React.FC<LayoutProps> = (props) => {
 
   return (
     <>
-      {data && <SEO site={data} page={data} />}
+      <Seo />
+
+      {/* {data && <SEO site={data} page={data} />} */}
       <m.div
         key={title}
         initial={'initial'}
@@ -67,6 +71,7 @@ const Layout: React.FC<LayoutProps> = (props) => {
       </m.div>
       <Mouse />
       <PreviewIndexer />
+      <Cookie />
     </>
   )
 }

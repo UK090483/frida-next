@@ -2,11 +2,10 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import Photo from '@components/Photo'
 import Link from 'next/link'
-import { QuoteResult } from 'pageBuilder/Blocks/QuotesBlock'
 import React from 'react'
 import { mouseLinkProps } from '@components/generic/Mouse/mouseRemote'
-import { useRouter } from 'next/router'
 import ConditionalWrapper from '@lib/helper/ConditionalWraper'
+import { QuoteResult } from 'pageBuilder/Blocks/QuotesBlock/QuotesBlock.query'
 
 interface QuoteProps extends QuoteResult {
   isSwiping?: boolean
@@ -15,19 +14,15 @@ interface QuoteProps extends QuoteResult {
 const Quote: React.FC<QuoteProps> = (props) => {
   const {
     quote,
-    quote_en,
+
     authorImage,
     author,
     subtitle,
     targetImage,
-    subtitle_en,
+
     link,
     isSwiping = false,
   } = props
-
-  const { locale } = useRouter()
-  const _subtitle = locale === 'en' && subtitle_en ? subtitle_en : subtitle
-  const _quote = locale === 'en' && quote_en ? quote_en : quote
 
   return (
     <ConditionalWrapper
@@ -53,11 +48,11 @@ const Quote: React.FC<QuoteProps> = (props) => {
       )}
     >
       <div className="w-full col-span-2   md:pr-12 items-center  pb-8">
-        <p className="text-frida-pink text-normal font-bold">{_quote}</p>
+        <p className="text-frida-pink text-normal font-bold">{quote}</p>
         <div className="text-frida-white text-base-fluid font-bold mb-0">
           {author}
         </div>
-        <p className="text-frida-white text-sm-fluid"> {_subtitle}</p>
+        <p className="text-frida-white text-sm-fluid"> {subtitle}</p>
       </div>
 
       <div className="w-full h-full min-h-[300px] md:min-h-[400px]  relative flex items-end ">

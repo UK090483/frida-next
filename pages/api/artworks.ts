@@ -1,9 +1,9 @@
 import getHandler from 'pageBuilder/Api/resourceHandler'
 import { getSanityClient } from '@lib/sanity.server'
 import {
-  artworkCardQuery,
   ArtworkCardResult,
-} from 'PageTypes/Artwork/ArtworkCard'
+  artworkCardQuery,
+} from 'PageTypes/Artwork/ArtworkCard.query'
 
 const handler = getHandler<ArtworkCardResult>({
   type: 'artwork',

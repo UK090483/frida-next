@@ -27,6 +27,7 @@ const barAnim = {
 
 const CookieBar: React.FC = () => {
   const { locale } = useRouter()
+
   const message =
     'Wir nutzen Cookies um Ihr Erlebnis auf unserer Website angenehm zu gestalten und steig zu verbessen!'
   const message_en =

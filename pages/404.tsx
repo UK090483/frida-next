@@ -7,14 +7,16 @@ import Header from '@components/generic/Header'
 import Section from '@components/Section'
 import { getSanityClient } from '@lib/sanity.server'
 import { layoutQuery } from 'pageBuilder/Layout/layoutQuery'
-import ArtistCard, {
-  artistCardQuery,
+import ArtistCard from 'PageTypes/Artist/ArtistCard'
+import ArtworkCard from 'PageTypes/Artwork/ArtworkCard'
+import {
   ArtistCardResult,
-} from 'PageTypes/Artist/ArtistCard'
-import ArtworkCard, {
-  artworkCardQuery,
+  artistCardQuery,
+} from 'PageTypes/Artist/ArtistCard.query'
+import {
   ArtworkCardResult,
-} from 'PageTypes/Artwork/ArtworkCard'
+  artworkCardQuery,
+} from 'PageTypes/Artwork/ArtworkCard.query'
 
 interface ErrorPageResult {
   artworks: ArtworkCardResult[]
@@ -57,14 +59,15 @@ const ErrorPage = (props: any) => {
   )
 }
 
-const query = `{
+const query = (locale = '') => `{
   'artworks':*[_type == 'artwork'][0...20]{${artworkCardQuery}},
   'artists':*[_type == 'artist'][0...20]{${artistCardQuery}},
-  ${layoutQuery()}
+  ${layoutQuery(locale)}
 }`
 
-export const getStaticProps: GetStaticProps = async () => {
-  const data = await sanity.fetch(query)
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  const _locale: string = locale === 'en' ? 'en' : ''
+  const data = await sanity.fetch(query(_locale))
 
   return {
     props: {

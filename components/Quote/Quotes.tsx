@@ -1,6 +1,7 @@
 import ButtonNav from '@components/buttons/ButtonNav'
 import { useKeenSlider } from 'keen-slider/react'
-import { QuoteResult } from 'pageBuilder/Blocks/QuotesBlock'
+import { QuoteResult } from 'pageBuilder/Blocks/QuotesBlock/QuotesBlock.query'
+
 import React from 'react'
 import Quote from './Quote'
 

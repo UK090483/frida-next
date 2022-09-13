@@ -75,5 +75,7 @@ yarn.lock
 # Secrets
 .env*
 
+.cypress/videos
+.cypress/screenshots
 cypress.env.json
 build.cache.json
