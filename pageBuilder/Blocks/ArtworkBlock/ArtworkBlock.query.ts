@@ -4,7 +4,7 @@ import {
   ArtworkCardResult,
 } from 'PageTypes/Artwork/ArtworkCard.query'
 
-export const artworksBlockQuery = (locale = '') => `
+export const artworksBlockQuery= (locale:string) => `
 _type == "artworks" => {
   ...,
   type,

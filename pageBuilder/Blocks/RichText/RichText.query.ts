@@ -14,7 +14,7 @@ markDefs[]{
 }
 `
 
-export const richTextQuery = (locale = '') => `
+export const richTextQuery= (locale:string) => `
 'content':coalesce(content_${locale},content)[]{
   ...,
   ${marksQuery},

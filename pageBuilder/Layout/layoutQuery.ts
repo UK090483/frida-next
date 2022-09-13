@@ -1,7 +1,7 @@
 import { body, PageBodyResult } from 'pageBuilder/pageBuilderQueries'
 import { defaultFooterId } from 'shared'
 
-export const layoutQuery = (locale = '') => `
+export const layoutQuery = (locale: string) => `
 'layout':{
   _type,
   

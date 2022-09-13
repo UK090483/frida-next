@@ -1,7 +1,7 @@
 import { imageMeta, ImageMetaResult } from '@lib/queries/snippets'
 import { PageBuilderBlockBase } from 'pageBuilder/pageBuilderQueries'
 
-export const QuoteQuery = (locale = '') => `
+export const QuoteQuery = (locale: string) => `
   author,
   'subtitle': coalesce(subtitle_${locale},subtitle),
   'quote': coalesce(quote_${locale},quote),
@@ -19,7 +19,7 @@ export type QuoteResult = {
   link?: null | { type: string; slug: string }
 }
 
-export const QuotesBlockQuery = (locale = '') => `
+export const QuotesBlockQuery = (locale: string) => `
 _type == "quotes" => {
   ...,
   items[]->{${QuoteQuery(locale)}}

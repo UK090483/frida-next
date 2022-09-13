@@ -4,7 +4,7 @@ import { body, PageBodyResult } from 'pageBuilder/pageBuilderQueries'
 import { buildSeoQuery } from 'pageBuilder/Seo/seoQuery'
 import { FridaColors } from 'types'
 
-export const pageQuery = (locale = '') => `
+export const pageQuery = (locale: string) => `
 type_,
 'slug':slug.current,
 title,

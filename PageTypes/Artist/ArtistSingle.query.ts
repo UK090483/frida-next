@@ -17,7 +17,7 @@ import {
 import { FridaColors } from 'types'
 import { seoQuery } from './ArtistSingle.seoQuery'
 
-export const artistSingleView = (locale = '') => `
+export const artistSingleView = (locale: string) => `
 ${body(locale)}
 initBgColor,
 'prevImage':prevImage{${imageMeta}},
@@ -28,7 +28,7 @@ initBgColor,
 'description': coalesce(description_${locale},description),
 webLink,
 instagramLink,
-'quotes':*[_type == 'quote' && references(^._id)]{${QuoteQuery}},
+'quotes':*[_type == 'quote' && references(^._id)]{${QuoteQuery(locale)}},
 'relatedArtworks':*[_type == 'artwork' && references(^._id)]{
     ${artworkCardQuery}
 },

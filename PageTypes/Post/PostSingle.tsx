@@ -11,7 +11,7 @@ import CarouselHeroItem from '@components/CarouselHero/CarouselItem'
 import { layoutQuery } from 'pageBuilder/Layout/layoutQuery'
 import { useRouter } from 'next/router'
 
-export const postSingleView = (locale = '') => `
+export const postSingleView = (locale: string) => `
 ...,
 title,
 title_en,

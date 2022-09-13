@@ -15,7 +15,7 @@ import React from 'react'
 
 import { FridaPreviewData } from '@pages/api/preview'
 
-const query = (locale = '') => `
+const query = (locale: string) => `
 *[_type == "product" && slug.current == $slug][0]{
   ${productSingleViewQuery(locale)},
   

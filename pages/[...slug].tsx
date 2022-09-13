@@ -11,7 +11,9 @@ import Error from 'pages/404'
 import React from 'react'
 import { pageQuery } from 'PageTypes/Page/Page.query'
 
-const query = (locale = '') => `*[_type == "page" && slug.current == $slug][0]{
+const query = (
+  locale: string
+) => `*[_type == "page" && slug.current == $slug][0]{
   ${pageQuery(locale)},  
 }`
 

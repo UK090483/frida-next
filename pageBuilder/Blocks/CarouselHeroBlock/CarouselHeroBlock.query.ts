@@ -3,7 +3,7 @@ import { PageBuilderBlockBase } from 'pageBuilder/pageBuilderQueries'
 import { FridaColors } from 'types'
 import { richTextQuery } from '../RichText/RichText.query'
 
-export const carouselHeroBlockQuery = (locale = '') => `
+export const carouselHeroBlockQuery = (locale: string) => `
 _type == "carouselHero" => {
   carouselHeroItems[]{
     ...,

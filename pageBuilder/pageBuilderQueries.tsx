@@ -52,7 +52,7 @@ export type PageBuilderBlockBase = {
   _key: string
 }
 
-export const body = (locale = '') => `
+export const body = (locale: string) => `
 content[]{
   ...,
   ${carouselHeroBlockQuery(locale)},

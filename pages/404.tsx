@@ -59,7 +59,7 @@ const ErrorPage = (props: any) => {
   )
 }
 
-const query = (locale = '') => `{
+const query = (locale: string) => `{
   'artworks':*[_type == 'artwork'][0...20]{${artworkCardQuery}},
   'artists':*[_type == 'artist'][0...20]{${artistCardQuery}},
   ${layoutQuery(locale)}

@@ -1,7 +1,7 @@
 import { imageMeta, ImageMetaResult } from '@lib/queries/snippets'
 import { PageBuilderBlockBase } from 'pageBuilder/pageBuilderQueries'
 
-const categoryItem = (locale = '') => `
+const categoryItem = (locale: string) => `
 ...,
 'label': coalesce(label_${locale},label),
 
@@ -12,7 +12,7 @@ sizeMobile,
 'images':images[]{${imageMeta}}
 `
 
-export const categoriesBlockQuery = (locale = '') => `
+export const categoriesBlockQuery = (locale: string) => `
 _type == "categories" => {
   _type,
   type,

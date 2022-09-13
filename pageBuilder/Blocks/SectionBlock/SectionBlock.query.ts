@@ -3,7 +3,7 @@ import { PageBuilderBlockBase } from 'pageBuilder/pageBuilderQueries'
 import { FridaColors, FridaSizes } from 'types'
 import { richTextQuery } from '../RichText/RichText.query'
 
-export const sectionBlockQuery = (locale = '') => `
+export const sectionBlockQuery= (locale:string) => `
 _type == "section" => {
   title,
   bgColor,

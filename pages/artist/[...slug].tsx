@@ -14,7 +14,7 @@ import {
 import ArtistSingle from 'PageTypes/Artist/ArtistSingle'
 import React from 'react'
 
-const query = (locale = '') => `
+const query = (locale: string) => `
         *[_type == "artist" && slug.current == $slug][0]{
           ${artistSingleView(locale)},
         }

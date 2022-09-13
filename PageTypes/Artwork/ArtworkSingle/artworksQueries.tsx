@@ -31,7 +31,7 @@ const seoQuery = buildSeoQuery({
   url: { derived: `'artwork/' +slug.current ` },
 })
 
-export const artworkSingleViewQuery = (locale = '') => `
+export const artworkSingleViewQuery = (locale: string) => `
 _type,
 isNft,
 nftInfo,
@@ -59,7 +59,9 @@ price,
 'medium':medium->name,
 'stil':stil->name,
 'banner':banner,
-'quotes':*[_type == 'quote' &&  (references(^.artist._ref) || references(^._id))]{${QuoteQuery}},
+'quotes':*[_type == 'quote' &&  (references(^.artist._ref) || references(^._id))]{${QuoteQuery(
+  locale
+)}},
 'image':@.image.asset._ref,
 'video': mux.asset-> ,
 'shopify_handle':shopify_handle,

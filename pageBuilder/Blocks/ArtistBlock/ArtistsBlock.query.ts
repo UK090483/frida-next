@@ -5,7 +5,7 @@ import {
 } from 'PageTypes/Artist/ArtistCard.query'
 import { FridaColors } from 'types'
 
-export const artistsBlockQuery = (locale = '') => `
+export const artistsBlockQuery = (locale: string) => `
 _type == "artists" => {
   ...,
   type,

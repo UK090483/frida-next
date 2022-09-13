@@ -12,7 +12,7 @@ import PostSingle, {
 import { GetStaticPaths, GetStaticProps } from 'next'
 import React from 'react'
 
-const query = (locale = '') => `
+const query= (locale:string) => `
 *[_type == "post" && slug.current == $slug ][0]{
   ${postSingleView(locale)},
 }

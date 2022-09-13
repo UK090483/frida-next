@@ -1,7 +1,7 @@
 import { PageBuilderBlockBase } from 'pageBuilder/pageBuilderQueries'
 import { postCardQuery, PostCardResult } from 'PageTypes/Post/PostQueries'
 
-export const postsBlockQuery = (locale = '') => `
+export const postsBlockQuery = (locale: string) => `
 _type == "posts" => {
   'items': *[_type == 'post'] | order(releaseDate desc){
     ${postCardQuery(locale)}

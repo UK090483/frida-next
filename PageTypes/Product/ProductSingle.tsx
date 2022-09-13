@@ -4,7 +4,7 @@ import { FridaLocation } from 'types'
 import { imageMeta, ImageMetaResult } from '@lib/queries/snippets'
 import { siteQuery, SiteResult } from '@lib/queries/cache'
 
-export const productSingleViewQuery = (locale = '') => `
+export const productSingleViewQuery = (locale: string) => `
 ...,
 inStock,
 galleryPhotos[]{
