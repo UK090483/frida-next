@@ -16,4 +16,4 @@ const options = {
 }
 
 //@ts-ignore
-export default hasShopify ? Client.buildClient(options) : null
+export default hasShopify ? (Client.buildClient(options) as ShopifyBuy) : null

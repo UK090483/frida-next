@@ -1,4 +1,3 @@
-import { SiteResult } from '@lib/queries/cache'
 import { imageMeta, ImageMetaResult } from '@lib/queries/snippets'
 
 import {
@@ -49,5 +48,4 @@ export type ArtistPageResult = {
   relatedArtworks: ArtworkCardResult[]
   quotes: QuoteResult[]
   content?: PageBodyResult
-  site: SiteResult
 }

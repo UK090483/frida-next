@@ -2,14 +2,13 @@ import {
   handleStaticProps,
   handleStaticPropsResult,
 } from '@lib/queries/handleStaticProps'
-import { usePage } from '@lib/queries/usePage'
-import Error from '@pages/404'
 import Page from 'PageTypes/Page/Page'
 import { PageResult } from 'PageTypes/Page/Page.query'
 import { GetStaticProps } from 'next'
 import React from 'react'
 
 import { pageQuery } from '../PageTypes/Page/Page.query'
+import PageType from 'pageBuilder/PageType'
 
 const query = (
   locale = ''
@@ -18,16 +17,7 @@ const query = (
 }
 `
 const Home: React.FC<handleStaticPropsResult<PageResult>> = (props) => {
-  const { data, previewQuery } = props
-
-  const { pageData, isError } = usePage({
-    slug: '/',
-    query: previewQuery,
-    data,
-  })
-
-  if (isError) return <Error />
-  return <Page data={pageData} />
+  return <PageType {...props}>{(data) => <Page data={data} />}</PageType>
 }
 
 export const getStaticProps: GetStaticProps = async (props) => {

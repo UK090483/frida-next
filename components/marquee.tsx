@@ -1,10 +1,11 @@
 import React, { useRef } from 'react'
-import { useIntersection } from 'use-intersection'
+
 import Marq from 'react-fast-marquee'
 import Photo from '@components/Photo'
 import { FridaColors } from 'types'
 import { ImageMetaResult } from '@lib/queries/snippets'
 import { useRouter } from 'next/router'
+import { useIntersection } from 'react-use'
 
 type TextItem = {
   _type: 'simple'
@@ -42,10 +43,15 @@ const Marquee: React.FC<MarqueeProps> = ({ data = {} }) => {
   } = data
 
   const marqueeRef = useRef<HTMLDivElement | null>(null)
-  const isIntersecting = useIntersection(marqueeRef, {
-    once: true,
-    threshold: 0.1,
-  })
+
+  // const a= useIntersection(marqueeRef,{threshold:0.1})
+
+  // a?.isIntersecting
+  const isIntersecting = true
+  // const isIntersecting = useIntersection(marqueeRef, {
+  //   once: true,
+  //   threshold: 0.1,
+  // })
 
   const { locale } = useRouter()
 

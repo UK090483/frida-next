@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import sanityClient from '@sanity/client'
 import crypto from 'crypto'
 const getRawBody = require('raw-body')

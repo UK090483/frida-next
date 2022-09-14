@@ -1,25 +1,7 @@
 //@ts-nocheck
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { imageBuilder } from '@lib/sanity'
-import {
-  ImageUrlBuilderOptions,
-  SanityImageSource,
-} from '@sanity/image-url/lib/types/types'
 
-/*  ------------------------------ */
-/*  Generic helper functions
-/*  ------------------------------ */
-
-// reference a previous state after update
-export function usePrevious(value) {
-  const ref = useRef()
-  useEffect(() => {
-    ref.current = value
-  })
-  return ref.current
-}
-
-// client-side mount
+//client-side mount
 export function useHasMounted() {
   const [hasMounted, setHasMounted] = useState(false)
 
@@ -69,29 +51,17 @@ export const ConditionalWrapper: React.FC<{
   return condition ? wrapper(children) : children
 }
 
-// simple debounce function
-export function debounce(fn, ms) {
-  let timer
-  return (_) => {
-    clearTimeout(timer)
-    timer = setTimeout((_) => {
-      timer = null
-      fn.apply(this, arguments)
-    }, ms)
-  }
-}
-
 // delay with promise
-export function sleeper(ms) {
-  return function (x) {
-    return new Promise((resolve) => setTimeout(() => resolve(x), ms))
-  }
-}
+// export function sleeper(ms) {
+//   return function (x) {
+//     return new Promise((resolve) => setTimeout(() => resolve(x), ms))
+//   }
+// }
 
 // check if value is unique
-export const unique = (value, index, self) => {
-  return self.indexOf(value) === index
-}
+// export const unique = (value, index, self) => {
+//   return self.indexOf(value) === index
+// }
 
 // see if an object is found in another array of objects
 export function hasObject(recs, vals) {
@@ -176,56 +146,56 @@ export function useWindowSize() {
 /*  Image helpers
 /*  ------------------------------ */
 
-const buildSrc: (
-  image: SanityImageSource,
-  {}: Pick<ImageUrlBuilderOptions, 'width' | 'height' | 'format' | 'quality'>
-) => string | null = (image, { width, height, format, quality }) => {
-  let imgSrc = imageBuilder.image(image)
+// const buildSrc: (
+//   image: SanityImageSource,
+//   {}: Pick<ImageUrlBuilderOptions, 'width' | 'height' | 'format' | 'quality'>
+// ) => string | null = (image, { width, height, format, quality }) => {
+//   let imgSrc = imageBuilder.image(image)
 
-  if (width) {
-    imgSrc = imgSrc.width(Math.round(width))
-  }
+//   if (width) {
+//     imgSrc = imgSrc.width(Math.round(width))
+//   }
 
-  if (height) {
-    imgSrc = imgSrc.height(Math.round(height))
-  }
+//   if (height) {
+//     imgSrc = imgSrc.height(Math.round(height))
+//   }
 
-  if (format) {
-    imgSrc = imgSrc.format(format)
-  }
+//   if (format) {
+//     imgSrc = imgSrc.format(format)
+//   }
 
-  if (quality) {
-    imgSrc = imgSrc.quality(quality)
-  }
+//   if (quality) {
+//     imgSrc = imgSrc.quality(quality)
+//   }
 
-  return imgSrc.fit('max').auto('format').url()
-}
+//   return imgSrc.fit('max').auto('format').url()
+// }
 
-const buildSrcSet: (
-  image: SanityImageSource,
-  {}: {
-    srcSizes: number[]
-    aspect?: number
-    format?: ImageUrlBuilderOptions['format']
-    quality?: ImageUrlBuilderOptions['quality']
-  }
-) => string = (image, { srcSizes, aspect, format, quality }) => {
-  const sizes = srcSizes.map((width) => {
-    const imgSrc = buildSrc(image, {
-      width,
-      height: aspect && Math.round(width * aspect) / 100,
-      ...{ format },
-      ...{ quality },
-    })
+// const buildSrcSet: (
+//   image: SanityImageSource,
+//   {}: {
+//     srcSizes: number[]
+//     aspect?: number
+//     format?: ImageUrlBuilderOptions['format']
+//     quality?: ImageUrlBuilderOptions['quality']
+//   }
+// ) => string = (image, { srcSizes, aspect, format, quality }) => {
+//   const sizes = srcSizes.map((width) => {
+//     const imgSrc = buildSrc(image, {
+//       width,
+//       height: aspect && Math.round(width * aspect) / 100,
+//       ...{ format },
+//       ...{ quality },
+//     })
 
-    // if (format) {
-    //   imgSrc = imgSrc.format(format)
-    // }
+//     // if (format) {
+//     //   imgSrc = imgSrc.format(format)
+//     // }
 
-    return `${imgSrc} ${width}w`
-  })
+//     return `${imgSrc} ${width}w`
+//   })
 
-  return sizes.join(',')
-}
+//   return sizes.join(',')
+// }
 
-export { buildSrc, buildSrcSet }
+// export { buildSrc, buildSrcSet }

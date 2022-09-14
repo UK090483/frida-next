@@ -8,12 +8,12 @@
 // })
 
 // see breakdown of code bloat
-// const withBundleAnalyzer = require('@next/bundle-analyzer')({
-//   enabled: process.env.ANALYZE === 'true',
-// })
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+})
 
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
-// const withPreact = require('next-plugin-preact');
+
 // get redirects from Sanity for Vercel
 // async function fetchSanityRedirects() {
 
@@ -33,7 +33,7 @@ const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 //   return redirects
 // }
 
-module.exports =()=>({
+const config ={
   
   webpack(config, options) {
     const { dev, isServer, buildId, webpack, } = options
@@ -98,10 +98,13 @@ module.exports =()=>({
   eslint: {
     // Warning: Dangerously allow production builds to successfully complete even if
     // your project has ESLint errors.
-    ignoreDuringBuilds: true,
+    //ignoreDuringBuilds: true,
   },
   // async redirects() {
   //   const sanityRedirects = await fetchSanityRedirects()
   //   return sanityRedirects
   // },
-})
+}
+
+
+module.exports = withBundleAnalyzer(config)

@@ -2,21 +2,23 @@ import sampleSize from 'lodash/sampleSize'
 
 describe('Artworks', () => {
   const artworks: any[] = Cypress.env('artworks')
-  const randomArtworks = sampleSize(artworks, 10)
+  const randomArtworks = sampleSize(artworks, 1)
 
   randomArtworks.forEach((artwork) => {
     const name = `Artwork "${artwork.name}"`
 
-    it(`${name} should have name`, () => {
+    it(`${name} should connect to shopify`, () => {
       cy.intercept(
         'POST',
-        'https://meetfrida.myshopify.com/api/2020-07/graphql'
+        'https://meetfrida.myshopify.com/api/2022-07/graphql'
       ).as('getCheckout')
 
       cy.visit(artwork.slug)
-
       cy.wait('@getCheckout')
-      cy.contains(artwork.name)
+    })
+
+    it(`${name} should have name`, () => {
+      cy.get('h1').should('contain.text', artwork.name)
     })
 
     it(`${name} should have Price`, () => {
@@ -87,17 +89,17 @@ describe('Artworks', () => {
     })
   })
 
-  // it('all artworks should be online', () => {
-  //   artworks.forEach((i) => {
-  //     cy.request({
-  //       url: Cypress.config('baseUrl') + '/en' + i.slug,
-  //       failOnStatusCode: true,
-  //     })
-  //     cy.request({
-  //       url: Cypress.config('baseUrl') + i.slug,
-  //       failOnStatusCode: true,
-  //     })
-  //   })
-  // })
+  artworks.forEach((i) => {
+    it(`${i.name} should be online`, () => {
+      cy.request({
+        url: Cypress.config('baseUrl') + '/en' + i.slug,
+        failOnStatusCode: true,
+      })
+      cy.request({
+        url: Cypress.config('baseUrl') + i.slug,
+        failOnStatusCode: true,
+      })
+    })
+  })
 })
 export {}

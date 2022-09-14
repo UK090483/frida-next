@@ -42,6 +42,7 @@ const PageTitle: React.FC<PageTitleProps> = ({
     })
 
     return () => {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       observers.current.forEach((observer) => {
         observer.disconnect()
       })
@@ -55,6 +56,7 @@ const PageTitle: React.FC<PageTitleProps> = ({
     return () => {
       clearTimeout(timeOut)
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

@@ -3,10 +3,11 @@ import { useSeoContext } from './seoContext'
 import Head from 'next/head'
 import isDevelopment from 'utility/isDevelopment'
 import { imageBuilder } from '@lib/sanity'
-import { ImageUrlBuilder } from 'next-sanity-image'
+
 import { shareImageResult } from './seoQuery'
 import { useRouter } from 'next/router'
 
+type ImageUrlBuilder = typeof imageBuilder
 const baseUrl = isDevelopment
   ? 'http://localhost:3000/'
   : 'https://www.meetfrida.art/'

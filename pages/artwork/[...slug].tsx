@@ -20,7 +20,7 @@ const ArtworkTemplate: React.FC<
   const { data, slug, previewQuery } = props
 
   const { pageData, isError } = usePage({ slug, query: previewQuery, data })
-  if (isError) return <Error />
+  if (!pageData || isError) return <Error />
 
   return (
     <Layout title={pageData.artistName || 'Frida'}>

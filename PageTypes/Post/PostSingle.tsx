@@ -1,6 +1,5 @@
 import Layout from 'pageBuilder/Layout/Layout'
 
-import { SiteResult } from '@lib/queries/cache'
 import { body, PageBodyResult } from 'pageBuilder/pageBuilderQueries'
 import { ImageMetaResult, imageMeta } from '@lib/queries/snippets'
 import BodyParser from 'pageBuilder/BodyParser'
@@ -38,7 +37,6 @@ export type PostPageResult = {
   previewImage: ImageMetaResult | null
   content: null | PageBodyResult
   default_header?: null | boolean
-  site: SiteResult
 }
 
 interface PostSingleProps extends PostPageResult {

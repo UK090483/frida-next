@@ -26,9 +26,8 @@ const ArtworkTemplate: React.FC<handleStaticPropsResult<ArtistPageResult>> = (
   const { data, slug, previewQuery } = props
   const { pageData, isError } = usePage({ slug, query: previewQuery, data })
 
-  if (isError) {
-    return <Error />
-  }
+  if (!pageData || isError) return <Error />
+
   // TODO: handle init colo
   // const _initialColor = pageData?.initBgColor ? data.initBgColor : 'white'
   return (

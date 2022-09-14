@@ -11,7 +11,7 @@ import Price from '@components/ProductComponents/ProductPrice'
 import { useAddItem } from '@lib/context/useShopItem'
 import ProductForm from '@components/ProductComponents/product-form'
 import React from 'react'
-import { ProductSingleViewResult } from './ProductSingle'
+import { ProductSingleViewResult } from './ProductSingle.query'
 import useProduct from '@lib/context/useProduct'
 // import SocialShare from '@components/SocialShare/SocialShare'
 

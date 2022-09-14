@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React from 'react'
 import { AnimatePresence, m } from 'framer-motion'
 
@@ -52,6 +53,7 @@ const CookieBar: React.FC = () => {
         >
           <div className="flex flex-wrap md:flex-nowrap justify-between items-center">
             <div className="flex  justify-between items-center  text-xs-fluid md:pr-frida_7%">
+              
               <img src="/Cookie.png" alt="cookie" className="h-20" />
 
               <p className=" text-xs-fluid">

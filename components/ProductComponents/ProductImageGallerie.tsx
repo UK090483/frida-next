@@ -4,7 +4,7 @@ import { ImageMetaResult } from '@lib/queries/snippets'
 import {
   ProductSingleViewResult,
   ProductGalleryPhotos,
-} from 'PageTypes/Product/ProductSingle'
+} from 'PageTypes/Product/ProductSingle.query'
 import * as React from 'react'
 
 interface IProductImageGalleryProps {

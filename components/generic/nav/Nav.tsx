@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import LangSwitch from '@components/generic/LangSwitcher'
 import { useSiteContext } from '@lib/context/context'
 import { setMouse } from '../Mouse/mouseRemote'

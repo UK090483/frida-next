@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import axios from 'axios'
 import sanityClient from '@sanity/client'
 import crypto from 'crypto'
@@ -75,6 +77,7 @@ export default async function send(req, res) {
 
 
   if (product_type === 'artwork') {
+    
     const sellIfSold = req.body?.variants[0]?.inventory_policy === 'continue'
     const isDraft = req.body?.status === 'draft'
    

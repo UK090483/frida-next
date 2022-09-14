@@ -1,5 +1,5 @@
 import { ImageMetaResult } from '@lib/queries/snippets'
-import { ProductVariant } from 'PageTypes/Product/ProductSingle'
+import { ProductVariant } from 'PageTypes/Product/ProductSingle.query'
 import React from 'react'
 import { useCartItems } from './useShopItem'
 

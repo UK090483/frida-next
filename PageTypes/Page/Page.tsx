@@ -30,11 +30,6 @@ const Page: React.FC<PageProps> = (props) => {
       }
     >
       <BodyParser content={content} />
-
-      <OverlayCTA
-        color="pink"
-        item={(close) => <NewsletterCTA close={close} />}
-      />
     </Layout>
   )
 }

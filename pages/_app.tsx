@@ -1,10 +1,11 @@
+import React, { useEffect, useState, useCallback } from 'react'
 import Cart from '@components/shopComponents/Cart'
 import { SiteContextProvider } from '@lib/context/context'
 import { isBrowser } from '@lib/helpers'
 import { AnimatePresence, domAnimation, LazyMotion } from 'framer-motion'
 import Head from 'next/head'
 import Router from 'next/router'
-import React, { useEffect, useState, useCallback } from 'react'
+
 import 'resize-observer-polyfill'
 import '../styles/app.css'
 import '../styles/tailwind.css'
@@ -15,8 +16,7 @@ import ChromeFix from 'lib/chromeFix'
 import { LayoutContextProvider } from 'pageBuilder/Layout/LayoutContext'
 import { SeoContextProvider } from 'pageBuilder/Seo/seoContext'
 
-const MyApp = ({ Component, pageProps, router }: AppProps) => {
-  const lang = pageProps.lang === 'en' ? 'en' : 'de'
+const MyApp = ({ Component, pageProps, router }: AppProps<any>) => {
   const [isLoading, setLoading] = useState(false)
 
   // The scroll location on the page is not restored on history changes
@@ -113,7 +113,7 @@ const MyApp = ({ Component, pageProps, router }: AppProps) => {
                 <Component key={router.asPath.split('?')[0]} {...pageProps} />
               </AnimatePresence>
 
-              <Cart data={{ ...pageProps?.data?.site }} lang={lang} />
+              <Cart />
             </LazyMotion>
           </SiteContextProvider>
         </LayoutContextProvider>

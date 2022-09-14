@@ -1,4 +1,3 @@
-import { SiteResult } from '@lib/queries/cache'
 import { LayoutResult, layoutQuery } from 'pageBuilder/Layout/layoutQuery'
 import { body, PageBodyResult } from 'pageBuilder/pageBuilderQueries'
 import { buildSeoQuery } from 'pageBuilder/Seo/seoQuery'
@@ -25,6 +24,5 @@ export type PageResult = {
     hideMenu?: null | boolean
     withOutHomeLink?: null | boolean
   }
-  site: SiteResult
   layout: LayoutResult
 }

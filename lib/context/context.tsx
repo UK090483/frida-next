@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
-import { Base64 } from 'base64-string'
 import {
   FetchVariantResult,
   fetchVariant,
@@ -7,6 +6,7 @@ import {
   checkIfCookieExcepted,
 } from './helper'
 
+import shopifyClient from '@lib/shopify'
 interface LineItem extends Partial<FetchVariantResult> {
   lineID: string | number
   quantity: number
@@ -51,7 +51,7 @@ const initialContext: SiteContext = {
       accepted: checkIfCookieExcepted(),
     },
     productCounts: [],
-    shopifyClient: (await import('@lib/shopify')).default,
+    shopifyClient: shopifyClient,
     isLoading: true,
     isAdding: false,
     isUpdating: false,
@@ -71,7 +71,6 @@ export const SiteContext = createContext(initialContext)
 
 // Build a new checkout
 const createNewCheckout = (context: SiteContextState) => {
-  console.log(context.shopifyClient)
   return context.shopifyClient?.checkout.create()
 }
 
@@ -99,9 +98,8 @@ export const setCheckoutState = async (
   // get real lineItems data from Sanity
   const lineItems = await Promise.all(
     checkout.lineItems.map(async (item) => {
-      const enc = new Base64()
       //@ts-ignore
-      const variantID = enc.decode(item.variant.id).split(shopifyVariantGID)[1]
+      const variantID = item?.variant?.id.split(shopifyVariantGID)[1]
       let variant = await fetchVariant(variantID)
       if (!variant) {
         variant = await fetchArtwork(variantID)

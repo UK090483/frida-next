@@ -13,14 +13,10 @@ import useCheckout from '@lib/context/useCheckout'
 import { useCartItems } from '@lib/context/useShopItem'
 import { useCartTotals, useCartCount } from '@lib/context/useCart'
 import { FridaLocation } from 'types'
+import { useRouter } from 'next/router'
 
-type CartProps = {
-  data: any
-  lang: FridaLocation
-}
-
-const Cart: React.FC<CartProps> = ({ lang }) => {
-  // const { cart } = data
+const Cart = () => {
+  const { locale } = useRouter()
 
   const { isCartOpen, isUpdating } = useSiteContext()
 
@@ -34,10 +30,10 @@ const Cart: React.FC<CartProps> = ({ lang }) => {
   const [hasFocus, setHasFocus] = useState(false)
   const [checkoutLink, setCheckoutLink] = useState(checkoutURL)
 
-  const yourCartText = lang === 'en' ? 'Your Cart' : 'Warenkorb'
-  const doneText = lang === 'en' ? 'Done' : 'Fertig'
-  const checkoutText = lang === 'en' ? 'Checkout' : 'zur Kasse'
-  const subtotalText = lang === 'en' ? 'Subtotal' : 'Zwischensumme'
+  const yourCartText = locale === 'en' ? 'Your Cart' : 'Warenkorb'
+  const doneText = locale === 'en' ? 'Done' : 'Fertig'
+  const checkoutText = locale === 'en' ? 'Checkout' : 'zur Kasse'
+  const subtotalText = locale === 'en' ? 'Subtotal' : 'Zwischensumme'
 
   const handleKeyup = (e: React.KeyboardEvent) => {
     if (e.key === 'Escape') {
@@ -111,9 +107,9 @@ const Cart: React.FC<CartProps> = ({ lang }) => {
 
             <div className="cart--content">
               {lineItems?.length ? (
-                <CartItems items={lineItems} lang={lang} />
+                <CartItems items={lineItems} />
               ) : (
-                <EmptyCart lang={lang} />
+                <EmptyCart />
               )}
             </div>
 
@@ -151,19 +147,20 @@ const Cart: React.FC<CartProps> = ({ lang }) => {
   )
 }
 
-const CartItems = ({ items, lang }: { items: any; lang: FridaLocation }) => {
+const CartItems = ({ items }: { items: any }) => {
   return (
     <div className="cart--items">
       {items.map((item: any) => {
-        return <CartItem key={item.id} item={item} lang={lang} />
+        return <CartItem key={item.id} item={item} />
       })}
     </div>
   )
 }
 
-const EmptyCart = ({ lang }: { lang: FridaLocation }) => {
+const EmptyCart = () => {
+  const { locale } = useRouter()
   const yourCartIsEmptyText =
-    lang === 'en' ? 'Your cart is empty' : 'Dein Warenkorb ist leer'
+    locale === 'en' ? 'Your cart is empty' : 'Dein Warenkorb ist leer'
 
   return (
     <div className="cart--empty">

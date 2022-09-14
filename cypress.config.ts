@@ -2,8 +2,8 @@ import { defineConfig } from 'cypress'
 import { createClient } from 'next-sanity'
 
 const sanityClient = createClient({
-  projectId: 'zll53fvk',
-  dataset: 'development',
+  projectId: 'ypuaahj7',
+  dataset: 'production',
   useCdn: true,
   apiVersion: '2021-03-25',
 })

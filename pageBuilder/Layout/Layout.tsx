@@ -48,9 +48,6 @@ const Layout: React.FC<LayoutProps> = (props) => {
 
   return (
     <>
-      <Seo />
-
-      {/* {data && <SEO site={data} page={data} />} */}
       <m.div
         key={title}
         initial={'initial'}
@@ -65,10 +62,11 @@ const Layout: React.FC<LayoutProps> = (props) => {
           header
         )}
         <main>{children}</main>
-        {/* <CookieConsent /> */}
+
         {footer && <BodyParser content={footer.content} />}
         <Footer />
       </m.div>
+      <Seo />
       <Mouse />
       <PreviewIndexer />
       <Cookie />

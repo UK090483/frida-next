@@ -6,14 +6,15 @@ import {
   handleStaticPropsResult,
 } from '@lib/queries/handleStaticProps'
 import Error from 'pages/404'
-import ProductSingle, {
+import {
   productSingleViewQuery,
   ProductSingleViewResult,
-} from 'PageTypes/Product/ProductSingle'
+} from 'PageTypes/Product/ProductSingle.query'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import React from 'react'
 
 import { FridaPreviewData } from '@pages/api/preview'
+import ProductSingle from 'PageTypes/Product/ProductSingle'
 
 const query = (locale: string) => `
 *[_type == "product" && slug.current == $slug][0]{
@@ -26,16 +27,18 @@ const ProductTemplate: React.FC<
   handleStaticPropsResult<ProductSingleViewResult>
 > = (props) => {
   const { data, slug, previewQuery } = props
-  const { pageData, isError } = usePage({ slug, query: previewQuery, data })
+  const { pageData, isError } = usePage<ProductSingleViewResult>({
+    slug,
+    query: previewQuery,
+    data,
+  })
 
-  if (isError) return <Error />
+  if (!pageData || isError) return <Error />
 
   return (
-    <div>
-      <Layout title={'Shop'}>
-        <ProductSingle {...pageData} />
-      </Layout>
-    </div>
+    <Layout title={'Shop'}>
+      <ProductSingle {...pageData} />
+    </Layout>
   )
 }
 

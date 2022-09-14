@@ -1,7 +1,9 @@
 {
+  
   "cSpell.words": [
     "anzeige",
     "frida",
+    "mailchimp",
     "marq",
     "meetfrida",
     "meganav",
@@ -13,10 +15,8 @@
     "testid",
     "Warenkorb"
   ],
-  "editor.formatOnSave": false,
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
-  },
+  "editor.formatOnSave": true,
+  
   "files.exclude": {
     "**/.git": false,
     "**/.svn": false,

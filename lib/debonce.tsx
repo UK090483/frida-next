@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-this-alias */
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 /**
  * A function that emits a side effect.
  */

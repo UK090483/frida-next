@@ -18,6 +18,7 @@ const Embed: React.FC<IEmbetProps> = ({ url }) => {
     >
       <div className="aspect-w-16 aspect-h-9">
         <iframe
+          title="title"
           src={url}
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

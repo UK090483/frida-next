@@ -1,18 +1,20 @@
 import { usePreviewSubscription } from '@lib/sanity'
 import { useRouter } from 'next/router'
 
-type usePageProps = {
+type usePageProps<T extends any> = {
   slug: string
   query: string
-  data: any
+  data: T
 }
 
-export const usePage = (props: usePageProps) => {
+export function usePage<T extends any>(
+  props: usePageProps<T>
+): { pageData: T; isError: false } | { pageData: null; isError: true } {
   const { slug, query, data } = props
 
   const { isFallback, isPreview } = useRouter()
 
-  const { data: pageData } = usePreviewSubscription(query, {
+  const { data: pageData } = usePreviewSubscription<T>(query, {
     params: { slug },
     initialData: data,
     enabled: isPreview,
@@ -23,10 +25,6 @@ export const usePage = (props: usePageProps) => {
   }
   if (!pageData) {
     return { pageData: null, isError: true }
-  }
-
-  if (isPreview) {
-    pageData.site = data.site
   }
 
   return { pageData, isError: false }

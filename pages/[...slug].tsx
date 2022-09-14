@@ -5,11 +5,12 @@ import {
   handleStaticPropsResult,
 } from '@lib/queries/handleStaticProps'
 import { usePage } from '@lib/queries/usePage'
-import PageBuilder from 'PageTypes/Page/Page'
+import Page from 'PageTypes/Page/Page'
 import { PageResult } from 'PageTypes/Page/Page.query'
 import Error from 'pages/404'
 import React from 'react'
 import { pageQuery } from 'PageTypes/Page/Page.query'
+import PageType from 'pageBuilder/PageType'
 
 const query = (
   locale: string
@@ -17,17 +18,19 @@ const query = (
   ${pageQuery(locale)},  
 }`
 
-const Page: React.FC<handleStaticPropsResult<PageResult>> = (props) => {
-  const { data, slug, previewQuery } = props
-  const { pageData, isError } = usePage({
-    slug,
-    query: previewQuery,
-    data,
-  })
+const CustomPage: React.FC<handleStaticPropsResult<PageResult>> = (props) => {
+  // const { data, slug, previewQuery } = props
+  // const { pageData, isError } = usePage({
+  //   slug,
+  //   query: previewQuery,
+  //   data,
+  // })
 
-  if (isError) return <Error />
-  if (!pageData) return <div>Page</div>
-  return <PageBuilder data={pageData} />
+  // if (isError) return <Error />
+  // if (!pageData) return <div>Page</div>
+  // return <Page data={pageData} />
+
+  return <PageType {...props}>{(data) => <Page data={data} />}</PageType>
 }
 
 export const getStaticProps: GetStaticProps = async (props) => {
@@ -38,4 +41,4 @@ export const getStaticPaths: GetStaticPaths = async () => {
   return await getAllDocPathsCached('page')
 }
 
-export default Page
+export default CustomPage
