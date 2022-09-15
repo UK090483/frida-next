@@ -1,5 +1,5 @@
 import { handleStaticPropsResult } from '@lib/queries/handleStaticProps'
-import { usePage } from '@lib/queries/usePage'
+import { usePage } from 'hooks/usePage'
 
 import Error from '@pages/404'
 import React from 'react'

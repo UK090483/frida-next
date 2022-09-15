@@ -1,8 +1,7 @@
-//@ts-nocheck
 import React from 'react'
 import { contrastColor } from 'contrast-color'
 
-const Swatch = ({ label, color }: { label: string; color: unknown }) => {
+const Swatch = ({ label, color }: { label: string; color: any }) => {
   if (!color) return null
 
   return (
@@ -10,6 +9,7 @@ const Swatch = ({ label, color }: { label: string; color: unknown }) => {
       className="swatch"
       aria-label={label}
       style={{
+        //@ts-ignore
         '--swatchColor': color?.hex,
         '--swatchBorder': color?.hex
           ? contrastColor({ bgColor: color?.hex })

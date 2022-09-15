@@ -1,6 +1,6 @@
 import { mouseLinkProps } from '@components/generic/Mouse/mouseRemote'
 import React from 'react'
-import { buildInternalLink } from '@lib/helper/buildInternalLink'
+import { buildInternalLink } from 'utility/buildInternalLink'
 import Link from 'next/link'
 import Icon from '@components/Icon'
 

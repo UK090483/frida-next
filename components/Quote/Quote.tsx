@@ -1,10 +1,8 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import Photo from '@components/Photo'
 import Link from 'next/link'
 import React from 'react'
 import { mouseLinkProps } from '@components/generic/Mouse/mouseRemote'
-import ConditionalWrapper from '@lib/helper/ConditionalWraper'
+import ConditionalWrapper from '@components/ConditionalWrapper'
 import { QuoteResult } from 'pageBuilder/Blocks/QuotesBlock/QuotesBlock.query'
 
 interface QuoteProps extends QuoteResult {
@@ -14,12 +12,10 @@ interface QuoteProps extends QuoteResult {
 const Quote: React.FC<QuoteProps> = (props) => {
   const {
     quote,
-
     authorImage,
     author,
     subtitle,
     targetImage,
-
     link,
     isSwiping = false,
   } = props

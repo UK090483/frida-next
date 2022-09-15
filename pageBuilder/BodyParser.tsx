@@ -11,18 +11,17 @@ import RT from './Blocks/RichText/RichText'
 import Marquee from './Blocks/Marquee/Marquee'
 import Quotes from './Blocks/QuotesBlock/QuotesBlock'
 
-import ButtonPlug from './Plugs/ButtonPlug'
-import EmbedPlug from './Plugs/EmbedPlug'
-import ImagePlug from './Plugs/ImagePlug'
-import SeoHeaderPlug from './Plugs/SeoHeader'
-import ImageGalleryPlug from './Plugs/ImageGaleriePlug'
+import ButtonPlug from './Blocks/RichText/Plugs/ButtonPlug/ButtonPlug'
+import EmbedPlug from './Blocks/RichText/Plugs/EmbedPlug/EmbedPlug'
+import ImagePlug from './Blocks/RichText/Plugs/ImagePlug'
+import SeoHeaderPlug from './Blocks/RichText/Plugs/SeoHeader'
+import ImageGalleryPlug from './Blocks/RichText/Plugs/ImageGalleryPlug'
 
 import ComponentNotFound from './component_not_found'
 import { FridaLocation } from 'types'
 import { PageBodyResult } from './pageBuilderQueries'
-// import InnerSectionPlug from './Plugs/innerSection'
-import SpacerPlug from './Plugs/Spacer'
-import DownLoadPlug from './Plugs/DownLoadPlug'
+import SpacerPlug from './Blocks/RichText/Plugs/Spacer'
+import DownLoadPlug from './Blocks/RichText/Plugs/DownLoadPlug/DownLoadPlug'
 import { useRouter } from 'next/router'
 
 type ContentParserProps = {
@@ -58,11 +57,11 @@ const BodyParser: React.FC<ContentParserProps> = (props) => {
             case 'posts':
               return <PostBlock {...blok} key={blok._key} />
             case 'products':
-              return <ProductsBlock lang={lang} {...blok} key={blok._key} />
+              return <ProductsBlock {...blok} key={blok._key} />
             case 'carouselHero':
               return <CarouselHeroBlock {...blok} key={blok._key} />
             case 'categories':
-              return <CategoryBlock lang={lang} {...blok} key={blok._key} />
+              return <CategoryBlock {...blok} key={blok._key} />
             case 'embed':
               return <EmbedPlug {...blok} key={blok._key} />
             case 'button':
@@ -75,14 +74,13 @@ const BodyParser: React.FC<ContentParserProps> = (props) => {
               return <Quotes {...blok} key={blok._key} />
             case 'imageGalleryPlug':
               return <ImageGalleryPlug {...blok} key={blok._key} />
-            // case 'innerSection':
-            //   return <InnerSectionPlug {...blok} key={blok._key} />
             case 'spacer':
               return <SpacerPlug {...blok} key={blok._key} />
             case 'download':
               return <DownLoadPlug {...blok} key={blok._key} />
 
             default:
+              //@ts-ignore
               return <ComponentNotFound blok={blok} key={blok._key} />
           }
         })}

@@ -5,9 +5,9 @@ import cx from 'classnames'
 
 import { motion, Variants } from 'framer-motion'
 import { useRouter } from 'next/router'
-import { useSiteContext } from 'lib/context/context'
-import useToggleCart from '@lib/context/useToggleCart'
-import useCheckout from '@lib/context/useCheckout'
+import { useSiteContext } from 'contexts/shopContext/context'
+import useToggleCart from 'contexts/shopContext/useToggleCart'
+import useCheckout from 'contexts/shopContext/useToggleCart'
 
 type BuyButtonProps = {
   handleAddToCard?: () => void
@@ -110,6 +110,7 @@ const BuyButton: React.FC<BuyButtonProps> = (props) => {
             <BButton
               testId="buyButton_checkout"
               onClick={() => {
+                //@ts-ignore
                 checkOut && (window.location.href = checkOut)
               }}
               show={isInCart}

@@ -1,5 +1,4 @@
 import Layout from 'pageBuilder/Layout/Layout'
-import { usePage } from '@lib/queries/usePage'
 import query, {
   ArtworkSingleViewResult,
 } from 'PageTypes/Artwork/ArtworkSingle/artworksQueries'
@@ -8,24 +7,24 @@ import {
   handleStaticProps,
   handleStaticPropsResult,
 } from '@lib/queries/handleStaticProps'
-import Error from '@pages/404'
+
 import ArtworkSingle from 'PageTypes/Artwork/ArtworkSingle/ArtworkSingle'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import React from 'react'
 import getServerResource from 'pageBuilder/Api/getResource.server'
+import PageType from 'pageBuilder/PageType'
 
-const ArtworkTemplate: React.FC<
-  handleStaticPropsResult<ArtworkSingleViewResult>
-> = (props) => {
-  const { data, slug, previewQuery } = props
-
-  const { pageData, isError } = usePage({ slug, query: previewQuery, data })
-  if (!pageData || isError) return <Error />
-
+const Artwork: React.FC<handleStaticPropsResult<ArtworkSingleViewResult>> = (
+  props
+) => {
   return (
-    <Layout title={pageData.artistName || 'Frida'}>
-      <ArtworkSingle {...pageData} />
-    </Layout>
+    <PageType {...props}>
+      {(data) => (
+        <Layout title={data.artistName || 'Frida'}>
+          <ArtworkSingle {...data} />
+        </Layout>
+      )}
+    </PageType>
   )
 }
 
@@ -55,4 +54,4 @@ export const getStaticPaths: GetStaticPaths = async () => {
   )
 }
 
-export default ArtworkTemplate
+export default Artwork

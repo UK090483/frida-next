@@ -1,10 +1,10 @@
 import * as React from 'react'
 import { setMouse } from './generic/Mouse/mouseRemote'
-interface IEmbetProps {
+interface IEmbedProps {
   url?: string
 }
 
-const Embed: React.FC<IEmbetProps> = ({ url }) => {
+const Embed: React.FC<IEmbedProps> = ({ url }) => {
   if (!url) return <div>Url is not set</div>
 
   return (

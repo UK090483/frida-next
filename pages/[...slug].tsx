@@ -1,16 +1,15 @@
-import type { GetStaticPaths, GetStaticProps } from 'next'
 import { getAllDocPathsCached } from '@lib/queries/fetchDocPathApi'
 import {
   handleStaticProps,
   handleStaticPropsResult,
 } from '@lib/queries/handleStaticProps'
-import { usePage } from '@lib/queries/usePage'
-import Page from 'PageTypes/Page/Page'
-import { PageResult } from 'PageTypes/Page/Page.query'
-import Error from 'pages/404'
+import type { GetStaticPaths, GetStaticProps } from 'next'
 import React from 'react'
-import { pageQuery } from 'PageTypes/Page/Page.query'
+
+import Page from 'PageTypes/Page/Page'
+
 import PageType from 'pageBuilder/PageType'
+import { pageQuery, PageResult } from 'PageTypes/Page/Page.query'
 
 const query = (
   locale: string
@@ -19,17 +18,6 @@ const query = (
 }`
 
 const CustomPage: React.FC<handleStaticPropsResult<PageResult>> = (props) => {
-  // const { data, slug, previewQuery } = props
-  // const { pageData, isError } = usePage({
-  //   slug,
-  //   query: previewQuery,
-  //   data,
-  // })
-
-  // if (isError) return <Error />
-  // if (!pageData) return <div>Page</div>
-  // return <Page data={pageData} />
-
   return <PageType {...props}>{(data) => <Page data={data} />}</PageType>
 }
 

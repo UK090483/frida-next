@@ -8,12 +8,11 @@ import ProductMagnifyImage from '@components/ProductComponents/ProductMagnifyIma
 import ProductImageGallery from '@components/ProductComponents/ProductImageGallerie'
 import ProductName from '@components/ProductComponents/ProductName'
 import Price from '@components/ProductComponents/ProductPrice'
-import { useAddItem } from '@lib/context/useShopItem'
+import { useAddItem } from 'contexts/shopContext/useShopItem'
 import ProductForm from '@components/ProductComponents/product-form'
 import React from 'react'
 import { ProductSingleViewResult } from './ProductSingle.query'
-import useProduct from '@lib/context/useProduct'
-// import SocialShare from '@components/SocialShare/SocialShare'
+import useProduct from 'contexts/shopContext/useProduct'
 
 type ProductHeroProps = ProductSingleViewResult
 
@@ -95,7 +94,6 @@ const ProductHero: React.FC<ProductHeroProps> = (props) => {
             }}
           />
           <div className="pb-10"></div>
-          {/* <div className="pb-12">{<SocialShare />}</div> */}
 
           <PaymentInfo />
         </div>

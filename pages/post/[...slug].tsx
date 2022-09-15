@@ -1,4 +1,4 @@
-import { usePage } from '@lib/queries/usePage'
+import { usePage } from 'hooks/usePage'
 import { getAllDocPathsCached } from '@lib/queries/fetchDocPathApi'
 import {
   handleStaticProps,

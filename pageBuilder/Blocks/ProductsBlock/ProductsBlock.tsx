@@ -5,15 +5,11 @@ import React from 'react'
 import { FridaLocation } from 'types'
 import { ProductsGalleryResult } from './ProductsBlock.query'
 
-interface ProductsBlockProps extends ProductsGalleryResult {
-  lang: FridaLocation
-}
-
-const ProductsBlock: React.FC<ProductsBlockProps> = (props) => {
-  const { items = [], lang, type } = props
+const ProductsBlock: React.FC<ProductsGalleryResult> = (props) => {
+  const { items = [], type } = props
 
   if (type === 'masonry') {
-    return <ProductGallery items={items} lang={lang} />
+    return <ProductGallery items={items} />
   }
 
   return (

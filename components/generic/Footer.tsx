@@ -5,7 +5,7 @@ import Newsletter from 'components/Forms/NewsletterForm'
 import { useRouter } from 'next/router'
 import { mouseLinkProps } from './Mouse/mouseRemote'
 import Link from 'next/link'
-import { buildInternalLink } from '@lib/helper/buildInternalLink'
+import { buildInternalLink } from 'utility/buildInternalLink'
 
 import { useLayoutContext } from 'pageBuilder/Layout/LayoutContext'
 

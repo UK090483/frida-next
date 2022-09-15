@@ -1,18 +1,20 @@
+import Layout from 'pageBuilder/Layout/Layout'
+import PageType from 'pageBuilder/PageType'
+import ArtistSingle from 'PageTypes/Artist/ArtistSingle'
+import React from 'react'
+
 import { getAllDocPathsCached } from '@lib/queries/fetchDocPathApi'
 import {
   handleStaticProps,
   handleStaticPropsResult,
 } from '@lib/queries/handleStaticProps'
-import { usePage } from '@lib/queries/usePage'
-import Error from '@pages/404'
+
 import { GetStaticPaths, GetStaticProps } from 'next'
-import Layout from 'pageBuilder/Layout/Layout'
+
 import {
   ArtistPageResult,
   artistSingleView,
 } from 'PageTypes/Artist/ArtistSingle.query'
-import ArtistSingle from 'PageTypes/Artist/ArtistSingle'
-import React from 'react'
 
 const query = (locale: string) => `
         *[_type == "artist" && slug.current == $slug][0]{
@@ -20,20 +22,15 @@ const query = (locale: string) => `
         }
       `
 
-const ArtworkTemplate: React.FC<handleStaticPropsResult<ArtistPageResult>> = (
-  props
-) => {
-  const { data, slug, previewQuery } = props
-  const { pageData, isError } = usePage({ slug, query: previewQuery, data })
-
-  if (!pageData || isError) return <Error />
-
-  // TODO: handle init colo
-  // const _initialColor = pageData?.initBgColor ? data.initBgColor : 'white'
+const Artist: React.FC<handleStaticPropsResult<ArtistPageResult>> = (props) => {
   return (
-    <Layout initialColor={'black'} title={pageData.name || ''}>
-      <ArtistSingle {...pageData} />
-    </Layout>
+    <PageType {...props}>
+      {(data) => (
+        <Layout initialColor={'black'} title={data.name || ''}>
+          <ArtistSingle {...data} />
+        </Layout>
+      )}
+    </PageType>
   )
 }
 
@@ -45,4 +42,4 @@ export const getStaticPaths: GetStaticPaths = async () => {
   return await getAllDocPathsCached('artist')
 }
 
-export default ArtworkTemplate
+export default Artist

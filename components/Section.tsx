@@ -41,14 +41,6 @@ const Section: React.FC<SectionProps> = (props) => {
       )}
       data-color={backgroundColor}
     >
-      {/* {bgImage && (
-        <FridaImage
-          className="absolute top-0 bottom-0 left-0 right-0 "
-          photo={bgImage}
-          layout="fill"
-        />
-      )} */}
-
       <div
         className={cx(
           'relative',

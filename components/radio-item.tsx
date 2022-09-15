@@ -5,7 +5,7 @@ import {
   RadioGroupValue,
   useRadioGroupContext,
   useRadioItemContext,
-} from '@components/radio-group'
+} from '@components/ProductComponents/radio-group'
 
 interface IRadioItemProps {
   value: RadioGroupValue

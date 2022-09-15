@@ -1,10 +1,10 @@
 // @ts-ignore
 import BlockContent from '@sanity/block-content-to-react'
-import LinkMark from 'pageBuilder/marks/link'
+import LinkMark from 'pageBuilder/Blocks/RichText/marks/link'
 import React from 'react'
 import Frida from '../../../components/Frida'
-import ButtonPlug from '../../Plugs/ButtonPlug'
-import EmbedPlug from '../../Plugs/EmbedPlug'
+import ButtonPlug from './Plugs/ButtonPlug/ButtonPlug'
+import EmbedPlug from './Plugs/EmbedPlug/EmbedPlug'
 
 const pink = (props: any) => {
   return <span className="text-frida-pink">{props.children}</span>

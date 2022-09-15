@@ -3,7 +3,7 @@ import React from 'react'
 import Link from 'next/link'
 import { mouseLinkProps } from '../Mouse/mouseRemote'
 import { m } from 'framer-motion'
-import { useToggleMegaNav } from '@lib/context/useUi'
+import { useToggleMegaNav } from 'contexts/shopContext/useUi'
 import { NavItems } from './Nav'
 import { useRouter } from 'next/router'
 

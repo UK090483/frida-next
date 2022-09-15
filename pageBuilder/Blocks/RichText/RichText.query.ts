@@ -1,11 +1,19 @@
-import { linkMarkQuery } from 'pageBuilder/marks/link'
+import { linkMarkQuery } from 'pageBuilder/Blocks/RichText/marks/link'
 import { PageBuilderBlockBase } from 'pageBuilder/pageBuilderQueries'
-import { buttonPlugQuery } from 'pageBuilder/Plugs/ButtonPlug'
-import { downloadPlugQuery } from 'pageBuilder/Plugs/DownLoadPlug'
-import { embedPlugQuery } from 'pageBuilder/Plugs/EmbedPlug'
-import { imageGalleryPlugQuery } from 'pageBuilder/Plugs/ImageGaleriePlug'
-import { imagePlugQuery } from 'pageBuilder/Plugs/ImagePlug'
-import { innerSectionPlugQuery } from 'pageBuilder/Plugs/innerSection'
+import {
+  buttonPlugQuery,
+  ButtonPlugResult,
+} from 'pageBuilder/Blocks/RichText/Plugs/ButtonPlug/ButtonPlug.query'
+import {
+  downloadPlugQuery,
+  DownloadPlugResult,
+} from 'pageBuilder/Blocks/RichText/Plugs/DownLoadPlug/DownLoadPlug.query'
+import {
+  embedPlugQuery,
+  EmbedPlugResult,
+} from 'pageBuilder/Blocks/RichText/Plugs/EmbedPlug/EmbedPlug.query'
+import { imageGalleryPlugQuery } from 'pageBuilder/Blocks/RichText/Plugs/ImageGalleryPlug'
+import { imagePlugQuery } from 'pageBuilder/Blocks/RichText/Plugs/ImagePlug'
 
 const marksQuery = `
 markDefs[]{
@@ -14,7 +22,7 @@ markDefs[]{
 }
 `
 
-export const richTextQuery= (locale:string) => `
+export const richTextQuery = (locale: string) => `
 'content':coalesce(content_${locale},content)[]{
   ...,
   ${marksQuery},
@@ -22,12 +30,13 @@ export const richTextQuery= (locale:string) => `
   ${embedPlugQuery},
   ${imagePlugQuery},
   ${imageGalleryPlugQuery},
-  ${innerSectionPlugQuery},
   ${downloadPlugQuery},
 }
 `
 
+type richtextContent = ButtonPlugResult | DownloadPlugResult | EmbedPlugResult
+
 export interface RichTextQueryResult extends PageBuilderBlockBase {
   _type: 'richText' | 'block'
-  content: any[]
+  content: richtextContent[]
 }

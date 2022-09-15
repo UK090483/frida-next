@@ -1,4 +1,4 @@
-import useKeydown from '@lib/helper/useKeydown'
+import useKeydown from 'hooks/useKeydown'
 import React from 'react'
 const optionHeight = 40
 const maxItems = 8

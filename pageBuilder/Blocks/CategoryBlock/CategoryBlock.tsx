@@ -2,12 +2,8 @@ import Category from '@components/Category'
 import Photo from '@components/Photo'
 
 import React from 'react'
-import { FridaLocation } from 'types'
-import { CategoryBlockResult } from './CategoryBlock.query'
 
-interface CategoryBlockProps extends CategoryBlockResult {
-  lang: FridaLocation
-}
+import { CategoryBlockResult } from './CategoryBlock.query'
 
 const sizes = {
   s: '(min-width: 640px) 20vw ,50vw',
@@ -20,8 +16,8 @@ const getSize = (size?: 's' | 'm' | 'l') => {
 
   return sizes[size]
 }
-const CategoryBlock: React.FC<CategoryBlockProps> = (props) => {
-  const { items, lang } = props
+const CategoryBlock: React.FC<CategoryBlockResult> = (props) => {
+  const { items } = props
 
   if (!items) return <div></div>
 
@@ -44,7 +40,7 @@ const CategoryBlock: React.FC<CategoryBlockProps> = (props) => {
     ],
   }))
 
-  return <Category lang={lang} items={_items}></Category>
+  return <Category items={_items}></Category>
 }
 
 export default CategoryBlock

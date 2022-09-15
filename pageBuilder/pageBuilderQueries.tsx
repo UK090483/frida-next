@@ -1,8 +1,6 @@
-import { ButtonPlugResult } from 'pageBuilder/Plugs/ButtonPlug'
-import { EmbedPlugResult } from 'pageBuilder/Plugs/EmbedPlug'
-import { ImageGalleryPlugResult } from 'pageBuilder/Plugs/ImageGaleriePlug'
-import { ImagePlugResult } from 'pageBuilder/Plugs/ImagePlug'
-import { SeoHeaderPlugResult } from 'pageBuilder/Plugs/SeoHeader'
+import { ImageGalleryPlugResult } from 'pageBuilder/Blocks/RichText/Plugs/ImageGalleryPlug'
+import { ImagePlugResult } from 'pageBuilder/Blocks/RichText/Plugs/ImagePlug'
+import { SeoHeaderPlugResult } from 'pageBuilder/Blocks/RichText/Plugs/SeoHeader'
 import {
   artistsBlockQuery,
   ArtistsGalleryResult,
@@ -43,9 +41,11 @@ import {
   sectionBlockQuery,
   SectionResult,
 } from './Blocks/SectionBlock/SectionBlock.query'
-import { DownloadPlugResult } from './Plugs/DownLoadPlug'
-import { InnerSectionPlugResult } from './Plugs/innerSection'
-import { SpacerPlugResult } from './Plugs/Spacer'
+import { ButtonPlugResult } from './Blocks/RichText/Plugs/ButtonPlug/ButtonPlug.query'
+import { DownloadPlugResult } from './Blocks/RichText/Plugs/DownLoadPlug/DownLoadPlug.query'
+import { EmbedPlugResult } from './Blocks/RichText/Plugs/EmbedPlug/EmbedPlug.query'
+
+import { SpacerPlugResult } from './Blocks/RichText/Plugs/Spacer'
 
 export type PageBuilderBlockBase = {
   _type: string
@@ -84,7 +84,6 @@ export type PageBodyResult = (
   | SeoHeaderPlugResult
   | QuotesBlockResult
   | ImageGalleryPlugResult
-  | InnerSectionPlugResult
   | SpacerPlugResult
   | DownloadPlugResult
 )[]

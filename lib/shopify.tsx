@@ -1,5 +1,5 @@
 import Client from 'shopify-buy'
-import { isBrowser } from '@lib/helpers'
+import isBrowser from 'utility/isBrowser'
 
 // First, check that Shopify variables are set
 const hasShopify = process.env.SHOPIFY_STORE_ID && process.env.SHOPIFY_API_TOKEN

@@ -1,4 +1,4 @@
-import useBodyScrollStop from '@lib/helper/useBodyScrollStop'
+import useBodyScrollStop from '../../hooks/useBodyScrollStop'
 import { useContext } from 'react'
 import { SiteContext } from './context'
 import React from 'react'

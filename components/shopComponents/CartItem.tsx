@@ -6,9 +6,9 @@ import ProductPrice from '@components/ProductComponents/ProductPrice'
 import ProductCounter from '@components/ProductComponents/ProductCounter'
 
 import Button from '@components/buttons/button'
-import useToggleCart from '@lib/context/useToggleCart'
-import { useRemoveItem, useUpdateItem } from '@lib/context/useShopItem'
-import { FetchVariantResult } from '@lib/context/helper'
+import useToggleCart from 'contexts/shopContext/useToggleCart'
+import { useRemoveItem, useUpdateItem } from 'contexts/shopContext/useShopItem'
+import { FetchVariantResult } from 'contexts/shopContext/helper'
 
 import { useRouter } from 'next/router'
 

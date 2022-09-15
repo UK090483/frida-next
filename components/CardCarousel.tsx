@@ -45,12 +45,10 @@ const Carousel: React.FC<CarouselProps> = (props) => {
     breakpoints: responsive,
     created(s) {
       const { size, slidesPerView } = s.details()
-
       setState((oS) => ({ ...oS, showNext: size > slidesPerView }))
     },
     slideChanged(s) {
       const { relativeSlide, size, slidesPerView } = s.details()
-
       setState((oS) => ({
         ...oS,
         showPrev: relativeSlide > 0,
@@ -73,7 +71,7 @@ const Carousel: React.FC<CarouselProps> = (props) => {
       className="horizontal-padding"
     >
       {header && (
-        <div className={`text-md-fluid   font-bold px-frida_7% `}>{header}</div>
+        <div className={`text-md-fluid font-bold px-frida_7% `}>{header}</div>
       )}
       <div className={`py-3 md:py-12 relative`}>
         <div ref={sliderRef} className="keen-slider">

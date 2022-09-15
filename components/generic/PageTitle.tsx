@@ -1,4 +1,4 @@
-import ConditionalWrapper from '@lib/helper/ConditionalWraper'
+import ConditionalWrapper from '@components/ConditionalWrapper'
 import Link from 'next/link'
 import React, { useEffect, useRef } from 'react'
 import { FridaColors } from 'types'
@@ -56,7 +56,7 @@ const PageTitle: React.FC<PageTitleProps> = ({
     return () => {
       clearTimeout(timeOut)
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

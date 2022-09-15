@@ -1,7 +1,7 @@
 import { ImageLayout } from 'types'
 import Image, { ImageLoader, ImageProps } from 'next/image'
 
-import { imageBuilder } from '@lib/sanity'
+import { imageBuilder } from '@lib/Sanity/sanity'
 import type { ImageMetaResult } from '@lib/queries/snippets'
 
 interface PhotoProps {

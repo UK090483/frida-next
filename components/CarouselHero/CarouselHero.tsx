@@ -6,8 +6,8 @@ import ButtonNav from '../buttons/ButtonNav'
 import type KeenSlider from 'keen-slider'
 import { useKeenSlider } from 'keen-slider/react'
 import { FridaColors } from '../../types'
-import useKeydown from '@lib/helper/useKeydown'
-import { useAutoplay } from '@lib/helpers'
+import useKeydown from 'hooks/useKeydown'
+import { useAutoplay } from '../../hooks/useAutoplay'
 
 export type CarouselHeroItem = {
   color: FridaColors

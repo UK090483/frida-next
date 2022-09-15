@@ -2,7 +2,7 @@ import * as React from 'react'
 import { useSeoContext } from './seoContext'
 import Head from 'next/head'
 import isDevelopment from 'utility/isDevelopment'
-import { imageBuilder } from '@lib/sanity'
+import { imageBuilder } from '@lib/Sanity/sanity'
 
 import { shareImageResult } from './seoQuery'
 import { useRouter } from 'next/router'

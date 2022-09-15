@@ -7,25 +7,6 @@ module.exports = {
     './pages/**/*.tsx',
     './pageBuilder/**/*.tsx',
   ],
-  // purge: {
-    
-  //   options: {
-  //     safelist: [
-  //       'decoration-frida-black',
-  //       'decoration-frida-pink',
-  //       'decoration-frida-white',
-  //       'text-frida-black',
-  //       'text-frida-red',
-  //       'text-frida-pink',
-  //       'bg-frida-pink',
-  //       'bg-frida-red',
-  //       'bg-frida-green',
-  //       'bg-frida-white',
-  //       'bg-frida-black',
-  //     ],
-  //   },
-  // },
-  // darkMode: false, 
   theme: {
     colors: {
       transparent: 'transparent',
@@ -58,7 +39,7 @@ module.exports = {
     },
     extend: {
       outline: {
-        green: ['3px dotted #6dd163', '6px'],  
+        green: ['3px dotted #6dd163', '6px'],
       },
       inset: {
         unset: 'unset',
@@ -93,7 +74,7 @@ module.exports = {
       },
       fontSize: {
         xxs: '.625rem',
-        md:'20rem'
+        md: '20rem',
       },
       zIndex: {
         '-1': '-10',
@@ -113,7 +94,6 @@ module.exports = {
         'frida-white': '#ffffff',
         'frida-black': '#000000',
         'frida-grey': '#e5e7eb',
-
       },
       height: {
         heroMin: '700px',
@@ -126,7 +106,7 @@ module.exports = {
         'vh/7': 'calc(100vh / 7)',
         'vh/8': 'calc(100vh / 8)',
         'vh/9': 'calc(100vh / 9)',
-        
+
         'vh-40': '40vh',
         'vh-90': '90vh',
         'vh-100': '100vh',
@@ -143,7 +123,7 @@ module.exports = {
         'absolut-xl': '900px',
         'absolut-xxl': '1200px',
         'fit-content': 'fit-content',
-        'vw/1-5':  'calc(100vw / 1.5)',
+        'vw/1-5': 'calc(100vw / 1.5)',
         'vw/3-5': 'calc(100vw / 3.5)',
         vh: '100vh',
         'vh/2': '50vh',
@@ -175,8 +155,8 @@ module.exports = {
     require('@tailwindcss/forms')({
       strategy: 'class',
     }),
-      require('tailwind-text-decoration-color'),
-     require('@tailwindcss/aspect-ratio'),
+    require('tailwind-text-decoration-color'),
+    require('@tailwindcss/aspect-ratio'),
     require('tailwindcss-fluid')({
       textSizes: {
         xxs: {
@@ -199,7 +179,7 @@ module.exports = {
         },
         base: {
           min: '16px',
-          max: '20px',//old 30
+          max: '20px', //old 30
           minvw: '320px',
           maxvw: '1400px',
         },

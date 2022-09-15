@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import { FridaColors } from 'types'
 import cx from 'classnames'
-import useAnimation from '../../lib/helper/useAnimation'
-import useLocalStorage from '@lib/helper/useLocalStorage'
+import useAnimation from '../../hooks/useAnimation'
+import useLocalStorage from 'hooks/useLocalStorage'
 
 type OverlayCTA = {
   color: FridaColors

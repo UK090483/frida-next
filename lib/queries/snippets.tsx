@@ -22,14 +22,3 @@ export type ImageMetaResult = {
   lqip: string
   fill?: 'fill' | 'contain'
 }
-
-export type SeoResult = {
-  metaTitle: string
-  metaDesc: string
-  shareTitle: string
-  shareGraphic: ImageMetaResult
-  shareDesc: string
-  siteTitle: string
-  url: string
-  shareGraphicSrc: string
-}
