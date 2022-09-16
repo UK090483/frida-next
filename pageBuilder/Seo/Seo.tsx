@@ -12,11 +12,13 @@ const baseUrl = isDevelopment
   ? 'http://localhost:3000/'
   : 'https://www.meetfrida.art/'
 
+const titlePrefix = 'MeetFrida | '
+
 export function Seo() {
   const { locale } = useRouter()
-
   const { data } = useSeoContext()
-  const metaTitle = data?.metaTitle
+
+  const metaTitle = titlePrefix + data?.metaTitle
   const metaDesc = data?.metaDesc
   const shareTitle = data?.shareTitle
   const shareDesc = data?.shareDesc

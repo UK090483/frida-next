@@ -1,7 +1,7 @@
 import Layout from 'pageBuilder/Layout/Layout'
 import query, {
   ArtworkSingleViewResult,
-} from 'PageTypes/Artwork/ArtworkSingle/artworksQueries'
+} from 'PageTypes/Artwork/ArtworkSingle/Artwork.query'
 import { getAllDocPathsCached } from 'pageBuilder/queries/fetchDocPathApi'
 import {
   handleStaticProps,

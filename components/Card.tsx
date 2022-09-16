@@ -1,9 +1,5 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import Frida from '@components/Frida'
 import { mouseLinkProps } from '@components/generic/Mouse/mouseRemote'
-// import { useModalContext } from '@lib/modalContext'
 import { ImageMetaResult } from 'pageBuilder/queries/snippets'
 import Link from 'next/link'
 import { useRouter } from 'next/router'

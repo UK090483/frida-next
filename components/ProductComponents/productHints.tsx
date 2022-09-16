@@ -1,7 +1,7 @@
 import { mouseLinkProps } from '@components/generic/Mouse/mouseRemote'
 import { buildInternalLink } from 'utility/buildInternalLink'
 import Icon from '@components/Icon'
-import { ProductHintResult } from 'PageTypes/Artwork/ArtworkSingle/artworksQueries'
+import { ProductHintResult } from 'PageTypes/Artwork/ArtworkSingle/Artwork.query'
 import Link from 'next/link'
 import React from 'react'
 

@@ -2,7 +2,7 @@ import { buildSeoQuery } from 'pageBuilder/Seo/seoQuery'
 
 export const seoQuery = buildSeoQuery({
   metaTitle: {
-    derived: `'Jetzt Artworks von ' + anzeigeName + ' auf MeetFrida entdecken',`,
+    derived: `anzeigeName,`,
   },
   shareTitle: {
     derived: `'Jetzt Artworks von ' + anzeigeName + ' auf MeetFrida entdecken',`,

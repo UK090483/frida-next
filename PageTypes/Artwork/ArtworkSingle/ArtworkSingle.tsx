@@ -1,5 +1,5 @@
 import Section from '@components/Section'
-import { ArtworkSingleViewResult } from 'PageTypes/Artwork/ArtworkSingle/artworksQueries'
+import { ArtworkSingleViewResult } from 'PageTypes/Artwork/ArtworkSingle/Artwork.query'
 import Carousel from '@components/CardCarousel'
 import ArtworkCard from 'PageTypes/Artwork/ArtworkCard'
 import React from 'react'

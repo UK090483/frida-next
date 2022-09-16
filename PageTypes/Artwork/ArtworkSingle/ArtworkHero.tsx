@@ -9,7 +9,7 @@ import ProductName from '@components/ProductComponents/ProductName'
 import Price from '@components/ProductComponents/ProductPrice'
 import { useAddItem, useCartItems } from 'contexts/shopContext/useShopItem'
 import React from 'react'
-import { ArtworkSingleViewResult } from './artworksQueries'
+import { ArtworkSingleViewResult } from './Artwork.query'
 import Video from '@components/Video/Video'
 
 type ArtworkHeroProps = {

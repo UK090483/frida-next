@@ -15,6 +15,26 @@ export default Sitemap
 
 let sitemap: Buffer | null = null
 
+const addUrl = (smStream: SitemapStream, slug: string) => {
+  const links = [
+    { lang: 'de', url: slug },
+    { lang: 'en', url: 'en/' + slug },
+  ]
+
+  smStream.write({
+    url: `/${slug}`,
+    changefreq: 'weekly',
+    priority: 0.8,
+    links,
+  })
+  smStream.write({
+    url: `en/${slug}`,
+    changefreq: 'weekly',
+    priority: 0.8,
+    links,
+  })
+}
+
 const addUrls = async (smStream: SitemapStream) => {
   const allPages = await getAllDocSlugs('page')
   const allArtists = await getAllDocSlugs('artist')
@@ -28,28 +48,15 @@ const addUrls = async (smStream: SitemapStream) => {
 
   allPages &&
     allPages.map((page) => {
-      smStream.write({
-        url: `/${page.slug}`,
-        changefreq: 'weekly',
-        priority: 0.8,
-      })
+      addUrl(smStream, page.slug)
     })
-
   allArtists &&
     allArtists.map((artist) => {
-      smStream.write({
-        url: `artist/${artist.slug}`,
-        changefreq: 'weekly',
-        priority: 0.7,
-      })
+      addUrl(smStream, `artist/${artist.slug}`)
     })
   allArtworks &&
     allArtworks.map((artwork) => {
-      smStream.write({
-        url: `artwork/${artwork.slug}`,
-        changefreq: 'weekly',
-        priority: 0.7,
-      })
+      addUrl(smStream, `artwork/${artwork.slug}`)
     })
 }
 
@@ -77,7 +84,6 @@ export const getServerSideProps: GetServerSideProps = async ({ res, req }) => {
 
   try {
     smStream.write({ url: '/', changefreq: 'daily', priority: 1.0 })
-    smStream.write({ url: '/shop', changefreq: 'daily', priority: 0.9 })
     await addUrls(smStream)
     smStream.end()
 

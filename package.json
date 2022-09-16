@@ -13,6 +13,7 @@
     "lint": "next lint",
     "cypress:open": "cross-env  cypress open",
     "cypress:run": "cypress run",
+    "cypress:run:live": "cypress run",
     "cypress:ct": "cypress open-ct",
     "test": "jest --watch --verbose"
   },

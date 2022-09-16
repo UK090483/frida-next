@@ -3,12 +3,13 @@ import {
   QuoteResult,
 } from 'pageBuilder/Blocks/QuotesBlock/QuotesBlock.query'
 import { layoutQuery } from 'pageBuilder/Layout/layoutQuery'
-import { buildSeoQuery } from 'pageBuilder/Seo/seoQuery'
+
 import {
   imageMeta,
   ImageMetaResult,
 } from '../../../pageBuilder/queries/snippets'
 import { artworkCardQuery, ArtworkCardResult } from '../ArtworkCard.query'
+import { seoQuery } from './Artwork.seoQuery'
 
 const productHintQuery = `
 text,
@@ -20,15 +21,6 @@ export type ProductHintResult = {
   text_en?: string | null
   link?: { slug: string; type: string }
 }
-
-const seoQuery = buildSeoQuery({
-  metaTitle: { derived: `'Kaufen Sie '+ name + ' jetzt auf MeetFrida.art',` },
-  metaDesc: { derived: '"MeetFrida | Artwork:" + name ,' },
-  shareDesc: { derived: `name+' by ' + artist->anzeigeName,` },
-  shareTitle: { derived: `name+' by ' + artist->anzeigeName,` },
-  shareGraphic: { derived: 'image ,' },
-  url: { derived: `'artwork/' +slug.current ` },
-})
 
 export const artworkSingleViewQuery = (locale: string) => `
 _type,
@@ -75,7 +67,6 @@ price,
 'randomArtworks':*[_type == 'artwork'][0...8]{
     ${artworkCardQuery}
 },
-seo,
 ${layoutQuery(locale)},
 ${seoQuery}
 `
