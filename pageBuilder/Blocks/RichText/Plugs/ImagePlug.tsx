@@ -1,5 +1,5 @@
 import Photo from '@components/Photo'
-import { imageMeta, ImageMetaResult } from '@lib/queries/snippets'
+import { imageMeta, ImageMetaResult } from 'pageBuilder/queries/snippets'
 import classNames from 'classnames'
 import React from 'react'
 import { FridaSizes } from 'types'

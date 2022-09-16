@@ -1,5 +1,5 @@
-import { ImageMetaResult, imageMeta } from '@lib/queries/snippets'
-export const postCardQuery= (locale:string) => `
+import { ImageMetaResult, imageMeta } from 'pageBuilder/queries/snippets'
+export const postCardQuery = (locale: string) => `
 'slug':slug.current,
 'title': coalesce(title_${locale},title),
 'excerpt': coalesce(excerpt_${locale},excerpt),

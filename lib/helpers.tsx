@@ -1,5 +1,6 @@
-//@ts-nocheck
-import { useCallback, useEffect, useRef, useState } from 'react'
+// @ts-nocheck
+
+import { useEffect, useState } from 'react'
 
 //client-side mount
 export function useHasMounted() {
@@ -12,56 +13,12 @@ export function useHasMounted() {
   return hasMounted
 }
 
-// autoplay looper
-export function useAutoplay(callback, delay) {
-  const [isRunning, setIsRunning] = useState(false)
-  const stop = useCallback(() => setIsRunning(false), [setIsRunning])
-  const play = useCallback(() => setIsRunning(true), [setIsRunning])
-  const savedCallback = useRef(callback)
-
-  useEffect(() => {
-    savedCallback.current = callback
-  }, [callback])
-
-  useEffect(() => {
-    if (!isRunning) return
-    let id: 0 | NodeJS.Timeout = 0
-
-    const tick = () => {
-      if (!isRunning && id) return clearTimeout(id)
-      savedCallback.current()
-      requestAnimationFrame(() => (id = setTimeout(tick, delay)))
-    }
-    requestAnimationFrame(() => (id = setTimeout(tick, delay)))
-
-    return () => {
-      if (id) clearTimeout(id)
-      stop()
-    }
-  }, [isRunning, delay, stop])
-
-  return { play, stop }
-}
-
-// conditionally wrap a component with another
 export const ConditionalWrapper: React.FC<{
   condition: boolean
   wrapper: (children: ReactNode) => React.ReactElement
 }> = ({ condition, wrapper, children }) => {
   return condition ? wrapper(children) : children
 }
-
-// delay with promise
-// export function sleeper(ms) {
-//   return function (x) {
-//     return new Promise((resolve) => setTimeout(() => resolve(x), ms))
-//   }
-// }
-
-// check if value is unique
-// export const unique = (value, index, self) => {
-//   return self.indexOf(value) === index
-// }
 
 // see if an object is found in another array of objects
 export function hasObject(recs, vals) {
@@ -78,8 +35,7 @@ export function clampRange(value, min = 0, max = 1) {
   return value < min ? min : value > max ? max : value
 }
 
-// wrap incremental
-export function wrap(index, length) {
+export function wrap(index: number, length: number) {
   if (index < 0) {
     index = length + (index % length)
   }

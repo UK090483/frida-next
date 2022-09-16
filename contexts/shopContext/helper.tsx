@@ -1,4 +1,4 @@
-import { ImageMetaResult } from '@lib/queries/snippets'
+import { ImageMetaResult } from 'pageBuilder/queries/snippets'
 export const cookieName = 'accept_cookies'
 export type FetchVariantResult = {
   lineID: string | number

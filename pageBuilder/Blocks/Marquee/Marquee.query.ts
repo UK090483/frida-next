@@ -1,4 +1,4 @@
-import { imageMeta } from '@lib/queries/snippets'
+import { imageMeta } from 'pageBuilder/queries/snippets'
 import { PageBuilderBlockBase } from 'pageBuilder/pageBuilderQueries'
 import { FridaColors } from 'types'
 

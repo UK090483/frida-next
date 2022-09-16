@@ -1,7 +1,7 @@
 import {
   handleStaticProps,
   handleStaticPropsResult,
-} from '@lib/queries/handleStaticProps'
+} from 'pageBuilder/queries/handleStaticProps'
 import Page from 'PageTypes/Page/Page'
 import { PageResult } from 'PageTypes/Page/Page.query'
 import { GetStaticProps } from 'next'

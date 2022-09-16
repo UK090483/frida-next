@@ -3,11 +3,11 @@ import PageType from 'pageBuilder/PageType'
 import ArtistSingle from 'PageTypes/Artist/ArtistSingle'
 import React from 'react'
 
-import { getAllDocPathsCached } from '@lib/queries/fetchDocPathApi'
+import { getAllDocPathsCached } from 'pageBuilder/queries/fetchDocPathApi'
 import {
   handleStaticProps,
   handleStaticPropsResult,
-} from '@lib/queries/handleStaticProps'
+} from 'pageBuilder/queries/handleStaticProps'
 
 import { GetStaticPaths, GetStaticProps } from 'next'
 

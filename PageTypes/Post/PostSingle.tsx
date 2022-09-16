@@ -1,7 +1,7 @@
 import Layout from 'pageBuilder/Layout/Layout'
 
 import { body, PageBodyResult } from 'pageBuilder/pageBuilderQueries'
-import { ImageMetaResult, imageMeta } from '@lib/queries/snippets'
+import { ImageMetaResult, imageMeta } from 'pageBuilder/queries/snippets'
 import BodyParser from 'pageBuilder/BodyParser'
 import React from 'react'
 import Photo from '@components/Photo'

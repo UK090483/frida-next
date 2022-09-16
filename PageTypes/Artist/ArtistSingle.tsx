@@ -2,7 +2,7 @@ import Button from '@components/buttons/button'
 import Carousel from '@components/CardCarousel'
 import Photo from '@components/Photo'
 import Section from '@components/Section'
-import { ImageMetaResult } from '@lib/queries/snippets'
+import { ImageMetaResult } from 'pageBuilder/queries/snippets'
 
 import classNames from 'classnames'
 import ArtworkCard from 'PageTypes/Artwork/ArtworkCard'

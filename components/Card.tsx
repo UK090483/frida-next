@@ -4,7 +4,7 @@
 import Frida from '@components/Frida'
 import { mouseLinkProps } from '@components/generic/Mouse/mouseRemote'
 // import { useModalContext } from '@lib/modalContext'
-import { ImageMetaResult } from '@lib/queries/snippets'
+import { ImageMetaResult } from 'pageBuilder/queries/snippets'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'

@@ -1,4 +1,4 @@
-import { imageMeta, ImageMetaResult } from '@lib/queries/snippets'
+import { imageMeta, ImageMetaResult } from 'pageBuilder/queries/snippets'
 
 export const artworkCardQuery = `
     _updatedAt,
@@ -15,8 +15,7 @@ export const artworkCardQuery = `
       ${imageMeta}
     },
     'stil':stil->name,
-    'medium':medium->name
-       
+    'medium':medium->name 
 `
 export type ArtworkCardResult = {
   _updatedAt: string

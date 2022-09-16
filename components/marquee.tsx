@@ -3,7 +3,7 @@ import React, { useRef } from 'react'
 import Marq from 'react-fast-marquee'
 import Photo from '@components/Photo'
 import { FridaColors } from 'types'
-import { ImageMetaResult } from '@lib/queries/snippets'
+import { ImageMetaResult } from 'pageBuilder/queries/snippets'
 import { useRouter } from 'next/router'
 import { useIntersection } from 'react-use'
 

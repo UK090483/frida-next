@@ -1,9 +1,9 @@
-import { imageMeta, ImageMetaResult } from '@lib/queries/snippets'
+import { imageMeta, ImageMetaResult } from 'pageBuilder/queries/snippets'
 import { PageBuilderBlockBase } from 'pageBuilder/pageBuilderQueries'
 import { FridaColors, FridaSizes } from 'types'
 import { richTextQuery } from '../RichText/RichText.query'
 
-export const sectionBlockQuery= (locale:string) => `
+export const sectionBlockQuery = (locale: string) => `
 _type == "section" => {
   title,
   bgColor,

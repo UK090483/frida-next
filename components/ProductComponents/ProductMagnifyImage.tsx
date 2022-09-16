@@ -4,7 +4,7 @@
 /* eslint-disable @next/next/no-img-element */
 
 import Photo from '@components/Photo'
-import { ImageMetaResult } from '@lib/queries/snippets'
+import { ImageMetaResult } from 'pageBuilder/queries/snippets'
 import React, { useRef, useState, useEffect } from 'react'
 import { setMouse } from '../generic/Mouse/mouseRemote'
 

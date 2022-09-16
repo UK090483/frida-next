@@ -1,4 +1,4 @@
-import { imageMeta, ImageMetaResult } from '@lib/queries/snippets'
+import { imageMeta, ImageMetaResult } from 'pageBuilder/queries/snippets'
 import { PageBuilderBlockBase } from 'pageBuilder/pageBuilderQueries'
 
 const categoryItem = (locale: string) => `

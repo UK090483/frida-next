@@ -12,7 +12,6 @@ export const getAllDocSlugs: (
 
 export const getAllDocPathsCached = async (doc: string, args?: string) => {
   const allPages = await getAllDocSlugs(doc, args)
-
   if (!allPages) return { paths: [], fallback: true }
   if (!Array.isArray(allPages)) return { paths: [], fallback: true }
 

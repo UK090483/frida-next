@@ -1,4 +1,4 @@
-import { handleStaticPropsResult } from '@lib/queries/handleStaticProps'
+import { handleStaticPropsResult } from 'pageBuilder/queries/handleStaticProps'
 import { usePage } from 'hooks/usePage'
 
 import Error from '@pages/404'

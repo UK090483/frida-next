@@ -4,7 +4,10 @@ import {
 } from 'pageBuilder/Blocks/QuotesBlock/QuotesBlock.query'
 import { layoutQuery } from 'pageBuilder/Layout/layoutQuery'
 import { buildSeoQuery } from 'pageBuilder/Seo/seoQuery'
-import { imageMeta, ImageMetaResult } from '../../../lib/queries/snippets'
+import {
+  imageMeta,
+  ImageMetaResult,
+} from '../../../pageBuilder/queries/snippets'
 import { artworkCardQuery, ArtworkCardResult } from '../ArtworkCard.query'
 
 const productHintQuery = `

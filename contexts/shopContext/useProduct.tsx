@@ -1,4 +1,4 @@
-import { ImageMetaResult } from '@lib/queries/snippets'
+import { ImageMetaResult } from 'pageBuilder/queries/snippets'
 import { ProductVariant } from 'PageTypes/Product/ProductSingle.query'
 import React from 'react'
 import { useCartItems } from './useShopItem'

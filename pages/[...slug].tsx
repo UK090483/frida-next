@@ -1,8 +1,8 @@
-import { getAllDocPathsCached } from '@lib/queries/fetchDocPathApi'
+import { getAllDocPathsCached } from 'pageBuilder/queries/fetchDocPathApi'
 import {
   handleStaticProps,
   handleStaticPropsResult,
-} from '@lib/queries/handleStaticProps'
+} from 'pageBuilder/queries/handleStaticProps'
 import type { GetStaticPaths, GetStaticProps } from 'next'
 import React from 'react'
 

@@ -1,9 +1,9 @@
 import { usePage } from 'hooks/usePage'
-import { getAllDocPathsCached } from '@lib/queries/fetchDocPathApi'
+import { getAllDocPathsCached } from 'pageBuilder/queries/fetchDocPathApi'
 import {
   handleStaticProps,
   handleStaticPropsResult,
-} from '@lib/queries/handleStaticProps'
+} from 'pageBuilder/queries/handleStaticProps'
 import Error from '@pages/404'
 import PostSingle, {
   PostPageResult,

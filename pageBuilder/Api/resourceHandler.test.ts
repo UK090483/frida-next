@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { SanityClient } from '@sanity/client'
 
 import { NextApiRequest, NextApiResponse } from 'next'

@@ -2,11 +2,11 @@ import Layout from 'pageBuilder/Layout/Layout'
 import query, {
   ArtworkSingleViewResult,
 } from 'PageTypes/Artwork/ArtworkSingle/artworksQueries'
-import { getAllDocPathsCached } from '@lib/queries/fetchDocPathApi'
+import { getAllDocPathsCached } from 'pageBuilder/queries/fetchDocPathApi'
 import {
   handleStaticProps,
   handleStaticPropsResult,
-} from '@lib/queries/handleStaticProps'
+} from 'pageBuilder/queries/handleStaticProps'
 
 import ArtworkSingle from 'PageTypes/Artwork/ArtworkSingle/ArtworkSingle'
 import { GetStaticPaths, GetStaticProps } from 'next'
