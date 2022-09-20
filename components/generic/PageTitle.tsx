@@ -26,6 +26,8 @@ const PageTitle: React.FC<PageTitleProps> = ({
   useEffect(() => {
     const observerCallback: IntersectionObserverCallback = (entries) => {
       if (entries[0].isIntersecting) {
+        console.log(entries[0].target)
+
         setBgCurrent(entries[0].target.getAttribute('data-color'))
       }
     }
@@ -33,7 +35,7 @@ const PageTitle: React.FC<PageTitleProps> = ({
       if (i) {
         const observer = new IntersectionObserver(observerCallback, {
           root: null,
-          rootMargin: '0px 0px -95% 0px',
+          rootMargin: '0px -10% -95% -10%',
           threshold: 0,
         })
         observer.observe(i)

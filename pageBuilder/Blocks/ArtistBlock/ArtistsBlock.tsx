@@ -8,7 +8,7 @@ import { ArtistsGalleryResult } from './ArtistsBlock.query'
 
 const ArtworksBlock: React.FC<ArtistsGalleryResult> = (props) => {
   const { items = [], type, label, bgColor = 'white' } = props
-  const [fetchArtists] = useArtists()
+  const [fetchArtists] = useArtists({ count: 20 })
   const _items = fetchArtists.length > 0 ? fetchArtists : items
 
   if (type === 'masonry') {

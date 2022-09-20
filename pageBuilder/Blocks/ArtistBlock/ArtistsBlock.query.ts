@@ -11,9 +11,12 @@ _type == "artists" => {
   type,
   'label': coalesce(label_${locale},label),
   bgColor,
-  'items': *[_type == 'artist' && slug != null][]{
-    ${artistCardQuery}
-  }
+  'items': select(
+
+          type == 'carousel' => *[_type == 'artist' && slug != null][0...20],
+          *[_type == 'artist' && slug != null][],
+
+          )[]{${artistCardQuery}}
 }
 `
 export interface ArtistsGalleryResult extends PageBuilderBlockBase {
