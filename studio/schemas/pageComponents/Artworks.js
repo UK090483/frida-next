@@ -36,11 +36,11 @@ export default {
       title: 'Order',
       name: 'order',
       type: 'array',
-      of: [{type: 'string'}],
+      of: [{ type: 'string' }],
       options: {
         list: [
-          {title: 'LastEdited first', value: 'lastEdited'},
-          {title: 'Rating', value: 'rating'},
+          { title: 'LastEdited first', value: 'lastEdited' },
+          { title: 'Rating', value: 'rating' }
         ]
       }
     },
@@ -89,9 +89,9 @@ export default {
   preview: {
     select: {
       type: 'type',
-      name:'name'
+      name: 'name'
     },
-    prepare({ type,name }) {
+    prepare({ type, name }) {
       return {
         title: `Artworks ${type}`,
         subtitle: name
@@ -99,3 +99,91 @@ export default {
     }
   }
 }
+
+// export default {
+//   title: 'Artworks',
+//   name: 'artworks',
+//   type: 'object',
+
+//   fields: [
+//     {
+//       name: 'name',
+//       type: 'string',
+//       title: 'Name'
+//     },
+//     {
+//       title: 'Type',
+//       name: 'type',
+//       type: 'string',
+//       options: {
+//         list: [
+//           {
+//             title: 'Carousel (default) Last edited',
+//             value: 'carousel_lastEdited'
+//           },
+//           { title: 'Carousel Custom', value: 'carousel_custom' },
+//           { title: 'Full with Filter ', value: 'full' }
+//         ],
+//         layout: 'radio'
+//       },
+//       initialValue: 'carousel'
+//     },
+//     {
+//       title: 'CustomItems',
+//       name: 'customItems',
+//       type: 'array',
+//       of: [
+//         {
+//           type: 'reference',
+//           to: [{ type: 'artwork' }]
+//         }
+//       ],
+//       hidden: ({ parent }) => {
+//         return parent.type !== 'carousel_custom'
+//       }
+//     },
+//     {
+//       name: 'label',
+//       type: 'string',
+//       title: 'Label',
+//       hidden: ({ parent }) => {
+//         return parent.type === 'full'
+//       }
+//     },
+//     {
+//       name: 'label_en',
+//       type: 'string',
+//       title: 'Label En',
+//       hidden: ({ parent }) => {
+//         return parent.type === 'full'
+//       }
+//     },
+//     {
+//       title: 'Background Color',
+//       name: 'bgColor',
+//       type: 'string',
+//       options: {
+//         list: [
+//           { title: 'White (default)', value: 'white' },
+//           { title: 'Grey', value: 'grey' }
+//         ]
+//       },
+
+//       hidden: ({ parent }) => {
+//         return parent.type === 'full'
+//       }
+//     }
+//   ],
+//   preview: {
+//     select: {
+//       type: 'type',
+//       name: 'name'
+//     },
+//     prepare({ type, name }) {
+//       return {
+//         title: `Artworks ${type}`,
+//         subtitle: name
+//       }
+//     }
+//   }
+// }

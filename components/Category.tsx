@@ -5,7 +5,6 @@ import cx from 'classnames'
 import { ConditionalWrapper } from '@lib/helpers'
 import { buildInternalLink } from 'utility/buildInternalLink'
 import { mouseLinkProps } from '@components/generic/Mouse/mouseRemote'
-import { FridaLocation } from 'types'
 import { useRouter } from 'next/router'
 
 type CategoryItem = {

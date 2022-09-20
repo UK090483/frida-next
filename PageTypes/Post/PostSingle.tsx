@@ -9,6 +9,7 @@ import Photo from '@components/Photo'
 import CarouselHeroItem from '@components/CarouselHero/CarouselItem'
 import { layoutQuery } from 'pageBuilder/Layout/layoutQuery'
 import { useRouter } from 'next/router'
+import { buildSeoQuery } from 'pageBuilder/Seo/seoQuery'
 
 export const postSingleView = (locale: string) => `
 ...,
@@ -22,7 +23,8 @@ excerpt_en,
 'headerImage': headerImage {${imageMeta}},
 'previewImage':previewImage {${imageMeta}},
 ${body(locale)}
-${layoutQuery(locale)}
+${layoutQuery(locale)},
+${buildSeoQuery()}
 `
 
 export type PostPageResult = {
@@ -44,15 +46,8 @@ interface PostSingleProps extends PostPageResult {
 }
 
 const PostSingle: React.FC<PostSingleProps> = (props) => {
-  const {
-    headerImage,
-    content,
-
-    title,
-    title_en,
-    default_header,
-    categories,
-  } = props
+  const { headerImage, content, title, title_en, default_header, categories } =
+    props
 
   const { locale } = useRouter()
 

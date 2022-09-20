@@ -30,6 +30,7 @@ const Button: React.FC<LinkProps | ClickProps> = (props) => {
     className: extraClasses = '',
     position = 'inline',
     size = 'm',
+    testid,
   } = props
 
   const className = cx(
@@ -74,7 +75,11 @@ const Button: React.FC<LinkProps | ClickProps> = (props) => {
   if (props.type === 'link') {
     return (
       <Link href={props.link} passHref>
-        <a {...mouseLinkProps} className={` ${className} ${extraClasses}`}>
+        <a
+          data-testid={testid}
+          {...mouseLinkProps}
+          className={` ${className} ${extraClasses}`}
+        >
           {label}
         </a>
       </Link>
@@ -84,6 +89,7 @@ const Button: React.FC<LinkProps | ClickProps> = (props) => {
   if (props.type === 'externalLink') {
     return (
       <a
+        data-testid={testid}
         rel="noreferrer"
         target="_blank"
         style={{ cursor: 'none' }}
@@ -98,6 +104,7 @@ const Button: React.FC<LinkProps | ClickProps> = (props) => {
   if (props.type === 'download') {
     return (
       <a
+        data-testid={testid}
         download
         href={props.link}
         {...mouseLinkProps}
@@ -111,6 +118,7 @@ const Button: React.FC<LinkProps | ClickProps> = (props) => {
   if (props.type === 'click') {
     return (
       <button
+        data-testid={testid}
         style={{ cursor: 'none' }}
         {...mouseLinkProps}
         className={` ${className} ${extraClasses}`}

@@ -60,7 +60,7 @@ type ArtistHeroProps = {
 }
 const ArtistHero: React.FC<ArtistHeroProps> = ({ photo, initBgColor }) => {
   return (
-    <div data-color={initBgColor}>
+    <div data-testid={'artist_hero'} data-color={initBgColor}>
       {photo && (
         <div className="relative hero">
           <Photo photo={photo} layout="fill" />
@@ -85,7 +85,12 @@ const ArtistInfo: React.FC<ArtistSingleProps> = (props) => {
           {name}
         </h1>
         {description && (
-          <p className="whitespace-pre-line text-base-fluid">{description}</p>
+          <p
+            data-testid={'artist__description'}
+            className="whitespace-pre-line text-base-fluid"
+          >
+            {description}
+          </p>
         )}
         <div className="flex flex-col flex-wrap items-center justify-center pt-16 md:flex-row md:justify-start">
           {webLink && (

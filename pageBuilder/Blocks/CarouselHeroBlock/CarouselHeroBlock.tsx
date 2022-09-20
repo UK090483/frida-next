@@ -4,7 +4,6 @@ import React from 'react'
 
 import BodyParser from '../../BodyParser'
 
-import Search from '@components/Search/Search'
 import { CarouselHeroResult } from './CarouselHeroBlock.query'
 
 const CarouselHeroBlock: React.FC<CarouselHeroResult> = (props) => {
@@ -26,7 +25,6 @@ const CarouselHeroBlock: React.FC<CarouselHeroResult> = (props) => {
   return (
     <>
       <CarouselHero items={items} />
-      <Search />
     </>
   )
 }

@@ -1,7 +1,8 @@
+import { Artwork } from 'cypress/types'
 import sampleSize from 'lodash/sampleSize'
 
 describe('Artworks', () => {
-  const artworks: any[] = Cypress.env('artworks')
+  const artworks: Artwork[] = Cypress.env('artworks')
   const randomArtworks = sampleSize(artworks, 1)
 
   randomArtworks.forEach((artwork) => {
@@ -85,21 +86,33 @@ describe('Artworks', () => {
         cy.get(
           '[data-testid="cart__item"] [data-testid="productPrice"]'
         ).should('have.text', artwork.price + '€')
+
+        cy.get('[data-testid="cart__checkoutLink"]')
+          .should('have.attr', 'href')
+          .then((url) => {
+            // cy.request({
+            //   url: url as unknown as string,
+            //   failOnStatusCode: false,
+            // })
+            //   .its('body')
+            //   .should('include', '<h1>Admin</h1>')
+          })
       }
     })
   })
 
-  artworks.forEach((i) => {
-    it(`${i.name} should be online`, () => {
-      cy.request({
-        url: Cypress.config('baseUrl') + '/en' + i.slug,
-        failOnStatusCode: true,
-      })
-      cy.request({
-        url: Cypress.config('baseUrl') + i.slug,
-        failOnStatusCode: true,
-      })
-    })
-  })
+  //
+  // artworks.forEach((i) => {
+  //   it(`${i.name} should be online`, () => {
+  //     cy.request({
+  //       url: Cypress.config('baseUrl') + '/en' + i.slug,
+  //       failOnStatusCode: true,
+  //     })
+  //     cy.request({
+  //       url: Cypress.config('baseUrl') + i.slug,
+  //       failOnStatusCode: true,
+  //     })
+  //   })
+  // })
 })
 export {}

@@ -1,4 +1,4 @@
-import { buildSeoQuery } from 'pageBuilder/Seo/seoQuery'
+import { buildSeoQuery } from '../../../pageBuilder/Seo/seoQuery'
 
 export const seoQuery = buildSeoQuery({
   metaTitle: { derived: `name + ' by ' + artist->anzeigeName,` },

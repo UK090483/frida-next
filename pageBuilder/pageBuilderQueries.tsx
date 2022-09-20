@@ -46,6 +46,11 @@ import { DownloadPlugResult } from './Blocks/RichText/Plugs/DownLoadPlug/DownLoa
 import { EmbedPlugResult } from './Blocks/RichText/Plugs/EmbedPlug/EmbedPlug.query'
 
 import { SpacerPlugResult } from './Blocks/RichText/Plugs/Spacer'
+import {
+  exhibitionsBlockQuery,
+  ExhibitionsBlockResult,
+} from './Blocks/ExhibitionsBlock/ExhibitionsBlock.query'
+import { SearchBlockResult } from './Blocks/Search/SerachBlock.query'
 
 export type PageBuilderBlockBase = {
   _type: string
@@ -65,10 +70,12 @@ content[]{
   ${richTextQuery(locale)},
   ${MarqueeBlockQuery},
   ${QuotesBlockQuery(locale)},
+  ${exhibitionsBlockQuery(locale)},
 },
 `
 
 export type PageBodyResult = (
+  | ExhibitionsBlockResult
   | CarouselHeroResult
   | ArtworksGalleryResult
   | ArtistsGalleryResult
@@ -86,4 +93,5 @@ export type PageBodyResult = (
   | ImageGalleryPlugResult
   | SpacerPlugResult
   | DownloadPlugResult
+  | SearchBlockResult
 )[]

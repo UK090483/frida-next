@@ -11,7 +11,7 @@ _type == "artists" => {
   type,
   'label': coalesce(label_${locale},label),
   bgColor,
-  'items': *[_type == 'artist' && slug != null][0...8]{
+  'items': *[_type == 'artist' && slug != null][]{
     ${artistCardQuery}
   }
 }

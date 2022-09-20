@@ -23,6 +23,8 @@ import { PageBodyResult } from './pageBuilderQueries'
 import SpacerPlug from './Blocks/RichText/Plugs/Spacer'
 import DownLoadPlug from './Blocks/RichText/Plugs/DownLoadPlug/DownLoadPlug'
 import { useRouter } from 'next/router'
+import ExhibitionsBlock from './Blocks/ExhibitionsBlock/ExhibitionsBlock'
+import SearchBlock from './Blocks/Search/Search'
 
 type ContentParserProps = {
   content: PageBodyResult
@@ -78,6 +80,10 @@ const BodyParser: React.FC<ContentParserProps> = (props) => {
               return <SpacerPlug {...blok} key={blok._key} />
             case 'download':
               return <DownLoadPlug {...blok} key={blok._key} />
+            case 'exhibitions':
+              return <ExhibitionsBlock {...blok} key={blok._key} />
+            case 'search':
+              return <SearchBlock {...blok} key={blok._key} />
 
             default:
               //@ts-ignore

@@ -1,12 +1,16 @@
 import { ISearchResult } from '@pages/api/search'
+import classNames from 'classnames'
 import useDebounceEffect from 'hooks/useDebounceEffect'
 import * as React from 'react'
+import { FridaColors } from 'types'
 import Searchfield from './SearchField'
 import SearchResults from './SearchResults'
 
-// interface ISearchProps {}
+interface ISearchProps {
+  bgColor: FridaColors
+}
 
-const Search: React.FC = () => {
+const Search: React.FC<ISearchProps> = ({ bgColor }) => {
   const [searchValue, setSearchValue] = React.useState('')
 
   const [result, setResult] = React.useState<ISearchResult | null>(null)
@@ -39,7 +43,12 @@ const Search: React.FC = () => {
   }, [searchValue])
 
   return (
-    <div className="relative py-8">
+    <div
+      className={classNames('relative py-8 ', {
+        'bg-frida-grey': bgColor === 'grey',
+        'bg-frida-pink ': bgColor === 'pink',
+      })}
+    >
       <Searchfield
         value={searchValue}
         onChange={(v) => setSearchValue(v)}

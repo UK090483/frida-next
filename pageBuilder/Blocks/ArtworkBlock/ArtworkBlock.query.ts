@@ -4,13 +4,14 @@ import {
   ArtworkCardResult,
 } from 'PageTypes/Artwork/ArtworkCard.query'
 
-export const artworksBlockQuery= (locale:string) => `
+export const artworksBlockQuery = (locale: string) => `
 _type == "artworks" => {
   ...,
   type,
   'label': coalesce(label_${locale},label),
   
   'items':  select(
+              count(customItems) > 0 => customItems[]->,
               'lastEdited' in order => *[_type == 'artwork'] | order(_updatedAt desc)[0...20],
               count == 'all' => *[_type == 'artwork'][],
               *[_type == 'artwork'][0...20]

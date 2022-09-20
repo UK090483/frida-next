@@ -10,9 +10,6 @@ export default async function handler(
   )
 
   try {
-    // this should be the actual path not a rewritten path
-    // e.g. for "/blog/[slug]" this should be "/blog/post-1"
-
     const values = await Promise.all(
       slugs.map(({ slug }) => res.revalidate(slug))
     )

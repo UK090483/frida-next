@@ -32,17 +32,4 @@ describe('Seo ', () => {
       cy.get('head meta[property="og:image"]').should('have.attr', 'content')
     })
   })
-
-  // it('all artworks should be online', () => {
-  //   artworks.forEach((i) => {
-  //     cy.request({
-  //       url: Cypress.config('baseUrl') + '/en' + i.slug,
-  //       failOnStatusCode: true,
-  //     })
-  //     cy.request({
-  //       url: Cypress.config('baseUrl') + i.slug,
-  //       failOnStatusCode: true,
-  //     })
-  //   })
-  // })
 })

@@ -1,13 +1,12 @@
 export default {
   widgets: [
-   
     {
       name: 'document-list',
       options: {
         title: 'Recently edited',
         order: '_updatedAt desc',
         limit: 10,
-        types: ['homePage', 'page','artwork','artist']
+        types: ['homePage', 'page', 'artwork', 'artist']
       },
       layout: { width: 'medium' }
     },

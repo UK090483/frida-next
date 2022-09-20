@@ -25,9 +25,9 @@ export default defineConfig({
          'slug':'/artwork/' + slug.current
          },
 
-         'artists':*[ _type == 'artwork' ]{
+         'artists':*[ _type == 'artist' ]{
           ...,
-         'slug':'/artwork/' + slug.current
+         'slug':'/artist/' + slug.current
          },
 
          'posts':*[ _type == 'post' ]{

@@ -1,8 +1,11 @@
-import { buildSeoQuery } from 'pageBuilder/Seo/seoQuery'
+import { buildSeoQuery } from '../../pageBuilder/Seo/seoQuery'
 
 export const seoQuery = buildSeoQuery({
   metaTitle: {
     derived: `anzeigeName,`,
+  },
+  metaDesc: {
+    derived: `"Jetzt Artworks von" + anzeigeName +   "auf MeetFrida entdecken", `,
   },
   shareTitle: {
     derived: `'Jetzt Artworks von ' + anzeigeName + ' auf MeetFrida entdecken',`,

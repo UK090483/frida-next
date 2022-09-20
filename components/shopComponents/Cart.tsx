@@ -121,6 +121,7 @@ const Cart = () => {
                 </div>
 
                 <Button
+                  testid="cart__checkoutLink"
                   size="s"
                   backgroundColor="pink"
                   type="externalLink"

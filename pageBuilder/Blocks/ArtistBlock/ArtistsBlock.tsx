@@ -4,7 +4,6 @@ import Carousel from '@components/CardCarousel'
 import { useArtists } from 'pageBuilder/Api/useResource'
 import ArtistCard from 'PageTypes/Artist/ArtistCard'
 import ArtistGallery from 'PageTypes/Artist/ArtistGallery'
-
 import { ArtistsGalleryResult } from './ArtistsBlock.query'
 
 const ArtworksBlock: React.FC<ArtistsGalleryResult> = (props) => {
