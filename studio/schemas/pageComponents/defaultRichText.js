@@ -33,7 +33,6 @@ export default {
   name: 'defaultRichText',
   type: 'array',
   title: 'Text',
-
   of: [
     {
       type: 'block',

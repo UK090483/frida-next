@@ -11,6 +11,7 @@ export type Artwork = {
   name: string
   isNft?: boolean
   price: number
+  artistName: string
 }
 
 export type Page = {

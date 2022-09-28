@@ -29,7 +29,6 @@ export default ({ name, title, content = [], page = [] }: buildSiteProps) => ({
   ],
   fields: [
     ...pageBase({ group: 'page' }),
-
     ...page.map(i => ({ ...i, group: 'page' })),
     {
       name: 'default_header',

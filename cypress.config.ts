@@ -15,18 +15,23 @@ export default defineConfig({
     async setupNodeEvents(on, config) {
       const fetchRes: any = await sanityClient.fetch(`
       {
-        'pages':*[_type == 'page' ]{
+        'pages':*[_type == 'page' || _id == 'frontPage' ]{
           ...,
-         'slug':'/' + slug.current
+         'slug': select(
+            _type == 'indexPage' => '/',
+            '/' + slug.current,
+         ),
          },
 
          'artworks':*[ _type == 'artwork' ]{
           ...,
+          'artistName':artist->anzeigeName,
          'slug':'/artwork/' + slug.current
          },
 
          'artists':*[ _type == 'artist' ]{
           ...,
+          
          'slug':'/artist/' + slug.current
          },
 
@@ -44,7 +49,7 @@ export default defineConfig({
       config.env.posts = fetchRes.posts
       return config
     },
-    baseUrl: 'http://localhost:3000',
+    baseUrl: 'https://www.meetfrida.art/',
   },
 
   component: {

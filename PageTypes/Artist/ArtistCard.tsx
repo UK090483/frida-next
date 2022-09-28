@@ -24,6 +24,7 @@ const ArtistCard: React.FC<ArtistCardProps> = (props) => {
 
   return (
     <Card
+      testId="artist__card"
       isSwiping={!!isSwiping}
       slug={slug}
       type="artist"

@@ -1,8 +1,17 @@
+import { Artist } from 'cypress/types'
 import sampleSize from 'lodash/sampleSize'
+
+const testData = {
+  seo: {
+    metaTitle: (name: string) => `MeetFrida | ${name}`,
+    metaDescription: (name: string) =>
+      `Jetzt Artworks von ${name} auf MeetFrida entdecken`,
+  },
+}
 
 describe('Artists', () => {
   const artists: Artist[] = Cypress.env('artists')
-  const randomArtists = sampleSize(artists, 10)
+  const randomArtists = sampleSize(artists, 1)
 
   before(() => {
     randomArtists.forEach((artist) => {
@@ -38,44 +47,28 @@ describe('Artists', () => {
     })
 
     // SEO
-    it(`${name} should contain Meta Title`, () => {
-      cy.get('head title').should('include.text', artist.anzeigeName)
-    })
 
-    it(`${name} should contain Meta Description`, () => {
-      cy.get('head meta[name=description]')
-        .should('have.attr', 'content')
-        .should('include', artist.anzeigeName)
-    })
-
-    it(`${name} should contain Share Title`, () => {
-      cy.get('head meta[property="og:title"]')
-        .should('have.attr', 'content')
-        .should('include', artist.anzeigeName)
-    })
-
-    it(`${name} should contain Share Description`, () => {
-      cy.get('head meta[property="og:description"]')
-        .should('have.attr', 'content')
-        .should('include', artist.anzeigeName)
-    })
-
-    it(`${name} should contain Share image`, () => {
-      cy.get('head meta[property="og:image"]').should('have.attr', 'content')
-    })
-  })
-
-  artists.forEach((i) => {
-    it(`${i.anzeigeName} should be online`, () => {
-      cy.request({
-        url: Cypress.config('baseUrl') + '/en' + i.slug,
-        failOnStatusCode: true,
-      })
-      cy.request({
-        url: Cypress.config('baseUrl') + i.slug,
-        failOnStatusCode: true,
+    it(`${name} should have Seo`, () => {
+      cy.checkSeo({
+        metaTitle: testData.seo.metaTitle(artist.anzeigeName),
+        metaDescription: testData.seo.metaDescription(artist.anzeigeName),
+        shareTitle: testData.seo.metaDescription(artist.anzeigeName),
+        shareDescription: testData.seo.metaDescription(artist.anzeigeName),
       })
     })
   })
+
+  // artists.forEach((i) => {
+  //   it(`${i.anzeigeName} should be online`, () => {
+  //     cy.request({
+  //       url: Cypress.config('baseUrl') + '/en' + i.slug,
+  //       failOnStatusCode: true,
+  //     })
+  //     cy.request({
+  //       url: Cypress.config('baseUrl') + i.slug,
+  //       failOnStatusCode: true,
+  //     })
+  //   })
+  // })
 })
 export {}

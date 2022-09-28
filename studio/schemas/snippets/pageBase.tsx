@@ -1,3 +1,5 @@
+import slugValidation from './slugValidation'
+
 type pageBaseProps = {
   withExcerpt?: boolean
   group?: string
@@ -44,7 +46,7 @@ export default (props?: pageBaseProps) => [
     name: 'slug',
     type: 'slug',
     title: 'Slug',
-    validation: Rule => Rule.required(),
+    validation: Rule => [Rule.required(), slugValidation(Rule)],
     ...(props?.group ? { group: props?.group } : {})
   },
   {

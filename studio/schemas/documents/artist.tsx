@@ -1,4 +1,5 @@
 import BsPeopleCircle from 'react-icons/bs'
+import slugValidation from '../snippets/slugValidation'
 
 export default {
   name: 'artist',
@@ -35,7 +36,7 @@ export default {
         maxLength: 96
       },
 
-      validation: Rule => Rule.required()
+      validation: Rule => [Rule.required(), slugValidation(Rule)]
     },
     {
       name: 'prevImage',

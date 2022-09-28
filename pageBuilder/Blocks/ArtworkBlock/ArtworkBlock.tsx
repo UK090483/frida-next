@@ -6,7 +6,6 @@ import { ArtworksGalleryResult } from './ArtworkBlock.query'
 
 const ArtworksBlock: React.FC<ArtworksGalleryResult> = (props) => {
   const { items = [], type, label } = props
-
   if (type === 'masonry') {
     return <Artworks {...props} />
   }

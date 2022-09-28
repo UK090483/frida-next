@@ -36,6 +36,7 @@ const ArtworkCard: React.FC<ArtworkCardProps> = (props) => {
 
   return (
     <Card
+      testId="artwork__card"
       badge={isNft ? 'NFT' : undefined}
       ariaLabel={ariaLabel}
       isSwiping={!!isSwiping}

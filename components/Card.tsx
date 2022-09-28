@@ -21,6 +21,7 @@ interface CardWrapPros {
   banner?: React.ReactElement | undefined
   ariaLabel?: string
   badge?: string
+  testId?: string
 }
 
 const CardWrap: React.FC<CardWrapPros> = (props) => {
@@ -37,6 +38,7 @@ const CardWrap: React.FC<CardWrapPros> = (props) => {
     banner,
     ariaLabel,
     badge,
+    testId,
   } = props
 
   const router = useRouter()
@@ -48,6 +50,7 @@ const CardWrap: React.FC<CardWrapPros> = (props) => {
   return (
     <Link href={`/${type}/${slug}`} passHref>
       <a
+        data-testid={testId}
         aria-label={ariaLabel}
         draggable={false}
         {...mouseLinkProps}

@@ -1,5 +1,6 @@
 import client from 'part:@sanity/base/client'
 import { CgCardHearts } from 'react-icons/cg'
+import slugValidation from '../snippets/slugValidation'
 
 const requiredWhenNFT = Rule => {
   return Rule.custom((field, context) => {
@@ -121,6 +122,18 @@ export default {
       group: 'content'
     },
     {
+      name: 'slug',
+      type: 'slug',
+      title: 'Slug',
+      description: 'erreichbar unter meetFrida/artwork/....',
+      options: {
+        source: 'name',
+        maxLength: 96
+      },
+      validation: Rule => [Rule.required(), slugValidation(Rule)],
+      group: 'content'
+    },
+    {
       title: 'Preis',
       name: 'price',
       type: 'number',
@@ -206,18 +219,6 @@ export default {
       hidden: ({ document }) => document.isNft,
       group: 'content',
       fieldset: 'properties'
-    },
-
-    {
-      name: 'slug',
-      type: 'slug',
-      title: 'Slug',
-      description: 'erreichbar unter meetFrida/artwork/....',
-      options: {
-        source: 'name',
-        maxLength: 96
-      },
-      validation: Rule => Rule.required()
     },
 
     {

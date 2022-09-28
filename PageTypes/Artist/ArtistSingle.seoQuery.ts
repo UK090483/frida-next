@@ -5,7 +5,7 @@ export const seoQuery = buildSeoQuery({
     derived: `anzeigeName,`,
   },
   metaDesc: {
-    derived: `"Jetzt Artworks von" + anzeigeName +   "auf MeetFrida entdecken", `,
+    derived: `"Jetzt Artworks von " + anzeigeName +  " auf MeetFrida entdecken", `,
   },
   shareTitle: {
     derived: `'Jetzt Artworks von ' + anzeigeName + ' auf MeetFrida entdecken',`,

@@ -1,9 +1,22 @@
 import { Artwork } from 'cypress/types'
 import sampleSize from 'lodash/sampleSize'
 
+const testData = {
+  seo: {
+    metaTitle: (artwork: Artwork) =>
+      `MeetFrida | ${artwork.name} by ${artwork.artistName}`,
+    metaDescription: (artwork: Artwork) =>
+      `Artwork for sale "${artwork.name}" by ${artwork.artistName}`,
+    shareTitle: (artwork: Artwork) =>
+      `${artwork.name} by ${artwork.artistName}`,
+    shareDescription: (artwork: Artwork) =>
+      `Artwork "${artwork.name}" by ${artwork.artistName}`,
+  },
+}
+
 describe('Artworks', () => {
   const artworks: Artwork[] = Cypress.env('artworks')
-  const randomArtworks = sampleSize(artworks, 1)
+  const randomArtworks = sampleSize(artworks, 0)
 
   randomArtworks.forEach((artwork) => {
     const name = `Artwork "${artwork.name}"`
@@ -37,30 +50,14 @@ describe('Artworks', () => {
     it(`${name} should contain Artist description`, () => {
       cy.get('[data-testid="artwork__artistDescription"]')
     })
-    // SEO
-    it(`${name} should contain Meta Title`, () => {
-      cy.get('head title').should('include.text', artwork.name)
-    })
-    it(`${name} should contain Meta Description`, () => {
-      cy.get('head meta[name=description]')
-        .should('have.attr', 'content')
-        .should('include', artwork.name)
-    })
 
-    it(`${name} should contain Share Title`, () => {
-      cy.get('head meta[property="og:title"]')
-        .should('have.attr', 'content')
-        .should('include', artwork.name)
-    })
-
-    it(`${name} should contain Share Description`, () => {
-      cy.get('head meta[property="og:description"]')
-        .should('have.attr', 'content')
-        .should('include', artwork.name)
-    })
-
-    it(`${name} should contain Share image`, () => {
-      cy.get('head meta[property="og:image"]').should('have.attr', 'content')
+    it(`${name} should have Seo`, () => {
+      cy.checkSeo({
+        metaTitle: testData.seo.metaTitle(artwork),
+        metaDescription: testData.seo.metaDescription(artwork),
+        shareTitle: testData.seo.shareTitle(artwork),
+        shareDescription: testData.seo.shareDescription(artwork),
+      })
     })
 
     //Shop
@@ -101,18 +98,17 @@ describe('Artworks', () => {
     })
   })
 
-  //
-  // artworks.forEach((i) => {
-  //   it(`${i.name} should be online`, () => {
-  //     cy.request({
-  //       url: Cypress.config('baseUrl') + '/en' + i.slug,
-  //       failOnStatusCode: true,
-  //     })
-  //     cy.request({
-  //       url: Cypress.config('baseUrl') + i.slug,
-  //       failOnStatusCode: true,
-  //     })
-  //   })
-  // })
+  artworks.forEach((i) => {
+    it(`${i.name} should be online`, () => {
+      cy.request({
+        url: Cypress.config('baseUrl') + '/en' + i.slug,
+        failOnStatusCode: true,
+      })
+      cy.request({
+        url: Cypress.config('baseUrl') + i.slug,
+        failOnStatusCode: true,
+      })
+    })
+  })
 })
 export {}
