@@ -20,43 +20,41 @@ const MyApp = ({ Component, pageProps, router }: AppProps<any>) => {
   const [isLoading, setLoading] = useState(false)
 
   // The scroll location on the page is not restored on history changes
-  useEffect(() => {
-    window.history.scrollRestoration = 'manual'
-  }, [router])
+  // useEffect(() => {
+  //   window.history.scrollRestoration = 'manual'
+  // }, [router])
 
   // Trigger our loading class
-  useEffect(() => {
-    if (isBrowser) {
-      document.documentElement.classList.toggle('is-loading', isLoading)
+  // useEffect(() => {
+  //   if (isBrowser) {
+  //     //  document.documentElement.classList.toggle('is-loading', isLoading)
 
-      // @ts-ignore
-      new ChromeFix()
-    }
-  }, [isLoading])
+  //     // @ts-ignore
+  //     new ChromeFix()
+  //   }
+  // }, [isLoading])
 
   // Setup Next router events
-  useEffect(() => {
-    Router.events.on('routeChangeStart', (url) => {
-      // Bail if we're just changing a URL parameter
+  // useEffect(() => {
+  //   Router.events.on('routeChangeStart', (url) => {
+  //     // Bail if we're just changing a URL parameter
+  //     // if (
+  //     //   url.indexOf('?') > -1 &&
+  //     //   url.split('?')[0] === router.asPath.split('?')[0]
+  //     // )
+  //     //   return
+  //     // // Otherwise, start loading
+  //     // setLoading(true)
+  //   })
 
-      if (
-        url.indexOf('?') > -1 &&
-        url.split('?')[0] === router.asPath.split('?')[0]
-      )
-        return
+  //   Router.events.on('routeChangeComplete', () => {
+  //     setTimeout(() => setLoading(false), 400) // accounts for page transition
+  //   })
 
-      // Otherwise, start loading
-      setLoading(true)
-    })
-
-    Router.events.on('routeChangeComplete', () => {
-      setTimeout(() => setLoading(false), 400) // accounts for page transition
-    })
-
-    Router.events.on('routeChangeError', () => {
-      setLoading(false)
-    })
-  }, [router.asPath])
+  //   Router.events.on('routeChangeError', () => {
+  //     // setLoading(false)
+  //   })
+  // }, [router])
 
   // intelligently add focus states if keyboard is used
 
@@ -97,16 +95,16 @@ const MyApp = ({ Component, pageProps, router }: AppProps<any>) => {
         <LayoutContextProvider data={pageProps?.data?.layout}>
           <SiteContextProvider data={{ ...pageProps?.data?.site }}>
             <LazyMotion features={domAnimation}>
-              {isLoading && (
+              {/* {isLoading && (
                 <Head>
                   <title>Loading...</title>
                 </Head>
-              )}
+              )} */}
 
               <AnimatePresence
                 initial={false}
                 onExitComplete={() => {
-                  window.scrollTo(0, 0)
+                  // window.scrollTo(0, 0)
                   document.body.classList.remove('overflow-hidden')
                 }}
               >
