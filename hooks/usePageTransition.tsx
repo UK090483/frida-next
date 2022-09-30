@@ -1,43 +1,68 @@
-import router, { Router } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
+import { useCallback, useEffect, useRef } from 'react'
 import isBrowser from 'utility/isBrowser'
 
 const usePageTransition = () => {
+  const router = useRouter()
+  const scrollPositions = useRef<{ [url: string]: number }>({})
+  const isBack = useRef(false)
+  const url = useRef<string | null>(null)
+
   useEffect(() => {
     window.history.scrollRestoration = 'manual'
   }, [router])
 
-  // Trigger our loading class
-  useEffect(() => {
-    if (isBrowser) {
-      // document.documentElement.classList.toggle('is-loading', isLoading)
-
-      // @ts-ignore
-      new ChromeFix()
-    }
-  })
-
   // Setup Next router events
   useEffect(() => {
-    Router.events.on('routeChangeStart', (url) => {
-      // Bail if we're just changing a URL parameter
-      // if (
-      //   url.indexOf('?') > -1 &&
-      //   url.split('?')[0] === router.asPath.split('?')[0]
-      // )
-      //   return
-      // // Otherwise, start loading
-      // setLoading(true)
+    router.beforePopState(() => {
+      isBack.current = true
+      return true
     })
 
-    Router.events.on('routeChangeComplete', () => {
-      //setTimeout(() => setLoading(false), 400) // accounts for page transition
+    const onRouteChangeStart = () => {
+      console.log('saving current route', router.asPath, window.scrollY)
+
+      scrollPositions.current[router.asPath] = window.scrollY
+    }
+
+    const onRouteChangeComplete = (_url: any) => {
+      url.current = _url
+      // if (isBack.current && scrollPositions.current[url]) {
+      //   window.scroll({
+      //     top: scrollPositions.current[url],
+      //     behavior: 'auto',
+      //   })
+      // }
+      //isBack.current = false
+    }
+
+    router.events.on('routeChangeStart', onRouteChangeStart)
+    router.events.on('routeChangeComplete', onRouteChangeComplete)
+    return () => {
+      router.events.off('routeChangeStart', onRouteChangeStart)
+      router.events.off('routeChangeComplete', onRouteChangeComplete)
+    }
+  }, [router])
+
+  const restoreScroll = useCallback(() => {
+    const hasScrollPosition =
+      !!(url.current && isBack.current) && scrollPositions.current[url.current]
+
+    console.log({
+      url: url.current,
+      scrollPositions: scrollPositions.current,
+      isBack: isBack.current,
     })
 
-    Router.events.on('routeChangeError', () => {
-      // setLoading(false)
+    window.scroll({
+      top: hasScrollPosition || 0,
+      behavior: 'auto',
     })
-  }, [router.asPath])
+
+    isBack.current = false
+  }, [isBack])
+
+  return { restoreScroll }
 }
 
 export default usePageTransition

@@ -1,6 +1,6 @@
 import { useRef, useEffect, KeyboardEvent } from 'react'
 
-import { wrap, Keys } from '@lib/helpers'
+import { wrap, Keys } from 'lib/helpers'
 import {
   RadioGroupValue,
   useRadioGroupContext,

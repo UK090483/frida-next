@@ -1,5 +1,5 @@
 import getHandler from 'pageBuilder/Api/resourceHandler'
-import { getSanityClient } from '@lib/Sanity/sanity.server'
+import { getSanityClient } from 'lib/Sanity/sanity.server'
 import {
   ArtistCardResult,
   artistCardQuery,

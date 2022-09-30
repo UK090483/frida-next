@@ -25,7 +25,10 @@ const Header: React.FC<HeaderProps> = ({
   const navItems = data?.navigation?.items
 
   return (
-    <header className="fixed top-frida_side_big md:top-frida_side_big w-full px-frida_side md:px-frida_side_big z-10  pointer-events-none">
+    <header
+      data-testid="header"
+      className="fixed top-frida_side_big md:top-frida_side_big w-full px-frida_side md:px-frida_side_big z-10  pointer-events-none"
+    >
       <div className="w-full flex justify-between items-center">
         {title && (
           <PageTitle

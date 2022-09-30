@@ -3,7 +3,7 @@
 import axios from 'axios'
 import sanityClient from '@sanity/client'
 import crypto from 'crypto'
-import handleSold from '@lib/SyncApi/handlelSold'
+import handleSold from 'lib/SyncApi/handlelSold'
 const getRawBody = require('raw-body')
 const jsondiffpatch = require('jsondiffpatch')
 
@@ -75,14 +75,14 @@ export default async function send(req, res) {
     body: { status, id, title, handle, options, variants, product_type },
   } = req
 
-
   if (product_type === 'artwork') {
-    
     const sellIfSold = req.body?.variants[0]?.inventory_policy === 'continue'
     const isDraft = req.body?.status === 'draft'
-   
-    const isSold = isDraft || (req.body?.variants[0]?.inventory_quantity === 0 && !sellIfSold )
-    await handleSold(id,isSold,sanity)
+
+    const isSold =
+      isDraft ||
+      (req.body?.variants[0]?.inventory_quantity === 0 && !sellIfSold)
+    await handleSold(id, isSold, sanity)
     console.log('artworks get Sync the other way around')
     console.log('sync complete!')
     res.statusCode = 200

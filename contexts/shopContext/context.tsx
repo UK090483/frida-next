@@ -6,7 +6,7 @@ import {
   checkIfCookieExcepted,
 } from './helper'
 
-import shopifyClient from '@lib/shopify'
+import shopifyClient from 'lib/shopify'
 interface LineItem extends Partial<FetchVariantResult> {
   lineID: string | number
   quantity: number

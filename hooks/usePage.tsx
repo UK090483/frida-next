@@ -1,4 +1,4 @@
-import { usePreviewSubscription } from '@lib/Sanity/sanity'
+import { usePreviewSubscription } from 'lib/Sanity/sanity'
 import { useRouter } from 'next/router'
 
 type usePageProps<T extends any> = {

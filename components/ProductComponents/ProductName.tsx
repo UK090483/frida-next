@@ -2,7 +2,7 @@ import React from 'react'
 import classnames from 'classnames'
 
 import { ArtworkRecord } from 'types'
-import { ConditionalWrapper } from '@lib/helpers'
+import { ConditionalWrapper } from 'lib/helpers'
 
 type ProductNameProps = {
   availability: boolean

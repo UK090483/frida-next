@@ -16,7 +16,7 @@ const Footer: React.FC = () => {
   const nav = data?.navigation?.footerItems
 
   return (
-    <div>
+    <div data-testid="footer">
       <Section backgroundColor="white">
         <div className="flex flex-wrap lg:flex-nowrap horizontal-padding">
           <div className="w-full  lg:pr-frida_7%">

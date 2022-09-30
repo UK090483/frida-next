@@ -7,6 +7,7 @@ const PreviewIndexer: React.FC = () => {
   return (
     // eslint-disable-next-line @next/next/no-html-link-for-pages
     <a
+      data-testid="PreviewIndexer"
       className="fixed p-3 rounded-md left-2 bottom-2 border-frida-red border-3 "
       href="/api/clearPreview"
     >

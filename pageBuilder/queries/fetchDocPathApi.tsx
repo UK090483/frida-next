@@ -1,4 +1,4 @@
-import { getSanityClient } from '@lib/Sanity/sanity.server'
+import { getSanityClient } from 'lib/Sanity/sanity.server'
 import { GetStaticPathsResult } from 'next'
 
 export const getAllDocSlugs: (

@@ -2,7 +2,7 @@
 import React from 'react'
 import { AnimatePresence, m } from 'framer-motion'
 
-import { useHasMounted } from '@lib/helpers'
+import { useHasMounted } from 'lib/helpers'
 
 import { useRouter } from 'next/router'
 import Button from 'components/buttons/button'

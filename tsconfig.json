@@ -45,6 +45,7 @@
     "**/*.test.ts",
     "coverage",
     "studio",
-    "cypress.config.ts"
+    "cypress.config.ts",
+   
   ]
 }

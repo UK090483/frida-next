@@ -1,4 +1,4 @@
-import { getSanityClient } from '@lib/Sanity/sanity.server'
+import { getSanityClient } from 'lib/Sanity/sanity.server'
 import type { FridaPreviewData } from '@pages/api/preview'
 
 export const fetchPageWithCache = async (

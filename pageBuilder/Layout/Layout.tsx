@@ -11,28 +11,6 @@ import Mouse from '../../components/generic/Mouse/mouse'
 import { useLayoutContext } from './LayoutContext'
 import PreviewIndexer from './PreviewIndexer'
 
-const duration = 0.2
-
-const variants: Variants = {
-  initial: {
-    opacity: 0,
-  },
-
-  enter: {
-    opacity: 1,
-    transition: {
-      duration: duration,
-      delay: 0.1,
-      ease: 'linear',
-      when: 'beforeChildren',
-    },
-  },
-  exit: {
-    opacity: 0,
-    transition: { duration: duration, ease: 'linear', when: 'beforeChildren' },
-  },
-}
-
 type LayoutProps = {
   title: string
   header?: string | React.ReactElement
@@ -48,14 +26,7 @@ const Layout: React.FC<LayoutProps> = (props) => {
 
   return (
     <>
-      <m.div
-        key={title}
-        initial={'initial'}
-        animate={'enter'}
-        exit={'exit'}
-        variants={variants}
-        className={'mx-auto '}
-      >
+      <div className={'mx-auto '}>
         {header === 'default' ? (
           <Header initialColor={initialColor} title={title} />
         ) : (
@@ -65,7 +36,7 @@ const Layout: React.FC<LayoutProps> = (props) => {
 
         {footer && <BodyParser content={footer.content} />}
         <Footer />
-      </m.div>
+      </div>
       <Seo />
       <Mouse />
       <PreviewIndexer />

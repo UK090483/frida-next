@@ -1,10 +1,10 @@
 import React from 'react'
-import Section from '@components/Section'
+import Section from 'components/Section'
 import Link from 'next/link'
 import cx from 'classnames'
-import { ConditionalWrapper } from '@lib/helpers'
+import { ConditionalWrapper } from 'lib/helpers'
 import { buildInternalLink } from 'utility/buildInternalLink'
-import { mouseLinkProps } from '@components/generic/Mouse/mouseRemote'
+import { mouseLinkProps } from 'components/generic/Mouse/mouseRemote'
 import { useRouter } from 'next/router'
 
 type CategoryItem = {
