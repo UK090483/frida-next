@@ -34,14 +34,17 @@ const Button: React.FC<LinkProps | ClickProps> = (props) => {
   } = props
 
   const className = cx(
-    'button',
+    'rounded-full whitespace-nowrap',
     { 'mr-6': position === 'inline' },
     { 'block mb-2 w-fit-content': position === 'left' },
     { 'block ml-auto mb-2 w-fit-content': position === 'right' },
     { 'block mx-auto mb-2 w-fit-content': position === 'center' },
-    { 'is-large': size === 'l' },
-    { 'is-medium': size === 'm' },
-    { 'is-small': size === 's' },
+    { 'px-10 py-3 text-base-fluid leading-none border-3': size === 'l' },
+    {
+      'px-14 md:px-20 py-2.5 md:py-3 font-bold text-sm-fluid md:text-base-fluid leading-none border-3':
+        size === 'm',
+    },
+    { 'px-6 py-2  text-xs-fluid leading-none  border-2': size === 's' },
     { 'text-frida-red border-frida-red hover:bg-frida-red': color === 'red' },
     {
       'text-frida-grey border-frida-grey hover:bg-frida-grey': color === 'grey',
