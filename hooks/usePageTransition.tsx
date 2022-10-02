@@ -20,7 +20,7 @@ const usePageTransition = () => {
     })
 
     const onRouteChangeStart = () => {
-      console.log('saving current route', router.asPath, window.scrollY)
+      // console.log('saving current route', router.asPath, window.scrollY)
 
       scrollPositions.current[router.asPath] = window.scrollY
     }
@@ -48,11 +48,11 @@ const usePageTransition = () => {
     const hasScrollPosition =
       !!(url.current && isBack.current) && scrollPositions.current[url.current]
 
-    console.log({
-      url: url.current,
-      scrollPositions: scrollPositions.current,
-      isBack: isBack.current,
-    })
+    // console.log({
+    //   url: url.current,
+    //   scrollPositions: scrollPositions.current,
+    //   isBack: isBack.current,
+    // })
 
     window.scroll({
       top: hasScrollPosition || 0,
