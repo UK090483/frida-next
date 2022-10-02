@@ -5,6 +5,11 @@ export const layoutQuery = (locale: string) => `
 'layout':{
   _type,
   
+  'title': select(
+    _type == 'artwork' => artist->anzeigeName,
+    _type == 'artist' => anzeigeName,
+    'Frida'
+  ),
   'footer':*[_type=='footer' && _id == '${defaultFooterId}' ][0]{${body(
   locale
 )}},
@@ -25,6 +30,7 @@ export const layoutQuery = (locale: string) => `
   }
 `
 export type LayoutResult = {
+  title?: string
   footer: {
     content: PageBodyResult
   }

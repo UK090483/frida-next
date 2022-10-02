@@ -1,11 +1,9 @@
 import Cookie from '@components/Cookie'
-import { m, Variants } from 'framer-motion'
 import BodyParser from 'pageBuilder/BodyParser'
 import { Seo } from 'pageBuilder/Seo/Seo'
 import React from 'react'
 import { FridaColors } from 'types'
 import Footer from '../../components/generic/Footer'
-import Header from '../../components/generic/Header'
 import Mouse from '../../components/generic/Mouse/mouse'
 
 import { useLayoutContext } from './LayoutContext'
@@ -27,11 +25,11 @@ const Layout: React.FC<LayoutProps> = (props) => {
   return (
     <>
       <div className={'mx-auto '}>
-        {header === 'default' ? (
+        {/* {header === 'default' ? (
           <Header initialColor={initialColor} title={title} />
         ) : (
           header
-        )}
+        )} */}
         <main>{children}</main>
 
         {footer && <BodyParser content={footer.content} />}

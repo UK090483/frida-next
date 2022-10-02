@@ -32,7 +32,7 @@ const Header: React.FC<HeaderProps> = ({
       <div className="w-full flex justify-between items-center">
         {title && (
           <PageTitle
-            title={title}
+            title={data?.title || 'Frida'}
             color={color}
             link={link}
             initialColor={initialColor || 'white'}

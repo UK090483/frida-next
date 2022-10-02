@@ -20,10 +20,7 @@ describe('<Layout/>', () => {
     customRender()
     getByTestId('content')
   })
-  it('should render Header', () => {
-    customRender()
-    getByTestId('header')
-  })
+
   it('should render Footer', () => {
     customRender()
     getByTestId('footer')
