@@ -11,26 +11,21 @@
 }
 
 
-.fade-enter{
-  opacity: 0;
-  transform: translateX(1%);
-}
-.fade-exit{
-  opacity: 1;
-  transform: translateX(0);
-}
-.fade-enter-active{
-  opacity: 1;
-  transform: translateX(0);
-}
-.fade-exit-active{
-  opacity: 0;
-  transform: translateX(-1%);
-}
-.fade-enter-active,
-.fade-exit-active{
-  transition: opacity 200ms, transform 200ms;
-}
+
+
+.photo {
+  user-select: none;
+  background-repeat: no-repeat;
+  background-position: center !important; 
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  }
+  
+
+
+
 
 .is-tabbing a,
 .is-tabbing button,
