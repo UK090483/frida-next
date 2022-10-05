@@ -172,7 +172,7 @@ const Newsletter = () => {
               <button
                 type="submit"
                 className={cx(
-                  'button is-large font-bold w-full text-frida-white  max-w-md mt-6',
+                  'rounded-full whitespace-nowrap px-10 py-3 text-base-fluid leading-none border-3 font-bold w-full text-frida-white  max-w-md mt-6',
                   ` ${showEmailError ? 'bg-frida-red' : 'bg-frida-black'}`
                 )}
                 disabled={isSubmitting}

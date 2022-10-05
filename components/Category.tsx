@@ -79,7 +79,7 @@ const Category: React.FC<CategoryProps> = ({ items }) => {
                 {item.images && item.images[0] && item.images[0]}
 
                 {_label && (
-                  <div className="absolute transform -translate-x-1/2 -translate-y-1/2 button is-responsive bg-frida-white border-frida-white top-1/2 left-1/2">
+                  <div className="absolute transform -translate-x-1/2 -translate-y-1/2 rounded-full whitespace-nowrap px-6 py-2 md:px-8 md:py-3 text-sm-fluid leading-none border-3 bg-frida-white border-frida-white top-1/2 left-1/2">
                     {_label}
                   </div>
                 )}
