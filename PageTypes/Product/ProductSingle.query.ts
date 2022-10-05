@@ -1,4 +1,6 @@
+import { layoutQuery } from 'pageBuilder/Layout/layoutQuery'
 import { imageMeta, ImageMetaResult } from 'pageBuilder/queries/snippets'
+import { buildSeoQuery } from 'pageBuilder/Seo/seoQuery'
 
 export const productSingleViewQuery = (locale: string) => `
 ...,
@@ -37,6 +39,8 @@ optionSettings[]{
   seo
 },
 seo,
+${layoutQuery(locale)},
+${buildSeoQuery()}
 `
 export interface ProductGalleryPhotos {
   forOption: string

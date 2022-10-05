@@ -1,15 +1,22 @@
 import { body, PageBodyResult } from 'pageBuilder/pageBuilderQueries'
 import { defaultFooterId } from 'shared'
+import { FridaColors } from 'types'
 
 export const layoutQuery = (locale: string) => `
 'layout':{
   _type,
-  
+  _id,
   'title': select(
     _type == 'artwork' => artist->anzeigeName,
     _type == 'artist' => anzeigeName,
+    _type == 'page'=> coalesce(title_${locale},title),
+    _type == 'post'=> coalesce(categories[0]->title_${locale},categories[0]->title),
     'Frida'
   ),
+
+  pageHeader,
+
+
   'footer':*[_type=='footer' && _id == '${defaultFooterId}' ][0]{${body(
   locale
 )}},
@@ -31,6 +38,10 @@ export const layoutQuery = (locale: string) => `
 `
 export type LayoutResult = {
   title?: string
+  _id: string
+  pageHeader?: {
+    initialPageTitleColor?: FridaColors
+  }
   footer: {
     content: PageBodyResult
   }

@@ -6,7 +6,7 @@ import RouterWrap, { MockRouterProps } from 'test-utility/nextRouterMock'
 const customRender = (props?: { RouterPros?: MockRouterProps }) => {
   render(
     <RouterWrap {...props?.RouterPros}>
-      <Layout title="testTitle">
+      <Layout>
         <div data-testid="content">content</div>
       </Layout>
     </RouterWrap>

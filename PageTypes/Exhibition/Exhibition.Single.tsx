@@ -12,7 +12,7 @@ const PostSingle: React.FC<ExhibitionPageResult> = (props) => {
 
   return (
     <>
-      <Layout initialColor="pink" title={title}>
+      <Layout>
         {default_header !== false && (
           <CarouselHeroItem
             color={'pink'}
