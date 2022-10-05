@@ -18,8 +18,7 @@ import ProductSingle from 'PageTypes/Product/ProductSingle'
 
 const query = (locale: string) => `
 *[_type == "product" && slug.current == $slug][0]{
-  ${productSingleViewQuery(locale)},
-  
+  ${productSingleViewQuery(locale)}
 }
 `
 
@@ -36,7 +35,7 @@ const ProductTemplate: React.FC<
   if (!pageData || isError) return <Error />
 
   return (
-    <Layout title={'Shop'}>
+    <Layout>
       <ProductSingle {...pageData} />
     </Layout>
   )

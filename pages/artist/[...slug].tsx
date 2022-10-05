@@ -26,7 +26,7 @@ const Artist: React.FC<handleStaticPropsResult<ArtistPageResult>> = (props) => {
   return (
     <PageType {...props}>
       {(data) => (
-        <Layout initialColor={'black'} title={data.name || ''}>
+        <Layout>
           <ArtistSingle {...data} />
         </Layout>
       )}

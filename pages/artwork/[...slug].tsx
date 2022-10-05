@@ -20,7 +20,7 @@ const Artwork: React.FC<handleStaticPropsResult<ArtworkSingleViewResult>> = (
   return (
     <PageType {...props}>
       {(data) => (
-        <Layout title={data.artistName || 'Frida'}>
+        <Layout>
           <ArtworkSingle {...data} />
         </Layout>
       )}
