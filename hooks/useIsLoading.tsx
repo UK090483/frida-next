@@ -6,11 +6,11 @@ const useIsLoading = (router: NextRouter) => {
 
   useEffect(() => {
     const handleRoutChangeStart = (route: string) => {
-      console.log(route, 'start')
+      // console.log(route, 'start')
       setIsLoading(true)
     }
     const handleRoutChangeComplete = (route: string) => {
-      console.log(route, 'complete')
+      // console.log(route, 'complete')
       setIsLoading(false)
     }
 
