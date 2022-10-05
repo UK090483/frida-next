@@ -7,13 +7,14 @@ import Icon from '../Icon'
 import Grid from './grid'
 
 type GalleryProps = {
-  items: React.ReactNodeArray
+  items: React.ReactNode[]
   type?: GalleryTypes
 }
 const load = 20
 
 const Gallery: React.FC<GalleryProps> = ({ items, type = 'masonry' }) => {
   const [page, setPage] = React.useState(1)
+
   const hasNextPage = page * load < items.length
   const gridRef = React.useRef<null | HTMLDivElement>(null)
   const intersecting = useIntersection(gridRef, {})

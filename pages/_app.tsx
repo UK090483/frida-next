@@ -1,8 +1,7 @@
 import React, { useEffect, useCallback, useRef } from 'react'
 import Cart from '@components/shopComponents/Cart'
 import { SiteContextProvider } from 'contexts/shopContext/context'
-import isBrowser from 'utility/isBrowser'
-import { domAnimation, LazyMotion } from 'framer-motion'
+import { AnimatePresence, domAnimation, LazyMotion } from 'framer-motion'
 import Head from 'next/head'
 
 import 'resize-observer-polyfill'
@@ -15,26 +14,16 @@ import ChromeFix from 'lib/chromeFix'
 import { LayoutContextProvider } from 'pageBuilder/Layout/LayoutContext'
 import { SeoContextProvider } from 'pageBuilder/Seo/seoContext'
 import usePageTransition from 'hooks/usePageTransition'
-import PageTransition from 'lib/pageTransition/PageTransition'
+import PageTransition from 'lib/pageTransition/PageTransitionSwitch'
+import useIsTabbing from 'hooks/useIsTabbing'
+import useIsLoading from 'hooks/useIsLoading'
+import { useRouter } from 'next/router'
+import Header from '@components/generic/Header'
 
 const MyApp = ({ Component, pageProps, router }: AppProps<any>) => {
   const { restoreScroll } = usePageTransition()
-
-  const handleFirstTab = useCallback((event: KeyboardEvent) => {
-    if (event.keyCode === 9) {
-      if (isBrowser) {
-        document.body.classList.add('is-tabbing')
-        window.removeEventListener('keydown', handleFirstTab)
-      }
-    }
-  }, [])
-
-  useEffect(() => {
-    window.addEventListener('keydown', handleFirstTab)
-    return () => {
-      window.removeEventListener('keydown', handleFirstTab)
-    }
-  }, [handleFirstTab])
+  useIsTabbing()
+  const isLoading = useIsLoading(router)
 
   return (
     <>
@@ -53,17 +42,22 @@ const MyApp = ({ Component, pageProps, router }: AppProps<any>) => {
         <link rel="preconnect" href="https://cdn.sanity.io" />
       </Head>
 
-      {/* document.body.classList.remove('overflow-hidden') */}
       <SeoContextProvider data={pageProps?.data?.seo}>
         <LayoutContextProvider data={pageProps?.data?.layout}>
           <SiteContextProvider data={{ ...pageProps?.data?.site }}>
             <LazyMotion features={domAnimation}>
-              <PageTransition
-                onEnter={restoreScroll}
-                pageKey={router.asPath.split('?')[0]}
-              >
-                <Component key={router.asPath.split('?')[0]} {...pageProps} />
-              </PageTransition>
+              <LazyMotion features={domAnimation}>
+                {isLoading && (
+                  <Head>
+                    <title>Loading...</title>
+                  </Head>
+                )}
+
+                <AnimatePresence initial={false} onExitComplete={restoreScroll}>
+                  <Component key={router.asPath.split('?')[0]} {...pageProps} />
+                </AnimatePresence>
+              </LazyMotion>
+
               <Cart />
             </LazyMotion>
           </SiteContextProvider>
@@ -72,8 +66,5 @@ const MyApp = ({ Component, pageProps, router }: AppProps<any>) => {
     </>
   )
 }
-// export function reportWebVitals(metric: NextWebVitalsMetric) {
-//    console.log(metric)
-// }
 
 export default MyApp

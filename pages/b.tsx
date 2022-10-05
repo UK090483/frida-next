@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-const page = () => {
+const Page = () => {
   return (
     <div className="w-full h-screen  bg-frida-red flex flex-col justify-center items-center">
       <h1 className=" text-3xl ">B </h1>
@@ -22,4 +22,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

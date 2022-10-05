@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useRef } from 'react'
-import isBrowser from 'utility/isBrowser'
 
 const usePageTransition = () => {
   const router = useRouter()
@@ -20,20 +19,13 @@ const usePageTransition = () => {
     })
 
     const onRouteChangeStart = () => {
-      // console.log('saving current route', router.asPath, window.scrollY)
+      console.log('saving current route', router.asPath, window.scrollY)
 
       scrollPositions.current[router.asPath] = window.scrollY
     }
 
     const onRouteChangeComplete = (_url: any) => {
       url.current = _url
-      // if (isBack.current && scrollPositions.current[url]) {
-      //   window.scroll({
-      //     top: scrollPositions.current[url],
-      //     behavior: 'auto',
-      //   })
-      // }
-      //isBack.current = false
     }
 
     router.events.on('routeChangeStart', onRouteChangeStart)
@@ -48,11 +40,12 @@ const usePageTransition = () => {
     const hasScrollPosition =
       !!(url.current && isBack.current) && scrollPositions.current[url.current]
 
-    // console.log({
-    //   url: url.current,
-    //   scrollPositions: scrollPositions.current,
-    //   isBack: isBack.current,
-    // })
+    console.log({
+      url: url.current,
+      scrollPositions: scrollPositions.current,
+      isBack: isBack.current,
+      hasScrollPosition,
+    })
 
     window.scroll({
       top: hasScrollPosition || 0,

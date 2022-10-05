@@ -1,4 +1,5 @@
 import useTween from 'hooks/useTween'
+import useTweenCss from 'hooks/useTweenedCss'
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 
 import isBrowser from 'utility/isBrowser'
@@ -17,6 +18,18 @@ const PageTransition: React.FunctionComponent<IPageTransitionProps> = ({
   const firstRender = useRef(true)
   const [isIn, setIsIn] = useState(true)
 
+  const refNode = useRef(null)
+  const handleTransitionEnd = () => {
+    if (!isIn) {
+      onEnter()
+
+      setIsIn(true)
+      cash.current = children
+    }
+  }
+
+  useTweenCss({ tween: isIn, refNode, done: handleTransitionEnd })
+
   useIsomorphUseLayout(() => {
     if (firstRender.current) {
       firstRender.current = false
@@ -32,23 +45,8 @@ const PageTransition: React.FunctionComponent<IPageTransitionProps> = ({
     setIsIn(false)
   }, [children])
 
-  const handleTransitionEnd = () => {
-    if (!isIn) {
-      onEnter()
-
-      setIsIn(true)
-      cash.current = children
-    }
-  }
   return (
-    <div
-      className="transitionWrap"
-      data-testid="pageSwitchWrap"
-      style={{
-        opacity: isIn ? 1 : 0,
-      }}
-      onTransitionEnd={handleTransitionEnd}
-    >
+    <div ref={refNode} data-testid="pageSwitchWrapCSS">
       {isIn ? children : cash.current}
     </div>
   )

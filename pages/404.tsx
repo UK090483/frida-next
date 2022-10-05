@@ -31,10 +31,7 @@ const ErrorPage = (props: any) => {
   const { artists, artworks } = data
 
   return (
-    <Layout
-      title={'mu'}
-      header={<Header initialColor={'white'} title={'404'} nav={true}></Header>}
-    >
+    <Layout>
       <Section backgroundColor="pink" className="py-52">
         <h1 className="header-medium">
           Ups 404 Diese Seite gibt es leider nicht !
