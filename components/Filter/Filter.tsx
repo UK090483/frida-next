@@ -2,6 +2,7 @@ import { useRouter } from 'next/router'
 import * as React from 'react'
 import Select from './Select'
 import classNames from 'classnames'
+import useQueryParam from 'hooks/useQueryParam'
 
 interface IFilterProps {
   filter: {
@@ -15,39 +16,41 @@ const Filter: React.FunctionComponent<IFilterProps> = (props) => {
   const { filter } = props
   const router = useRouter()
 
-  const slug = (router.query.slug && router.query.slug[0]) || 'noSlug'
+  const { getParam, setParam } = useQueryParam({ router, ignore: ['slug'] })
 
-  const handleQueries = (type: string, value: string | null) => {
-    const q = { ...router.query }
+  // const slug = (router.query.slug && router.query.slug[0]) || 'noSlug'
 
-    if (!value) {
-      delete q[type]
-    } else {
-      q[type] = value
-    }
+  // const handleQueries = (type: string, value: string | null) => {
+  //   const q = { ...router.query }
 
-    delete q.slug
+  //   if (!value) {
+  //     delete q[type]
+  //   } else {
+  //     q[type] = value
+  //   }
 
-    const queryString = Object.entries(q).reduce((acc, [key, value], index) => {
-      if (typeof value !== 'string') return acc
-      if (value === 'clear') return acc
+  //   delete q.slug
 
-      return `${acc}${index === 0 ? '?' : '&'}${key}=${encodeURIComponent(
-        value
-      )}`
-    }, '')
+  //   const queryString = Object.entries(q).reduce((acc, [key, value], index) => {
+  //     if (typeof value !== 'string') return acc
+  //     if (value === 'clear') return acc
 
-    router.push(`/${slug}${queryString}`, undefined, {
-      shallow: true,
-    })
-  }
+  //     return `${acc}${index === 0 ? '?' : '&'}${key}=${encodeURIComponent(
+  //       value
+  //     )}`
+  //   }, '')
 
-  const isActive = (name: string) => {
-    if (router.query[name] && typeof router.query[name] === 'string') {
-      return router.query[name] as string
-    }
-    return null
-  }
+  //   router.push(`/${slug}${queryString}`, undefined, {
+  //     shallow: true,
+  //   })
+  // }
+
+  // const isActive = (name: string) => {
+  //   if (router.query[name] && typeof router.query[name] === 'string') {
+  //     return router.query[name] as string
+  //   }
+  //   return null
+  // }
 
   return (
     <div
@@ -60,12 +63,13 @@ const Filter: React.FunctionComponent<IFilterProps> = (props) => {
         if (!_filter.items) return null
         return (
           <Select
-            active={isActive(_filter.name)}
+            active={getParam(_filter.name)}
             key={_filter.name}
             label={_filter.label}
             items={_filter.items}
             onChange={(value) => {
-              handleQueries(_filter.name, value)
+              setParam(_filter.name, value)
+              // handleQueries(_filter.name, value)
             }}
           />
         )

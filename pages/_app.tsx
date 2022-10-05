@@ -25,6 +25,8 @@ const MyApp = ({ Component, pageProps, router }: AppProps<any>) => {
   useIsTabbing()
   const isLoading = useIsLoading(router)
 
+  console.log(router)
+
   return (
     <>
       <Head>
