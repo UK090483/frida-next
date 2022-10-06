@@ -26,6 +26,9 @@ describe('useIsLoading', () => {
   })
 
   it('should set title loading on routeChangeStart ', () => {
+    jest.useFakeTimers()
+    jest.spyOn(global, 'setTimeout')
+
     const on = jest.fn()
     on.mockImplementation((name, cb) => {
       name === 'routeChangeStart' && cb('testRoute', { shallow: false })
@@ -33,6 +36,10 @@ describe('useIsLoading', () => {
     const events = { on, off: jest.fn() } as unknown as MittEmitter<any>
     const router = createMockRouter({ events })
     customRender(router)
+    expect(setTimeout).toHaveBeenCalledTimes(1)
+    expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 500)
+
+    jest.runAllTimers()
     expect(document.title).toBe(loadingTitle)
   })
   it('should ignore if shallow route ', () => {

@@ -1,17 +1,24 @@
 import { NextRouter } from 'next/router'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 
 const useIsLoading = (router: NextRouter) => {
+  const timeOut = useRef<NodeJS.Timeout | null>(null)
+
   useEffect(() => {
     const handleRoutChangeStart = (
       route: string,
       options?: { shallow: boolean }
     ) => {
       if (options?.shallow) return
-      document.title = '...loading'
+      timeOut.current = setTimeout(() => {
+        document.title = '...loading'
+      }, 500)
     }
     const handleRoutChangeComplete = (route: string) => {
-      console.log(route, 'complete')
+      if (timeOut.current) {
+        clearTimeout(timeOut.current)
+      }
+      timeOut.current = null
     }
 
     router.events.on('routeChangeStart', handleRoutChangeStart)
