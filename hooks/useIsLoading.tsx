@@ -1,17 +1,17 @@
 import { NextRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 const useIsLoading = (router: NextRouter) => {
-  const [isLoading, setIsLoading] = useState(false)
-
   useEffect(() => {
-    const handleRoutChangeStart = (route: string) => {
-      // console.log(route, 'start')
-      setIsLoading(true)
+    const handleRoutChangeStart = (
+      route: string,
+      options?: { shallow: boolean }
+    ) => {
+      if (options?.shallow) return
+      document.title = '...loading'
     }
     const handleRoutChangeComplete = (route: string) => {
-      // console.log(route, 'complete')
-      setIsLoading(false)
+      console.log(route, 'complete')
     }
 
     router.events.on('routeChangeStart', handleRoutChangeStart)
@@ -22,9 +22,7 @@ const useIsLoading = (router: NextRouter) => {
       router.events.off('routeChangeComplete', handleRoutChangeComplete)
       router.events.off('routeChangeError', handleRoutChangeComplete)
     }
-  }, [])
-
-  return isLoading
+  }, [router])
 }
 
 export default useIsLoading

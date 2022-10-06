@@ -1,36 +1,48 @@
-import { renderHook, act } from '@testing-library/react'
+import { renderHook, render, screen as s } from '@testing-library/react'
 import { MittEmitter } from 'next/dist/shared/lib/mitt'
+import { NextRouter } from 'next/router'
 import { createMockRouter } from 'test-utility/nextRouterMock'
 import useIsLoading from './useIsLoading'
 
+const initTitle = 'testTitle'
+const loadingTitle = '...loading'
+const TestRender = (router: NextRouter) => {
+  useIsLoading(router)
+  return (
+    <>
+      <title>{initTitle}</title>
+    </>
+  )
+}
+const customRender = (router: NextRouter = createMockRouter({})) => {
+  render(<TestRender {...router} />)
+}
+
 describe('useIsLoading', () => {
-  it('should return initial false ', () => {
-    const { result } = renderHook(() => useIsLoading(createMockRouter({})))
-    expect(result.current).toBe(false)
+  it('should do nothing initial  ', () => {
+    customRender()
+    expect(document.title).toBe(initTitle)
+    s.debug()
   })
 
-  it('should set loading true routeChangeStart ', () => {
+  it('should set title loading on routeChangeStart ', () => {
     const on = jest.fn()
     on.mockImplementation((name, cb) => {
-      name === 'routeChangeStart' && cb('testRoute')
+      name === 'routeChangeStart' && cb('testRoute', { shallow: false })
     })
     const events = { on, off: jest.fn() } as unknown as MittEmitter<any>
     const router = createMockRouter({ events })
-    const { result } = renderHook(() => useIsLoading(router))
-
-    expect(result.current).toBe(true)
+    customRender(router)
+    expect(document.title).toBe(loadingTitle)
   })
-
-  it('should set loading false routeChangeComplete ', () => {
+  it('should ignore if shallow route ', () => {
     const on = jest.fn()
     on.mockImplementation((name, cb) => {
-      name === 'routeChangeStart' && cb('testRoute')
-      name === 'routeChangeComplete' && cb('testRoute')
+      name === 'routeChangeStart' && cb('testRoute', { shallow: true })
     })
     const events = { on, off: jest.fn() } as unknown as MittEmitter<any>
     const router = createMockRouter({ events })
-    const { result } = renderHook(() => useIsLoading(router))
-
-    expect(result.current).toBe(false)
+    customRender(router)
+    expect(document.title).toBe(initTitle)
   })
 })
