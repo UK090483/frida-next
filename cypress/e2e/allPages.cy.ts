@@ -6,7 +6,9 @@ describe('allPages', () => {
   const pages: any[] = Cypress.env('pages')
 
   artworks.forEach((i) => {
-    it(`Artwork ${i.name} should be online`, () => {
+    it(`Artwork ${i.name}  ${
+      Cypress.config('baseUrl') + i.slug
+    } should be online`, () => {
       cy.request({
         url: Cypress.config('baseUrl') + '/en' + i.slug,
         failOnStatusCode: true,

@@ -13,6 +13,7 @@
     "lint": "next lint",
     "cypress:open": "cross-env  cypress open",
     "cypress:run": "cypress run",
+    "cypress:run:local": "CYPRESS_BASE_URL=http://localhost:3000 cypress run",
     "cypress:run:live": "CYPRESS_BASE_URL=https://frida-next-cinyn57b3-konradullrich.vercel.app/ cypress run",
     "cypress:run:pages": "cypress run --spec cypress/e2e/allPages.cy.ts",
     "cypress:ct": "cypress open-ct",
