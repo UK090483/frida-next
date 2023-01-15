@@ -7,7 +7,7 @@ on:
 
 jobs:
   backup-dataset:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest 
     name: Backup dataset
     defaults:
       run:
@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Install dependencies
         run: |
-          npm install @sanity/cli
+            npm install @sanity/cli --legacy-peer-deps
 
       - name: Export dataset
         run: |
