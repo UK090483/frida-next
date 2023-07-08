@@ -59,6 +59,7 @@ typings/
 # sanity dist
 studio/dist
 public/studio
+studio/backup
 
 # Mac files
 .DS_Store
