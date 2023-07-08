@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { render, screen as s, fireEvent } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { useState } from 'react'
@@ -27,6 +28,8 @@ const TestRender = (props?: { onEnter?: () => {} }) => {
     </>
   )
 }
+
+//TODO
 
 describe('<PageTransition/>', () => {
   it('should render child', () => {

@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { useContext, useEffect } from 'react'
 import { SiteContext } from './context'
 import Cookies from 'js-cookie'

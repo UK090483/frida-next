@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { render, screen as s, fireEvent } from '@testing-library/react'
 import useIsTabbing from './useIsTabbing'
 
