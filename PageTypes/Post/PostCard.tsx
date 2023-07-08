@@ -66,7 +66,7 @@ const Infos: React.FC<{
         categories.map((cat) => (
           <div
             key={cat}
-            className="rounded-full whitespace-nowrap px-6 py-2 md:px-8  text-sm-fluid leading-none border-2 mr-3"
+            className="rounded-full whitespace-nowrap px-6 py-2 md:px-8 text-xs-fluid leading-none border-2 mr-3"
           >
             {cat}
           </div>

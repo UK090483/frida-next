@@ -56,7 +56,7 @@ const ArtworkSingle: React.FC<ArtworkSingleProps> = (props) => {
         type="text"
       >
         <h2 className="font-bold text-lg-fluid">
-          {locale === 'en' ? `About the Artist` : `Über den Künstler`}
+          {locale === 'en' ? `About the Artist` : `Über den Künstler*in`}
         </h2>
         {artistDescription && (
           <p className="whitespace-pre-line text-base-fluid">
