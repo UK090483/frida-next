@@ -7,7 +7,7 @@ import { motion, Variants } from 'framer-motion'
 import { useRouter } from 'next/router'
 import { useSiteContext } from 'contexts/shopContext/context'
 import useToggleCart from 'contexts/shopContext/useToggleCart'
-import useCheckout from 'contexts/shopContext/useToggleCart'
+import useCheckout from 'contexts/shopContext/useCheckout'
 
 type BuyButtonProps = {
   handleAddToCard?: () => void
@@ -61,6 +61,8 @@ const BuyButton: React.FC<BuyButtonProps> = (props) => {
   }
 
   const checkOut = useCheckout()
+
+  console.log(checkOut)
 
   return (
     <div
