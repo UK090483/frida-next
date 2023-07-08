@@ -37,6 +37,8 @@ const ArtworkHero: React.FC<ArtworkHeroProps> = ({ artwork }) => {
     ethPrice,
   } = artwork
 
+  console.log({ availability })
+
   const addItem = useAddItem()
   const cardItems = useCartItems()
 
@@ -89,6 +91,7 @@ const ArtworkHero: React.FC<ArtworkHeroProps> = ({ artwork }) => {
           {/* <SocialShare className="pt-2 pb-6" /> */}
           {!isNft && (
             <BuyButton
+              availability={availability !== 'sold'}
               className="my-10"
               isInCart={itemInCart}
               handleAddToCard={() => {

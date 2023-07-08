@@ -15,6 +15,7 @@ type BuyButtonProps = {
   isInCart: boolean
   className?: string
   nftLink?: string
+  availability?: boolean
 }
 
 const BuyButton: React.FC<BuyButtonProps> = (props) => {
@@ -23,6 +24,7 @@ const BuyButton: React.FC<BuyButtonProps> = (props) => {
     isInCart,
     className = '',
     nftLink,
+    availability = true,
   } = props
 
   const intersectionRef = React.useRef(null)
@@ -54,7 +56,6 @@ const BuyButton: React.FC<BuyButtonProps> = (props) => {
   const checkoutText = locale === 'en' ? 'checkout' : 'Kasse'
   const byNFTText = locale === 'en' ? 'BUY NFT' : 'NFT KAUFEN'
   const isAddingText = locale === 'en' ? 'adding...' : 'wird hinzugefügt...'
-  const availability = true
 
   const handleAdd = () => {
     handleAddToCard()
