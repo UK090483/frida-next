@@ -30,19 +30,19 @@ const Artwork: React.FC<handleStaticPropsResult<ArtworkSingleViewResult>> = (
 
 export const getStaticProps: GetStaticProps = async (props) => {
   const res = await handleStaticProps({ ...props, query })
-  //@ts-ignore
-  if (res?.props?.data?.randomArtworks) {
-    console.log('has random ')
-    const randomArtworks = await getServerResource({
-      type: 'artworks',
-      count: 8,
-    })
+  // //@ts-ignore
+  // if (res?.props?.data?.randomArtworks) {
+  //   console.log('has random ')
+  //   const randomArtworks = await getServerResource({
+  //     type: 'artworks',
+  //     count: 8,
+  //   })
 
-    if (randomArtworks && randomArtworks.length > 0) {
-      //@ts-ignore
-      res.props.data.randomArtworks = randomArtworks
-    }
-  }
+  //   if (randomArtworks && randomArtworks.length > 0) {
+  //     //@ts-ignore
+  //     res.props.data.randomArtworks = randomArtworks
+  //   }
+  // }
 
   return res
 }
