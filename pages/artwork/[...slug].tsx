@@ -11,7 +11,7 @@ import {
 import ArtworkSingle from 'PageTypes/Artwork/ArtworkSingle/ArtworkSingle'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import React from 'react'
-import getServerResource from 'pageBuilder/Api/getResource.server'
+// import getServerResource from 'pageBuilder/Api/getResource.server'
 import PageType from 'pageBuilder/PageType'
 
 const Artwork: React.FC<handleStaticPropsResult<ArtworkSingleViewResult>> = (
