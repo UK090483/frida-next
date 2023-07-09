@@ -63,8 +63,6 @@ const BuyButton: React.FC<BuyButtonProps> = (props) => {
 
   const checkOut = useCheckout()
 
-  console.log(checkOut)
-
   return (
     <div
       data-testid={'buyButton'}

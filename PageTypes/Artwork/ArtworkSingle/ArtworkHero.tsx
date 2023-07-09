@@ -37,8 +37,6 @@ const ArtworkHero: React.FC<ArtworkHeroProps> = ({ artwork }) => {
     ethPrice,
   } = artwork
 
-  console.log({ availability })
-
   const addItem = useAddItem()
   const cardItems = useCartItems()
 

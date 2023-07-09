@@ -7,7 +7,7 @@ export const config = {
     process.env.SANITY_PROJECT_ID ||
     process.env.NEXT_PUBLIC_SANITY_PROJECT_ID ||
     '',
-  // useCdn: process.env.NODE_ENV === 'production',
-  useCdn: true,
+  useCdn: process.env.NODE_ENV === 'production',
+
   apiVersion: '2021-03-25',
 }

@@ -20,7 +20,7 @@ export const getAllDocPathsCached = async (doc: string, args?: string) => {
       allPages.reduce((acc, page) => {
         if (!page.slug) return [...acc]
         const slugs = page.slug.split('/').filter((e: string) => e)
-        return acc
+
         return [
           ...acc,
           {
