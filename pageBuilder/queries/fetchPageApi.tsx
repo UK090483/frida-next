@@ -16,12 +16,12 @@ export const fetchPageWithCache = async (
     console.log('preview token is missing')
   }
 
-  console.time('fetchPage_ ' + slug)
+  console.time('fetchPage_ ' + locale + ' ' + slug)
   const pageData = await getSanityClient({
     active: !!preview,
     token: previewData?.token,
   }).fetch(query, { locale, slug: slug })
-  console.timeEnd('fetchPage_ ' + slug)
+  console.timeEnd('fetchPage_ ' + locale + ' ' + slug)
 
   return pageData
 }
