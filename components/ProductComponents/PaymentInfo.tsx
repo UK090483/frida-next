@@ -1,21 +1,23 @@
 import React from 'react'
 
 import Icon from '@components/Icon'
-import { FridaLocation } from 'types'
 import { mouseLinkProps } from '@components/generic/Mouse/mouseRemote'
+import { useRouter } from 'next/router'
 
-const PaymentInfo: React.FC<{ lang: FridaLocation }> = ({ lang }) => {
-  const questionsText = lang === 'en' ? 'questions?' : ' Du hast eine Frage?'
+const PaymentInfo: React.FC = () => {
+  const { locale } = useRouter()
+
+  const questionsText = locale === 'en' ? 'questions?' : ' Du hast eine Frage?'
   const helpText =
-    lang === 'en'
+    locale === 'en'
       ? ' We are glad to help you!'
       : ' Wir helfen Dir gerne weiter!'
   const savePaymentText =
-    lang === 'en'
+    locale === 'en'
       ? 'Secure payment by credit card or PayPal'
       : 'Sichere Zahlung per Kreditkarte oder PayPal'
   const versandText =
-    lang === 'en'
+    locale === 'en'
       ? 'Sent directly by the artist'
       : 'Versandt erfolgt direkt durch die Künstler'
 

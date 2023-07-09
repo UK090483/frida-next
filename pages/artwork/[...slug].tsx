@@ -1,46 +1,50 @@
-import Layout from '@components/generic/Layout'
-import { usePage } from '@lib/queries/usePage'
-import {
-  artworkSingleViewQuery,
+import Layout from 'pageBuilder/Layout/Layout'
+import query, {
   ArtworkSingleViewResult,
-} from 'PageTypes/Artwork/ArtworkSingle/artworksQueries'
-import { getAllDocPathsCached } from '@lib/queries/fetchDocPathApi'
+} from 'PageTypes/Artwork/ArtworkSingle/Artwork.query'
+import { getAllDocPathsCached } from 'pageBuilder/queries/fetchDocPathApi'
 import {
   handleStaticProps,
-  TemplateProps,
-} from '@lib/queries/handleStaticProps'
-import Error from '@pages/404'
+  handleStaticPropsResult,
+} from 'pageBuilder/queries/handleStaticProps'
+
 import ArtworkSingle from 'PageTypes/Artwork/ArtworkSingle/ArtworkSingle'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import React from 'react'
+// import getServerResource from 'pageBuilder/Api/getResource.server'
+import PageType from 'pageBuilder/PageType'
 
-const query = `*[_type == "artwork" && slug.current == $slug ][0]{
-  ${artworkSingleViewQuery}
-}`
-
-const ArtworkTemplate: React.FC<TemplateProps<ArtworkSingleViewResult>> = (
+const Artwork: React.FC<handleStaticPropsResult<ArtworkSingleViewResult>> = (
   props
 ) => {
-  const { data, lang, slug, preview } = props
-  const { pageData, isError } = usePage({ slug, query, data, preview })
-
-  if (isError) return <Error />
-
   return (
-    <Layout
-      preview={preview}
-      lang={lang}
-      title={pageData.artistName || 'Frida'}
-      navItems={pageData.site.navigation?.items}
-      data={pageData}
-    >
-      <ArtworkSingle lang={lang} {...pageData} />
-    </Layout>
+    <PageType {...props}>
+      {(data) => (
+        <Layout>
+          <ArtworkSingle {...data} />
+        </Layout>
+      )}
+    </PageType>
   )
 }
 
 export const getStaticProps: GetStaticProps = async (props) => {
-  return await handleStaticProps({ ...props, query })
+  const res = await handleStaticProps({ ...props, query })
+  // //@ts-ignore
+  // if (res?.props?.data?.randomArtworks) {
+  //   console.log('has random ')
+  //   const randomArtworks = await getServerResource({
+  //     type: 'artworks',
+  //     count: 8,
+  //   })
+
+  //   if (randomArtworks && randomArtworks.length > 0) {
+  //     //@ts-ignore
+  //     res.props.data.randomArtworks = randomArtworks
+  //   }
+  // }
+
+  return res
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -50,4 +54,4 @@ export const getStaticPaths: GetStaticPaths = async () => {
   )
 }
 
-export default ArtworkTemplate
+export default Artwork

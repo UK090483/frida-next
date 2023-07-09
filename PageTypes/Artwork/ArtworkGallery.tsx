@@ -1,24 +1,21 @@
 import Filter from '@components/Filter/Filter'
 import Gallery from '@components/Gallery/Gallery'
-import { ArtworksGalleryResult } from 'pageBuilder/Blocks/ArtworkBlock'
+
 import { useRouter } from 'next/router'
+import { ArtworksGalleryResult } from 'pageBuilder/Blocks/ArtworkBlock/ArtworkBlock.query'
 import React from 'react'
-import { FridaLocation } from 'types'
+
 import ArtworkCard from './ArtworkCard'
 
-interface ArtworksProps extends Omit<ArtworksGalleryResult, 'type'> {
-  lang: FridaLocation
-}
+type ArtworksProps = Omit<ArtworksGalleryResult, 'type'>
 
 const Artworks: React.FC<ArtworksProps> = (props) => {
-  const { items, stil, medium, lang } = props
-  const router = useRouter()
+  const { items, stil, medium } = props
+  const { query, locale } = useRouter()
 
   const artists = [...new Set(items.map((item) => item.artistName))]
 
   const artistsSorted = artists.sort((a, b) => a.localeCompare(b))
-
-  const query = router.query
 
   const filterElements = () => {
     const res = items.filter((artwork) => {
@@ -75,11 +72,11 @@ const Artworks: React.FC<ArtworksProps> = (props) => {
             items: medium?.map((s) => ({ name: s.name, value: s.name })),
           },
           {
-            label: lang === 'en' ? 'Price' : 'Preis',
+            label: locale === 'en' ? 'Price' : 'Preis',
             name: 'price',
             items: [
               {
-                name: lang === 'en' ? 'under 500' : 'unter 500',
+                name: locale === 'en' ? 'under 500' : 'unter 500',
                 value: '0-500',
               },
               { name: '500-1000', value: '500-1000' },
@@ -87,7 +84,7 @@ const Artworks: React.FC<ArtworksProps> = (props) => {
               { name: '3000-5000', value: '3000-5000' },
               { name: '5000-10000', value: '5000-10000' },
               {
-                name: lang === 'en' ? 'over 10000' : 'über 10000',
+                name: locale === 'en' ? 'over 10000' : 'über 10000',
                 value: '10000-more',
               },
             ],
@@ -97,7 +94,7 @@ const Artworks: React.FC<ArtworksProps> = (props) => {
 
       <Gallery
         items={filterElements().map((data) => (
-          <ArtworkCard key={data.slug} type="masonry" {...data} lang={lang} />
+          <ArtworkCard key={data.slug} type="masonry" {...data} />
         ))}
       />
     </div>

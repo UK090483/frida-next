@@ -1,6 +1,6 @@
-import SanitySyncHandler from '@lib/SyncApi/SanitySyncHandler'
+import SanitySyncHandler from 'lib/SyncApi/SanitySyncHandler'
 import sanityClient, { SanityClient } from '@sanity/client'
-import logger from '@lib/SyncApi/logger'
+import logger from 'lib/SyncApi/logger'
 import type { NextApiRequest, NextApiResponse } from 'next'
 const { SANITY_PROJECT_DATASET, SANITY_PROJECT_ID, SANITY_API_TOKEN } =
   process.env

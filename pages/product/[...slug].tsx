@@ -1,49 +1,43 @@
-import Layout from '@components/generic/Layout'
-import { usePage } from '@lib/queries/usePage'
-import { getAllDocPathsCached } from '@lib/queries/fetchDocPathApi'
-import { handleStaticProps } from '@lib/queries/handleStaticProps'
+import Layout from 'pageBuilder/Layout/Layout'
+import { usePage } from 'hooks/usePage'
+import { getAllDocPathsCached } from 'pageBuilder/queries/fetchDocPathApi'
+import {
+  handleStaticProps,
+  handleStaticPropsResult,
+} from 'pageBuilder/queries/handleStaticProps'
 import Error from 'pages/404'
-import ProductSingle, {
+import {
   productSingleViewQuery,
   ProductSingleViewResult,
-} from 'PageTypes/Product/ProductSingle'
+} from 'PageTypes/Product/ProductSingle.query'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import React from 'react'
-import { FridaLocation } from 'types'
+
 import { FridaPreviewData } from '@pages/api/preview'
+import ProductSingle from 'PageTypes/Product/ProductSingle'
 
-type ProductTemplateProps = {
-  data: ProductSingleViewResult | null
-  lang: FridaLocation
-  slug: string
-  preview: boolean | undefined
-}
-
-const query = `
+const query = (locale: string) => `
 *[_type == "product" && slug.current == $slug][0]{
-  ${productSingleViewQuery},
-  
+  ${productSingleViewQuery(locale)}
 }
 `
 
-const ProductTemplate: React.FC<ProductTemplateProps> = (props) => {
-  const { data, lang, slug, preview } = props
-  const { pageData, isError } = usePage({ slug, query, data, preview })
+const ProductTemplate: React.FC<
+  handleStaticPropsResult<ProductSingleViewResult>
+> = (props) => {
+  const { data, slug, previewQuery } = props
+  const { pageData, isError } = usePage<ProductSingleViewResult>({
+    slug,
+    query: previewQuery,
+    data,
+  })
 
-  if (isError) return <Error />
+  if (!pageData || isError) return <Error />
 
   return (
-    <div>
-      <Layout
-        preview={preview || false}
-        lang={lang}
-        title={'Shop'}
-        navItems={pageData.site.navigation.items}
-        data={pageData}
-      >
-        <ProductSingle lang={lang} {...pageData} />
-      </Layout>
-    </div>
+    <Layout>
+      <ProductSingle {...pageData} />
+    </Layout>
   )
 }
 

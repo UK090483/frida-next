@@ -20,27 +20,17 @@ import Navigation from './documents/navigation'
 import SettingsSeo from './documents/settings-seo'
 import redirect from './documents/redirect'
 
-
-
-
-
 import ShopifyCollection from './documents/shopify-collection'
 import ShopifyProduct from './documents/shopify-product'
 import ShopifyVariant from './documents/shopify-variant'
-
-// import Product from './documents/product'
-// import ProductVariant from './documents/productVariant'
-
-import ProxyString from './objects/proxyString'
+import Exhibition from './documents/exhibition'
 
 const documents = [
   Footer,
   Post,
   PostCategory,
   ShopifyCollection,
-  // Product,
-  // ProductVariant,
-  // ProxyString,
+  Exhibition,
   ShopifyProduct,
   ShopifyVariant,
   SettingsSeo,
@@ -54,7 +44,6 @@ const documents = [
   Navigation,
   redirect
 ]
-
 
 // Objects
 
@@ -106,7 +95,7 @@ const objects = [
   productOptionValue,
   productOptionSettings,
   productHint,
-  
+
   simplePortableText,
   innerSection,
   innerSectionItem
@@ -120,6 +109,8 @@ import Artworks from './pageComponents/Artworks'
 import Artists from './pageComponents/Artists'
 import Posts from './pageComponents/Posts'
 import Products from './pageComponents/Products'
+import Exhibitions from './pageComponents/Exhibitions'
+import Search from './pageComponents/Search'
 
 import marquee from './pageComponents/marquee'
 import Quotes from './pageComponents/Quotes'
@@ -134,9 +125,7 @@ import innerSection from './pageComponents/plugs/innerSection'
 import innerSectionItem from './pageComponents/plugs/innerSectionItem'
 import Download from './pageComponents/plugs/DownLoad'
 
-
 const pageComponents = [
-
   Section,
   CarouselHero,
   Categories,
@@ -152,16 +141,11 @@ const pageComponents = [
   Quotes,
   marquee,
   Download,
+  Exhibitions,
+  Search
 ]
 
 export default createSchema({
   name: 'default',
-
-  types: schemaTypes.concat([
-    ...documents,
-    ...pageComponents,
-    ...objects,
-
-    
-  ])
+  types: schemaTypes.concat([...documents, ...pageComponents, ...objects])
 })

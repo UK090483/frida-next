@@ -1,10 +1,6 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import Frida from '@components/Frida'
 import { mouseLinkProps } from '@components/generic/Mouse/mouseRemote'
-// import { useModalContext } from '@lib/modalContext'
-import { ImageMetaResult } from '@lib/queries/snippets'
+import { ImageMetaResult } from 'pageBuilder/queries/snippets'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
@@ -25,6 +21,7 @@ interface CardWrapPros {
   banner?: React.ReactElement | undefined
   ariaLabel?: string
   badge?: string
+  testId?: string
 }
 
 const CardWrap: React.FC<CardWrapPros> = (props) => {
@@ -41,6 +38,7 @@ const CardWrap: React.FC<CardWrapPros> = (props) => {
     banner,
     ariaLabel,
     badge,
+    testId,
   } = props
 
   const router = useRouter()
@@ -52,6 +50,7 @@ const CardWrap: React.FC<CardWrapPros> = (props) => {
   return (
     <Link href={`/${type}/${slug}`} passHref>
       <a
+        data-testid={testId}
         aria-label={ariaLabel}
         draggable={false}
         {...mouseLinkProps}

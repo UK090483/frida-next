@@ -1,22 +1,22 @@
 import React from 'react'
-import {
-  FacebookShareButton,
-  WhatsappShareButton,
-  TwitterShareButton,
-  EmailShareButton,
-} from 'react-share'
+// import {
+//   FacebookShareButton,
+//   WhatsappShareButton,
+//   TwitterShareButton,
+//   EmailShareButton,
+// } from 'react-share'
 import Icon from '@components/Icon'
 
 type SocialShareProps = {
   url?: string
   className?: string
 }
-const SocialShare: React.FC<SocialShareProps> = ({ url, className }) => {
-  const location = url
-    ? url
-    : typeof window !== `undefined`
-    ? window.location.href
-    : ''
+const SocialShare: React.FC<SocialShareProps> = ({ className }) => {
+  // const location = url
+  //   ? url
+  //   : typeof window !== `undefined`
+  //   ? window.location.href
+  //   : ''
 
   return (
     <div className={`${className}`}>
@@ -55,16 +55,16 @@ const SocialShare: React.FC<SocialShareProps> = ({ url, className }) => {
 
 export default SocialShare
 
-type ShareButtonWrapProps = {
-  className: string
-}
-const SBWrap: React.FC<ShareButtonWrapProps> = (props) => {
-  const { children, className } = props
-  return (
-    <div
-      className={`${className} w-10 absolute  flex justify-end transition-transform  transform-gpu -translate-x-full group-hover:translate-x-0 group-focus:translate-x-0 pointer-events-none`}
-    >
-      {children}
-    </div>
-  )
-}
+// type ShareButtonWrapProps = {
+//   className: string
+// }
+// const SBWrap: React.FC<ShareButtonWrapProps> = (props) => {
+//   const { children, className } = props
+//   return (
+//     <div
+//       className={`${className} w-10 absolute  flex justify-end transition-transform  transform-gpu -translate-x-full group-hover:translate-x-0 group-focus:translate-x-0 pointer-events-none`}
+//     >
+//       {children}
+//     </div>
+//   )
+// }

@@ -4,22 +4,19 @@ import ProductImageWrap from '@components/ProductComponents/ProductHeroImageWrap
 import ProductInfoWrap from '@components/ProductComponents/ProductHeroInfoWrap'
 import ProductHeroWrap from '@components/ProductComponents/ProductHeroWrap'
 import ProductHints from '@components/ProductComponents/productHints'
-// import SocialShare from '@components/SocialShare/SocialShare'
 import ProductMagnifyImage from '@components/ProductComponents/ProductMagnifyImage'
 import ProductName from '@components/ProductComponents/ProductName'
 import Price from '@components/ProductComponents/ProductPrice'
-import { useAddItem, useCartItems } from '@lib/context/useShopItem'
+import { useAddItem, useCartItems } from 'contexts/shopContext/useShopItem'
 import React from 'react'
-import { FridaLocation } from 'types'
-import { ArtworkSingleViewResult } from './artworksQueries'
+import { ArtworkSingleViewResult } from './Artwork.query'
 import Video from '@components/Video/Video'
 
 type ArtworkHeroProps = {
-  lang: FridaLocation
   artwork: ArtworkSingleViewResult
 }
 
-const ArtworkHero: React.FC<ArtworkHeroProps> = ({ artwork, lang }) => {
+const ArtworkHero: React.FC<ArtworkHeroProps> = ({ artwork }) => {
   const {
     artworkName,
     height,
@@ -48,8 +45,6 @@ const ArtworkHero: React.FC<ArtworkHeroProps> = ({ artwork, lang }) => {
 
   const showVideo = isNft && video?.data?.status === 'ready'
 
-  const available = availability !== 'sold'
-
   return (
     <ProductHeroWrap>
       <ProductImageWrap>
@@ -65,7 +60,7 @@ const ArtworkHero: React.FC<ArtworkHeroProps> = ({ artwork, lang }) => {
             <ProductName
               size="l"
               name={artworkName}
-              availability={available}
+              availability={availability !== 'sold'}
               asH1
               hiddenBefore={`Artwork: `}
               hiddenAfter={`by ${artistName}`}
@@ -94,7 +89,7 @@ const ArtworkHero: React.FC<ArtworkHeroProps> = ({ artwork, lang }) => {
           {/* <SocialShare className="pt-2 pb-6" /> */}
           {!isNft && (
             <BuyButton
-              available={available}
+              availability={availability !== 'sold'}
               className="my-10"
               isInCart={itemInCart}
               handleAddToCard={() => {
@@ -108,7 +103,6 @@ const ArtworkHero: React.FC<ArtworkHeroProps> = ({ artwork, lang }) => {
           )}
           {isNft && (
             <BuyButton
-              available={available}
               className="my-10"
               isInCart={itemInCart}
               nftLink={nftUrl || ' '}
@@ -116,8 +110,8 @@ const ArtworkHero: React.FC<ArtworkHeroProps> = ({ artwork, lang }) => {
             />
           )}
 
-          {hints && <ProductHints items={hints} lang={lang} />}
-          <PaymentInfo lang={lang} />
+          {hints && <ProductHints items={hints} />}
+          <PaymentInfo />
         </div>
       </ProductInfoWrap>
     </ProductHeroWrap>

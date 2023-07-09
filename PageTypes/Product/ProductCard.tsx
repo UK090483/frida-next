@@ -1,6 +1,6 @@
 import Card from '@components/Card'
 import ProductName from '@components/ProductComponents/ProductName'
-import { imageMeta, ImageMetaResult } from '@lib/queries/snippets'
+import { imageMeta, ImageMetaResult } from 'pageBuilder/queries/snippets'
 import React from 'react'
 import { GalleryTypes } from 'types'
 

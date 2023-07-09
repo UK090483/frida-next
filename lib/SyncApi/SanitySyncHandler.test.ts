@@ -133,7 +133,7 @@ describe('Sanity Sync Handler', () => {
     expect(mockShopifyClient.productListing.create).toHaveBeenCalledTimes(1)
     expect(mockShopifyClient.productListing.create).toHaveBeenCalledWith(
       testData.shopify.productId,
-      { product_id: testData.shopify.productId }
+      { product_listing: testData.shopify.productId }
     )
     // setting checkSum
     expect(mockShopifyClient.metafield.create).toHaveBeenCalledTimes(1)

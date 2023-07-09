@@ -2,7 +2,7 @@ import React from 'react'
 import classnames from 'classnames'
 
 import { ArtworkRecord } from 'types'
-import { ConditionalWrapper } from '@lib/helpers'
+import { ConditionalWrapper } from 'lib/helpers'
 
 type ProductNameProps = {
   availability: boolean
@@ -31,6 +31,7 @@ const ProductName: React.FC<ProductNameProps> = ({
 
   return (
     <div
+      data-testid={'productName'}
       className={classnames(
         { 'whitespace-nowrap  overflow-hidden truncate': truncate },
         { 'text-base-fluid font-bold  py-2': size === 'l' },

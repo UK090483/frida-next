@@ -2,36 +2,54 @@ import { defineConfig } from 'cypress'
 import { createClient } from 'next-sanity'
 
 const sanityClient = createClient({
-  projectId: 'zll53fvk',
-  dataset: 'development',
+  projectId: 'ypuaahj7',
+  dataset: 'production',
+  useCdn: true,
+  apiVersion: '2021-03-25',
 })
 
 export default defineConfig({
   e2e: {
-    // We've imported your old cypress plugins here.
-    // You may want to clean this up later by importing these.
+    viewportHeight: 800,
+    viewportWidth: 1280,
     async setupNodeEvents(on, config) {
-      const pages = await sanityClient.fetch(
-        `*[_type == 'page' ]{
+      const fetchRes: any = await sanityClient.fetch(`
+      {
+        'pages':*[_type == 'page' || _id == 'frontPage' ]{
           ...,
-         'slug':'/' + slug.current
-         }`
-      )
-      const artworks = await sanityClient.fetch(
-        `*[ _type == 'artwork' ]{
+         'slug': select(
+            _type == 'indexPage' => '/',
+            '/' + slug.current,
+         ),
+         },
+
+         'artworks':*[ _type == 'artwork' ]{
           ...,
+          'artistName':artist->anzeigeName,
          'slug':'/artwork/' + slug.current
-         }`
-      )
+         },
 
-      config.env.pages = pages
-      config.env.artworks = artworks
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
-      // return require('./cypress/plugins/index.js')(on, config)
+         'artists':*[ _type == 'artist' ]{
+          ...,
+          
+         'slug':'/artist/' + slug.current
+         },
 
+         'posts':*[ _type == 'post' ]{
+          ...,
+         'slug':'/post/' + slug.current
+         }
+      }
+      
+      `)
+
+      config.env.pages = fetchRes.pages
+      config.env.artworks = fetchRes.artworks
+      config.env.artists = fetchRes.artists
+      config.env.posts = fetchRes.posts
       return config
     },
-    baseUrl: 'http://localhost:3000',
+    baseUrl: 'https://www.meetfrida.art/',
   },
 
   component: {

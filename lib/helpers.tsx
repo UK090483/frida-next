@@ -1,25 +1,8 @@
-//@ts-nocheck
-import { useCallback, useEffect, useRef, useState } from 'react'
-import { imageBuilder } from '@lib/sanity'
-import {
-  ImageUrlBuilderOptions,
-  SanityImageSource,
-} from '@sanity/image-url/lib/types/types'
+// @ts-nocheck
 
-/*  ------------------------------ */
-/*  Generic helper functions
-/*  ------------------------------ */
+import { useEffect, useState } from 'react'
 
-// reference a previous state after update
-export function usePrevious(value) {
-  const ref = useRef()
-  useEffect(() => {
-    ref.current = value
-  })
-  return ref.current
-}
-
-// client-side mount
+//client-side mount
 export function useHasMounted() {
   const [hasMounted, setHasMounted] = useState(false)
 
@@ -30,67 +13,11 @@ export function useHasMounted() {
   return hasMounted
 }
 
-// autoplay looper
-export function useAutoplay(callback, delay) {
-  const [isRunning, setIsRunning] = useState(false)
-  const stop = useCallback(() => setIsRunning(false), [setIsRunning])
-  const play = useCallback(() => setIsRunning(true), [setIsRunning])
-  const savedCallback = useRef(callback)
-
-  useEffect(() => {
-    savedCallback.current = callback
-  }, [callback])
-
-  useEffect(() => {
-    if (!isRunning) return
-    let id: 0 | NodeJS.Timeout = 0
-
-    const tick = () => {
-      if (!isRunning && id) return clearTimeout(id)
-      savedCallback.current()
-      requestAnimationFrame(() => (id = setTimeout(tick, delay)))
-    }
-    requestAnimationFrame(() => (id = setTimeout(tick, delay)))
-
-    return () => {
-      if (id) clearTimeout(id)
-      stop()
-    }
-  }, [isRunning, delay, stop])
-
-  return { play, stop }
-}
-
-// conditionally wrap a component with another
 export const ConditionalWrapper: React.FC<{
   condition: boolean
   wrapper: (children: ReactNode) => React.ReactElement
 }> = ({ condition, wrapper, children }) => {
   return condition ? wrapper(children) : children
-}
-
-// simple debounce function
-export function debounce(fn, ms) {
-  let timer
-  return (_) => {
-    clearTimeout(timer)
-    timer = setTimeout((_) => {
-      timer = null
-      fn.apply(this, arguments)
-    }, ms)
-  }
-}
-
-// delay with promise
-export function sleeper(ms) {
-  return function (x) {
-    return new Promise((resolve) => setTimeout(() => resolve(x), ms))
-  }
-}
-
-// check if value is unique
-export const unique = (value, index, self) => {
-  return self.indexOf(value) === index
 }
 
 // see if an object is found in another array of objects
@@ -108,8 +35,7 @@ export function clampRange(value, min = 0, max = 1) {
   return value < min ? min : value > max ? max : value
 }
 
-// wrap incremental
-export function wrap(index, length) {
+export function wrap(index: number, length: number) {
   if (index < 0) {
     index = length + (index % length)
   }
@@ -145,87 +71,3 @@ export const Keys = {
   DOWN: 40,
   RETURN: 45,
 }
-
-export const isBrowser = typeof window !== 'undefined'
-
-export function useWindowSize() {
-  function getSize() {
-    return {
-      width: isBrowser ? window.innerWidth : 0,
-      height: isBrowser ? window.innerHeight : 0,
-    }
-  }
-
-  const [windowSize, setWindowSize] = useState(getSize)
-
-  useEffect(() => {
-    if (!isBrowser) return
-
-    function handleResize() {
-      setWindowSize(getSize())
-    }
-
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
-  }, []) // Empty array ensures that effect is only run on mount and unmount
-
-  return windowSize
-}
-
-/*  ------------------------------ */
-/*  Image helpers
-/*  ------------------------------ */
-
-const buildSrc: (
-  image: SanityImageSource,
-  {}: Pick<ImageUrlBuilderOptions, 'width' | 'height' | 'format' | 'quality'>
-) => string | null = (image, { width, height, format, quality }) => {
-  let imgSrc = imageBuilder.image(image)
-
-  if (width) {
-    imgSrc = imgSrc.width(Math.round(width))
-  }
-
-  if (height) {
-    imgSrc = imgSrc.height(Math.round(height))
-  }
-
-  if (format) {
-    imgSrc = imgSrc.format(format)
-  }
-
-  if (quality) {
-    imgSrc = imgSrc.quality(quality)
-  }
-
-  return imgSrc.fit('max').auto('format').url()
-}
-
-const buildSrcSet: (
-  image: SanityImageSource,
-  {}: {
-    srcSizes: number[]
-    aspect?: number
-    format?: ImageUrlBuilderOptions['format']
-    quality?: ImageUrlBuilderOptions['quality']
-  }
-) => string = (image, { srcSizes, aspect, format, quality }) => {
-  const sizes = srcSizes.map((width) => {
-    const imgSrc = buildSrc(image, {
-      width,
-      height: aspect && Math.round(width * aspect) / 100,
-      ...{ format },
-      ...{ quality },
-    })
-
-    // if (format) {
-    //   imgSrc = imgSrc.format(format)
-    // }
-
-    return `${imgSrc} ${width}w`
-  })
-
-  return sizes.join(',')
-}
-
-export { buildSrc, buildSrcSet }

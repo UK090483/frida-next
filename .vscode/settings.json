@@ -1,17 +1,22 @@
 {
+  
   "cSpell.words": [
+    "anzeige",
     "frida",
+    "mailchimp",
     "marq",
+    "meetfrida",
     "meganav",
     "metafield",
     "metafields",
     "noninteractive",
-    "stil"
+    "stil",
+    "tailwindcss",
+    "testid",
+    "Warenkorb"
   ],
-  "editor.formatOnSave": false,
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
-  },
+  "editor.formatOnSave": true,
+  
   "files.exclude": {
     "**/.git": false,
     "**/.svn": false,
@@ -51,7 +56,8 @@
     ".eslintrc.js": false,
     "testpages": false,
     "coverage": false,
-    "cypress": false
+    "cypress": false,
+    "tsconfig.tsbuildinfo": false
   },
   "explorerExclude.backup": {},
   "workspace.isHidden": true,

@@ -63,6 +63,7 @@ const useHls = (props: UseHslProps) => {
     }
 
     attachVideo()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [videoRef, autoload, playbackId])
 
   return { error, loaded, loading }

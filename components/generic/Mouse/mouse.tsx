@@ -7,7 +7,8 @@ export default function mouse() {
   const setMove = (e: MouseEvent) => {
     setMouse('move', e)
   }
-
+  // @TODO -Fix Hook
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
     const body = document.querySelector('body')
 

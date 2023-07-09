@@ -5,23 +5,18 @@ import Newsletter from 'components/Forms/NewsletterForm'
 import { useRouter } from 'next/router'
 import { mouseLinkProps } from './Mouse/mouseRemote'
 import Link from 'next/link'
-import { buildInternalLink } from '@lib/helper/buildInternalLink'
-import { FridaLocation } from 'types'
+import { buildInternalLink } from 'utility/buildInternalLink'
 
-type FooterProps = {
-  imprintSlug?: string | null | undefined
-  agbSlug?: string | null | undefined
+import { useLayoutContext } from 'pageBuilder/Layout/LayoutContext'
 
-  nav?: any[]
-  lang: FridaLocation
-}
-
-const Footer: React.FC<FooterProps> = (props) => {
-  const { nav } = props
+const Footer: React.FC = () => {
   const router = useRouter()
+  const { data } = useLayoutContext()
+
+  const nav = data?.navigation?.footerItems
 
   return (
-    <div>
+    <div data-testid="footer">
       <Section backgroundColor="white">
         <div className="flex flex-wrap lg:flex-nowrap horizontal-padding">
           <div className="w-full  lg:pr-frida_7%">
@@ -51,15 +46,7 @@ const Footer: React.FC<FooterProps> = (props) => {
         <div className="flex flex-col items-center text-frida-white md:flex-row justify-evenly md:justify-between h-52 md:h-24">
           {nav &&
             nav.map((l, index) => {
-              return (
-                <CustomLink
-                  key={index}
-                  internalLink={l.internalLink}
-                  link={l.link}
-                  label={l.label}
-                  label_en={l.label_en}
-                />
-              )
+              return <CustomLink key={index} {...l} />
             })}
         </div>
       </Section>
@@ -72,9 +59,9 @@ export default Footer
 type CustomLinkPros = {
   className?: string
   internalLink?: { type: string; slug: string }
-  link?: string
-  label?: string
-  label_en?: string
+  link?: string | null
+  label?: string | null
+  label_en?: string | null
 }
 const CustomLink: React.FC<CustomLinkPros> = (props) => {
   const { className, label, link, internalLink } = props

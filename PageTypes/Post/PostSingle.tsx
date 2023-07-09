@@ -1,16 +1,17 @@
-import Layout from '@components/generic/Layout'
+import Layout from 'pageBuilder/Layout/Layout'
 
-import { SiteResult } from '@lib/queries/cache'
 import { body, PageBodyResult } from 'pageBuilder/pageBuilderQueries'
-import { ImageMetaResult, imageMeta } from '@lib/queries/snippets'
+import { ImageMetaResult, imageMeta } from 'pageBuilder/queries/snippets'
 import BodyParser from 'pageBuilder/BodyParser'
 import React from 'react'
-import { FridaLocation } from 'types'
 import Photo from '@components/Photo'
 
 import CarouselHeroItem from '@components/CarouselHero/CarouselItem'
+import { layoutQuery } from 'pageBuilder/Layout/layoutQuery'
+import { useRouter } from 'next/router'
+import { buildSeoQuery } from 'pageBuilder/Seo/seoQuery'
 
-export const postSingleView = `
+export const postSingleView = (locale: string) => `
 ...,
 title,
 title_en,
@@ -21,8 +22,9 @@ excerpt,
 excerpt_en,
 'headerImage': headerImage {${imageMeta}},
 'previewImage':previewImage {${imageMeta}},
-${body}
-'site':'getSite'
+${body(locale)}
+${layoutQuery(locale)},
+${buildSeoQuery()}
 `
 
 export type PostPageResult = {
@@ -37,46 +39,30 @@ export type PostPageResult = {
   previewImage: ImageMetaResult | null
   content: null | PageBodyResult
   default_header?: null | boolean
-  site: SiteResult
 }
 
 interface PostSingleProps extends PostPageResult {
-  lang: FridaLocation
   preview?: boolean
 }
 
 const PostSingle: React.FC<PostSingleProps> = (props) => {
-  const {
-    headerImage,
-    content,
-    lang,
-    title,
-    title_en,
-    site,
-    default_header,
-    preview = false,
-    categories,
-  } = props
+  const { headerImage, content, title, title_en, default_header, categories } =
+    props
+
+  const { locale } = useRouter()
 
   const _headerTitle =
     categories && categories[0]
-      ? lang === 'en'
+      ? locale === 'en'
         ? categories[0].title_en
         : categories[0].title
       : 'Frida'
 
-  const _title = lang === 'en' && title_en ? title_en : title
+  const _title = locale === 'en' && title_en ? title_en : title
 
   return (
     <>
-      <Layout
-        preview={preview}
-        lang={lang}
-        initialColor="pink"
-        title={_headerTitle}
-        navItems={site?.navigation?.items}
-        data={props}
-      >
+      <Layout>
         {default_header !== false && (
           <CarouselHeroItem
             color={'pink'}
@@ -84,7 +70,7 @@ const PostSingle: React.FC<PostSingleProps> = (props) => {
             content={<h1 className="pb-10 header-small">{_title}</h1>}
           />
         )}
-        {content && <BodyParser lang={lang} content={content} />}
+        {content && <BodyParser content={content} />}
       </Layout>
     </>
   )

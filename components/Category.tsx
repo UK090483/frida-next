@@ -1,11 +1,11 @@
 import React from 'react'
-import Section from '@components/Section'
+import Section from 'components/Section'
 import Link from 'next/link'
 import cx from 'classnames'
-import { ConditionalWrapper } from '@lib/helpers'
-import { buildInternalLink } from '@lib/helper/buildInternalLink'
-import { mouseLinkProps } from '@components/generic/Mouse/mouseRemote'
-import { FridaLocation } from 'types'
+import { ConditionalWrapper } from 'lib/helpers'
+import { buildInternalLink } from 'utility/buildInternalLink'
+import { mouseLinkProps } from 'components/generic/Mouse/mouseRemote'
+import { useRouter } from 'next/router'
 
 type CategoryItem = {
   images: React.ReactNode[]
@@ -20,10 +20,10 @@ type CategoryItem = {
 
 type CategoryProps = {
   items: CategoryItem[]
-  lang: FridaLocation
 }
 
-const Category: React.FC<CategoryProps> = ({ items, lang }) => {
+const Category: React.FC<CategoryProps> = ({ items }) => {
+  const { locale } = useRouter()
   return (
     <Section type="full" backgroundColor="white">
       <ul className="grid gap-4 lg:gap-20 grid-cols-12  grid-flow-row px-frida_side md:px-frida_7% pt-4 pb-20 lg:pb-40">
@@ -36,10 +36,10 @@ const Category: React.FC<CategoryProps> = ({ items, lang }) => {
             label,
             label_en,
           } = item
-          const _label = lang === 'en' && label_en ? label_en : label
+          const _label = locale === 'en' && label_en ? label_en : label
 
           const ariaLabel =
-            lang === 'en' && label_en
+            locale === 'en' && label_en
               ? `Read more about ${label_en}`
               : `Lies mehr über ${label}`
           return (
@@ -79,7 +79,7 @@ const Category: React.FC<CategoryProps> = ({ items, lang }) => {
                 {item.images && item.images[0] && item.images[0]}
 
                 {_label && (
-                  <div className="absolute transform -translate-x-1/2 -translate-y-1/2 button is-responsive bg-frida-white border-frida-white top-1/2 left-1/2">
+                  <div className="absolute transform -translate-x-1/2 -translate-y-1/2 rounded-full whitespace-nowrap px-6 py-2 md:px-8 md:py-3 text-sm-fluid leading-none border-3 bg-frida-white border-frida-white top-1/2 left-1/2">
                     {_label}
                   </div>
                 )}

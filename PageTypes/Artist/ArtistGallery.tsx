@@ -1,18 +1,17 @@
 import Gallery from '@components/Gallery/Gallery'
 import React from 'react'
 
-import { FridaLocation } from 'types'
 import Section from '@components/Section'
-import ArtistCard, { ArtistCardResult } from './ArtistCard'
+import ArtistCard from './ArtistCard'
 import Filter from '@components/Filter/Filter'
 import { useRouter } from 'next/router'
+import { ArtistCardResult } from './ArtistCard.query'
 
 type ArtworksProps = {
   items?: ArtistCardResult[]
-  lang: FridaLocation
 }
 
-const ArtistGallery: React.FC<ArtworksProps> = ({ items = [], lang }) => {
+const ArtistGallery: React.FC<ArtworksProps> = ({ items = [] }) => {
   const router = useRouter()
   const query = router.query
 
@@ -52,12 +51,7 @@ const ArtistGallery: React.FC<ArtworksProps> = ({ items = [], lang }) => {
             type="grid"
             items={[
               filterElements().map((item) => (
-                <ArtistCard
-                  key={item.slug}
-                  type={'grid'}
-                  {...item}
-                  lang={lang}
-                />
+                <ArtistCard key={item.slug} type={'grid'} {...item} />
               )),
             ]}
           />

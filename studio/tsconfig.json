@@ -7,5 +7,5 @@
     "./node_modules/@sanity/base/types/**/*.ts",
     "./**/*.ts",
     "./**/*.tsx"
-  ]
+, "components/iframe/IframePreview.js"  ]
 }

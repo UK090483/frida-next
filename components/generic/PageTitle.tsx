@@ -1,48 +1,59 @@
-import ConditionalWrapper from '@lib/helper/ConditionalWraper'
+import ConditionalWrapper from '@components/ConditionalWrapper'
 import Link from 'next/link'
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useLayoutEffect, useRef } from 'react'
 import { FridaColors } from 'types'
 import Frida from '@components/Frida'
 import { mouseLinkProps, setMouse } from './Mouse/mouseRemote'
 import classNames from 'classnames'
+import { useRouter } from 'next/router'
+import { isBrowser } from 'framer-motion'
 
 type PageTitleProps = {
   title: string
   color: FridaColors
   link: boolean
   initialColor: FridaColors | 'white/pink'
+  id: string
 }
-
+const useIsomorphUseLayout = isBrowser ? useLayoutEffect : useEffect
 const PageTitle: React.FC<PageTitleProps> = ({
   title = 'no title',
   link,
   initialColor = 'white',
+  id,
 }) => {
   const ref = useRef<null | HTMLAnchorElement>(null)
-  const observers = useRef<IntersectionObserver[]>([])
+  // const observers = useRef<IntersectionObserver[]>([])
   const [bgCurrent, setBgCurrent] = React.useState<string | null>(null)
   const [counter, setCounter] = React.useState(0)
 
-  useEffect(() => {
+  useIsomorphUseLayout(() => {
+    let observers: IntersectionObserver[] = []
     const observerCallback: IntersectionObserverCallback = (entries) => {
       if (entries[0].isIntersecting) {
+        // console.log({
+        //   e: entries[0].target,
+        //   color: entries[0].target.getAttribute('data-color'),
+        // })
+
         setBgCurrent(entries[0].target.getAttribute('data-color'))
       }
     }
     document.querySelectorAll('[data-color]').forEach((i) => {
+      //console.log(i)
       if (i) {
         const observer = new IntersectionObserver(observerCallback, {
           root: null,
-          rootMargin: '0px 0px -95% 0px',
+          rootMargin: '0px -10% -95% -10%',
           threshold: 0,
         })
         observer.observe(i)
-        observers.current.push(observer)
+        observers.push(observer)
       }
     })
 
     return () => {
-      observers.current.forEach((observer) => {
+      observers.forEach((observer) => {
         observer.disconnect()
       })
     }
@@ -50,12 +61,12 @@ const PageTitle: React.FC<PageTitleProps> = ({
 
   useEffect(() => {
     const timeOut = setTimeout(() => {
-      setCounter(counter + 1)
-    }, 2000)
+      setCounter((state) => state + 1)
+    }, 1000)
     return () => {
       clearTimeout(timeOut)
     }
-  }, [])
+  }, [id])
 
   return (
     <ConditionalWrapper
@@ -66,8 +77,6 @@ const PageTitle: React.FC<PageTitleProps> = ({
             <a
               className={classNames(
                 'font-bold text-md-fluid  transform -translate-y-2'
-                // { 'text-md-fluid ': title.length >= 16 },
-                // { 'text-md-fluid': title.length < 16 }
               )}
               ref={ref}
               onMouseEnter={() => {

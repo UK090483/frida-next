@@ -2,22 +2,21 @@ import Button from '@components/buttons/button'
 import Carousel from '@components/CardCarousel'
 import Photo from '@components/Photo'
 import Section from '@components/Section'
-import { ImageMetaResult } from '@lib/queries/snippets'
-import { ArtistPageResult } from '@pages/artist/[...slug]'
+import { ImageMetaResult } from 'pageBuilder/queries/snippets'
+
 import classNames from 'classnames'
 import ArtworkCard from 'PageTypes/Artwork/ArtworkCard'
 import BodyParser from 'pageBuilder/BodyParser'
 import React from 'react'
-import { FridaColors, FridaLocation } from 'types'
+import { FridaColors } from 'types'
 import Quotes from '@components/Quote/Quotes'
+import { useRouter } from 'next/router'
+import { ArtistPageResult } from './ArtistSingle.query'
 
-interface ArtistSingleProps extends ArtistPageResult {
-  lang: FridaLocation
-}
+type ArtistSingleProps = ArtistPageResult
 
 const ArtistSingle: React.FC<ArtistSingleProps> = (props) => {
-  const { relatedArtworks, lang, content, mainImage, initBgColor, quotes } =
-    props
+  const { relatedArtworks, content, mainImage, initBgColor, quotes } = props
 
   const _initBgColor = initBgColor ? initBgColor : 'white'
 
@@ -29,7 +28,6 @@ const ArtistSingle: React.FC<ArtistSingleProps> = (props) => {
   if (content && content.length > 0) {
     return (
       <BodyParser
-        lang={lang}
         content={content}
         extraComponents={{
           artistHero: (
@@ -62,7 +60,7 @@ type ArtistHeroProps = {
 }
 const ArtistHero: React.FC<ArtistHeroProps> = ({ photo, initBgColor }) => {
   return (
-    <div data-color={initBgColor}>
+    <div data-testid={'artist_hero'} data-color={initBgColor}>
       {photo && (
         <div className="relative hero">
           <Photo photo={photo} layout="fill" />
@@ -73,11 +71,7 @@ const ArtistHero: React.FC<ArtistHeroProps> = ({ photo, initBgColor }) => {
 }
 
 const ArtistInfo: React.FC<ArtistSingleProps> = (props) => {
-  const { lang, description, description_en, webLink, instagramLink, name } =
-    props
-
-  const _description =
-    lang === 'en' && description_en ? description_en : description
+  const { description, webLink, instagramLink, name } = props
 
   return (
     <>
@@ -90,8 +84,13 @@ const ArtistInfo: React.FC<ArtistSingleProps> = (props) => {
           <span className="text-frida-black">Meet</span>
           {name}
         </h1>
-        {_description && (
-          <p className="whitespace-pre-line text-base-fluid">{_description}</p>
+        {description && (
+          <p
+            data-testid={'artist__description'}
+            className="whitespace-pre-line text-base-fluid"
+          >
+            {description}
+          </p>
         )}
         <div className="flex flex-col flex-wrap items-center justify-center pt-16 md:flex-row md:justify-start">
           {webLink && (
@@ -162,20 +161,16 @@ const ArtistImages: React.FC<ArtistSingleProps> = (props) => {
 }
 
 const ArtistWorks: React.FC<ArtistSingleProps> = (props) => {
-  const { relatedArtworks, lang, name } = props
+  const { relatedArtworks, name } = props
 
+  const { locale } = useRouter()
   return (
     <>
       {relatedArtworks && relatedArtworks.length > 0 && (
         <Carousel
-          header={lang === 'en' ? `Works by ${name}` : `Arbeiten von ${name}`}
+          header={locale === 'en' ? `Works by ${name}` : `Arbeiten von ${name}`}
           items={relatedArtworks.map((item) => (
-            <ArtworkCard
-              key={item.slug}
-              type="carousel"
-              {...item}
-              lang={lang}
-            />
+            <ArtworkCard key={item.slug} type="carousel" {...item} />
           ))}
         />
       )}

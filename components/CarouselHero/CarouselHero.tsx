@@ -1,11 +1,13 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import * as React from 'react'
 import HeroNav from './HeroNav'
 import CarouselItem from './CarouselItem'
 import ButtonNav from '../buttons/ButtonNav'
-import KeenSlider, { useKeenSlider } from 'lib/slider/react'
+import type KeenSlider from 'keen-slider'
+import { useKeenSlider } from 'keen-slider/react'
 import { FridaColors } from '../../types'
-import useKeydown from '@lib/helper/useKeydown'
-import { useAutoplay } from '@lib/helpers'
+import useKeydown from 'hooks/useKeydown'
+import { useAutoplay } from '../../hooks/useAutoplay'
 
 export type CarouselHeroItem = {
   color: FridaColors
@@ -84,7 +86,8 @@ const CarouselHero: React.FC<CarouselHeroProps> = ({ items }) => {
       className="relative"
       onFocus={(e) => {
         e.stopPropagation()
-        const itemIndex = e.target.parentElement?.getAttribute('item-index')
+        const itemIndex =
+          e.target.parentElement?.getAttribute('data-item-index')
         if (itemIndex) {
           setSlide(parseInt(itemIndex) - 1)
         }

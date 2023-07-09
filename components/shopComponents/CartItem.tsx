@@ -1,25 +1,23 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react'
 import Link from 'next/link'
-
-// import { hasObject } from '@lib/helpers'
 
 import Photo from '@components/Photo'
 import ProductPrice from '@components/ProductComponents/ProductPrice'
 import ProductCounter from '@components/ProductComponents/ProductCounter'
 
 import Button from '@components/buttons/button'
-import useToggleCart from '@lib/context/useToggleCart'
-import { useRemoveItem, useUpdateItem } from '@lib/context/useShopItem'
-import { FetchVariantResult } from '@lib/context/helper'
-import { FridaLocation } from 'types'
+import useToggleCart from 'contexts/shopContext/useToggleCart'
+import { useRemoveItem, useUpdateItem } from 'contexts/shopContext/useShopItem'
+import { FetchVariantResult } from 'contexts/shopContext/helper'
+
+import { useRouter } from 'next/router'
 
 type CartItemProps = {
   item: FetchVariantResult
-  lang: FridaLocation
 }
-const CartItem: React.FC<CartItemProps> = ({ item, lang }) => {
+const CartItem: React.FC<CartItemProps> = ({ item }) => {
+  const { locale } = useRouter()
+
   const { _type, product } = item
   const { subTitle } = product
   const removeItem = useRemoveItem()
@@ -30,7 +28,7 @@ const CartItem: React.FC<CartItemProps> = ({ item, lang }) => {
     updateItem(item.lineID, quantity)
   }
 
-  const removeText = lang === 'en' ? 'remove' : 'entfernen'
+  const removeText = locale === 'en' ? 'remove' : 'entfernen'
 
   // const defaultPhoto = item.photos.cart?.find((set) => !set.forOption)
   // const variantPhoto = item.photos.cart?.find((set) => {
@@ -50,7 +48,7 @@ const CartItem: React.FC<CartItemProps> = ({ item, lang }) => {
   const isArtwork = _type === 'artwork'
 
   return (
-    <div className="cart-item">
+    <div className="cart-item" data-testid={'cart__item'}>
       {photo && (
         <div className="relative cart-item--photo">
           <Photo
@@ -74,7 +72,11 @@ const CartItem: React.FC<CartItemProps> = ({ item, lang }) => {
                 }?variant=${item.id}`}
                 scroll={false}
               >
-                <a onClick={() => toggleCart()} className="cart-item--link">
+                <a
+                  data-testid={'cart__item__title'}
+                  onClick={() => toggleCart()}
+                  className="cart-item--link"
+                >
                   {item.product.title}
                 </a>
               </Link>

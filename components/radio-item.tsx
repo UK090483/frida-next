@@ -1,11 +1,11 @@
 import { useRef, useEffect, KeyboardEvent } from 'react'
 
-import { wrap, Keys } from '@lib/helpers'
+import { wrap, Keys } from 'lib/helpers'
 import {
   RadioGroupValue,
   useRadioGroupContext,
   useRadioItemContext,
-} from '@components/radio-group'
+} from '@components/ProductComponents/radio-group'
 
 interface IRadioItemProps {
   value: RadioGroupValue

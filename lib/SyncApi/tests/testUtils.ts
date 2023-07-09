@@ -156,7 +156,7 @@ export const testData = {
     metadata: {
       key: 'checksum_syncData',
       namespace: 'syncData',
-      value_type: 'string',
+      type: 'multi_line_text_field',
       owner_resource: 'product',
       value: checksumValue,
       owner_id: shopifyProductTestID,

@@ -1,11 +1,11 @@
 import cx from 'classnames'
-import { AnimatePresence, m } from 'framer-motion'
+import { AnimatePresence, m, Variants } from 'framer-motion'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 
 const audienceId = '06987ef843'
-const fadeAnim = {
+const fadeAnim: Variants = {
   show: {
     opacity: 1,
     transition: {
@@ -117,9 +117,15 @@ const Newsletter = () => {
 
   return (
     <form noValidate={true} onSubmit={(e) => onSubmit(e)}>
-      <AnimatePresence exitBeforeEnter>
+      <AnimatePresence initial={false}>
         {state === 'init' && (
-          <m.div initial="hide" animate="show" exit="hide" variants={fadeAnim}>
+          <m.div
+            key="init"
+            initial="hide"
+            animate="show"
+            exit="hide"
+            variants={fadeAnim}
+          >
             <input
               type="text"
               name="fullName"
@@ -166,7 +172,7 @@ const Newsletter = () => {
               <button
                 type="submit"
                 className={cx(
-                  'button is-large font-bold w-full text-frida-white  max-w-md mt-6',
+                  'rounded-full whitespace-nowrap px-10 py-3 text-base-fluid leading-none border-3 font-bold w-full text-frida-white  max-w-md mt-6',
                   ` ${showEmailError ? 'bg-frida-red' : 'bg-frida-black'}`
                 )}
                 disabled={isSubmitting}
@@ -183,7 +189,7 @@ const Newsletter = () => {
 
         {state === 'submitting' && (
           <m.div
-            key="success"
+            key="submitting"
             initial="hide"
             animate="show"
             exit="hide"

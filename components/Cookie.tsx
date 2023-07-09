@@ -1,12 +1,13 @@
+/* eslint-disable @next/next/no-img-element */
 import React from 'react'
 import { AnimatePresence, m } from 'framer-motion'
 
-import { useHasMounted } from '@lib/helpers'
+import { useHasMounted } from 'lib/helpers'
 
 import { useRouter } from 'next/router'
 import Button from 'components/buttons/button'
 import Icon from './Icon'
-import useCookie from '@lib/context/useCookie'
+import useCookie from 'contexts/shopContext/useCookie'
 
 const barAnim = {
   show: {
@@ -27,6 +28,7 @@ const barAnim = {
 
 const CookieBar: React.FC = () => {
   const { locale } = useRouter()
+
   const message =
     'Wir nutzen Cookies um Ihr Erlebnis auf unserer Website angenehm zu gestalten und steig zu verbessen!'
   const message_en =

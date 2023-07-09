@@ -33,7 +33,6 @@ export default {
   name: 'defaultRichText',
   type: 'array',
   title: 'Text',
-
   of: [
     {
       type: 'block',
@@ -187,7 +186,7 @@ export default {
     { type: 'imagePlug' },
     { type: 'seoHeader' },
     { type: 'imageGalleryPlug' },
-    { type: 'innerSection' },
+    // { type: 'innerSection' },
     { type: 'spacer' },
     { type: 'download' }
   ]

@@ -13,7 +13,7 @@ const CarouselItem: React.FC<CarouselItemProps> = (props) => {
     <Section type="full" backgroundColor={color}>
       <div className="relative flex flex-wrap w-full hero">
         <div className="flex items-center w-full p-10 md:w-1/2 h-1/2 md:h-full ">
-          <div item-index={index + 1}>{content}</div>
+          <div data-item-index={index + 1}>{content}</div>
         </div>
         <div className="relative flex items-center justify-center w-full md:w-1/2 h-1/2 md:h-full ">
           {image}

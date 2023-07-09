@@ -1,10 +1,8 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import { useRouter } from 'next/router'
 import * as React from 'react'
 import { mouseLinkProps } from './Mouse/mouseRemote'
 import Link from 'next/link'
-import { useToggleMegaNav } from '@lib/context/useUi'
+import { useToggleMegaNav } from 'contexts/shopContext/useUi'
 
 const LangSwitch: React.FunctionComponent = () => {
   const router = useRouter()

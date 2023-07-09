@@ -2,13 +2,11 @@ import Gallery from '@components/Gallery/Gallery'
 
 import React from 'react'
 
-import { FridaLocation } from 'types'
 import Section from '@components/Section'
 import ProductCard, { ProductCardResult } from './ProductCard'
 
 type ProductGalleryProps = {
   items?: ProductCardResult[]
-  lang: FridaLocation
 }
 
 const ProductGallery: React.FC<ProductGalleryProps> = ({ items }) => {

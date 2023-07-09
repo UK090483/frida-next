@@ -1,9 +1,11 @@
 import React, { useRef } from 'react'
-import { useIntersection } from 'use-intersection'
+
 import Marq from 'react-fast-marquee'
 import Photo from '@components/Photo'
-import { FridaColors, FridaLocation } from 'types'
-import { ImageMetaResult } from '@lib/queries/snippets'
+import { FridaColors } from 'types'
+import { ImageMetaResult } from 'pageBuilder/queries/snippets'
+import { useRouter } from 'next/router'
+import { useIntersection } from 'react-use'
 
 type TextItem = {
   _type: 'simple'
@@ -26,10 +28,9 @@ interface MarqueeProps {
     color?: FridaColors
     colorHover?: FridaColors
   }
-  lang: FridaLocation
 }
 
-const Marquee: React.FC<MarqueeProps> = ({ data = {}, lang }) => {
+const Marquee: React.FC<MarqueeProps> = ({ data = {} }) => {
   const {
     items = [],
     speed,
@@ -42,10 +43,17 @@ const Marquee: React.FC<MarqueeProps> = ({ data = {}, lang }) => {
   } = data
 
   const marqueeRef = useRef<HTMLDivElement | null>(null)
-  const isIntersecting = useIntersection(marqueeRef, {
-    once: true,
-    threshold: 0.1,
-  })
+
+  // const a= useIntersection(marqueeRef,{threshold:0.1})
+
+  // a?.isIntersecting
+  const isIntersecting = true
+  // const isIntersecting = useIntersection(marqueeRef, {
+  //   once: true,
+  //   threshold: 0.1,
+  // })
+
+  const { locale } = useRouter()
 
   return (
     <div
@@ -67,7 +75,7 @@ const Marquee: React.FC<MarqueeProps> = ({ data = {}, lang }) => {
                   key={key}
                   className={`header-small w-fit-content flex items-center`}
                 >
-                  {lang === 'en' && item.text_en ? item.text_en : item.text}
+                  {locale === 'en' && item.text_en ? item.text_en : item.text}
                 </div>
               )
             case 'photo':

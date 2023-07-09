@@ -23,7 +23,11 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if (cache) return res.status(200).json({ data: cache })
+  // if (cache)
+  //   return res.status(200).json({
+  //     SanityArtworks: cache.filter((a) => !a.isNft),
+  //     SanityNFTArtworks: cache.filter((a) => a.isNft),
+  //   })
 
   let sanity: undefined | SanityClient
 
@@ -41,8 +45,6 @@ export default async function handler(
     return res.status(200).json({
       message: 'we are not getting there',
     })
-
-  console.log('fetching Check Artworks')
 
   const getSanityArtworks = async () => {
     if (!sanity) return []

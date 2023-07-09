@@ -3,15 +3,14 @@ import React from 'react'
 import Link from 'next/link'
 import { mouseLinkProps } from '../Mouse/mouseRemote'
 import { m } from 'framer-motion'
-import { FridaLocation } from 'types'
-import { useToggleMegaNav } from '@lib/context/useUi'
+import { useToggleMegaNav } from 'contexts/shopContext/useUi'
 import { NavItems } from './Nav'
+import { useRouter } from 'next/router'
 
 const Links: React.FC<{
   open: boolean
   items: NavItems[]
-  lang: FridaLocation
-}> = ({ open, items, lang }) => {
+}> = ({ open, items }) => {
   const toggleNav = useToggleMegaNav()
 
   const container = {
@@ -41,6 +40,8 @@ const Links: React.FC<{
     },
   }
 
+  const { locale } = useRouter()
+
   return (
     <nav>
       <m.ul
@@ -55,7 +56,7 @@ const Links: React.FC<{
       >
         {items.map((route, index) => {
           const label =
-            lang === 'en' && route.label_en ? route.label_en : route.label
+            locale === 'en' && route.label_en ? route.label_en : route.label
 
           return (
             <m.li

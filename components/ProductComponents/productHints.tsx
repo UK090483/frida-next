@@ -1,23 +1,24 @@
 import { mouseLinkProps } from '@components/generic/Mouse/mouseRemote'
-import { buildInternalLink } from '@lib/helper/buildInternalLink'
+import { buildInternalLink } from 'utility/buildInternalLink'
 import Icon from '@components/Icon'
-import { ProductHintResult } from 'PageTypes/Artwork/ArtworkSingle/artworksQueries'
+import { ProductHintResult } from 'PageTypes/Artwork/ArtworkSingle/Artwork.query'
 import Link from 'next/link'
 import React from 'react'
-import { FridaLocation } from 'types'
+
+import { useRouter } from 'next/router'
 
 type ProductHintsProps = {
   items: ProductHintResult[] | null
-  lang: FridaLocation
 }
 
-const ProductHints: React.FC<ProductHintsProps> = ({ items, lang }) => {
+const ProductHints: React.FC<ProductHintsProps> = ({ items }) => {
+  const { locale } = useRouter()
   return (
     <div className="flex flex-wrap">
       {items &&
         items.map((item, index) => {
           const { text, text_en, link } = item
-          const _text = lang === 'en' && text_en ? text_en : text
+          const _text = locale === 'en' && text_en ? text_en : text
 
           return (
             <Link key={index} href={buildInternalLink(link)}>

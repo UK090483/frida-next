@@ -1,19 +1,11 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable react/display-name */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-//@ts-nocheck
-
 import classNames from 'classnames'
 import React from 'react'
 
 import { FridaColors } from 'types'
 import { mouseLinkProps } from './generic/Mouse/mouseRemote'
 
-// import { getIcon } from './svgs'
-
 interface IconsObject {
-  [k: string]: any
+  [k: string]: (props?: React.SVGProps<SVGSVGElement>) => React.ReactElement
 }
 
 const Icons: IconsObject = {
@@ -251,7 +243,7 @@ const Icons: IconsObject = {
         stroke="currentColor"
         fill="none"
         strokeLinecap="square"
-        strokeLinejoin="square"
+        strokeLinejoin="inherit"
         {...props}
       >
         <path stroke="none" d="M0 0h24v24H0z" />{' '}
@@ -308,7 +300,7 @@ const Icons: IconsObject = {
         stroke="currentColor"
         strokeWidth="3"
         strokeLinecap="square"
-        strokeLinejoin="square"
+        strokeLinejoin="inherit"
         className="w-full max-w-full"
       >
         <line x1="18" y1="6" x2="6" y2="18" />
@@ -321,7 +313,7 @@ const Icons: IconsObject = {
       <svg
         fill="none"
         strokeLinecap="square"
-        strokeLinejoin="square"
+        strokeLinejoin="inherit"
         viewBox="0 0 24 24"
         stroke="currentColor"
       >
@@ -389,6 +381,7 @@ type IconProps = {
   onClick?: () => void
   [k: string]: any
   withMouseHover?: boolean
+  'data-testid'?: string
 }
 
 const Icon: React.FC<IconProps> = ({
@@ -416,14 +409,13 @@ const Icon: React.FC<IconProps> = ({
 
         className
       )}
-      // {...rest}
+      {...rest}
       onClick={onClick}
       {...(withMouseHover ? mouseLinkProps : {})}
     >
       {React.createElement(Icons[icon], {
         key: icon,
         ...rest,
-        // style: {},
       })}
     </span>
   )

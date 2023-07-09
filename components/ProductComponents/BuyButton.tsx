@@ -5,9 +5,9 @@ import cx from 'classnames'
 
 import { motion, Variants } from 'framer-motion'
 import { useRouter } from 'next/router'
-import { useSiteContext } from 'lib/context/context'
-import useToggleCart from '@lib/context/useToggleCart'
-import useCheckout from '@lib/context/useCheckout'
+import { useSiteContext } from 'contexts/shopContext/context'
+import useToggleCart from 'contexts/shopContext/useToggleCart'
+import useCheckout from 'contexts/shopContext/useCheckout'
 
 type BuyButtonProps = {
   handleAddToCard?: () => void
@@ -15,7 +15,7 @@ type BuyButtonProps = {
   isInCart: boolean
   className?: string
   nftLink?: string
-  available?: boolean
+  availability?: boolean
 }
 
 const BuyButton: React.FC<BuyButtonProps> = (props) => {
@@ -24,7 +24,7 @@ const BuyButton: React.FC<BuyButtonProps> = (props) => {
     isInCart,
     className = '',
     nftLink,
-    available = true,
+    availability = true,
   } = props
 
   const intersectionRef = React.useRef(null)
@@ -58,14 +58,17 @@ const BuyButton: React.FC<BuyButtonProps> = (props) => {
   const isAddingText = locale === 'en' ? 'adding...' : 'wird hinzugefügt...'
 
   const handleAdd = () => {
-    if (!available) return
     handleAddToCard()
   }
 
   const checkOut = useCheckout()
 
   return (
-    <div ref={intersectionRef} className={`h-12 ${className}`}>
+    <div
+      data-testid={'buyButton'}
+      ref={intersectionRef}
+      className={`h-12 ${className}`}
+    >
       <div
         className={`flex w-[300px]  md:w-[480px] lg:w-vw/4 z-10  ${
           isOut && !isNavOpen
@@ -75,6 +78,7 @@ const BuyButton: React.FC<BuyButtonProps> = (props) => {
       >
         {nftLink && (
           <a
+            data-testid={'buyButton__nft'}
             className="rounded-full w-full text-center leading-none text-frida-white  py-3.5 px-12 text-sm-fluid font-bold overflow-hidden whitespace-nowrap bg-frida-green"
             href={nftLink}
             target="_blank"
@@ -88,14 +92,16 @@ const BuyButton: React.FC<BuyButtonProps> = (props) => {
         {!nftLink && (
           <>
             <BButton
+              testId={availability ? 'buyButton_putInCart' : 'buyButton_sold'}
               show={!isInCart}
               onClick={handleAdd}
-              className={`${available ? 'bg-frida-green' : 'bg-frida-red'}`}
+              className={`${availability ? 'bg-frida-green' : 'bg-frida-red'}`}
             >
-              {isAdding ? isAddingText : available ? toCardText : soldText}
+              {isAdding ? isAddingText : availability ? toCardText : soldText}
             </BButton>
 
             <BButton
+              testId="buyButton_cart"
               onClick={openCart}
               show={isInCart}
               className="bg-frida-black"
@@ -103,7 +109,9 @@ const BuyButton: React.FC<BuyButtonProps> = (props) => {
               {cartText}
             </BButton>
             <BButton
+              testId="buyButton_checkout"
               onClick={() => {
+                //@ts-ignore
                 checkOut && (window.location.href = checkOut)
               }}
               show={isInCart}
@@ -124,6 +132,7 @@ type BButtonProps = {
   onClick: () => void
   show: boolean
   className?: string
+  testId?: string
 }
 
 const variants: Variants = {
@@ -135,9 +144,11 @@ const BButton: React.FC<BButtonProps> = ({
   onClick,
   show,
   className = '',
+  testId,
 }) => {
   return (
     <motion.button
+      data-testid={testId}
       initial={'visible'}
       variants={variants}
       animate={show ? 'visible' : 'hidden'}

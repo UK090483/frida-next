@@ -1,9 +1,9 @@
-import { checkArtworks } from '@lib/CheckApi/checkArtworks'
-// import type { Error } from '@lib/CheckApi/checkArtworks'
+import { checkArtworks } from 'lib/CheckApi/checkArtworks'
+
 import { NextApiRequest, NextApiResponse } from 'next'
 import type { FetchSanityArtworkResult } from './SanityArtworks'
 import type { FetchShopifyResult } from './ShopifyArtworks'
-// import { previewClient } from '@lib/sanity.server'
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse

@@ -1,10 +1,8 @@
-import { ImageMetaResult, imageMeta } from '@lib/queries/snippets'
-export const postCardQuery = `
+import { ImageMetaResult, imageMeta } from 'pageBuilder/queries/snippets'
+export const postCardQuery = (locale: string) => `
 'slug':slug.current,
-title,
-title_en,
-excerpt,
-excerpt_en,
+'title': coalesce(title_${locale},title),
+'excerpt': coalesce(excerpt_${locale},excerpt),
 releaseDate,
 'createdAt':_createdAt,
 'categories':categories[]->title,
@@ -15,9 +13,7 @@ releaseDate,
 export type PostCardResult = {
   slug: string
   title: string
-  title_en: string | null
   excerpt: string | null
-  excerpt_en: string | null
   headerImage: ImageMetaResult
   previewImage: ImageMetaResult | null
   releaseDate: string | null

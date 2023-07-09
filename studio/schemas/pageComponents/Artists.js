@@ -3,6 +3,19 @@ export default {
   name: 'artists',
   type: 'object',
   fields: [
+    {
+      title: 'Type',
+      name: 'type',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Carousel', value: 'carousel' },
+          { title: 'Masonry', value: 'masonry' }
+        ],
+        layout: 'radio'
+      },
+      initialValue: 'carousel'
+    },
     { name: 'name', type: 'string', title: 'Name' },
     { name: 'label', type: 'string', title: 'Label' },
     { name: 'label_en', type: 'string', title: 'Label En' },
@@ -18,19 +31,7 @@ export default {
       },
       initialValue: 'white'
     },
-    {
-      title: 'Type',
-      name: 'type',
-      type: 'string',
-      options: {
-        list: [
-          { title: 'Carousel', value: 'carousel' },
-          { title: 'Masonry', value: 'masonry' }
-        ],
-        layout: 'radio'
-      },
-      initialValue: 'carousel'
-    },
+
     {
       name: 'filter',
       type: 'array',
@@ -62,9 +63,9 @@ export default {
   preview: {
     select: {
       type: 'type',
-      name:'name'
+      name: 'name'
     },
-    prepare({ type,name }) {
+    prepare({ type, name }) {
       return {
         title: `Artists ${type}`,
         subtitle: name

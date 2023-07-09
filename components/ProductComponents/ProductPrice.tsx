@@ -14,6 +14,7 @@ const Price: React.FC<PriceProps> = ({
 }) => {
   return (
     <div
+      data-testid={'productPrice'}
       className={classNames(
         ' flex items-center leading-none whitespace-nowrap',
         { 'text-base-fluid font-bold h-9': size === 'm' },

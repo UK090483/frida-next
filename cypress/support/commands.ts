@@ -10,28 +10,35 @@
 // ***********************************************
 //
 //
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-//
-// declare global {
-//   namespace Cypress {
-//     interface Chainable {
-//       login(email: string, password: string): Chainable<void>
-//       drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
-//     }
-//   }
-// }
+
+Cypress.Commands.add(
+  'checkSeo',
+  ({ metaTitle, metaDescription, shareTitle, shareDescription }) => {
+    cy.get('head title').should('have.text', metaTitle)
+    cy.get('head meta[name=description]')
+      .should('have.attr', 'content')
+      .should('eq', metaDescription)
+    cy.get('head meta[property="og:title"]')
+      .should('have.attr', 'content')
+      .should('eq', shareTitle)
+    cy.get('head meta[property="og:description"]')
+      .should('have.attr', 'content')
+      .should('eq', shareDescription)
+    cy.get('head meta[property="og:image"]').should('have.attr', 'content')
+  }
+)
+
+declare global {
+  namespace Cypress {
+    interface Chainable {
+      checkSeo(props: {
+        metaTitle: string
+        metaDescription: string
+        shareTitle: string
+        shareDescription: string
+      }): void
+    }
+  }
+}
+
+export {}

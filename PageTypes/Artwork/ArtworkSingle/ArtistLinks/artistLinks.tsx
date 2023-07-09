@@ -37,13 +37,3 @@ const ArtistLinks: React.FC<ArtistLinksProps> = ({ artwork }) => {
   )
 }
 export default ArtistLinks
-// const Root = styled.div`
-//   display: flex;
-//   width: 260px;
-//   max-width: 100%;
-//   justify-content: space-between;
-
-//   @media ${({ theme }) => theme.device.tablet} {
-//     width: 320px;
-//   }
-// `

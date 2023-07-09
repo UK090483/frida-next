@@ -1,5 +1,5 @@
 import type { SanityClient } from '@sanity/client'
-import { imageBuilder } from '../sanity'
+import { imageBuilder } from '../Sanity/sanity'
 import axios from 'axios'
 
 import type { Logger } from './logger'

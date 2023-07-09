@@ -1,6 +1,9 @@
-import { usePage } from '@lib/queries/usePage'
-import { getAllDocPathsCached } from '@lib/queries/fetchDocPathApi'
-import { handleStaticProps } from '@lib/queries/handleStaticProps'
+import { usePage } from 'hooks/usePage'
+import { getAllDocPathsCached } from 'pageBuilder/queries/fetchDocPathApi'
+import {
+  handleStaticProps,
+  handleStaticPropsResult,
+} from 'pageBuilder/queries/handleStaticProps'
 import Error from '@pages/404'
 import PostSingle, {
   PostPageResult,
@@ -8,26 +11,20 @@ import PostSingle, {
 } from 'PageTypes/Post/PostSingle'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import React from 'react'
-import { FridaLocation } from 'types'
 
-type PostTemplateProps = {
-  data: PostPageResult
-  lang: FridaLocation
-  slug: string
-  preview: boolean | undefined
-}
-
-const query = `
+const query = (locale = '') => `
 *[_type == "post" && slug.current == $slug ][0]{
-  ${postSingleView},
+  ${postSingleView(locale)},
 }
 `
-const ArtworkTemplate: React.FC<PostTemplateProps> = (props) => {
-  const { data, lang, slug, preview } = props
-  const { pageData, isError } = usePage({ slug, query, data, preview })
-  if (isError) return <Error />
+const ArtworkTemplate: React.FC<handleStaticPropsResult<PostPageResult>> = (
+  props
+) => {
+  const { data, slug, previewQuery } = props
+  const { pageData, isError } = usePage({ slug, query: previewQuery, data })
+  if (!pageData || isError) return <Error />
 
-  return <PostSingle lang={lang} {...pageData} preview={preview} />
+  return <PostSingle {...pageData} />
 }
 
 export const getStaticProps: GetStaticProps = async (props) => {

@@ -1,8 +1,10 @@
 import Client from 'shopify-buy'
-import { isBrowser } from '@lib/helpers'
+import isBrowser from 'utility/isBrowser'
 
 // First, check that Shopify variables are set
-const hasShopify = process.env.SHOPIFY_STORE_ID && process.env.SHOPIFY_API_TOKEN
+const hasShopify =
+  process.env.NEXT_PUBLIC_SHOPIFY_STORE_ID &&
+  process.env.NEXT_PUBLIC_SHOPIFY_API_TOKEN
 
 // Warn the client if variables are missing
 if (!hasShopify && isBrowser) {
@@ -11,9 +13,9 @@ if (!hasShopify && isBrowser) {
 
 // Otherwise, setup the client and export
 const options = {
-  domain: `${process.env.SHOPIFY_STORE_ID}.myshopify.com`,
-  storefrontAccessToken: process.env.SHOPIFY_API_TOKEN,
+  domain: `${process.env.NEXT_PUBLIC_SHOPIFY_STORE_ID}.myshopify.com`,
+  storefrontAccessToken: process.env.NEXT_PUBLIC_SHOPIFY_API_TOKEN,
 }
 
 //@ts-ignore
-export default hasShopify ? Client.buildClient(options) : null
+export default hasShopify ? (Client.buildClient(options) as ShopifyBuy) : null

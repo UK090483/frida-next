@@ -1,9 +1,14 @@
-const sizes = ['iphone-5', 'iphone-6', 'ipad-2', [1024, 768]]
+const sizes: (Cypress.ViewportPreset | [number, number])[] = [
+  'iphone-5',
+  'iphone-6',
+  'ipad-2',
+  [1024, 768],
+]
 
 describe('Pages', () => {
   const pages: any[] = Cypress.env('pages')
   beforeEach(() => {
-    cy.visit('/')
+    cy.visit('/artists')
   })
 
   it('should all exist', () => {

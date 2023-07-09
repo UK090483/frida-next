@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useCallback, useEffect } from 'react'
 import { m, AnimatePresence } from 'framer-motion'
 import cx from 'classnames'
@@ -113,7 +114,7 @@ const ProductCounter: React.FC<ProductCounterProps> = ({
               onChange={(e) =>
                 updateQuantity(parseInt(e.currentTarget.value, 10))
               }
-              onBlur={(e) => isNaN(lineQuantity) && updateQuantity(1)}
+              onBlur={() => isNaN(lineQuantity) && updateQuantity(1)}
               type="number"
               inputMode="numeric"
               min="1"

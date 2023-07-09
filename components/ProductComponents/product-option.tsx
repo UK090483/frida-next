@@ -1,15 +1,17 @@
 import React from 'react'
 import cx from 'classnames'
 
-import { hasObject } from '@lib/helpers'
-import RadioGroup, { RadioGroupValue } from '@components/radio-group'
+import { hasObject } from 'lib/helpers'
+import RadioGroup, {
+  RadioGroupValue,
+} from '@components/ProductComponents/radio-group'
 import RadioItem from '@components/radio-item'
 import type {
   IProductOption,
   IProductOptionSetting,
   ProductVariant,
-} from 'PageTypes/Product/ProductSingle'
-import Swatch from '@components/swatch'
+} from 'PageTypes/Product/ProductSingle.query'
+import Swatch from 'components/ProductComponents/swatch'
 
 type ProductOptionProps = {
   option: IProductOption

@@ -74,11 +74,13 @@ export default class ShopifyArtwork {
   setChecksum = async (checksum: string) => {
     this.logger('info', `setting checksum `)
 
+    console.log({ checksum })
+
     const createdMetafield = await this.shopifyClient.metafield.create({
       key: 'checksum_syncData',
       namespace: 'syncData',
       value: checksum,
-      value_type: 'string',
+      type: 'multi_line_text_field',
       owner_resource: 'product',
       owner_id: this.productId,
     })
@@ -112,8 +114,12 @@ export default class ShopifyArtwork {
     })
 
     this.productId = createdProduct.id
+
+    console.log('BOOOM___   after listing')
+    console.log({ id: this.productId })
+
     await this.shopifyClient.productListing.create(this.productId, {
-      product_id: this.productId,
+      product_listing: this.productId,
     })
 
     await this.setChecksum(checksum)

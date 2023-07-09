@@ -4,23 +4,19 @@ import React, { useState, useEffect } from 'react'
 import FocusTrap from 'focus-trap-react'
 import { m } from 'framer-motion'
 import cx from 'classnames'
-import { centsToPrice } from '@lib/helpers'
+import { centsToPrice } from 'lib/helpers'
 import CartItem from './CartItem'
 import Button from '@components/buttons/button'
-import { useSiteContext } from '@lib/context/context'
-import useToggleCart from '@lib/context/useToggleCart'
-import useCheckout from '@lib/context/useCheckout'
-import { useCartItems } from '@lib/context/useShopItem'
-import { useCartTotals, useCartCount } from '@lib/context/useCart'
+import { useSiteContext } from 'contexts/shopContext/context'
+import useToggleCart from 'contexts/shopContext/useToggleCart'
+import useCheckout from 'contexts/shopContext/useCheckout'
+import { useCartItems } from 'contexts/shopContext/useShopItem'
+import { useCartTotals, useCartCount } from 'contexts/shopContext/useCart'
 import { FridaLocation } from 'types'
+import { useRouter } from 'next/router'
 
-type CartProps = {
-  data: any
-  lang: FridaLocation
-}
-
-const Cart: React.FC<CartProps> = ({ lang }) => {
-  // const { cart } = data
+const Cart = () => {
+  const { locale } = useRouter()
 
   const { isCartOpen, isUpdating } = useSiteContext()
 
@@ -34,10 +30,10 @@ const Cart: React.FC<CartProps> = ({ lang }) => {
   const [hasFocus, setHasFocus] = useState(false)
   const [checkoutLink, setCheckoutLink] = useState(checkoutURL)
 
-  const yourCartText = lang === 'en' ? 'Your Cart' : 'Warenkorb'
-  const doneText = lang === 'en' ? 'Done' : 'Fertig'
-  const checkoutText = lang === 'en' ? 'Checkout' : 'zur Kasse'
-  const subtotalText = lang === 'en' ? 'Subtotal' : 'Zwischensumme'
+  const yourCartText = locale === 'en' ? 'Your Cart' : 'Warenkorb'
+  const doneText = locale === 'en' ? 'Done' : 'Fertig'
+  const checkoutText = locale === 'en' ? 'Checkout' : 'zur Kasse'
+  const subtotalText = locale === 'en' ? 'Subtotal' : 'Zwischensumme'
 
   const handleKeyup = (e: React.KeyboardEvent) => {
     if (e.key === 'Escape') {
@@ -74,6 +70,7 @@ const Cart: React.FC<CartProps> = ({ lang }) => {
         focusTrapOptions={{ allowOutsideClick: true }}
       >
         <m.div
+          data-testid={'cart'}
           initial="hide"
           animate={isCartOpen ? 'show' : 'hide'}
           variants={{
@@ -110,9 +107,9 @@ const Cart: React.FC<CartProps> = ({ lang }) => {
 
             <div className="cart--content">
               {lineItems?.length ? (
-                <CartItems items={lineItems} lang={lang} />
+                <CartItems items={lineItems} />
               ) : (
-                <EmptyCart lang={lang} />
+                <EmptyCart />
               )}
             </div>
 
@@ -124,6 +121,7 @@ const Cart: React.FC<CartProps> = ({ lang }) => {
                 </div>
 
                 <Button
+                  testid="cart__checkoutLink"
                   size="s"
                   backgroundColor="pink"
                   type="externalLink"
@@ -150,19 +148,20 @@ const Cart: React.FC<CartProps> = ({ lang }) => {
   )
 }
 
-const CartItems = ({ items, lang }: { items: any; lang: FridaLocation }) => {
+const CartItems = ({ items }: { items: any }) => {
   return (
     <div className="cart--items">
       {items.map((item: any) => {
-        return <CartItem key={item.id} item={item} lang={lang} />
+        return <CartItem key={item.id} item={item} />
       })}
     </div>
   )
 }
 
-const EmptyCart = ({ lang }: { lang: FridaLocation }) => {
+const EmptyCart = () => {
+  const { locale } = useRouter()
   const yourCartIsEmptyText =
-    lang === 'en' ? 'Your cart is empty' : 'Dein Warenkorb ist leer'
+    locale === 'en' ? 'Your cart is empty' : 'Dein Warenkorb ist leer'
 
   return (
     <div className="cart--empty">

@@ -1,55 +1,37 @@
-import { handleStaticProps } from '@lib/queries/handleStaticProps'
 import { GetStaticProps } from 'next'
-import React from 'react'
-import { body } from 'pageBuilder/pageBuilderQueries'
-import Layout from '@components/generic/Layout'
-import { PageResult } from 'PageTypes/Page/pageQueries'
-import Header from '@components/generic/Header'
-import ArtworkCard, {
-  artworkCardQuery,
-  ArtworkCardResult,
-} from 'PageTypes/Artwork/ArtworkCard'
-import ArtistCard, {
-  artistCardQuery,
+
+import Layout from 'pageBuilder/Layout/Layout'
+
+import Carousel from 'components/CardCarousel'
+import Header from 'components/generic/Header'
+import Section from 'components/Section'
+import { getSanityClient } from 'lib/Sanity/sanity.server'
+import { layoutQuery } from 'pageBuilder/Layout/layoutQuery'
+import ArtistCard from 'PageTypes/Artist/ArtistCard'
+import ArtworkCard from 'PageTypes/Artwork/ArtworkCard'
+import {
   ArtistCardResult,
-} from 'PageTypes/Artist/ArtistCard'
-import Section from '@components/Section'
-import Carousel from '@components/CardCarousel'
-import { useRouter } from 'next/router'
-export const pageQuery = `
-...,
-'slug':slug.current,
-footer->{${body}},
-${body}
-'site':'getSite'
-`
-interface ErrorPageResult extends PageResult {
+  artistCardQuery,
+} from 'PageTypes/Artist/ArtistCard.query'
+import {
+  ArtworkCardResult,
+  artworkCardQuery,
+} from 'PageTypes/Artwork/ArtworkCard.query'
+
+interface ErrorPageResult {
   artworks: ArtworkCardResult[]
   artists: ArtistCardResult[]
 }
-const ErrorPage = (props: any) => {
-  const { locale } = useRouter()
-  if (!props) return <div>404</div>
-  const data = props.data as ErrorPageResult
-  const { site, artists, artworks } = data
 
-  const lang = locale === 'en' ? 'en' : 'de'
+const sanity = getSanityClient()
+const ErrorPage = (props: any) => {
+  if (!props.data) return <div>404</div>
+  const data = props.data as ErrorPageResult
+
+  const { artists, artworks } = data
+
   return (
-    <Layout
-      preview={false}
-      lang={'en'}
-      title={'mu'}
-      data={data}
-      header={
-        <Header
-          initialColor={'white'}
-          title={'404'}
-          nav={true}
-          navItems={site?.navigation?.items}
-          lang={'en'}
-        ></Header>
-      }
-    >
+    <Layout>
       <Section backgroundColor="pink" className="py-52">
         <h1 className="header-medium">
           Ups 404 Diese Seite gibt es leider nicht !
@@ -59,7 +41,7 @@ const ErrorPage = (props: any) => {
       <Carousel
         header="Latest Artworks"
         items={artworks.map((item) => (
-          <ArtworkCard lang={lang} key={item.slug} type="carousel" {...item} />
+          <ArtworkCard key={item.slug} type="carousel" {...item} />
         ))}
       />
 
@@ -67,21 +49,27 @@ const ErrorPage = (props: any) => {
         bgColor="pink"
         header="Latest Artists"
         items={artists.map((item) => (
-          <ArtistCard key={item.slug} type="carousel" {...item} lang={lang} />
+          <ArtistCard key={item.slug} type="carousel" {...item} />
         ))}
       />
     </Layout>
   )
 }
 
-const query = `*[_type == "page" && slug.current == 'about'][0]{
-  ${pageQuery},
+const query = (locale: string) => `{
   'artworks':*[_type == 'artwork'][0...20]{${artworkCardQuery}},
   'artists':*[_type == 'artist'][0...20]{${artistCardQuery}},
-  
+  ${layoutQuery(locale)}
 }`
 
-export const getStaticProps: GetStaticProps = async () => {
-  return await handleStaticProps({ ...{ params: { slug: 'about' } }, query })
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  const _locale: string = locale === 'en' ? 'en' : ''
+  const data = await sanity.fetch(query(_locale))
+
+  return {
+    props: {
+      data,
+    },
+  }
 }
 export default ErrorPage

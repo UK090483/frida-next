@@ -8,6 +8,7 @@ type SectionProps = {
   backgroundColor?: FridaColors
   className?: string
   bgImage?: any
+  'data-testid'?: string
 }
 
 const Section: React.FC<SectionProps> = (props) => {
@@ -22,6 +23,7 @@ const Section: React.FC<SectionProps> = (props) => {
   return (
     // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
     <section
+      data-testid={props['data-testid']}
       onMouseOver={() => {
         backgroundColor === 'red'
           ? setMouse('color', true)
@@ -39,14 +41,6 @@ const Section: React.FC<SectionProps> = (props) => {
       )}
       data-color={backgroundColor}
     >
-      {/* {bgImage && (
-        <FridaImage
-          className="absolute top-0 bottom-0 left-0 right-0 "
-          photo={bgImage}
-          layout="fill"
-        />
-      )} */}
-
       <div
         className={cx(
           'relative',

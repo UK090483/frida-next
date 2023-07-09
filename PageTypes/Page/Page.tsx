@@ -1,49 +1,19 @@
 import React from 'react'
-import Layout from '@components/generic/Layout'
+import Layout from 'pageBuilder/Layout/Layout'
 import BodyParser from 'pageBuilder/BodyParser'
-import Header from '@components/generic/Header'
-import { FridaLocation } from 'types'
-import OverlayCTA from '@components/Adds/Overlay'
-import CookieBar from '@components/Cookie'
 
-import NewsletterCTA from 'components/Adds/NewsletterCTA'
-import type { PageResult } from './pageQueries'
+import type { PageResult } from './Page.query'
 
 interface PageProps {
   data: PageResult
-  lang: FridaLocation
-  preview?: boolean | undefined
 }
 const Page: React.FC<PageProps> = (props) => {
-  const { preview = false, data } = props
-  const { content, pageHeader, title_en, site } = data
-  const title = props.lang === 'en' && title_en ? title_en : props.data.title
+  const { data } = props
+  const { content } = data
 
   return (
-    <Layout
-      preview={preview}
-      lang={props.lang}
-      data={props.data}
-      title={title || 'Not Set'}
-      header={
-        <Header
-          link={!pageHeader?.withOutHomeLink}
-          initialColor={pageHeader?.initialPageTitleColor || 'white'}
-          title={title || 'Not Set'}
-          nav={!pageHeader?.hideMenu}
-          navItems={site?.navigation?.items}
-          lang={props.lang}
-        ></Header>
-      }
-    >
-      <BodyParser lang={props.lang} content={content} />
-
-      <CookieBar />
-
-      <OverlayCTA
-        color="pink"
-        item={(close) => <NewsletterCTA close={close} />}
-      />
+    <Layout>
+      <BodyParser content={content} />
     </Layout>
   )
 }
