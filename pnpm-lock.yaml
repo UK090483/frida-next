@@ -101,8 +101,8 @@ dependencies:
     specifier: ^3.11.0
     version: 3.11.0
   shopify-buy:
-    specifier: ^2.16.1
-    version: 2.16.1
+    specifier: ^2.20.1
+    version: 2.20.1
   sitemap:
     specifier: ^6.3.3
     version: 6.3.3
@@ -7949,8 +7949,8 @@ packages:
       stopcock: 1.1.0
     dev: false
 
-  /shopify-buy@2.16.1:
-    resolution: {integrity: sha512-I+4pmFgYpQ8N3yaqNw/5fWu+e7AuiUIrQdDLPtD0SwEzL1EyB4q2Ge+MSHQmrAaZFiDXKHAkfzpkYExztquaDw==}
+  /shopify-buy@2.20.1:
+    resolution: {integrity: sha512-8hIaHQld8V4hKOhYJ+LxXDpt/Y5evYM3EB9v7ZDXap+tbRqyWQq/YjgTqjh1cTM7t3BMWylhxqsFx+NR9YQ9yw==}
     dev: false
 
   /side-channel@1.0.4:

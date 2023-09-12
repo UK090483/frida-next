@@ -58,7 +58,7 @@
     "resize-observer-polyfill": "^1.5.1",
     "sanity-mux-player": "0.0.27",
     "shopify-api-node": "^3.11.0",
-    "shopify-buy": "^2.16.1",
+    "shopify-buy": "^2.20.1",
     "sitemap": "^6.3.3",
     "tailwind-text-decoration-color": "^1.1.1",
     "tailwindcss-fluid": "^0.2.0"
